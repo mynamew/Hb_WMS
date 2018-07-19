@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">智能仓储</string>
+
+    <!-- Strings related to login -->
+    <string name="property">© 版权所有：正业玖坤</string>
+    /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 登录 ======**/
+    <string name="user_log_tip">LogIn</string>
+    <string name="login_login">LogIn</string>
+    <string name="login_inpiut_psw">Please enter password</string>
+    <string name="login_input_username">Please enter the user name</string>
+    <string name="login_app_name">WMS</string>
+    <string name="login_remember_psw">Record the password</string>
+    <string name="login_success">Login successful</string>
+    <string name="language_simple">Simplified</string>
+    <string name="language_tradtional">Traditional</string>
+    <string name="language_english">English</string>
+    <string name="login_select_language">Please select language</string>
+    /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 个人信息 ======**/
+    <string name="login_success_tip">提示：首次登录需进行个人信息确认，如有问题，请到ERP中进行修改。</string>
+    <string name="name">姓名：%1$s</string>
+    <string name="sex">性别：%1$s</string>
+    <string name="work_num">工号：%1$s</string>
+    <string name="depart">部门：%1$s</string>
+    <string name="tel">手机：%1$s</string>
+    <string name="confirm">Confrim</string>
+  /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 个人设置 ======**/
+    /**====== 用户信息 ======**/
+    <string name="set_userinfo_num">Serial number：%1$s</string>
+    <string name="set_userinfo_name">\t\t\t\t\t Name：%1$s</string>
+    <string name="set_userinfo_sex">\t\t\t\t\t\t\tSex：%1$s</string>
+    <string name="set_userinfo_tel">\t\t\t\t\t\t\tTell：%1$s</string>
+    <string name="set_userinfo_from">\tOrganisation：%1$s</string>
+    <string name="set_userinfo_depart">\t Department：%1$s</string>
+    <string name="set_userinfo_root">Authority organization：%1$s</string>
+    <string name="login_url_tip">Address：</string>
+    <string name="login_zuhu">Tenant：</string>
+    <string name="login_language">Language：</string>
+    <string name="login_set">Configure the service</string>
+    <string name="login_please_input_serverurl">Please enter service addres</string>
+    <string name="login_please_input_right_serverurl">Please enter the correct address</string>
+    <string name="login_confirm_set">Confirm the setting</string>
+    <string name="login_please_input_zuhu">Please enter tenant information</string>
+    /**====== 設置 ======**/
+    <string name="set_language">Select Language</string>
+    <string name="set_exit">Log out</string>
+    <string name="set_update_version">Version Update</string>
+    <string name="set_about">About APP</string>
+    <string name="set_update_psw">Change Password</string>
+    <string name="set_device_info">Device Info</string>
+    <string name="set_userinfo">UserInfo</string>
+    <string name="server_set">Service Set</string>
+    <string name="set_team">Exchange organization</string>
+    <string name="go_login">Go LogIn</string>
+    <string name="switch_org_title">Exchange Organization</string>
+    /**====== 设备信息 ======**/
+    <string name="deviceinfo">Device Info</string>
+    <string name="set_deviceinfo_num">Device Number：</string>
+    <string name="please_input_device_num">Please input device number</string>
+    <string name="set_deviceinfo_mac">Device MAC：%1$s</string>
+    <string name="set_deviceinfo_ip">IP Address：%1$s</string>
+    <string name="comfirm_set">Confrim Set</string>
+    <string name="update_password">Update Password</string>
+    <string name="set_pda_code_success">Set the PDA parameter to success!</string>
+    /**====== 更改密码 ======**/
+    <string name="update_password_oldpsw">Old Password：</string>
+    <string name="please_input_old_psw">Please input old password</string>
+    <string name="update_password_newpsw">New Password：</string>
+    <string name="please_input_new_password">Please input new password</string>
+    <string name="upadte_password_repeat">Confrim Password：</string>
+    <string name="please_repeat_input_password">Please enter your new password again</string>
+    <string name="show_password">Show the password</string>
+    <string name="about">\t\tWMS is a Warehouse Management System (Warehouse Management System), Warehouse Management System is through the warehousing business, outbound business, warehouses, allocating and virtual Warehouse inventory Management, and other functions, the corresponding batch Management, materials, inventory, quality Management, virtual Warehouse inventory Management and just-in-time inventory Management functions such as the integrated use of Management System, effective control and follow up Warehouse logistics and whole process cost Management of the business, implementation or perfect enterprise storage and information Management.The system can carry out inventory operation independently, and can be used in combination with other system documents and vouchers, which can provide enterprises with more complete enterprise logistics management process and financial management information.</string>
+    <string name="confirm_logout">Confrim Log Out？</string>
+    <string name="logout">Log Out</string>
+    <string name="reset_server_will_logout">Reconfigure the service to log out.</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="change_password_tip">Password changed successfully, please login again!</string>
+    <string name="twice_password_no_same">The two passwords are not consistent！</string>
+    /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 首页 ======**/
+    <string name="home_process_select">工序选择</string>
+    <string name="aplly_material">供料上料</string>
+    <string name="inject_mold">注塑过站</string>
+    <string name="btn_commit">commit</string>
+    <string name="home_set">Set</string>
+    <string name="home_mine">Mine</string>
+    <string name="home_title">条码追溯系统</string>
+    /**====== 错误提示 ======**/
+    <string name="error_title">Error Tip</string>
+    <string name="dialog_batch_tip">The material with earlier batch can be counted, click ok to submit!</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="isloading">Loading</string>
+    /**====== 工序选择 ======**/
+    <string name="title_process_select">工序选择</string>
+    <string name="none">none</string>
+    <string name="commit_success">Commit Success</string>
+    <string name="no_process">No Process</string>
+    <string name="no_process_no_commit">暂无工序，不能提交！</string>
+</resources>

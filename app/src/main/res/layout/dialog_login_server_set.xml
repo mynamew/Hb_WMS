@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_rectangle_login_server"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="260px"
+                    android:layout_height="2px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="85px"
+                    android:background="#999"/>
+
+                <TextView
+                    android:id="@+id/login_server_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60px"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="55px"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:paddingLeft="20px"
+                    android:paddingRight="20px"
+                    android:text="@string/server_set"
+                    android:textColor="#333"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="30px"
+                    android:src="@mipmap/quality_badness_close"/>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:id="@+id/login_url_tip"
+                    android:layout_width="180px"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center"
+                    android:text="@string/login_url_tip"
+                    android:textColor="#333"
+                    android:textSize="16sp"/>
+
+                <EditText
+                    android:id="@+id/et_login_server"
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@null"
+                    android:hint="@string/login_please_input_serverurl"
+                    android:paddingLeft="10px"
+                    android:textColor="#333"
+                    android:textColorHint="#666"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:orientation="horizontal"
+                android:paddingLeft="30px">
+
+                <TextView
+                    android:id="@+id/login_zuhu_tip"
+                    android:layout_width="180px"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center"
+                    android:text="@string/login_zuhu"
+                    android:textColor="#333"
+                    android:textSize="16sp"/>
+
+                <EditText
+                    android:id="@+id/et_login_zuhu"
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@null"
+                    android:hint="@string/login_please_input_zuhu"
+                    android:paddingLeft="10px"
+                    android:textColor="#333"
+                    android:textColorHint="#666"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_login_language"
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:orientation="horizontal"
+                android:paddingLeft="30px">
+
+                <TextView
+                    android:id="@+id/login_language_tip"
+                    android:layout_width="180px"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center"
+                    android:text="@string/login_language"
+                    android:textColor="#333"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_login_language"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10px"
+                    android:text="@string/login_select_language"
+                    android:textColor="#333"
+                    android:textSize="16sp"
+                    android:visibility="visible"/>
+
+                <ImageView
+                    android:id="@+id/iv_login_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20px"
+                    android:src="@mipmap/login_language_down"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_select_lauguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="10px"
+                    android:background="@color/divide_color"/>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="30px">
+
+                    <TextView
+                        android:layout_width="180px"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center|top"
+                        android:paddingTop="10px"
+                        android:text="选择语言："
+                        android:textColor="#333"
+                        android:textSize="16sp"
+                        android:visibility="visible"/>
+
+                    <RadioGroup
+                        android:id="@+id/rg_select_lauguage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10px"
+                        android:paddingRight="100px">
+
+                        <RadioButton
+                            android:id="@+id/rd_simple"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10px"
+                            android:text="@string/language_simple"
+                            android:textColor="@drawable/text_select_lauguage"
+                            android:textSize="16sp"/>
+
+                        <RadioButton
+                            android:id="@+id/rd_tradtional"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10px"
+                            android:text="@string/language_tradtional"
+                            android:textColor="@drawable/text_select_lauguage"
+                            android:textSize="16sp"/>
+
+                        <RadioButton
+                            android:id="@+id/rd_english"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10px"
+                            android:text="@string/language_english"
+                            android:textColor="@drawable/text_select_lauguage"
+                            android:textSize="16sp"/>
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginBottom="50px"
+                android:layout_marginTop="50px"
+                android:background="@color/divide_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="280px"
+                    android:layout_height="72px"
+                    android:layout_marginRight="20px"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_dialog_badness_cancel"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@color/tab_txt_unselect"
+                    android:textSize="16sp"/>
+
+
+                <Button
+                    android:id="@+id/bt_login__confirm"
+                    android:layout_width="280px"
+                    android:layout_height="72px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_btn_bg_login"
+                    android:gravity="center"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

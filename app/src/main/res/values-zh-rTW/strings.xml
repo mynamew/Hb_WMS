@@ -1,0 +1,104 @@
+<resources>
+    <string name="app_name">智能倉儲</string>
+
+    <!-- Strings related to login -->
+    <string name="property">© 版權所有：正業玖坤</string>
+    /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 登錄 ======**/
+    <string name="user_log_tip">用戶登錄</string>
+    <string name="login_login">立即登錄</string>
+    <string name="login_inpiut_psw">請輸入密碼</string>
+    <string name="login_input_username">請輸入用戶名</string>
+    <string name="login_app_name">智能倉庫管理系統</string>
+    <string name="login_remember_psw">記錄密碼</string>
+    <string name="login_success">登錄成功</string>
+    <string name="language_simple">簡體</string>
+    <string name="language_tradtional">繁體</string>
+    <string name="language_english">英文</string>
+    <string name="login_select_language">請選擇語言</string>
+    /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 個人信息 ======**/
+    <string name="login_success_tip">提示：首次登錄需進行個人信息確認，如有問題，請到ERP中進行修改。</string>
+    <string name="name">姓名：%1$s</string>
+    <string name="sex">性別：%1$s</string>
+    <string name="work_num">工號：%1$s</string>
+    <string name="depart">部門：%1$s</string>
+    <string name="tel">手機：%1$s</string>
+    <string name="confirm">確定</string>
+
+    /******************************************************************************************************************************************************/
+    /******************************************************************************************************************************************************/
+    /**====== 個人設置 ======**/
+    /**====== 用戶信息 ======**/
+    <string name="set_userinfo_num">編號：%1$s</string>
+    <string name="set_userinfo_name">姓名：%1$s</string>
+    <string name="set_userinfo_sex">性別：%1$s</string>
+    <string name="set_userinfo_tel">手機：%1$s</string>
+    <string name="set_userinfo_from">所屬組織：%1$s</string>
+    <string name="set_userinfo_depart">部門：%1$s</string>
+    <string name="set_userinfo_root">權限組織：%1$s</string>
+    <string name="login_url_tip">地址：</string>
+    <string name="login_zuhu">租戶：</string>
+    <string name="login_language">語言：</string>
+    <string name="login_set">配置服務</string>
+    <string name="login_please_input_serverurl">請輸入服務地址</string>
+    <string name="login_please_input_right_serverurl">請輸入正確地址</string>
+    <string name="login_confirm_set">確認設置</string>
+    <string name="login_please_input_zuhu">請輸入租戶信息</string>
+    /**====== 設置 ======**/
+    <string name="set_language">選擇語言</string>
+    <string name="set_exit">退出登錄</string>
+    <string name="set_update_version">版本更新</string>
+    <string name="set_about">關於軟件</string>
+    <string name="set_update_psw">修改密碼</string>
+    <string name="set_device_info">設備信息</string>
+    <string name="set_userinfo">用戶信息</string>
+    <string name="server_set">服務設置</string>
+    <string name="set_team">組織切換</string>
+    <string name="go_login">去登錄</string>
+    /**====== 設備信息 ======**/
+    <string name="deviceinfo">設備信息</string>
+    <string name="set_deviceinfo_num">設備編號：</string>
+    <string name="please_input_device_num">請輸入設備編號</string>
+    <string name="set_deviceinfo_mac">設備MAC：%1$s</string>
+    <string name="set_deviceinfo_ip">IP地址：%1$s</string>
+    <string name="comfirm_set">確認設置</string>
+    <string name="update_password">更改密碼</string>
+    <string name="set_pda_code_success">設置PDA參數成功！</string>
+    /**====== 更改密碼 ======**/
+    <string name="update_password_oldpsw">原密碼：</string>
+    <string name="please_input_old_psw">請輸入原密碼</string>
+    <string name="update_password_newpsw">新密碼：</string>
+    <string name="please_input_new_password">請輸入新密碼</string>
+    <string name="upadte_password_repeat">再壹次密碼：</string>
+    <string name="please_repeat_input_password">請再次輸入新密碼</string>
+    <string name="show_password">顯示密碼</string>
+    <string name="about">\t\tWMS是倉庫管理系統(Warehouse Management System) 的縮寫，倉庫管理系統是通過入庫業務、出庫業務、倉庫調撥、庫存調撥和虛倉管理等功能，對批次管理、物料對應、庫存盤點、質檢管理、虛倉管理和即時庫存管理等功能綜合運用的管理系統，有效控制並跟蹤倉庫業務的物流和成本管理全過程，實現或完善的企業倉儲信息管理。該系統可以獨立執行庫存操作，也可與其他系統的單據和憑證等結合使用，可為企業提供更為完整企業物流管理流程和財務管理信息。</string>
+    <string name="confirm_logout">確認退出登錄？</string>
+    <string name="logout">退出登錄</string>
+    <string name="reset_server_will_logout">重新配置服務將退出登錄</string>
+    <string name="delete">刪除</string>
+    <string name="update">修改</string>
+    <string name="change_password_tip">密碼修改成功，請重新登錄！</string>
+    <string name="twice_password_no_same">兩次填寫的密碼不一致！</string>
+    /**====== 首页 ======**/
+    <string name="home_process_select">工序选择</string>
+    <string name="aplly_material">供料上料</string>
+    <string name="inject_mold">注塑过站</string>
+    <string name="home_title">条码追溯系统</string>
+    <string name="btn_commit">提交</string>
+    /**====== 错误提示 ======**/
+    <string name="error_title">错误提示</string>
+    <string name="dialog_batch_tip">有更早批次的物料可以進行清點, 點擊確定進行提交！</string>
+    <string name="close">關閉</string>
+    <string name="cancel">取消</string>
+    <string name="isloading">正在加載</string>
+    /**====== 工序选择 ======**/
+    <string name="title_process_select">工序选择</string>
+    <string name="none">無</string>
+    <string name="commit_success">提交成功</string>
+    <string name="no_process">暂无工序</string>
+    <string name="no_process_no_commit">暂无工序，不能提交！</string>
+</resources>

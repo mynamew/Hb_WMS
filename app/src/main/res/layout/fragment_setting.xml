@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/set_bg"
+                android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="336px">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/set_banner_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_set_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30px"
+                    android:text="王工"
+                    android:textColor="#fff"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_set_userinfo"
+                style="@style/set_tab_item"
+                android:layout_marginTop="2dp"
+                android:drawableLeft="@mipmap/set_userinfo"
+                android:text="@string/set_userinfo"/>
+
+            <TextView
+                android:id="@+id/tv_set_deviceinfo"
+                style="@style/set_tab_item"
+                android:drawableLeft="@mipmap/set_device"
+                android:text="@string/set_device_info"/>
+
+            <TextView
+                android:id="@+id/tv_set_update_psw"
+                style="@style/set_tab_item"
+                android:drawableLeft="@mipmap/set_password"
+                android:text="@string/set_update_psw"/>
+
+            <TextView
+                android:id="@+id/tv_set_update_team"
+                style="@style/set_tab_item"
+                android:visibility="gone"
+                android:drawableLeft="@mipmap/set_team"
+                android:text="@string/set_team"/>
+
+            <TextView
+                android:id="@+id/tv_set_language"
+                style="@style/set_tab_item"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/set_language"
+                android:text="@string/set_language"/>
+
+            <TextView
+                android:id="@+id/tv_set_server"
+                style="@style/set_tab_item"
+                android:drawableLeft="@mipmap/set_server"
+                android:text="@string/server_set"/>
+
+            <TextView
+                android:id="@+id/tv_set_about"
+                style="@style/set_tab_item"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/set_about"
+                android:text="@string/set_about"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_set_update_version"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                android:background="@drawable/bg_set_tab_check">
+
+                <TextView
+                    android:id="@+id/tv_set_update_version"
+                    style="@style/set_tab_item"
+                    android:drawableLeft="@mipmap/set_update"
+                    android:text="@string/set_update_version"/>
+
+                <ImageView
+                    android:id="@+id/iv_set_need_update"
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="70px"
+                    android:src="@mipmap/set_need_update"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_set_exit"
+                style="@style/set_tab_item"
+                android:layout_marginTop="10dp"
+                android:drawableLeft="@mipmap/set_exit"
+                android:drawableRight="@null"
+                android:text="@string/set_exit"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btn_set_exit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/selector_btn_bg_login"
+        android:text="@string/set_exit"
+        android:textColor="#ffff"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/login_txt_color"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/home_mine"
+            android:textColor="#fff"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+</RelativeLayout>

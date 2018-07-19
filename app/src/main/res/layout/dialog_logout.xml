@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_rectangle_login_server"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="260px"
+                android:layout_height="2px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="85px"
+                android:background="#999"/>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="60px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="55px"
+                android:background="#fff"
+                android:gravity="center"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:text="@string/logout"
+                android:textColor="#333"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="30px"
+                android:src="@mipmap/quality_badness_close"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:gravity="center"
+            android:text="@string/confirm_logout"
+            android:textColor="#333"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginBottom="20px"
+            android:background="@color/divide_color"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px">
+
+            <Button
+                android:id="@+id/tv_logout_cancel"
+                android:layout_width="280px"
+                android:layout_height="72px"
+                android:layout_marginRight="20px"
+                android:layout_weight="1"
+                android:background="@drawable/bg_dialog_badness_cancel"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/tab_txt_unselect"
+                android:textSize="16sp"/>
+
+
+            <Button
+                android:id="@+id/tv_logout_confirm"
+                android:layout_width="280px"
+                android:layout_height="72px"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20px"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_bg_login"
+                android:gravity="center"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>
