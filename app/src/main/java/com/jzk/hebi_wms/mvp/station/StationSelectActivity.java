@@ -46,7 +46,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     @Override
     public void initData() {
-
+        showProgressDialog();
+       getPresenter().getStations(request);
     }
 
     @Override

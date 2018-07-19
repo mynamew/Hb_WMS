@@ -49,7 +49,7 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
 
     @Override
     public void initData() {
-//        showProgressDialog();
+        showProgressDialog();
         getPresenter().getProcessSelectSubscriber();
     }
 

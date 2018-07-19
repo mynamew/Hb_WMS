@@ -8,6 +8,8 @@ import com.jzk.hebi_wms.data.process.ProcessSelectBean;
 import com.jzk.hebi_wms.data.set.ChangeOrgRequest;
 import com.jzk.hebi_wms.data.set.ChangePasswordRequest;
 import com.jzk.hebi_wms.data.set.GetPDA_ParameterResult;
+import com.jzk.hebi_wms.data.station.StationBean;
+import com.jzk.hebi_wms.data.station.StationRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -76,5 +78,11 @@ public interface ApiService {
      */
     @POST("api/services/productionplan/LoginStationCode/GetProcessList")
     Observable<CommonResult<List<ProcessSelectBean>>> getProcessList();
+    /**
+     * 工位选择
+     */
+    @FormUrlEncoded
+    @POST("api/services/productionplan/OnWipMaterial/GetStations")
+    Observable<CommonResult<StationBean>> getStations(@Body StationRequest request);
 
 }

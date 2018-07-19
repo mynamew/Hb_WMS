@@ -12,9 +12,12 @@ import com.jzk.hebi_wms.base.BaseFragment;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
 import com.jzk.hebi_wms.mvp.process.ProcessSelectActivity;
+import com.jzk.hebi_wms.mvp.station.StationSelectActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,9 +89,10 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
         Intent it = new Intent();
         switch (view.getId()) {
             case R.id.tv_home_process:
-                it.setClass(getActivity(), ProcessSelectActivity.class);
+                it.setClass(Objects.requireNonNull(getActivity()), ProcessSelectActivity.class);
                 break;
             case R.id.tv_home_inject_mold:
+                it.setClass(Objects.requireNonNull(getActivity()), StationSelectActivity.class);
                 break;
             case R.id.tv_home_aplly_material:
                 break;
