@@ -11,6 +11,10 @@ import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.mvp.login.LoginActivity;
 import com.jzk.hebi_wms.utils.statusutils.StatusBarUtil;
 
+/**
+ * test注释
+ */
+
 public class SplashActivity extends AppCompatActivity {
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
