@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.allenliu.versionchecklib.v2.callback.ForceUpdateListener;
 import com.jzk.hebi_wms.MainActivity;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseFragment;
@@ -20,15 +19,11 @@ import com.jzk.hebi_wms.mvp.org_change.OrganizationSwitchActivity;
 import com.jzk.hebi_wms.mvp.update_password.UpdatePasswordActivity;
 import com.jzk.hebi_wms.mvp.userinfo.UserInfoActivity;
 import com.jzk.hebi_wms.utils.LanguageUtils;
-import com.jzk.hebi_wms.utils.PackageUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.view.MyDialog;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static com.jzk.hebi_wms.base.Constants.IS_HAVE_DOWNLOAD_NEW;
-
 /**
  * 个人设置的碎片
  * author: timi
@@ -244,7 +239,6 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
         if (null != bean) {
             tvSetUserName.setText(bean.userName);
         }
-        ivSetNewVersion.setVisibility(SpUtils.getInstance().getBoolean(IS_HAVE_DOWNLOAD_NEW) ? View.GONE : View.VISIBLE);
     }
 
     @Override

@@ -1,37 +1,32 @@
-package com.jzk.hebi_wms.mvp.station;
+package com.jzk.hebi_wms.mvp.inject_mold;
 
 import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
-import com.jzk.hebi_wms.data.station.AddMaterialBean;
-import com.jzk.hebi_wms.data.station.AddMaterialRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
-import com.jzk.hebi_wms.data.station.SupplyMaterialBean;
-import com.jzk.hebi_wms.data.station.ValIsInjectSameBatchRequest;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 import com.jzk.hebi_wms.http.callback.OnResultCallBack;
 import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
 
 /**
- * $dsc
- * author: timi
- * create at: 2018-07-19 17:05
+ * @author: timi
+ * create at: 2018/7/20 10:18
  */
-public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> {
+public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
+
+    private final InjectMoldModel model;
     private HttpSubscriber<StationBean> stationBeanHttpSubscriber;
     private HttpSubscriber<InjectMoldBean> injectMoldBeanHttpSubscriber;
-    private HttpSubscriber<SupplyMaterialBean> supplyMaterialBeanHttpSubscriber;
+    private HttpSubscriber<InjectMoldBean> mouldHttpSubscriber;
     private HttpSubscriber<WorkerOrderBean> workerOrderBeanHttpSubscriber;
-    private HttpSubscriber<Object> valIsInjectSameBatchSubscriber;
-    private HttpSubscriber<AddMaterialBean> addMaterialBeanHttpSubscriber;
-    StationSelectModel model;
 
-    public StationSelectPresenter(Context context) {
+    public InjectMoldPresenter(Context context) {
         super(context);
-        model = new StationSelectModel();
+        model = new InjectMoldModel();
     }
+
 
     /**
      * 获取工位
@@ -76,14 +71,14 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
     }
 
     /**
-     * 获取供料机
+     * 获取模具
      */
-    public void getSuppliyEqps() {
-        if (null == supplyMaterialBeanHttpSubscriber) {
-            supplyMaterialBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<SupplyMaterialBean>() {
+    public void getMould() {
+        if (null == mouldHttpSubscriber) {
+            mouldHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectMoldBean>() {
                 @Override
-                public void onSuccess(SupplyMaterialBean o) {
-                    getView().getSuppliyEqps(o);
+                public void onSuccess(InjectMoldBean o) {
+                    getView().getMould(o);
                 }
 
                 @Override
@@ -92,7 +87,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
                 }
             });
         }
-        model.getSuppliyEqps(supplyMaterialBeanHttpSubscriber);
+        model.getMould(mouldHttpSubscriber);
     }
 
     /**
@@ -113,45 +108,5 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
             });
         }
         model.getMoCode(workerOrderBeanHttpSubscriber);
-    }
-
-    /**
-     * 校验
-     */
-    public void valIsInjectSameBatch(ValIsInjectSameBatchRequest request) {
-        if (null == valIsInjectSameBatchSubscriber) {
-            valIsInjectSameBatchSubscriber = new HttpSubscriber<>(new OnResultCallBack<Object>() {
-                @Override
-                public void onSuccess(Object o) {
-                    getView().valIsInjectSameBatch(o);
-                }
-
-                @Override
-                public void onError(String errorMsg) {
-
-                }
-            });
-        }
-        model.valIsInjectSameBatch(request, valIsInjectSameBatchSubscriber);
-    }
-
-    /**
-     * 单号提交
-     */
-    public void createOrUpdateOnWipMaterial(AddMaterialRequest request) {
-        if (null == addMaterialBeanHttpSubscriber) {
-            addMaterialBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<AddMaterialBean>() {
-                @Override
-                public void onSuccess(AddMaterialBean o) {
-                    getView().createOrUpdateOnWipMaterial(o);
-                }
-
-                @Override
-                public void onError(String errorMsg) {
-
-                }
-            });
-        }
-        model.createOrUpdateOnWipMaterial(request, addMaterialBeanHttpSubscriber);
     }
 }

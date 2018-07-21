@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".mvp.station.StationSelectActivity">
+    tools:context=".mvp.inject_mold.InjectMoldActivity">
 
     <include layout="@layout/title_head"/>
 
@@ -24,12 +24,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="64px"
+                android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:paddingLeft="20px"
                 android:text="工位"
                 android:textColor="#333"
                 android:textSize="13sp"
-                 />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                 android:text="工单"
                 android:textColor="#333"
                 android:textSize="13sp"
-                 />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,15 +126,16 @@
                     android:text=""/>
             </LinearLayout>
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="64px"
+                android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:paddingLeft="20px"
                 android:text="注塑机"
                 android:textColor="#333"
                 android:textSize="13sp"
-                 />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,12 +161,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="64px"
+                android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:paddingLeft="20px"
-                android:text="上料机"
+                android:text="模具"
                 android:textColor="#333"
                 android:textSize="13sp"
-                 />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,7 +180,7 @@
                 android:paddingTop="5px">
 
                 <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_add_material"
+                    android:id="@+id/spinner_mold"
                     android:layout_width="match_parent"
                     android:layout_height="64px"
                     android:textSize="13sp"
@@ -205,7 +206,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text="单号"
                     android:textColor="#333"
                     android:textSize="13sp"
@@ -241,6 +242,64 @@
                     android:paddingLeft="60px"
                     android:src="@mipmap/ic_scan"/>
             </RelativeLayout>
+
+            <include
+                android:id="@+id/layout_product"
+                layout="@layout/layout_product_detial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rd_good"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="良品"/>
+
+                <RadioButton
+                    android:id="@+id/rd_bad"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="不良品"/>
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="20px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="不良代码"
+                    android:textColor="@color/color_333"
+                    android:textSize="13sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/bg_rectangle_et_unfocused"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/et_bad_code"
+                        android:layout_width="match_parent"
+                        android:text="请输入/选择不良代码"
+                        android:layout_marginLeft="20px"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_666"
+                        android:textSize="13sp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

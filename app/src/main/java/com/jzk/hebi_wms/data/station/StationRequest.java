@@ -2,7 +2,7 @@ package com.jzk.hebi_wms.data.station;
 
 /**
  * $dsc  工位的请求
- * author: timi
+ * @author: timi
  * create at: 2018-07-19 17:03
  */
 public class StationRequest {

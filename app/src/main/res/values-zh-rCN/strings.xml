@@ -100,4 +100,9 @@
     <string name="commit_success">提交成功</string>
     <string name="no_process">暂无工序</string>
     <string name="no_process_no_commit">暂无工序，不能提交！</string>
+    /**====== 供料上料 ======**/
+    <string name="title_add_material">供料上料</string>
+    <string name="no_worker_order_info">暂无工位信息</string>
+    <string name="scan_point_title">此单号系统中未找到，请确认后，再进行查询！</string>
+    <string name="title_inject_mold_pass">注塑过站</string>
 </resources>

@@ -35,6 +35,8 @@ import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.utils.statusutils.StatusBarUtil;
 import com.jzk.hebi_wms.view.MyProgressDialog;
 import com.jzk.hebi_wms.view.SwipeBackLayout;
+import com.jzk.qrcodelibrary.CommonScanActivity;
+import com.jzk.qrcodelibrary.utils.Constant;
 import com.orhanobut.logger.Logger;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -382,15 +384,15 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 60);
         } else {
             //权限已经被授予，在这里直接写要执行的相应方法即可
-//            Intent intent = new Intent(this, CommonScanActivity.class);
-//
-//            String pointMsg = getResources().getString(R.string.scan_point_title);
-//            Bundle bundle = new Bundle();
-//            bundle.putString("pointMsg", pointMsg);
-//            intent.putExtras(bundle);
-//
-//            intent.putExtra(Constant.REQUEST_SCAN_MODE, Constant.REQUEST_SCAN_MODE_ALL_MODE);
-//            startActivityForResult(intent, requestCode);
+            Intent intent = new Intent(this, CommonScanActivity.class);
+
+            String pointMsg = getResources().getString(R.string.scan_point_title);
+            Bundle bundle = new Bundle();
+            bundle.putString("pointMsg", pointMsg);
+            intent.putExtras(bundle);
+
+            intent.putExtra(Constant.REQUEST_SCAN_MODE, Constant.REQUEST_SCAN_MODE_ALL_MODE);
+            startActivityForResult(intent, requestCode);
         }
     }
 
