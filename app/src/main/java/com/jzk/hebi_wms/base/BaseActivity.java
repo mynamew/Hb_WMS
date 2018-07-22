@@ -318,39 +318,13 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         }
     }
 
-
-//    /**
-//     * 侧滑 返回
-//     *
-//     * @return
-//     */
-//    private View getContainer() {
-//        RelativeLayout container = new RelativeLayout(this);
-//        swipeBackLayout = new SwipeBackLayout(this);
-//        //设置是 左滑
-//        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.LEFT);
-//        ivShadow = new ImageView(this);
-//        ivShadow.setBackgroundColor(getResources().getColor(R.color.app_background));
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-//        container.addView(ivShadow, params);
-//        container.addView(swipeBackLayout);
-//        //滑动 透明度变化
-//        swipeBackLayout.setOnSwipeBackListener((fractionAnchor, fractionScreen) -> {
-//            Logger.d("打印侧滑的fload--->" + fractionScreen);
-//            ivShadow.setAlpha(1 - fractionScreen);
-//        });
-//        return container;
-//    }
-
     /**
      * 跳转到登录的公共方法
-     */
+      */
     public void jumpToLoginActivity() {
-        //做清除数据的操作
-        // 做跳转的操作
-//        Intent it = new Intent(currentActivity, LoginActivity.class);
-//        it.putExtra("unAuthorizedRequest", true);
-//        startActivity(it, Interlude.POP_FROM_BOTTOM);
+        Intent it = new Intent(currentActivity, LoginActivity.class);
+        it.putExtra("unAuthorizedRequest", true);
+        startActivity(it, Interlude.POP_FROM_BOTTOM);
     }
 
     /**

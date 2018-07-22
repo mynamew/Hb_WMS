@@ -3,6 +3,8 @@ package com.jzk.hebi_wms.mvp.inject_mold;
 import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
+import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -21,6 +23,10 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
     private HttpSubscriber<InjectMoldBean> injectMoldBeanHttpSubscriber;
     private HttpSubscriber<InjectMoldBean> mouldHttpSubscriber;
     private HttpSubscriber<WorkerOrderBean> workerOrderBeanHttpSubscriber;
+    /**
+     * 校验的观察者
+     */
+    private HttpSubscriber<InjectPassBean> injectPassBeanHttpSubscriber;
 
     public InjectMoldPresenter(Context context) {
         super(context);
@@ -108,5 +114,23 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
             });
         }
         model.getMoCode(workerOrderBeanHttpSubscriber);
+    }/**
+     * 校验
+     */
+    public void checkRCardInfoAsync(CheckRCardInfoRquest request) {
+        if (null == injectPassBeanHttpSubscriber) {
+            injectPassBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+                @Override
+                public void onSuccess(InjectPassBean o) {
+                    getView().checkRCardInfoAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.checkRCardInfoAsync(injectPassBeanHttpSubscriber,request);
     }
 }

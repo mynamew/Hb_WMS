@@ -48,4 +48,8 @@ public interface StationSelectView extends MvpBaseView {
      * @param o
      */
     void createOrUpdateOnWipMaterial(AddMaterialBean o);
+    /**
+     * 设置条码选中
+     */
+    void setBarcodeSelected();
 }

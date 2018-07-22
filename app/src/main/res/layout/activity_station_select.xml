@@ -162,7 +162,7 @@
                 android:layout_height="64px"
                 android:gravity="center_vertical"
                 android:paddingLeft="20px"
-                android:text="上料机"
+                android:text="供料机"
                 android:textColor="#333"
                 android:textSize="13sp"
                  />

@@ -21,172 +21,181 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:layout_marginLeft="20px"
-                android:gravity="center_vertical"
-                android:text="工位"
-                android:textColor="#333"
-                android:textSize="13sp"
-                />
-
             <LinearLayout
+                android:id="@+id/ll_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:paddingLeft="5px"
-                android:paddingRight="5px"
-                android:paddingTop="5px">
-
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_station"
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="88px"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px"
+                    android:layout_marginLeft="20px"
                     android:gravity="center_vertical"
-                    android:paddingLeft="20px"
-                    android:text="产线代码："
+                    android:text="工位"
                     android:textColor="#333"
+                    android:textSize="13sp"
                     />
 
-                <TextView
-                    android:id="@+id/tv_work_line_code"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""/>
-            </LinearLayout>
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_rectangle_et_unfocused"
+                    android:orientation="horizontal"
+                    android:paddingLeft="5px"
+                    android:paddingRight="5px"
+                    android:paddingTop="5px">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:gravity="center_vertical"
-                android:paddingLeft="20px"
-                android:text="工单"
-                android:textColor="#333"
-                android:textSize="13sp"
-                />
+                    <com.jzk.spinnerlibrary.MaterialSpinner
+                        android:id="@+id/spinner_station"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:textSize="13sp"
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="350dp"
+                        app:ms_hint_color="@color/color_666"/>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:paddingLeft="5px"
-                android:paddingRight="5px"
-                android:paddingTop="5px">
-
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_worker_order"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="88px"
                     android:gravity="center_vertical"
-                    android:paddingLeft="20px"
-                    android:text="产品代码："
-                    android:textColor="#333"
-                    />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="88px"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:text="产线代码："
+                        android:textColor="#333"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_work_line_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_ponum"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="工单"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""/>
-            </LinearLayout>
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_rectangle_et_unfocused"
+                    android:orientation="horizontal"
+                    android:paddingLeft="5px"
+                    android:paddingRight="5px"
+                    android:paddingTop="5px">
+
+                    <com.jzk.spinnerlibrary.MaterialSpinner
+                        android:id="@+id/spinner_worker_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:textSize="13sp"
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="350dp"
+                        app:ms_hint_color="@color/color_666"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="88px"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:text="产品代码："
+                        android:textColor="#333"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_ponum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+                </LinearLayout>
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:layout_marginLeft="20px"
-                android:gravity="center_vertical"
-                android:text="注塑机"
-                android:textColor="#333"
-                android:textSize="13sp"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:paddingLeft="5px"
-                android:paddingRight="5px"
-                android:paddingTop="5px">
-
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_inject_machine"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="64px"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center_vertical"
+                    android:text="注塑机"
+                    android:textColor="#333"
                     android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
-            </LinearLayout>
+                    />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:layout_marginLeft="20px"
-                android:gravity="center_vertical"
-                android:text="模具"
-                android:textColor="#333"
-                android:textSize="13sp"
-                />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_rectangle_et_unfocused"
+                    android:orientation="horizontal"
+                    android:paddingLeft="5px"
+                    android:paddingRight="5px"
+                    android:paddingTop="5px">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:paddingLeft="5px"
-                android:paddingRight="5px"
-                android:paddingTop="5px">
+                    <com.jzk.spinnerlibrary.MaterialSpinner
+                        android:id="@+id/spinner_inject_machine"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:textSize="13sp"
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="350dp"
+                        app:ms_hint_color="@color/color_666"/>
+                </LinearLayout>
 
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_mold"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="64px"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center_vertical"
+                    android:text="模具"
+                    android:textColor="#333"
                     android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_rectangle_et_unfocused"
+                    android:orientation="horizontal"
+                    android:paddingLeft="5px"
+                    android:paddingRight="5px"
+                    android:paddingTop="5px">
+
+                    <com.jzk.spinnerlibrary.MaterialSpinner
+                        android:id="@+id/spinner_mold"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:textSize="13sp"
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="350dp"
+                        app:ms_hint_color="@color/color_666"/>
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -215,7 +224,7 @@
                 <EditText
                     android:id="@+id/et_add_material_order"
                     android:layout_width="match_parent"
-                    android:layout_height="64px"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
                     android:layout_toEndOf="@id/tv_add_material_tip"
@@ -226,6 +235,7 @@
                     android:hint="请输入/扫描上料单号"
                     android:imeOptions="actionSearch"
                     android:inputType="textVisiblePassword"
+                    android:padding="10px"
                     android:paddingLeft="20px"
                     android:singleLine="true"
                     android:text=""
@@ -248,9 +258,11 @@
                 layout="@layout/layout_product_detial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"/>
+                android:layout_marginLeft="20px"
+                android:visibility="gone"/>
 
             <RadioGroup
+                android:id="@+id/rg_is_good"
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:orientation="horizontal">
@@ -272,32 +284,98 @@
             </RadioGroup>
 
             <LinearLayout
+                android:id="@+id/ll_bad_code"
                 android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="20px"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="不良代码"
-                    android:textColor="@color/color_333"
-                    android:textSize="13sp"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:background="@drawable/bg_rectangle_et_unfocused"
-                    android:layout_height="wrap_content">
+                    android:layout_height="88px"
+                    android:layout_marginLeft="20px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不良代码"
+                        android:textColor="@color/color_333"
+                        android:textSize="13sp"/>
+
                     <EditText
                         android:id="@+id/et_bad_code"
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10px"
+                        android:background="@drawable/bg_rectangle_et_unfocused"
+                        android:paddingLeft="20px"
                         android:text="请输入/选择不良代码"
-                        android:layout_marginLeft="20px"
-                        android:layout_height="wrap_content"
                         android:textColor="@color/color_666"
                         android:textSize="13sp"
                         />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200px"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="64px"
+                            android:gravity="center"
+                            android:text="不良代码组"
+                            android:textColor="@color/color_333"
+                            android:textSize="13sp"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/divide_color"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rlv_bac_code_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1px"
+                        android:layout_height="64px"
+                        android:background="@color/divide_color"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="64px"
+                            android:gravity="center"
+                            android:text="不良代码"
+                            android:textColor="@color/color_333"
+                            android:textSize="13sp"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/divide_color"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rlv_bac_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

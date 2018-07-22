@@ -1,16 +1,22 @@
 package com.jzk.hebi_wms.mvp.inject_mold;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -25,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -70,6 +77,16 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     TextView btnCommit;
     @BindView(R.id.tv_work_line_code)
     TextView tvWorkLineCode;
+    @BindView(R.id.ll_header)
+    LinearLayout llHeader;
+    @BindView(R.id.rlv_bac_code_group)
+    RecyclerView rlvBadCodeGroup;
+    @BindView(R.id.rlv_bac_code)
+    RecyclerView rlvBadCode;
+    @BindView(R.id.ll_bad_code)
+    LinearLayout llBadCode;
+    @BindView(R.id.rg_is_good)
+    RadioGroup rgIsGood;
 
     /********工位***********************************************************************************************/
     /**
@@ -120,12 +137,27 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @Override
     public void initBundle(Bundle savedInstanceState) {
-     setActivityTitle(R.string.title_inject_mold_pass);
+        setActivityTitle(R.string.title_inject_mold_pass);
     }
 
     @Override
     public void initView() {
 
+        /**
+         * 良品不良品选择的监听器
+         */
+        rgIsGood.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rd_bad:
+                    llBadCode.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.rd_good:
+                    llBadCode.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+        });
     }
 
     @Override
@@ -261,6 +293,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         }
     }
 
+    @Override
+    public void checkRCardInfoAsync(InjectPassBean o) {
+        ToastUtils.showShort("校验成功！");
+        /**
+         * 良品  直接提交
+         */
+        if(rdGood.isChecked()){
+            // TODO: 2018/7/21 提交产品序列号 
+        }else {
+            // TODO: 2018/7/21 获取不良代码组
+        }
+    }
+
     @OnClick({R.id.iv_scan, R.id.btn_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -268,6 +313,15 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 scan(Constants.REQUEST_SCAN_CODE_BARCODE, (requestCode, result) -> {
                     etAddMaterialOrder.setText(result);
                     // TODO: 2018/7/20  校验
+                    CheckRCardInfoRquest request=new CheckRCardInfoRquest();
+                   request.setRCard(result);
+                    request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+//                    request.setProcessCode(SpUtils.getInstance().getProcessSelectCode());
+                    // TODO: 2018/7/21 为了测试 正常请使用上面被注释的代码
+                    request.setProcessCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+                    request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+                    showProgressDialog();
+                    getPresenter().checkRCardInfoAsync(request);
                 });
                 break;
             case R.id.btn_commit:
@@ -282,5 +336,12 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

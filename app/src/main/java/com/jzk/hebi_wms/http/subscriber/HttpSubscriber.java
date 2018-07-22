@@ -133,21 +133,13 @@ public class HttpSubscriber<T> implements Observer<T> {
                      * 显示 去登录提示的对话框
                      */
                     new MyDialog(BaseActivity.getCurrentActivty(), R.layout.dialog_go_login_tip)
-                            .setButtonListener(R.id.btn_cancel, null, new MyDialog.DialogClickListener() {
-                                @Override
-                                public void dialogClick(MyDialog dialog) {
-                                    dialog.dismiss();
-                                    BaseActivity currentActivty = (BaseActivity) BaseActivity.getCurrentActivty();
-                                    currentActivty.jumpToLoginActivity();
-                                }
+                            .setButtonListener(R.id.btn_cancel, null, dialog -> {
+                                dialog.dismiss();
+                                BaseActivity currentActivty = (BaseActivity) BaseActivity.getCurrentActivty();
+                                currentActivty.jumpToLoginActivity();
                             })
                             .setTextViewContent(R.id.tv_content, messageStr)
-                            .setImageViewListener(R.id.iv_close, new MyDialog.DialogClickListener() {
-                                @Override
-                                public void dialogClick(MyDialog dialog) {
-                                    dialog.dismiss();
-                                }
-                            })
+                            .setImageViewListener(R.id.iv_close, dialog -> dialog.dismiss())
                             .show();
                     //登录提示 要直接return  防止弹出下面的dialog
                     return;
@@ -160,7 +152,9 @@ public class HttpSubscriber<T> implements Observer<T> {
                 messageStr = SERVER_TIMEOUT_EXCEPTION;
             }
 
-        } else if (e instanceof UnknownHostException) {// 测试到时再没网的情况下
+        }
+        // 测试到时再没网的情况下
+        else if (e instanceof UnknownHostException) {
             mOnResultListener.onError(CONNECT_EXCEPTION);
             messageStr = CONNECT_EXCEPTION;
         } else if (e instanceof ApiException) {

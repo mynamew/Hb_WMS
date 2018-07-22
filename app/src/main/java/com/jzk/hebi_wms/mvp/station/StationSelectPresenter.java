@@ -128,7 +128,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().setBarcodeSelected();
                 }
             });
         }
@@ -148,7 +148,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().setBarcodeSelected();
                 }
             });
         }

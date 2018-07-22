@@ -2,6 +2,7 @@ package com.jzk.hebi_wms.mvp.inject_mold;
 
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
@@ -34,4 +35,10 @@ public interface InjectMoldView extends MvpBaseView {
      * @param o
      */
     void getMould(InjectMoldBean o);
+
+    /**
+     * 校验
+     * @param o
+     */
+    void checkRCardInfoAsync(InjectPassBean o);
 }

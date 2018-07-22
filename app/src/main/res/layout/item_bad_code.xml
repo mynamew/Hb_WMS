@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                     android:layout_width="match_parent"
+                                     android:layout_height="wrap_content"
+                                     android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_bad_code"
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:gravity="center"
+        android:background="@drawable/tab_menu_text"
+        android:text="不良代码组"/>
+</com.zhy.autolayout.AutoLinearLayout>

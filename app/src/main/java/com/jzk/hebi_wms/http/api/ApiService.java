@@ -4,6 +4,8 @@ package com.jzk.hebi_wms.http.api;
 import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.data.LoginRequest;
 import com.jzk.hebi_wms.data.UserInfoBean;
+import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
 import com.jzk.hebi_wms.data.set.ChangeOrgRequest;
 import com.jzk.hebi_wms.data.set.ChangePasswordRequest;
@@ -127,4 +129,16 @@ public interface ApiService {
     @POST("api/services/productionplan/OnWipMaterial/CreateOrUpdateOnWipMaterial")
     Observable<CommonResult<AddMaterialBean>> createOrUpdateOnWipMaterial(@Body AddMaterialRequest request);
 
+   /*******注塑过站****************************************************************************************************/
+    /**
+     * 注塑过站检验
+     */
+
+    @POST("api/services/productionplan/CollectionMolding/CheckRCardInfoAsync")
+    Observable<CommonResult<InjectPassBean>> checkRCardInfoAsync(@Body CheckRCardInfoRquest request);
+    /**
+     * 注塑过站提交
+     */
+    @POST("api/services/productionplan/CollectionMolding/CollectionMoldingAsync")
+    Observable<CommonResult<InjectPassBean>> collectionMoldingAsync(@Body CheckRCardInfoRquest request);
 }

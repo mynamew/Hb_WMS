@@ -245,8 +245,12 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                 new MyDialog(this, R.layout.dialog_logout)
                         .setTextViewContent(R.id.tv_title, "扫码提示")
                         .setTextViewContent(R.id.tv_content, "当前上料条码与单号不一致，是否强制提交？")
-                        .setButtonListener(R.id.btn_commit, null, dialog -> btnCommit.performLongClick())
-                        .setButtonListener(R.id.btn_cancel, null, Dialog::dismiss)
+                        .setButtonListener(R.id.tv_logout_confirm, null, dialog ->
+                                {
+                                    dialog.dismiss();
+                                    btnCommit.performClick();
+                                })
+                        .setButtonListener(R.id.tv_logout_cancel, null, Dialog::dismiss)
                         .setImageViewListener(R.id.iv_close, Dialog::dismiss)
                         .show();
             }
@@ -258,6 +262,11 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         //提示
         ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
         //设置选中
+        setEdittextSelected(etAddMaterialOrder);
+    }
+
+    @Override
+    public void setBarcodeSelected() {
         setEdittextSelected(etAddMaterialOrder);
     }
 
@@ -302,12 +311,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     private void judgeSameBatch(String barcode) {
         ValIsInjectSameBatchRequest request = new ValIsInjectSameBatchRequest();
         request.setBarcode(barcode);
-
         request.setInjectionMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
-//        /**
-//         *为了测试，正式请用上面语句
-//         */
-//        request.setInjectionMoldingEqpCode("MOLDING-02");
         request.setSuppliyEqpCode(mSupplyMaterials.get(spinnerAddMaterial.getSelectedIndex()).getValue());
         showProgressDialog();
         getPresenter().valIsInjectSameBatch(request);

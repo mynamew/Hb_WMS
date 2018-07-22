@@ -2,6 +2,8 @@ package com.jzk.hebi_wms.mvp.inject_mold;
 
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
+import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.NoneClass;
 import com.jzk.hebi_wms.data.station.StationBean;
@@ -50,5 +52,13 @@ public class InjectMoldModel extends MvpBaseModel{
      */
     public void getMould(HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getInjectionMoldings(Constants.DeviceType.MOULD.toString()));
+    }
+    /**
+     * 校验
+     *
+     * @param stationBeanHttpSubscriber
+     */
+    public void checkRCardInfoAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, CheckRCardInfoRquest request) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.checkRCardInfoAsync(request));
     }
 }
