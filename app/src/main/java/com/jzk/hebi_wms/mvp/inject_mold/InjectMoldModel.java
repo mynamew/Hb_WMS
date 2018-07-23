@@ -61,4 +61,30 @@ public class InjectMoldModel extends MvpBaseModel{
     public void checkRCardInfoAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, CheckRCardInfoRquest request) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.checkRCardInfoAsync(request));
     }
+    /**
+     * 获取不良代码组
+     *
+     * @param stationBeanHttpSubscriber
+     */
+    public void getErrorInfosAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, int request) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getErrorInfosAsync(request));
+    }
+    /**
+     * 获取不良代码
+     *
+     * @param stationBeanHttpSubscriber
+     */
+    public void getErrorInfoByGroupCodeAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, String request) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getErrorInfoByGroupCodeAsync(request));
+    }
+
+    /**
+     * 获取不良代码输入
+     * @param stationBeanHttpSubscriber
+     * @param categoryId   产品别Id
+     * @param errorCode   输入的不良代码
+     */
+    public void getErrorInfoByErrorCodeAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, String categoryId,String errorCode) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getErrorInfoByErrorCodeAsync(categoryId,errorCode));
+    }
 }

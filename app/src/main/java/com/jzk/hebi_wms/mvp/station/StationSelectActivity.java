@@ -241,6 +241,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         if (o instanceof Boolean) {
             if ((Boolean) o) {
                 ToastUtils.showShort("上料条码校验成功,可以进行提交！");
+                btnCommit.performClick();
             } else {
                 new MyDialog(this, R.layout.dialog_logout)
                         .setTextViewContent(R.id.tv_title, "扫码提示")
