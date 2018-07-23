@@ -69,6 +69,8 @@ public class HttpSubscriber<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        mOnResultListener.onError(e.getMessage());
+
         if (isAutoDismiss) {
             MyProgressDialog.hideProgressDialog();
         }

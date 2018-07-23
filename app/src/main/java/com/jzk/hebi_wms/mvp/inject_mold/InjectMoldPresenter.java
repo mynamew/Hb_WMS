@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
@@ -11,6 +12,10 @@ import com.jzk.hebi_wms.data.station.StationRequest;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 import com.jzk.hebi_wms.http.callback.OnResultCallBack;
 import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author: timi
@@ -32,14 +37,18 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     private HttpSubscriber<InjectPassBean> errorGroupHttpSubscriber;
     /**
-     *根据不良代码组获取不良代码
+     * 根据不良代码组获取不良代码
      */
     private HttpSubscriber<InjectPassBean> errorCodeHttpSubscriber;
 
     /**
-     *根据输入的不良代码
+     * 根据输入的不良代码
      */
     private HttpSubscriber<InjectPassBean> errorCodeByInputHttpSubscriber;
+    /**
+     * 注塑过站提交
+     */
+    private HttpSubscriber<InjectPassBean> injectPassCommitSubscriber;
 
     public InjectMoldPresenter(Context context) {
         super(context);
@@ -62,7 +71,17 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    StationBean o = new StationBean();
+                    List<StationBean.StationsBean> stationsBeans = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        StationBean.StationsBean bean = new StationBean.StationsBean();
+                        bean.setProductionLineCode("注塑上料-----" + i);
+                        bean.setStationCode("OP101-----" + i);
+                        bean.setStationName("WorkingLine-01----" + i);
+                        stationsBeans.add(bean);
+                    }
+                    o.setStations(stationsBeans);
+                    getView().getStations(o);
                 }
             });
         }
@@ -82,7 +101,17 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    InjectMoldBean bean = new InjectMoldBean();
+                    List<InjectMoldBean.EqpmentsBean> eqpmentsBeans = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        InjectMoldBean.EqpmentsBean eqpmentsBean = new InjectMoldBean.EqpmentsBean();
+                        eqpmentsBean.setDisplayText("注塑机----" + i);
+                        eqpmentsBean.setIsSelected(false);
+                        eqpmentsBean.setValue("");
+                        eqpmentsBeans.add(eqpmentsBean);
+                    }
+                    bean.setEqpments(eqpmentsBeans);
+                    getView().getInjectionMoldings(bean);
                 }
             });
         }
@@ -102,7 +131,17 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    InjectMoldBean bean = new InjectMoldBean();
+                    List<InjectMoldBean.EqpmentsBean> eqpmentsBeans = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        InjectMoldBean.EqpmentsBean eqpmentsBean = new InjectMoldBean.EqpmentsBean();
+                        eqpmentsBean.setDisplayText("模具----" + i);
+                        eqpmentsBean.setIsSelected(false);
+                        eqpmentsBean.setValue("模具Value----" + i);
+                        eqpmentsBeans.add(eqpmentsBean);
+                    }
+                    bean.setEqpments(eqpmentsBeans);
+                    getView().getMould(bean);
                 }
             });
         }
@@ -122,12 +161,22 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    WorkerOrderBean bean = new WorkerOrderBean();
+                    List<WorkerOrderBean.MosBean> works = new ArrayList<>();
+                    for (int i = 0; i < 5; i++) {
+                        WorkerOrderBean.MosBean mosBean = new WorkerOrderBean.MosBean();
+                        mosBean.setItemCode("ItemCode----" + i);
+                        mosBean.setMoCode("MoCode----" + i);
+                        works.add(mosBean);
+                    }
+                    bean.setMos(works);
+                    getView().getMoCode(bean);
                 }
             });
         }
         model.getMoCode(workerOrderBeanHttpSubscriber);
     }
+
     /**
      * 校验
      */
@@ -141,12 +190,16 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-                   getView().checkRCardInfoAsyncFalse();
+                    getView().checkRCardInfoAsyncFalse();
+                    InjectPassBean bean = new InjectPassBean();
+                    bean.setCategoryId(1);
+                    getView().checkRCardInfoAsync(bean);
                 }
             });
         }
-        model.checkRCardInfoAsync(injectPassBeanHttpSubscriber,request);
+        model.checkRCardInfoAsync(injectPassBeanHttpSubscriber, request);
     }
+
     /**
      * 获取不良代码组
      */
@@ -160,14 +213,24 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-                    getView().checkRCardInfoAsyncFalse();
+                    InjectPassBean bean = new InjectPassBean();
+                    bean.setCategoryId(1);
+                    List<InjectPassBean.ErrorGroupsBean> groupsBeans = new ArrayList<>();
+                    for (int i = 0; i < 15; i++) {
+                        InjectPassBean.ErrorGroupsBean errorGroupsBean = new InjectPassBean.ErrorGroupsBean();
+                        errorGroupsBean.setErrorGroupCode("表面不良--" + i);
+                        groupsBeans.add(errorGroupsBean);
+                    }
+                    bean.setErrorGroups(groupsBeans);
+                    getView().errorGroupHttpSubscriber(bean.getErrorGroups());
                 }
             });
         }
-        model.getErrorInfosAsync(errorGroupHttpSubscriber,categoryId);
+        model.getErrorInfosAsync(errorGroupHttpSubscriber, categoryId);
     }
+
     /**
-     * 校验
+     * 获取不良代码！
      */
     public void getErrorInfoByGroupCode(String errorGroupId) {
         if (null == errorCodeHttpSubscriber) {
@@ -179,29 +242,67 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-                    getView().checkRCardInfoAsyncFalse();
+                    InjectPassBean bean = new InjectPassBean();
+                    bean.setCategoryId(1);
+                    List<InjectPassBean.ErrorCodesBean> groupsBeans = new ArrayList<>();
+                    for (int i = 0; i < 15; i++) {
+                        InjectPassBean.ErrorCodesBean errorBean = new InjectPassBean.ErrorCodesBean();
+                        errorBean.setErrorName("表面不良代码--" +new Random(100));
+                        groupsBeans.add(errorBean);
+                    }
+                    bean.setErrorCodes(groupsBeans);
+                    getView().getErrorInfoByGroupCode(bean.getErrorCodes());
                 }
             });
         }
-        model.getErrorInfoByGroupCodeAsync(errorCodeHttpSubscriber,errorGroupId);
+        model.getErrorInfoByGroupCodeAsync(errorCodeHttpSubscriber, errorGroupId);
     }
+
     /**
      * 根据输入获取不良代码组
      */
-    public void checkRCardInfoAsync(String categoryId,String errorCode) {
+    public void getErrorInfoByErrorCodeAsync(int categoryId, String errorCode) {
         if (null == errorCodeByInputHttpSubscriber) {
             errorCodeByInputHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
-                    getView().checkRCardInfoAsync(o);
+                    getView().getErrorInfoByErrorCodeAsync(o.getErrorInfo());
                 }
 
                 @Override
                 public void onError(String errorMsg) {
-                    getView().checkRCardInfoAsyncFalse();
+                    InjectPassBean bean = new InjectPassBean();
+                    bean.setCategoryId(1);
+                    InjectPassBean.ErrorInfo info=new InjectPassBean.ErrorInfo();
+                    info.setErrorCode("2313");
+                    bean.setErrorInfo(info);
+                    getView().getErrorInfoByGroupCode(bean.getErrorCodes());
                 }
             });
         }
-        model.getErrorInfoByErrorCodeAsync(errorCodeByInputHttpSubscriber,categoryId,errorCode);
+        model.getErrorInfoByErrorCodeAsync(errorCodeByInputHttpSubscriber, categoryId, errorCode);
+    }
+
+    /**
+     * 注塑过站提交
+     *
+     * @param request
+     */
+    public void collectionMoldingAsync(InjectMouldCommitRequest request) {
+        if (null == injectPassCommitSubscriber) {
+            injectPassCommitSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+                @Override
+                public void onSuccess(InjectPassBean o) {
+                    getView().collectionMoldingAsync(o);
+                    getView().setBarcodeSelected();
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                    getView().setBarcodeSelected();
+                }
+            });
+        }
+        model.collectionMoldingAsync(injectPassCommitSubscriber, request);
     }
 }

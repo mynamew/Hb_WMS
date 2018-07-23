@@ -3,6 +3,7 @@ package com.jzk.hebi_wms.mvp.inject_mold;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.NoneClass;
@@ -84,7 +85,15 @@ public class InjectMoldModel extends MvpBaseModel{
      * @param categoryId   产品别Id
      * @param errorCode   输入的不良代码
      */
-    public void getErrorInfoByErrorCodeAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, String categoryId,String errorCode) {
+    public void getErrorInfoByErrorCodeAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, int categoryId,String errorCode) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getErrorInfoByErrorCodeAsync(categoryId,errorCode));
+    }
+    /**
+     * 注塑过站提交
+     *
+     * @param stationBeanHttpSubscriber
+     */
+    public void collectionMoldingAsync(HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, InjectMouldCommitRequest request) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.collectionMoldingAsync(request));
     }
 }
