@@ -27,6 +27,19 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      * 校验的观察者
      */
     private HttpSubscriber<InjectPassBean> injectPassBeanHttpSubscriber;
+    /**
+     * 不良代码组的观察者
+     */
+    private HttpSubscriber<InjectPassBean> errorGroupHttpSubscriber;
+    /**
+     *根据不良代码组获取不良代码
+     */
+    private HttpSubscriber<InjectPassBean> errorCodeHttpSubscriber;
+
+    /**
+     *根据输入的不良代码
+     */
+    private HttpSubscriber<InjectPassBean> errorCodeByInputHttpSubscriber;
 
     public InjectMoldPresenter(Context context) {
         super(context);
@@ -114,7 +127,8 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
             });
         }
         model.getMoCode(workerOrderBeanHttpSubscriber);
-    }/**
+    }
+    /**
      * 校验
      */
     public void checkRCardInfoAsync(CheckRCardInfoRquest request) {
@@ -127,10 +141,67 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                   getView().checkRCardInfoAsyncFalse();
                 }
             });
         }
         model.checkRCardInfoAsync(injectPassBeanHttpSubscriber,request);
+    }
+    /**
+     * 获取不良代码组
+     */
+    public void getErrorGroups(int categoryId) {
+        if (null == errorGroupHttpSubscriber) {
+            errorGroupHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+                @Override
+                public void onSuccess(InjectPassBean o) {
+                    getView().errorGroupHttpSubscriber(o.getErrorGroups());
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                    getView().checkRCardInfoAsyncFalse();
+                }
+            });
+        }
+        model.getErrorInfosAsync(errorGroupHttpSubscriber,categoryId);
+    }
+    /**
+     * 校验
+     */
+    public void getErrorInfoByGroupCode(String errorGroupId) {
+        if (null == errorCodeHttpSubscriber) {
+            errorCodeHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+                @Override
+                public void onSuccess(InjectPassBean o) {
+                    getView().getErrorInfoByGroupCode(o.getErrorCodes());
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                    getView().checkRCardInfoAsyncFalse();
+                }
+            });
+        }
+        model.getErrorInfoByGroupCodeAsync(errorCodeHttpSubscriber,errorGroupId);
+    }
+    /**
+     * 根据输入获取不良代码组
+     */
+    public void checkRCardInfoAsync(String categoryId,String errorCode) {
+        if (null == errorCodeByInputHttpSubscriber) {
+            errorCodeByInputHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+                @Override
+                public void onSuccess(InjectPassBean o) {
+                    getView().checkRCardInfoAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                    getView().checkRCardInfoAsyncFalse();
+                }
+            });
+        }
+        model.getErrorInfoByErrorCodeAsync(errorCodeByInputHttpSubscriber,categoryId,errorCode);
     }
 }

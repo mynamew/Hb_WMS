@@ -1,7 +1,7 @@
 package com.jzk.hebi_wms.mvp.inject_mold;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
+import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -129,6 +131,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      * 工序Code
      */
     private String processSelectCode;
+    /**
+     * 产品编号是否校验通过  用于点击不良品时的判断（不良品点击的前提是先校验通过获取到产品别Id）
+     */
+    private boolean isCheckProduct = false;
+
+    /**************不良代码组*****************************************************************************/
+    private BaseRecyclerAdapter<InjectPassBean.ErrorGroupsBean> mErrorGroupAdapter;
+    private List<InjectPassBean.ErrorGroupsBean> mErrorGroups = new ArrayList<>();
+    //产品别Id
+    private int categoryId;
+    /**************不良代码*****************************************************************************/
+    private BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> mErrorAdapter;
+    private List<InjectPassBean.ErrorCodesBean> mErrors = new ArrayList<>();
 
     @Override
     public int setLayoutId() {
@@ -149,13 +164,44 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         rgIsGood.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rd_bad:
+                    if (!isCheckProduct) {
+                        ToastUtils.showShort("请先扫描产品序列号！");
+                        rdGood.setChecked(true);
+                        rdBad.setChecked(true);
+                        return;
+                    }
                     llBadCode.setVisibility(View.VISIBLE);
+                    /**
+                     * 判断是否需要获取，获取过则不需要重新获取
+                     */
+                    if(mErrorGroups.isEmpty()){
+                        /**
+                         * 获取不良代码组
+                         */
+                        showProgressDialog();
+                        getPresenter().getErrorGroups(categoryId);
+                    }
                     break;
                 case R.id.rd_good:
                     llBadCode.setVisibility(View.GONE);
                     break;
                 default:
                     break;
+            }
+        });
+        setEdittextListener(etAddMaterialOrder,Constants.REQUEST_SCAN_CODE_BARCODE,R.string.input_product_code,R.string.input_no_low_four, new EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+                // TODO: 2018/7/20  校验
+                CheckRCardInfoRquest request = new CheckRCardInfoRquest();
+                request.setRCard(result);
+                request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+//                    request.setProcessCode(SpUtils.getInstance().getProcessSelectCode());
+                // TODO: 2018/7/21 为了测试 正常请使用上面被注释的代码
+                request.setProcessCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+                request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+                showProgressDialog();
+                getPresenter().checkRCardInfoAsync(request);
             }
         });
     }
@@ -297,13 +343,119 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     public void checkRCardInfoAsync(InjectPassBean o) {
         ToastUtils.showShort("校验成功！");
         /**
+         * 设置产品别Id
+         */
+        categoryId=o.getCategoryId();
+        /**
+         * 设置校验成功的标识
+         */
+        isCheckProduct = true;
+        /**
          * 良品  直接提交
          */
-        if(rdGood.isChecked()){
-            // TODO: 2018/7/21 提交产品序列号 
-        }else {
+        if (rdGood.isChecked()) {
+            // TODO: 2018/7/21 提交产品序列号
+
+        } else {
+            ToastUtils.showShort("请选择不良代码！");
             // TODO: 2018/7/21 获取不良代码组
+            rdBad.performClick();
         }
+    }
+
+    @Override
+    public void checkRCardInfoAsyncFalse() {
+        /**
+         * 校验失败重置
+         */
+        isCheckProduct = false;
+    }
+
+    /**
+     * 装有所有不良代码组的链表
+     */
+    List<TextView> mErrorGroupViews = new ArrayList<>();
+
+    @Override
+    public void errorGroupHttpSubscriber(List<InjectPassBean.ErrorGroupsBean> errorGroups) {
+        this.mErrorGroups.clear();
+        this.mErrorGroups.addAll(errorGroups);
+        if (null == mErrorGroupAdapter) {
+            /**
+             * 清空链表防止重复添加
+             */
+            mErrorGroupViews.clear();
+            //初始化
+            mErrorGroupAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorGroupsBean>(this, mErrorGroups) {
+                @Override
+                protected int getItemLayoutId(int viewType) {
+                    return R.layout.item_bad_code;
+                }
+
+                @Override
+                protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorGroupsBean item) {
+                    TextView tvBad = holder.getTextView(R.id.tv_bad_code);
+                    mErrorGroupViews.add(tvBad);
+                }
+            };
+            mErrorGroupAdapter.setOnItemClickListener((itemView, pos) -> {
+                /**
+                 * 设置选中状态
+                 */
+                for (int i = 0; i < mErrorGroupViews.size(); i++) {
+                    mErrorGroupViews.get(i).setSelected(pos == i);
+                }
+                /**
+                 * 获取不良代码根据不良代码组
+                 */
+                getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(pos).getErrorGroupCode());
+            });
+            rlvBadCodeGroup.setAdapter(mErrorGroupAdapter);
+            rlvBadCodeGroup.setLayoutManager(new LinearLayoutManager(this));
+        }
+        mErrorGroupAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 装有所有不良代码的链表
+     */
+    List<TextView> mErrorsViews = new ArrayList<>();
+
+    @Override
+    public void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes) {
+        mErrorAdapter=null;
+        mErrors.clear();
+        mErrors.addAll(errorCodes);
+        if (null == mErrorAdapter) {
+            mErrorsViews.clear();
+            mErrorAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this,mErrors) {
+                @Override
+                protected int getItemLayoutId(int viewType) {
+                    return R.layout.item_bad_code;
+                }
+
+                @Override
+                protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
+                    TextView tvBad = holder.getTextView(R.id.tv_bad_code);
+                    mErrorsViews.add(tvBad);
+                }
+            };
+            mErrorAdapter.setOnItemClickListener((itemView, pos) -> {
+                /**
+                 * 设置选中状态
+                 */
+                for (int i = 0; i < mErrorsViews.size(); i++) {
+                    mErrorsViews.get(i).setSelected(pos == i);
+                }
+                /**
+                 * 获取不良代码根据不良代码组
+                 */
+                getPresenter().getErrorInfoByGroupCode(mErrors.get(pos).getErrorCode());
+            });
+            rlvBadCode.setAdapter(mErrorAdapter);
+            rlvBadCode.setLayoutManager(new LinearLayoutManager(this));
+        }
+        mErrorAdapter.notifyDataSetChanged();
     }
 
     @OnClick({R.id.iv_scan, R.id.btn_commit})
@@ -313,8 +465,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 scan(Constants.REQUEST_SCAN_CODE_BARCODE, (requestCode, result) -> {
                     etAddMaterialOrder.setText(result);
                     // TODO: 2018/7/20  校验
-                    CheckRCardInfoRquest request=new CheckRCardInfoRquest();
-                   request.setRCard(result);
+                    CheckRCardInfoRquest request = new CheckRCardInfoRquest();
+                    request.setRCard(result);
                     request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
 //                    request.setProcessCode(SpUtils.getInstance().getProcessSelectCode());
                     // TODO: 2018/7/21 为了测试 正常请使用上面被注释的代码

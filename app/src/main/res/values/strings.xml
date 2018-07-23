@@ -112,4 +112,7 @@
     <string name="no_worker_order_info">暂无工位信息</string>
     <string name="scan_point_title">此单号系统中未找到，请确认后，再进行查询！</string>
     <string name="title_inject_mold_pass">注塑过站</string>
+    <string name="input_add_material_code">请输入/扫描上料单号</string>
+    <string name="input_product_code">请输入/扫描产品序列号</string>
+    <string name="input_no_low_four">产品序列号的长度不能小于4</string>
 </resources>

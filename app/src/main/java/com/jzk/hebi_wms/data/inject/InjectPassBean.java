@@ -192,6 +192,16 @@ public class InjectPassBean {
         public void setErrorGroupName(String errorGroupName) {
             this.errorGroupName = errorGroupName;
         }
+
+        @Override
+        public String toString() {
+            return "ErrorGroupsBean{" +
+                    "errorCode=" + errorCode +
+                    ", errorName=" + errorName +
+                    ", errorGroupCode='" + errorGroupCode + '\'' +
+                    ", errorGroupName='" + errorGroupName + '\'' +
+                    '}';
+        }
     }
 
     public static class ErrorCodesBean {
@@ -238,5 +248,35 @@ public class InjectPassBean {
         public void setErrorGroupName(String errorGroupName) {
             this.errorGroupName = errorGroupName;
         }
+
+        @Override
+        public String toString() {
+            return "ErrorCodesBean{" +
+                    "errorCode='" + errorCode + '\'' +
+                    ", errorName='" + errorName + '\'' +
+                    ", errorGroupCode='" + errorGroupCode + '\'' +
+                    ", errorGroupName='" + errorGroupName + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "InjectPassBean{" +
+                "categoryId=" + categoryId +
+                ", isNeedHandleTestData=" + isNeedHandleTestData +
+                ", isCheckedRCardInfo=" + isCheckedRCardInfo +
+                ", materialBatch='" + materialBatch + '\'' +
+                ", moCode='" + moCode + '\'' +
+                ", itemCode='" + itemCode + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", itemStandard='" + itemStandard + '\'' +
+                ", isNeedAttachMO=" + isNeedAttachMO +
+                ", needAttachMo=" + needAttachMo +
+                ", needAttachItemCode=" + needAttachItemCode +
+                ", errorGroups=" + errorGroups +
+                ", errorCodes=" + errorCodes +
+                ", resultMessages=" + resultMessages +
+                '}';
     }
 }

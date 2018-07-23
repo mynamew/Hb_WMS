@@ -123,22 +123,45 @@ public interface ApiService {
      */
     @POST("api/services/productionplan/OnWipMaterial/ValIsInjectSameBatch")
     Observable<CommonResult<Object>> valIsInjectSameBatch(@Body ValIsInjectSameBatchRequest request);
+
     /**
      * 提交供料单号
      */
     @POST("api/services/productionplan/OnWipMaterial/CreateOrUpdateOnWipMaterial")
     Observable<CommonResult<AddMaterialBean>> createOrUpdateOnWipMaterial(@Body AddMaterialRequest request);
 
-   /*******注塑过站****************************************************************************************************/
+    /*******注塑过站****************************************************************************************************/
     /**
      * 注塑过站检验
      */
 
     @POST("api/services/productionplan/CollectionMolding/CheckRCardInfoAsync")
     Observable<CommonResult<InjectPassBean>> checkRCardInfoAsync(@Body CheckRCardInfoRquest request);
+
     /**
      * 注塑过站提交
      */
     @POST("api/services/productionplan/CollectionMolding/CollectionMoldingAsync")
     Observable<CommonResult<InjectPassBean>> collectionMoldingAsync(@Body CheckRCardInfoRquest request);
+
+    /**
+     * 不良代碼組
+     */
+    @FormUrlEncoded
+    @POST("api/services/productionplan/CollectionMolding/GetErrorInfosAsync")
+    Observable<CommonResult<InjectPassBean>> getErrorInfosAsync(@Field("CategoryId") int categoryId);
+
+    /**
+     * 不良代碼
+     */
+    @FormUrlEncoded
+    @POST("api/services/productionplan/CollectionMolding/GetErrorInfoByGroupCodeAsync")
+    Observable<CommonResult<InjectPassBean>> getErrorInfoByGroupCodeAsync(@Field("ErrorGroupCode") String errorGroupCode);
+
+    /**
+     * 不良代碼输入
+     */
+    @FormUrlEncoded
+    @POST("api/services/productionplan/CollectionMolding/GetErrorInfoByErrorCodeAsync")
+    Observable<CommonResult<InjectPassBean>> getErrorInfoByErrorCodeAsync(@Field("CategoryId") String categoryId, @Field("ErrorCode") String errorCode);
 }

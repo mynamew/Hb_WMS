@@ -7,6 +7,8 @@ import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 
+import java.util.List;
+
 /** 
   * 
   * @author: timi    
@@ -41,4 +43,21 @@ public interface InjectMoldView extends MvpBaseView {
      * @param o
      */
     void checkRCardInfoAsync(InjectPassBean o);
+
+    /**
+     * 校验失败
+     */
+    void checkRCardInfoAsyncFalse();
+
+    /**
+     * 获取不良代码组
+     * @param errorGroups
+     */
+    void errorGroupHttpSubscriber(List<InjectPassBean.ErrorGroupsBean> errorGroups);
+
+    /**
+     * 根据不良组Code获取不良代码
+     * @param errorCodes
+     */
+    void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes);
 }
