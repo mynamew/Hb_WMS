@@ -272,9 +272,16 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         request.setEmployeeCode(SpUtils.getInstance().getUserName());
         request.setEmployeeName(SpUtils.getInstance().getNickName());
         /**
+         * 设置工序
+         * 工位Code
+         */
+        request.setProcessCode(processCode);
+        request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+        /**
          * 设置夹具
          */
         request.setcNCFixture(cncTongs);
+        request.setcNCEqpCode(cncDevices.get(spinnerCncDevice.getSelectedIndex()).getValue());
         /**
          * 设置产品序列号
          */
