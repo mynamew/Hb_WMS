@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".mvp.station.StationSelectActivity">
+
+    <include layout="@layout/title_head" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:gravity="center_vertical"
+                android:paddingLeft="20px"
+                android:text="工位名称"
+                android:textColor="#333"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/bg_rectangle_et_unfocused"
+                android:orientation="horizontal"
+                android:paddingLeft="5px"
+                android:paddingRight="5px"
+                android:paddingTop="5px">
+
+                <com.jzk.spinnerlibrary.MaterialSpinner
+                    android:id="@+id/spinner_station"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px"
+                    android:textSize="13sp"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="350dp"
+                    app:ms_hint_color="@color/color_666" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="产线代码："
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/tv_work_line_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:gravity="center_vertical"
+                android:paddingLeft="20px"
+                android:text="抛光设备"
+                android:textColor="#333"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/bg_rectangle_et_unfocused"
+                android:orientation="horizontal"
+                android:paddingLeft="5px"
+                android:paddingRight="5px"
+                android:paddingTop="5px">
+
+                <com.jzk.spinnerlibrary.MaterialSpinner
+                    android:id="@+id/spinner_Polishing_equipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px"
+                    android:textSize="13sp"
+                    app:ms_dropdown_height="wrap_content"
+                    app:ms_dropdown_max_height="350dp"
+                    app:ms_hint_color="@color/color_666" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:layout_marginTop="20px"
+                android:background="@color/divide_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="20px">
+
+                <TextView
+                    android:id="@+id/tv_add_material_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="30px"
+                    android:text="单号"
+                    android:textColor="#333"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/et_add_material_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="64px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_toEndOf="@id/tv_add_material_tip"
+                    android:layout_toRightOf="@id/tv_add_material_tip"
+                    android:background="@drawable/selector_et"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:hint="请输入/扫描上料单号"
+                    android:imeOptions="actionSearch"
+                    android:inputType="textVisiblePassword"
+                    android:paddingLeft="20px"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/iv_scan"
+                    android:layout_width="100px"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30px"
+                    android:paddingLeft="60px"
+                    android:src="@mipmap/ic_scan" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="工单代码："
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/tv_worksheet_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="产品代码："
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/tv_Product_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="产品名称："
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="产品规格型号："
+                    android:textColor="#333" />
+
+                <TextView
+                    android:id="@+id/tv_Product_specification_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

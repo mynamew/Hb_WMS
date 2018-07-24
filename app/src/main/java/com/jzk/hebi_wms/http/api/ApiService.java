@@ -9,6 +9,8 @@ import com.jzk.hebi_wms.data.cnc.CncRequest;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
+import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
+import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
 import com.jzk.hebi_wms.data.set.ChangeOrgRequest;
 import com.jzk.hebi_wms.data.set.ChangePasswordRequest;
@@ -174,4 +176,10 @@ public interface ApiService {
     @POST("api/services/productionplan/CollectionCNC/CollectionCNCAsync")
     Observable<CommonResult<CncBean>> collectionCNCAsync(@Body CncRequest request);
 
+
+    /**
+     * 抛光
+     */
+    @POST("api/services/productionplan/CollectionPolish/CollectionPolishAsync")
+    Observable<CommonResult<PolishResultBean>> collectionPolishAsync(@Body PolishBiographyRequestBean request);
 }
