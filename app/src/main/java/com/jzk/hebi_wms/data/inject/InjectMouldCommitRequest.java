@@ -2,6 +2,9 @@ package com.jzk.hebi_wms.data.inject;
 
 /**
  * 注塑机过站提交
+ *
+ * @author: timi
+ * create at: 2018/7/23 18:14
  */
 public class InjectMouldCommitRequest {
 

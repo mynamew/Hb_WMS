@@ -396,6 +396,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorGroupsBean item) {
                     TextView tvBad = holder.getTextView(R.id.tv_bad_code);
                     mErrorGroupViews.add(tvBad);
+                    tvBad.setText(item.getErrorGroupName());
                 }
             };
             mErrorGroupAdapter.setOnItemClickListener((itemView, pos) -> {
@@ -438,6 +439,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
                     TextView tvBad = holder.getTextView(R.id.tv_bad_code);
                     mErrorsViews.add(tvBad);
+                    tvBad.setText(item.getErrorName());
                 }
             };
             mErrorAdapter.setOnItemClickListener((itemView, pos) -> {
@@ -447,10 +449,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 for (int i = 0; i < mErrorsViews.size(); i++) {
                     mErrorsViews.get(i).setSelected(pos == i);
                 }
-                /**
-                 * 获取不良代码根据不良代码组
-                 */
-                getPresenter().getErrorInfoByGroupCode(mErrors.get(pos).getErrorCode());
+                etBadCode.setText(mErrorsViews.get(pos).getText().toString().trim());
             });
             rlvBadCode.setAdapter(mErrorAdapter);
             rlvBadCode.setLayoutManager(new LinearLayoutManager(this));
