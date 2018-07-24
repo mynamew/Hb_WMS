@@ -3,6 +3,7 @@ package com.jzk.hebi_wms.mvp.process;
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
 import com.jzk.hebi_wms.data.set.ChangePasswordRequest;
+import com.jzk.hebi_wms.data.station.NoneClass;
 import com.jzk.hebi_wms.http.HttpManager;
 import com.jzk.hebi_wms.http.api.ApiService;
 import com.jzk.hebi_wms.http.api.CommonResult;
@@ -24,6 +25,7 @@ public class ProcessSelectModel extends MvpBaseModel {
      * @param observer
      */
     public void getProcessList( Observer<List<ProcessSelectBean>> observer){
-        HttpManager.getInstance().HttpManagerRequest(observer, ApiService::getProcessList);
+        HttpManager.getInstance().HttpManagerRequest(observer, apiService ->
+                apiService.getProcessList(new NoneClass()));
     }
 }

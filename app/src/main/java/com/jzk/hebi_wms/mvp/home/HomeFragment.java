@@ -11,6 +11,7 @@ import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseFragment;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
+import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.process.ProcessSelectActivity;
 import com.jzk.hebi_wms.mvp.station.StationSelectActivity;
@@ -97,8 +98,10 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 break;
             case R.id.tv_home_aplly_material:
                 it.setClass(Objects.requireNonNull(getActivity()), StationSelectActivity.class);
+
                 break;
             case R.id.tv_home_other1:
+                it.setClass(Objects.requireNonNull(getActivity()), CNC1Activity.class);
                 break;
             case R.id.tv_home_other2:
                 break;

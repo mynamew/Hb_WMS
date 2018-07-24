@@ -103,7 +103,7 @@
                     android:drawableTop="@mipmap/home_quality"
                     android:gravity="center"
                     android:paddingTop="20dp"
-                    android:text="其他1"
+                    android:text="CNC"
                     android:textColor="#333"
                     android:textSize="16sp"/>
 

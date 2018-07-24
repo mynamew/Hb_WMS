@@ -1,6 +1,9 @@
 package com.jzk.hebi_wms.mvp.process;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
@@ -30,8 +33,16 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
     MaterialSpinner spinnerProcess;
     @BindView(R.id.btn_process_select)
     TextView btnProcessSelect;
+    @BindView(R.id.ll_process_unselected)
+    LinearLayout llProcessUnselected;
+    @BindView(R.id.tv_tip)
+    TextView tvTip;
+    @BindView(R.id.ll_process_selected)
+    LinearLayout llProcessSelected;
 
-    private int mPosition=0;
+    //工序
+    String processSelect = "";
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_process_select;
@@ -49,8 +60,21 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
 
     @Override
     public void initData() {
+        /**
+         * 根据是否选择过工序显示不同的提示
+         */
+        processSelect = SpUtils.getInstance().getProcessSelect();
+        if (TextUtils.isEmpty(processSelect)) {
+            llProcessUnselected.setVisibility(View.VISIBLE);
+            llProcessSelected.setVisibility(View.GONE);
+        } else {
+            llProcessUnselected.setVisibility(View.GONE);
+            llProcessSelected.setVisibility(View.VISIBLE);
+            tvTip.setText(processSelect);
+        }
         showProgressDialog();
         getPresenter().getProcessSelectSubscriber();
+
     }
 
     @Override
@@ -77,23 +101,29 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
             spinnerProcess.setItems(mProcesses);
             spinnerProcess.setOnItemSelectedListener((view, position, id, item) -> {
                 //设置文字
-                spinnerProcess.setText(mProcesses.get(position));
-                //保存位置
-                mPosition=position;
+                processSelect=mProcesses.get(position);
+                spinnerProcess.setText(processSelect);
+                tvTip.setText(processSelect);
             });
+            /**
+             * 当已经选过工序时设置成选择过的工序
+             */
+
+            if (!TextUtils.isEmpty(processSelect)) {
+                spinnerProcess.setText(processSelect);
+            }
         }
     }
 
 
-
     @OnClick(R.id.btn_process_select)
     public void onViewClicked() {
-        if(null==mData||mData.isEmpty()){
+        if (null == mData || mData.isEmpty()) {
             ToastUtils.showShort(R.string.no_process_no_commit);
             return;
         }
-        SpUtils.getInstance().putProcessSelect(mProcesses.get(mPosition));
-        SpUtils.getInstance().putProcessSelectCode(mData.get(mPosition).getProcessCode());
+        SpUtils.getInstance().putProcessSelect(processSelect);
+        SpUtils.getInstance().putProcessSelectCode(mData.get(spinnerProcess.getSelectedIndex()).getProcessCode());
         ToastUtils.showShort(R.string.commit_success);
         onBackPressed();
     }

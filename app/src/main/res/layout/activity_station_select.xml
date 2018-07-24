@@ -20,7 +20,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20px"
+                    android:text="工序代码："
+                    android:textColor="#333"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_process_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="64px"

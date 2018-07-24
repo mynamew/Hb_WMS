@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="88px"
+            android:gravity="center_vertical"
+            android:paddingLeft="20px"
+            android:text="工序代码："
+            android:textColor="#333"
+            />
+
+        <TextView
+            android:id="@+id/tv_process_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OP01"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:layout_marginLeft="20px"
+        android:gravity="center_vertical"
+        android:text="工位"
+        android:textColor="#333"
+        android:textSize="13sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/bg_rectangle_et_unfocused"
+        android:orientation="horizontal"
+        android:padding="5px"
+        >
+
+        <com.jzk.spinnerlibrary.MaterialSpinner
+            android:id="@+id/spinner_station"
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:textSize="13sp"
+            app:ms_dropdown_height="wrap_content"
+            app:ms_dropdown_max_height="350dp"
+            app:ms_hint_color="@color/color_666"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="88px"
+            android:gravity="center_vertical"
+            android:paddingLeft="20px"
+            android:text="产线代码："
+            android:textColor="#333"
+            />
+
+        <TextView
+            android:id="@+id/tv_work_line_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:layout_marginLeft="20px"
+        android:gravity="center_vertical"
+        android:text="CNC设备"
+        android:textColor="#333"
+        android:textSize="13sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/bg_rectangle_et_unfocused"
+        android:orientation="horizontal"
+        android:padding="5px"
+        >
+
+        <com.jzk.spinnerlibrary.MaterialSpinner
+            android:id="@+id/spinner_cnc_device"
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:textSize="13sp"
+            app:ms_dropdown_height="wrap_content"
+            app:ms_dropdown_max_height="350dp"
+            app:ms_hint_color="@color/color_666"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginRight="30px"
+        >
+
+        <TextView
+            android:id="@+id/tv_cnc_tongs_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:text="CNC夹具："
+            android:textColor="#333"
+            android:textSize="13sp"
+            />
+
+        <EditText
+            android:id="@+id/et_add_cnc_tongs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:layout_toEndOf="@id/tv_cnc_tongs_tip"
+            android:layout_toRightOf="@id/tv_cnc_tongs_tip"
+            android:background="@drawable/selector_et"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="@string/input_cnc_tongs"
+            android:imeOptions="actionSearch"
+            android:inputType="textVisiblePassword"
+            android:padding="10px"
+            android:paddingLeft="20px"
+            android:singleLine="true"
+            android:text=""
+            android:textSize="13sp"/>
+
+        <ImageView
+            android:id="@+id/iv_cnc_scan"
+            android:layout_width="100px"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:paddingLeft="60px"
+            android:src="@mipmap/ic_scan"/>
+    </RelativeLayout>
+    <View
+        style="@style/divide_line"/>
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="20px"
+        android:checked="true"
+        android:clickable="false"
+        android:text="良品"
+        android:textColor="@color/color_333"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginRight="30px"
+        >
+
+        <TextView
+            android:id="@+id/tv_add_material_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:text="产品序列号"
+            android:textColor="#333"
+            android:textSize="13sp"
+            />
+
+        <EditText
+            android:id="@+id/et_add_material_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:layout_toEndOf="@id/tv_add_material_tip"
+            android:layout_toRightOf="@id/tv_add_material_tip"
+            android:background="@drawable/selector_et"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="@string/input_product_code"
+            android:imeOptions="actionSearch"
+            android:inputType="textVisiblePassword"
+            android:padding="10px"
+            android:paddingLeft="20px"
+            android:singleLine="true"
+            android:text=""
+            android:textSize="13sp"/>
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="100px"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:paddingLeft="60px"
+            android:src="@mipmap/ic_scan"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_product_info"
+        layout="@layout/layout_product_detial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:visibility="gone"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="工单代码"
+                android:textColor="#333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_mo_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="PO689287678"
+                android:textColor="#666"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="产品代码"
+                android:textColor="#333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_product_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="PO689287678"
+                android:textColor="#666"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="产品名称"
+                android:textColor="#333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="PO689287678"
+                android:textColor="#666"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="规格型号"
+                android:textColor="#333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_product_model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="PO689287678"
+                android:textColor="#666"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="原料批次"
+                android:textColor="#333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_product_batch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="PO689287678"
+                android:textColor="#666"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

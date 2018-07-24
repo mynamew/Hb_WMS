@@ -27,7 +27,27 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="88px"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="20px"
+                        android:text="工序代码："
+                        android:textColor="#333"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_process_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+                </LinearLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="64px"
@@ -79,6 +99,7 @@
                         android:layout_height="wrap_content"
                         android:text=""/>
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="64px"
@@ -171,16 +192,13 @@
             </RadioGroup>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="20px"
-                android:layout_marginTop="20px"
-                android:background="@color/divide_color"/>
+                style="@style/divide_line"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="88px"
                 android:layout_marginRight="30px"
-                android:layout_marginTop="20px">
+                >
 
                 <TextView
                     android:id="@+id/tv_add_material_tip"
@@ -188,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:text="单号"
+                    android:text="产品序列号"
                     android:textColor="#333"
                     android:textSize="13sp"
                     />
@@ -236,16 +254,12 @@
 
             <View
                 android:id="@+id/divider_bad_code"
-                android:layout_width="match_parent"
-                android:layout_height="20px"
-                android:layout_marginTop="20px"
-                android:background="@color/divide_color"/>
+                style="@style/divide_line"/>
 
             <LinearLayout
                 android:id="@+id/ll_input_bad_code"
                 android:layout_width="match_parent"
                 android:layout_height="88px"
-                android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -325,8 +339,8 @@
                 android:id="@+id/ll_bad_code_remark"
                 android:layout_width="match_parent"
                 android:layout_height="64px"
-                android:layout_marginTop="20px"
                 android:layout_marginBottom="20px"
+                android:layout_marginTop="20px"
                 android:orientation="horizontal">
 
                 <TextView
@@ -365,6 +379,7 @@
         android:layout_marginTop="20px"
         android:background="@drawable/selector_btn_bg_login"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/btn_commit"
         android:textColor="@color/white"
         android:textSize="16sp"/>

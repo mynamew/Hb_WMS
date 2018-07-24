@@ -109,8 +109,13 @@
     <string name="title_add_material">供料上料</string>
     <string name="no_worker_order_info">暂无工位信息</string>
     <string name="scan_point_title">This single number is not found in the system, please confirm, and then query!</string>
+    /**====== 注塑过站 ======**/
     <string name="title_inject_mold_pass">注塑过站</string>
     <string name="input_add_material_code">请输入/扫描上料单号</string>
     <string name="input_product_code">请输入/扫描产品序列号</string>
     <string name="input_no_low_four">产品序列号的长度不能小于4</string>
+    /**====== CNC ======**/
+    <string name="input_cnc_tongs">请输入/扫描CNC夹具</string>
+    <string name="title_cnc">CNC</string>
+    <string name="tip_please_select_process">请先选择工序再进行此操作！</string>
 </resources>

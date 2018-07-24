@@ -24,7 +24,6 @@ import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
-import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 import com.jzk.hebi_wms.utils.LogUitls;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
@@ -101,6 +100,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     TextView tvBadCodeTip;
     @BindView(R.id.ll_bad_code_remark)
     LinearLayout llBadCodeRemark;
+    @BindView(R.id.tv_process_code)
+    TextView tvProcessCode;
 
     /********工位***********************************************************************************************/
     /**
@@ -115,16 +116,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      * 工位在链表中的位置 默认是第一个位置
      */
     private int mStationPosition = 0;
-
-    /********工单***********************************************************************************************/
-    /**
-     * 工单数据源
-     *
-     * @return
-     */
-    private List<WorkerOrderBean.MosBean> mMoCodes = new ArrayList<>();
-    private List<String> mMoCodeStrs = new ArrayList<>();
-    private int mMoCodePosition = 0;
     /********注塑机***********************************************************************************************/
     /**
      * 注塑机数据源
@@ -182,7 +173,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                      * 1、如果未检验或者校验失败则提示
                      * 2、如果校验成功并且不良代码组链表为空则证明先选择的良品，再点击的不良品需要获取一次数据
                      */
-                    if(isCheckProduct&&mErrorGroups.isEmpty()){
+                    if (isCheckProduct && mErrorGroups.isEmpty()) {
                         getPresenter().getErrorGroups(categoryId);
                     }
                     break;
@@ -196,13 +187,13 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         setEdittextListener(etAddMaterialOrder, Constants.REQUEST_SCAN_CODE_BARCODE, R.string.input_product_code, R.string.input_no_low_four, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-                // TODO: 2018/7/20  校验
+                /**
+                 * 校验的方法
+                 */
                 CheckRCardInfoRquest request = new CheckRCardInfoRquest();
                 request.setRCard(result);
                 request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
-//                    request.setProcessCode(SpUtils.getInstance().getProcessSelectCode());
-                // TODO: 2018/7/21 为了测试 正常请使用上面被注释的代码
-                request.setProcessCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+                request.setProcessCode(processSelectCode);
                 request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
                 showProgressDialog();
                 getPresenter().checkRCardInfoAsync(request);
@@ -222,18 +213,21 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 设置默认不显示不良操作模块
          */
         showOrHideBadCode(false);
+
     }
 
     @Override
     public void initData() {
         StationRequest request = new StationRequest();
         processSelectCode = SpUtils.getInstance().getProcessSelectCode();
-        // TODO: 2018/7/21 正式的时候要删除下面这句话，工序由前面的工序选择界面设置
-        processSelectCode = "OP101";
+        /**
+         * 设置工序
+         */
+        tvProcessCode.setText(processSelectCode);
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, "错误信息")
-                    .setTextViewContent(R.id.tv_content, "请先选择工序再进行此操作！")
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
@@ -328,8 +322,17 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         }
     }
 
+    /**
+     * 校验返回的实体
+     */
+    InjectPassBean mCheckRcardResult = null;
+
     @Override
     public void checkRCardInfoAsync(InjectPassBean o) {
+        /**
+         * 存储校验实体
+         */
+        mCheckRcardResult = o;
         ToastUtils.showShort("校验成功！");
         /**
          * 设置产品属性
@@ -351,11 +354,20 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 良品  直接提交
          */
         if (rdGood.isChecked()) {
-            // TODO: 2018/7/21 提交产品序列号
-            btnCommit.performClick();
+            /**
+             * 设置提交按钮不显示直接一步提交
+             */
+            btnCommit.setVisibility(View.GONE);
+            /**
+             * 提交
+             */
+            injectMoldingRequest();
         } else {
             ToastUtils.showShort("请选择不良代码！");
-            // TODO: 2018/7/21 获取不良代码组
+            /**
+             * 设置提交按钮显示，不良品手动提交
+             */
+            btnCommit.setVisibility(View.VISIBLE);
             /**
              * 判断是否需要获取，获取过则不需要重新获取
              */
@@ -493,57 +505,76 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 });
                 break;
             case R.id.btn_commit:
-                LogUitls.e("当前选择的位置--->", spinnerStation.getSelectedIndex());
-                String barcode = etAddMaterialOrder.getText().toString().trim();
-                if (TextUtils.isEmpty(barcode)) {
-                    ToastUtils.showShort("请扫描上料单号！");
-                    return;
-                }
-                if(rdBad.isChecked()&&TextUtils.isEmpty(errorCode)){
-                    ToastUtils.showShort("由于您选择了不良品，请选择不良代码进行提交！");
-                    return;
-                }
-                InjectMouldCommitRequest request = new InjectMouldCommitRequest();
-                /**
-                 * 根据是否选择良品 设置不良代码
-                 * rdGood.isChecked() 设置默认为空
-                 * rdBad.isChecked()  设置errorCode
-                 */
-                request.setErrorCode(rdGood.isChecked() ? "" : errorCode);
-                /**
-                 * 设置是否为不良品
-                 */
-                request.setIsGood(rdGood.isChecked());
-                /**
-                 * 客户端默认为false
-                 */
-                request.setIsCollectRepeatNG(false);
-                /**
-                 * 注塑机Code
-                 */
-                request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
-                /**
-                 * 工序Code
-                 */
-                request.setProcessCode(processSelectCode);
-                /**
-                 * 设置产品序列号
-                 */
-                request.setRCard(etAddMaterialOrder.getText().toString().trim());
-                request.setRemark(rdGood.isChecked() ? "" : etRemark.getText().toString().trim());
-                /**
-                 * 设置工位
-                 */
-                request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
-                /**
-                 * 发起请求
-                 */
-                showProgressDialog();
-                getPresenter().collectionMoldingAsync(request);
+                injectMoldingRequest();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 注塑机过站提交请求
+     */
+    private void injectMoldingRequest() {
+        String barcode = etAddMaterialOrder.getText().toString().trim();
+        if (TextUtils.isEmpty(barcode)) {
+            ToastUtils.showShort("请扫描上料单号！");
+            return;
+        }
+        if (rdBad.isChecked() && TextUtils.isEmpty(errorCode)) {
+            ToastUtils.showShort("由于您选择了不良品，请选择不良代码进行提交！");
+            return;
+        }
+        InjectMouldCommitRequest request = new InjectMouldCommitRequest();
+        /**
+         * 根据是否选择良品 设置不良代码
+         * rdGood.isChecked() 设置默认为空
+         * rdBad.isChecked()  设置errorCode
+         */
+        request.setErrorCode(rdGood.isChecked() ? "" : errorCode);
+        /**
+         * 设置是否为不良品
+         */
+        request.setIsGood(rdGood.isChecked());
+        /**
+         * 客户端默认为false
+         */
+        request.setIsCollectRepeatNG(false);
+        /**
+         * 注塑机Code
+         */
+        request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+        /**
+         * 工序Code
+         */
+        request.setProcessCode(processSelectCode);
+        /**
+         * 设置产品序列号
+         */
+        request.setRCard(etAddMaterialOrder.getText().toString().trim());
+        request.setRemark(rdGood.isChecked() ? "" : etRemark.getText().toString().trim());
+        /**
+         * 设置操作员
+         */
+        request.setEmployeecode(SpUtils.getInstance().getUserName());
+        request.setEmployeename(SpUtils.getInstance().getNickName());
+        /**
+         * 设置模具
+         */
+        request.setMouldcode(mMoulds.get(spinnerMold.getSelectedIndex()).getValue());
+        /**
+         * 设置工位
+         */
+        request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+        /**
+         * 设置批次
+         */
+        request.setMaterialbatch(mCheckRcardResult.getMaterialBatch());
+        /**
+         * 发起请求
+         */
+        showProgressDialog();
+        getPresenter().collectionMoldingAsync(request);
     }
 
     /**
@@ -552,13 +583,11 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      * @param isShow
      */
     private void showOrHideBadCode(boolean isShow) {
-          tvBadCodeTip.setVisibility(isShow?View.VISIBLE:View.GONE);
-          tvBadGroupTip.setVisibility(isShow?View.VISIBLE:View.GONE);
-          rlvBadCode.setVisibility(isShow?View.VISIBLE:View.GONE);
-          llBadCodeRemark.setVisibility(isShow?View.VISIBLE:View.GONE);
-          llBadGroup.setVisibility(isShow?View.VISIBLE:View.GONE);
-          llInputBadCode.setVisibility(isShow?View.VISIBLE:View.GONE);
+        tvBadCodeTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        tvBadGroupTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        rlvBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        llBadCodeRemark.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        llBadGroup.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        llInputBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
-
-
 }

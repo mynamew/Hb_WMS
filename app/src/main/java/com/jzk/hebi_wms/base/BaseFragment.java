@@ -158,22 +158,4 @@ public abstract  class BaseFragment <V extends MvpView, P extends MvpPresenter<V
 //        }
         tv.setText(content);
     }
-    /**
-     * 设置备品的状态 （是否显示备品）
-     *
-     * @param view
-     */
-    public void setSpareGoodsStatus(View view) {
-        if (!SpUtils.getInstance().getIsGiveGoods())
-            view.setVisibility(View.GONE);
-    }
-    /**
-     * 设置附加属性的状态 （是否显示附加属性）
-     *
-     * @param view
-     */
-    public void setMaterialAttrStatus(View view) {
-        if (!SpUtils.getInstance().getIsMaterialAttribute())
-            view.setVisibility(View.GONE);
-    }
 }

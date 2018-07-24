@@ -4,6 +4,8 @@ package com.jzk.hebi_wms.http.api;
 import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.data.LoginRequest;
 import com.jzk.hebi_wms.data.UserInfoBean;
+import com.jzk.hebi_wms.data.cnc.CncBean;
+import com.jzk.hebi_wms.data.cnc.CncRequest;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
@@ -90,7 +92,7 @@ public interface ApiService {
      * 工序选择
      */
     @POST("api/services/productionplan/LoginStationCode/GetProcessList")
-    Observable<CommonResult<List<ProcessSelectBean>>> getProcessList();
+    Observable<CommonResult<List<ProcessSelectBean>>> getProcessList(@Body NoneClass noneClass);
 
     /**
      * 工位选择
@@ -165,4 +167,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/productionplan/CollectionMolding/GetErrorInfoByErrorCodeAsync")
     Observable<CommonResult<InjectPassBean>> getErrorInfoByErrorCodeAsync(@Field("CategoryId") int categoryId, @Field("ErrorCode") String errorCode);
+    /*******CNC****************************************************************************************************/
+    /**
+     * cnc提交
+     */
+    @POST("api/services/productionplan//CollectionCNC/CollectionCNCAsync")
+    Observable<CommonResult<CncBean>> collectionCNCAsync(@Body CncRequest request);
+
 }

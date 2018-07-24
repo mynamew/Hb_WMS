@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -61,6 +62,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     TextView btnCommit;
     @BindView(R.id.tv_work_line_code)
     TextView tvWorkLineCode;
+    @BindView(R.id.tv_process_code)
+    TextView tvProcessCode;
     /**
      * 工位数据
      */
@@ -111,12 +114,14 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     public void initData() {
         StationRequest request = new StationRequest();
         processSelectCode = SpUtils.getInstance().getProcessSelectCode();
-        // TODO: 2018/7/22 0022 正式的时候要删除设置的默认值！ 
-        processSelectCode = "OP101";
+        /**
+         * 设置工序代码
+         */
+        tvProcessCode.setText(processSelectCode);
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, "错误信息")
-                    .setTextViewContent(R.id.tv_content, "请先选择工序再进行此操作！")
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
@@ -248,10 +253,10 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                         .setTextViewContent(R.id.tv_title, "扫码提示")
                         .setTextViewContent(R.id.tv_content, "当前上料条码与单号不一致，是否强制提交？")
                         .setButtonListener(R.id.tv_logout_confirm, null, dialog ->
-                                {
-                                    dialog.dismiss();
-                                    btnCommit.performClick();
-                                })
+                        {
+                            dialog.dismiss();
+                            btnCommit.performClick();
+                        })
                         .setButtonListener(R.id.tv_logout_cancel, null, Dialog::dismiss)
                         .setImageViewListener(R.id.iv_close, Dialog::dismiss)
                         .show();
@@ -317,5 +322,12 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         request.setSuppliyEqpCode(mSupplyMaterials.get(spinnerAddMaterial.getSelectedIndex()).getValue());
         showProgressDialog();
         getPresenter().valIsInjectSameBatch(request);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -19,76 +19,169 @@ public class InjectMouldCommitRequest {
      * Remark :
      */
 
-    private String RCard;
-    private String MoldingEqpCode;
-    private String ProcessCode;
-    private String StationCode;
-    private boolean IsCollectRepeatNG;
-    private boolean IsGood;
-    private String ErrorCode;
-    private String Remark;
+    private String rcard;
+    private String moldingeqpcode;
+    private String processcode;
+    private String stationcode;
+    private boolean iscollectrepeatng;
+    private boolean isgood;
+    private String errorcode;
+    private String remark;
+    private String mouldcode;
+    private String materialbatch;
+    private String employeecode;
+
+    public String getRcard() {
+        return rcard;
+    }
+
+    public void setRcard(String rcard) {
+        this.rcard = rcard;
+    }
+
+    public String getMoldingeqpcode() {
+        return moldingeqpcode;
+    }
+
+    public void setMoldingeqpcode(String moldingeqpcode) {
+        this.moldingeqpcode = moldingeqpcode;
+    }
+
+    public String getProcesscode() {
+        return processcode;
+    }
+
+    public void setProcesscode(String processcode) {
+        this.processcode = processcode;
+    }
+
+    public String getStationcode() {
+        return stationcode;
+    }
+
+    public void setStationcode(String stationcode) {
+        this.stationcode = stationcode;
+    }
+
+    public boolean isIscollectrepeatng() {
+        return iscollectrepeatng;
+    }
+
+    public void setIscollectrepeatng(boolean iscollectrepeatng) {
+        this.iscollectrepeatng = iscollectrepeatng;
+    }
+
+    public boolean isIsgood() {
+        return isgood;
+    }
+
+    public void setIsgood(boolean isgood) {
+        this.isgood = isgood;
+    }
+
+    public String getErrorcode() {
+        return errorcode;
+    }
+
+    public void setErrorcode(String errorcode) {
+        this.errorcode = errorcode;
+    }
+
+    public String getMouldcode() {
+        return mouldcode;
+    }
+
+    public void setMouldcode(String mouldcode) {
+        this.mouldcode = mouldcode;
+    }
+
+    public String getMaterialbatch() {
+        return materialbatch;
+    }
+
+    public void setMaterialbatch(String materialbatch) {
+        this.materialbatch = materialbatch;
+    }
+
+    public String getEmployeecode() {
+        return employeecode;
+    }
+
+    public void setEmployeecode(String employeecode) {
+        this.employeecode = employeecode;
+    }
+
+    public String getEmployeename() {
+        return employeename;
+    }
+
+    public void setEmployeename(String employeename) {
+        this.employeename = employeename;
+    }
+
+    private String employeename;
 
     public String getRCard() {
-        return RCard;
+        return rcard;
     }
 
     public void setRCard(String RCard) {
-        this.RCard = RCard;
+        this.rcard = RCard;
     }
 
     public String getMoldingEqpCode() {
-        return MoldingEqpCode;
+        return moldingeqpcode;
     }
 
     public void setMoldingEqpCode(String MoldingEqpCode) {
-        this.MoldingEqpCode = MoldingEqpCode;
+        this.moldingeqpcode = MoldingEqpCode;
     }
 
     public String getProcessCode() {
-        return ProcessCode;
+        return processcode;
     }
 
     public void setProcessCode(String ProcessCode) {
-        this.ProcessCode = ProcessCode;
+        this.processcode = ProcessCode;
     }
 
     public String getStationCode() {
-        return StationCode;
+        return stationcode;
     }
 
     public void setStationCode(String StationCode) {
-        this.StationCode = StationCode;
+        this.stationcode = StationCode;
     }
 
     public boolean isIsCollectRepeatNG() {
-        return IsCollectRepeatNG;
+        return iscollectrepeatng;
     }
 
     public void setIsCollectRepeatNG(boolean IsCollectRepeatNG) {
-        this.IsCollectRepeatNG = IsCollectRepeatNG;
+        this.iscollectrepeatng = IsCollectRepeatNG;
     }
 
     public boolean isIsGood() {
-        return IsGood;
+        return isgood;
     }
 
     public void setIsGood(boolean IsGood) {
-        this.IsGood = IsGood;
+        this.isgood = IsGood;
     }
 
     public String getErrorCode() {
-        return ErrorCode;
+        return errorcode;
     }
 
     public void setErrorCode(String ErrorCode) {
-        this.ErrorCode = ErrorCode;
+        this.errorcode = ErrorCode;
     }
 
     public String getRemark() {
-        return Remark;
+        return remark;
     }
 
     public void setRemark(String Remark) {
-        this.Remark = Remark;
+        this.remark = Remark;
     }
 }

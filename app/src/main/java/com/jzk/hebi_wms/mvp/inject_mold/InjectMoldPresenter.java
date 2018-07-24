@@ -129,9 +129,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
                 @Override
                 public void onError(String errorMsg) {
                     getView().checkRCardInfoAsyncFalse();
-//                    InjectPassBean bean = new InjectPassBean();
-//                    bean.setCategoryId(1);
-//                    getView().checkRCardInfoAsync(bean);
                 }
             });
         }

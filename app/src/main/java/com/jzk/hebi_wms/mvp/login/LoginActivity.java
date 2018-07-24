@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         /**
          * 获取 存储的密码
          */
-        String password = SpUtils.getInstance().getString(Constants.USER_PSW);
+        String password = SpUtils.getInstance().getPassword();
         if (!TextUtils.isEmpty(password)) {
             etLoginPassword.setText(password);
         }
@@ -236,6 +236,8 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         SpUtils.getInstance().putUserid(bean.getUserId());
         SpUtils.getInstance().putOrgId(bean.getOrgUnits().get(0).getId());
         SpUtils.getInstance().putAuthorization(bean.getToken());
+        SpUtils.getInstance().putUserName(etLoginUsername.getText().toString().trim());
+        SpUtils.getInstance().putNickName(bean.getFullName());
         /**
          * 存储用户的所有信息 以字符串的形式
          */
@@ -369,6 +371,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         //Dialog消失
 //            mPop.dismiss();
     }
+
     //显示和隐藏语言选择图片
     private ImageView ivLoginDown = null;
     //语言选择的布局
@@ -432,7 +435,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                     }).setLinearlayoutListener(R.id.ll_login_language, dialog -> {
 
                         //显示和隐藏选择语言的下拉框
-                        if (null != llSelectLauguage && llSelectLauguage.getVisibility()==View.VISIBLE) {
+                        if (null != llSelectLauguage && llSelectLauguage.getVisibility() == View.VISIBLE) {
                             Animation animation = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.rotation_up);
                             animation.setFillAfter(true);
                             ivLoginDown.startAnimation(animation);

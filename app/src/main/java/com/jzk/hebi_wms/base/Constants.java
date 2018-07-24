@@ -34,8 +34,12 @@ public class Constants {
     public static final String REMENBER_PSW = "REMENBER_PSW";
     //是否是第一次登录
     public static final String IS_FIRST_LOG = "IS_FIRST_LOG";
-    //用户名
+    //用户名、
     public static final String USER_NAME = "USER_NAME";
+    /**
+     * 用户姓名
+     */
+    public static final String NCIK_NAME = "NCIK_NAME";
     //用户编号
     public static final String USER_NUM = "USER_NUM";
     //用户密码
@@ -61,20 +65,10 @@ public class Constants {
     /***********
      * 扫码相关
      *********************************************************************************************/
-    public static final int REQUEST_CODE = 1001;//主页跳转到扫码
-    public static final int REQUEST_SCAN_CODE_MATERIIAL = 1002;//物料条码 扫码
-    public static final int REQUEST_SCAN_CODE_LIB_LOATION = 1003;//库位码  扫码
-    public static final int REQUEST_SCAN_CODE_RETURN_MATERIAL = 1004;//退料单号  扫码
-    public static final int REQUEST_SCAN_CODE_BARCODE = 1005;//条码
-    public static final int REQUEST_SCAN_CODE_CONTAINER = 1006;//容器
-    public static final int REQUEST_SCAN_CODE_ORDERNO = 1007;//单号
-    /***********
-     * 蓝牙相关
-     *********************************************************************************************/
-
-    public static final int REQUEST_CODE_BLUETOOTH_ON = 1008;//打开蓝牙
-    public static final int REQUEST_CODE_OPEN_GPS = 1009;//打开GPS
-    public static final int REQUEST_CODE_PERMISSION_LOCATION = 1010;//定位
+    //产品序列号
+    public static final int REQUEST_SCAN_CODE_BARCODE = 1001;
+    //CNC夹具
+    public static final int REQUEST_SCAN_CODE_CNC_TONGS = 1002;
     /***********
      * SharePerference存储token   key /  value的前缀
      *********************************************************************************************/
