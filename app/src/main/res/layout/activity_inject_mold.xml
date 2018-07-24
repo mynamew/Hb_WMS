@@ -235,12 +235,14 @@
 
 
             <View
+                android:id="@+id/divider_bad_code"
                 android:layout_width="match_parent"
                 android:layout_height="20px"
                 android:layout_marginTop="20px"
                 android:background="@color/divide_color"/>
 
             <LinearLayout
+                android:id="@+id/ll_input_bad_code"
                 android:layout_width="match_parent"
                 android:layout_height="88px"
                 android:layout_marginLeft="20px"
@@ -271,6 +273,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_bad_group_tip"
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
@@ -281,6 +284,7 @@
                 />
 
             <LinearLayout
+                android:id="@+id/ll_bad_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
@@ -300,6 +304,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_bad_code_tip"
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
@@ -317,9 +322,11 @@
                 android:layout_marginRight="20px"/>
 
             <LinearLayout
+                android:id="@+id/ll_bad_code_remark"
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:layout_marginTop="20px"
+                android:layout_marginBottom="20px"
                 android:orientation="horizontal">
 
                 <TextView

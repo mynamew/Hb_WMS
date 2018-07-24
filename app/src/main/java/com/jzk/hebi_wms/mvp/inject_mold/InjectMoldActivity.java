@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -48,10 +49,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @BindView(R.id.spinner_station)
     MaterialSpinner spinnerStation;
-    @BindView(R.id.tv_ponum)
-    TextView tvPonum;
-    @BindView(R.id.spinner_worker_order)
-    MaterialSpinner spinnerWorkerOrder;
     @BindView(R.id.spinner_inject_machine)
     MaterialSpinner spinnerInjectMachine;
     @BindView(R.id.spinner_mold)
@@ -92,6 +89,18 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     RadioGroup rgIsGood;
     @BindView(R.id.layout_product)
     View layoutProduct;
+    @BindView(R.id.divider_bad_code)
+    View dividerBadCode;
+    @BindView(R.id.ll_input_bad_code)
+    LinearLayout llInputBadCode;
+    @BindView(R.id.tv_bad_group_tip)
+    TextView tvBadGroupTip;
+    @BindView(R.id.ll_bad_group)
+    LinearLayout llBadGroup;
+    @BindView(R.id.tv_bad_code_tip)
+    TextView tvBadCodeTip;
+    @BindView(R.id.ll_bad_code_remark)
+    LinearLayout llBadCodeRemark;
 
     /********工位***********************************************************************************************/
     /**
@@ -168,10 +177,17 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         rgIsGood.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rd_bad:
-
+                    showOrHideBadCode(true);
+                    /**
+                     * 1、如果未检验或者校验失败则提示
+                     * 2、如果校验成功并且不良代码组链表为空则证明先选择的良品，再点击的不良品需要获取一次数据
+                     */
+                    if(isCheckProduct&&mErrorGroups.isEmpty()){
+                        getPresenter().getErrorGroups(categoryId);
+                    }
                     break;
                 case R.id.rd_good:
-
+                    showOrHideBadCode(false);
                     break;
                 default:
                     break;
@@ -202,6 +218,10 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 getPresenter().getErrorInfoByErrorCodeAsync(categoryId, result);
             }
         });
+        /**
+         * 设置默认不显示不良操作模块
+         */
+        showOrHideBadCode(false);
     }
 
     @Override
@@ -287,6 +307,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
         }
     }
+
     @Override
     public void getMould(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
@@ -362,7 +383,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         this.mErrorGroups.clear();
         this.mErrorGroupStrs.clear();
         this.mErrorGroups.addAll(errorGroups);
-        for (int i = 0; i <mErrorGroups.size() ; i++) {
+        for (int i = 0; i < mErrorGroups.size(); i++) {
             mErrorGroupStrs.add(mErrorGroups.get(i).getErrorGroupName());
         }
         spinnerBadGroups.setItems(mErrorGroupStrs);
@@ -431,7 +452,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             });
             rlvBadCode.setAdapter(mErrorAdapter);
             rlvBadCode.setLayoutManager(new LinearLayoutManager(this));
-            rlvBadCode.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST,R.drawable.item_point_divider));
+            rlvBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
         }
         mErrorAdapter.notifyDataSetChanged();
     }
@@ -465,9 +486,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     CheckRCardInfoRquest request = new CheckRCardInfoRquest();
                     request.setRCard(result);
                     request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
-//                    request.setProcessCode(SpUtils.getInstance().getProcessSelectCode());
-                    // TODO: 2018/7/21 为了测试 正常请使用上面被注释的代码
-                    request.setProcessCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+                    request.setProcessCode(processSelectCode);
                     request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
                     showProgressDialog();
                     getPresenter().checkRCardInfoAsync(request);
@@ -478,6 +497,10 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 String barcode = etAddMaterialOrder.getText().toString().trim();
                 if (TextUtils.isEmpty(barcode)) {
                     ToastUtils.showShort("请扫描上料单号！");
+                    return;
+                }
+                if(rdBad.isChecked()&&TextUtils.isEmpty(errorCode)){
+                    ToastUtils.showShort("由于您选择了不良品，请选择不良代码进行提交！");
                     return;
                 }
                 InjectMouldCommitRequest request = new InjectMouldCommitRequest();
@@ -502,7 +525,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 /**
                  * 工序Code
                  */
-                String processSelectCode = SpUtils.getInstance().getProcessSelectCode();
                 request.setProcessCode(processSelectCode);
                 /**
                  * 设置产品序列号
@@ -526,9 +548,17 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     /**
      * 是否显示不良代码的控件
+     *
      * @param isShow
      */
-    private void showOrHideBadCode(boolean isShow){
-
+    private void showOrHideBadCode(boolean isShow) {
+          tvBadCodeTip.setVisibility(isShow?View.VISIBLE:View.GONE);
+          tvBadGroupTip.setVisibility(isShow?View.VISIBLE:View.GONE);
+          rlvBadCode.setVisibility(isShow?View.VISIBLE:View.GONE);
+          llBadCodeRemark.setVisibility(isShow?View.VISIBLE:View.GONE);
+          llBadGroup.setVisibility(isShow?View.VISIBLE:View.GONE);
+          llInputBadCode.setVisibility(isShow?View.VISIBLE:View.GONE);
     }
+
+
 }
