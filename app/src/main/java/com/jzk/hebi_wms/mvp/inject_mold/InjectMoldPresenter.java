@@ -27,7 +27,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
     private HttpSubscriber<StationBean> stationBeanHttpSubscriber;
     private HttpSubscriber<InjectMoldBean> injectMoldBeanHttpSubscriber;
     private HttpSubscriber<InjectMoldBean> mouldHttpSubscriber;
-    private HttpSubscriber<WorkerOrderBean> workerOrderBeanHttpSubscriber;
     /**
      * 校验的观察者
      */
@@ -116,26 +115,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
         }
         model.getMould(mouldHttpSubscriber);
     }
-
-    /**
-     * 获取工单
-     */
-    public void getMoCode() {
-        if (null == workerOrderBeanHttpSubscriber) {
-            workerOrderBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<WorkerOrderBean>() {
-                @Override
-                public void onSuccess(WorkerOrderBean o) {
-                    getView().getMoCode(o);
-                }
-
-                @Override
-                public void onError(String errorMsg) {
-                }
-            });
-        }
-        model.getMoCode(workerOrderBeanHttpSubscriber);
-    }
-
     /**
      * 校验
      */

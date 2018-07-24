@@ -119,6 +119,14 @@ public class Constants {
          * 上料机
          */
         FEED,
+        /**
+         * CNC
+         */
+        CNC,
+        /**
+         * 抛光设备
+         */
+        POLISH,
     }
 
 }

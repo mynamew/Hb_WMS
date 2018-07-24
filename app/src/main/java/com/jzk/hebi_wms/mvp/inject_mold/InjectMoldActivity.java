@@ -17,6 +17,7 @@ import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
 import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
+import com.jzk.hebi_wms.base.divider.DividerItemDecoration;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
@@ -34,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -84,14 +84,14 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     TextView tvWorkLineCode;
     @BindView(R.id.ll_header)
     LinearLayout llHeader;
-    @BindView(R.id.rlv_bac_code_group)
-    RecyclerView rlvBadCodeGroup;
+    @BindView(R.id.spinner_bad_groups)
+    MaterialSpinner spinnerBadGroups;
     @BindView(R.id.rlv_bac_code)
     RecyclerView rlvBadCode;
-    @BindView(R.id.ll_bad_code)
-    LinearLayout llBadCode;
     @BindView(R.id.rg_is_good)
     RadioGroup rgIsGood;
+    @BindView(R.id.layout_product)
+    View layoutProduct;
 
     /********工位***********************************************************************************************/
     /**
@@ -140,14 +140,14 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     private boolean isCheckProduct = false;
 
     /**************不良代码组*****************************************************************************/
-    private BaseRecyclerAdapter<InjectPassBean.ErrorGroupsBean> mErrorGroupAdapter;
     private List<InjectPassBean.ErrorGroupsBean> mErrorGroups = new ArrayList<>();
+    private List<String> mErrorGroupStrs = new ArrayList<>();
     //产品别Id
     private int categoryId;
     /**************不良代码*****************************************************************************/
     private BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> mErrorAdapter;
     private List<InjectPassBean.ErrorCodesBean> mErrors = new ArrayList<>();
-    private String  errorCode="";
+    private String errorCode = "";
 
     @Override
     public int setLayoutId() {
@@ -168,32 +168,16 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         rgIsGood.setOnCheckedChangeListener((group, checkedId) -> {
             switch (checkedId) {
                 case R.id.rd_bad:
-                    if (!isCheckProduct) {
-                        ToastUtils.showShort("请先扫描产品序列号！");
-                        rdGood.setChecked(true);
-                        rdBad.setChecked(false);
-                        return;
-                    }
-                    llBadCode.setVisibility(View.VISIBLE);
-                    /**
-                     * 判断是否需要获取，获取过则不需要重新获取
-                     */
-                    if(mErrorGroups.isEmpty()){
-                        /**
-                         * 获取不良代码组
-                         */
-                        showProgressDialog();
-                        getPresenter().getErrorGroups(categoryId);
-                    }
+
                     break;
                 case R.id.rd_good:
-                    llBadCode.setVisibility(View.GONE);
+
                     break;
                 default:
                     break;
             }
         });
-        setEdittextListener(etAddMaterialOrder,Constants.REQUEST_SCAN_CODE_BARCODE,R.string.input_product_code,R.string.input_no_low_four, new EdittextInputListener() {
+        setEdittextListener(etAddMaterialOrder, Constants.REQUEST_SCAN_CODE_BARCODE, R.string.input_product_code, R.string.input_no_low_four, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
                 // TODO: 2018/7/20  校验
@@ -211,11 +195,11 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 设置输入备注的回车
          */
-        setEdittextListener(etRemark,Constants.REQUEST_SCAN_CODE_BARCODE,R.string.input_product_code,R.string.input_no_low_four, new EdittextInputListener() {
+        setEdittextListener(etRemark, Constants.REQUEST_SCAN_CODE_BARCODE, R.string.input_product_code, R.string.input_no_low_four, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
                 showProgressDialog();
-                getPresenter().getErrorInfoByErrorCodeAsync(categoryId,result);
+                getPresenter().getErrorInfoByErrorCodeAsync(categoryId, result);
             }
         });
     }
@@ -243,8 +227,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         getPresenter().getStations(request);
         //注塑机
         getPresenter().getInjectionMoldings();
-        //工单
-        getPresenter().getMoCode();
         //模具
         getPresenter().getMould();
     }
@@ -305,34 +287,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
         }
     }
-
-    @Override
-    public void getMoCode(WorkerOrderBean o) {
-        if (null == o.getMos() || o.getMos().isEmpty()) {
-            spinnerWorkerOrder.setText("暂无工单信息");
-        } else {
-            List<WorkerOrderBean.MosBean> stations = o.getMos();
-            mMoCodes.clear();
-            mMoCodes.addAll(stations);
-            mMoCodeStrs.clear();
-            for (int i = 0; i < stations.size(); i++) {
-                mMoCodeStrs.add(stations.get(i).getMoCode());
-            }
-            //默认产品代码
-            tvPonum.setText(stations.get(mMoCodePosition).getItemCode());
-            //设置数据源
-            spinnerWorkerOrder.setItems(mMoCodeStrs);
-            spinnerWorkerOrder.setOnItemSelectedListener((view, position, id, item) -> {
-                //注塑机
-                spinnerWorkerOrder.setText(mMoCodeStrs.get(position));
-                //产品代码
-                tvPonum.setText(stations.get(position).getItemCode());
-                //保存位置
-                mMoCodePosition = position;
-            });
-        }
-    }
-
     @Override
     public void getMould(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
@@ -357,9 +311,17 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     public void checkRCardInfoAsync(InjectPassBean o) {
         ToastUtils.showShort("校验成功！");
         /**
+         * 设置产品属性
+         */
+        layoutProduct.setVisibility(View.VISIBLE);
+        tvProductCode.setText(o.getItemCode());
+        tvProductName.setText(o.getItemName());
+        tvProductModel.setText(o.getItemStandard());
+        tvProductBatch.setText(o.getMaterialBatch());
+        /**
          * 设置产品别Id
          */
-        categoryId=o.getCategoryId();
+        categoryId = o.getCategoryId();
         /**
          * 设置校验成功的标识
          */
@@ -369,11 +331,20 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          */
         if (rdGood.isChecked()) {
             // TODO: 2018/7/21 提交产品序列号
-             btnCommit.performClick();
+            btnCommit.performClick();
         } else {
             ToastUtils.showShort("请选择不良代码！");
             // TODO: 2018/7/21 获取不良代码组
-            rdBad.performClick();
+            /**
+             * 判断是否需要获取，获取过则不需要重新获取
+             */
+            if (mErrorGroups.isEmpty()) {
+                /**
+                 * 获取不良代码组
+                 */
+                showProgressDialog();
+                getPresenter().getErrorGroups(categoryId);
+            }
         }
     }
 
@@ -383,77 +354,44 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 校验失败重置
          */
         isCheckProduct = false;
+        layoutProduct.setVisibility(View.GONE);
     }
 
     @Override
     public void errorGroupHttpSubscriber(List<InjectPassBean.ErrorGroupsBean> errorGroups) {
         this.mErrorGroups.clear();
+        this.mErrorGroupStrs.clear();
         this.mErrorGroups.addAll(errorGroups);
-        /**
-         * 设置第一项默认选中
-         */
-        this.mErrorGroups.get(0).setSelect(true);
-        /**
-         * 初始化适配器
-         */
-        if (null == mErrorGroupAdapter) {
-            //初始化
-            mErrorGroupAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorGroupsBean>(this, mErrorGroups) {
-                @Override
-                protected int getItemLayoutId(int viewType) {
-                    return R.layout.item_bad_code;
-                }
-
-                @Override
-                protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorGroupsBean item) {
-                    TextView tvBad = holder.getTextView(R.id.tv_bad_code);
-                    /**
-                     * 设置默认选择的位置
-                     */
-                    if(position==0){
-                        /**
-                         * 获取不良代码根据不良代码组 第0个位置
-                         */
-                        showProgressDialog();
-                        getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(0).getErrorGroupCode());
-                    }
-                    tvBad.setSelected(item.isSelect());
-                }
-            };
-            mErrorGroupAdapter.setOnItemClickListener((itemView, pos) -> {
-                /**
-                 * 设置选中
-                 */
-                itemView.setSelected(true);
-                /**
-                 * 设置标识
-                 */
-                for (int i = 0; i <mErrorGroups.size() ; i++) {
-                    mErrorGroups.get(i).setSelect(i==pos);
-                }
-                /**
-                 * 更新Adapter
-                 */
-                mErrorGroupAdapter.notifyDataSetChanged();
-            });
-            rlvBadCodeGroup.setAdapter(mErrorGroupAdapter);
-            rlvBadCodeGroup.setLayoutManager(new LinearLayoutManager(this));
+        for (int i = 0; i <mErrorGroups.size() ; i++) {
+            mErrorGroupStrs.add(mErrorGroups.get(i).getErrorGroupName());
         }
-        mErrorGroupAdapter.notifyDataSetChanged();
+        spinnerBadGroups.setItems(mErrorGroupStrs);
+        /**
+         * 监听事件
+         */
+        spinnerBadGroups.setOnItemSelectedListener((view, position, id, item) -> {
+            showProgressDialog();
+            getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(position).getErrorGroupCode());
+        });
+        /**
+         * 获取不良代码 默认第0个元素
+         */
+        showProgressDialog();
+        getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(0).getErrorGroupCode());
     }
 
 
     @Override
     public void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes) {
-        LogUitls.e("获取的不良代码---->",errorCodes.size());
-        mErrorAdapter=null;
+        LogUitls.e("获取的不良代码---->", errorCodes.size());
+        mErrorAdapter = null;
         mErrors.clear();
         mErrors.addAll(errorCodes);
         /**
          * 初始化适配器
          */
         if (null == mErrorAdapter) {
-            mErrorAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this,mErrors) {
+            mErrorAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrors) {
                 @Override
                 protected int getItemLayoutId(int viewType) {
                     return R.layout.item_bad_code;
@@ -471,7 +409,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 /**
                  * 设置不良代码用于提交
                  */
-                errorCode=mErrors.get(pos).getErrorCode();
+                errorCode = mErrors.get(pos).getErrorCode();
                 /**
                  * 设置选中
                  */
@@ -479,8 +417,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 /**
                  * 设置标识
                  */
-                for (int i = 0; i <mErrors.size() ; i++) {
-                    mErrors.get(i).setSelect(i==pos);
+                for (int i = 0; i < mErrors.size(); i++) {
+                    mErrors.get(i).setSelect(i == pos);
                 }
                 /**
                  * 更新Adapter
@@ -493,13 +431,14 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             });
             rlvBadCode.setAdapter(mErrorAdapter);
             rlvBadCode.setLayoutManager(new LinearLayoutManager(this));
+            rlvBadCode.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST,R.drawable.item_point_divider));
         }
         mErrorAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void collectionMoldingAsync(InjectPassBean o) {
-             ToastUtils.showShort("注塑过站提交成功！");
+        ToastUtils.showShort("注塑过站提交成功！");
     }
 
     @Override
@@ -513,7 +452,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 根据不良代码成功获取，设置errorcode
          */
         ToastUtils.showShort("获取不良代码成功！");
-        errorCode=errorInfo.getErrorCode();
+        errorCode = errorInfo.getErrorCode();
     }
 
     @OnClick({R.id.iv_scan, R.id.btn_commit})
@@ -541,13 +480,13 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     ToastUtils.showShort("请扫描上料单号！");
                     return;
                 }
-                InjectMouldCommitRequest request=new InjectMouldCommitRequest();
+                InjectMouldCommitRequest request = new InjectMouldCommitRequest();
                 /**
                  * 根据是否选择良品 设置不良代码
                  * rdGood.isChecked() 设置默认为空
                  * rdBad.isChecked()  设置errorCode
                  */
-                request.setErrorCode(rdGood.isChecked()?"":errorCode);
+                request.setErrorCode(rdGood.isChecked() ? "" : errorCode);
                 /**
                  * 设置是否为不良品
                  */
@@ -569,7 +508,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                  * 设置产品序列号
                  */
                 request.setRCard(etAddMaterialOrder.getText().toString().trim());
-                request.setRemark(rdGood.isChecked()?"":etRemark.getText().toString().trim());
+                request.setRemark(rdGood.isChecked() ? "" : etRemark.getText().toString().trim());
                 /**
                  * 设置工位
                  */
@@ -577,10 +516,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 /**
                  * 发起请求
                  */
+                showProgressDialog();
                 getPresenter().collectionMoldingAsync(request);
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 是否显示不良代码的控件
+     * @param isShow
+     */
+    private void showOrHideBadCode(boolean isShow){
+
     }
 }

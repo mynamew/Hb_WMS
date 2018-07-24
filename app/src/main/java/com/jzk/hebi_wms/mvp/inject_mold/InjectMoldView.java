@@ -27,12 +27,6 @@ public interface InjectMoldView extends MvpBaseView {
      */
     void getInjectionMoldings(InjectMoldBean o);
     /**
-     * 获取工单
-     * @param o
-     */
-    void getMoCode(WorkerOrderBean o);
-
-    /**
      * 获取模具
      * @param o
      */
