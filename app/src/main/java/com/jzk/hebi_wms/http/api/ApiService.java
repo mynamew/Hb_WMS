@@ -171,7 +171,7 @@ public interface ApiService {
     /**
      * cnc提交
      */
-    @POST("api/services/productionplan//CollectionCNC/CollectionCNCAsync")
+    @POST("api/services/productionplan/CollectionCNC/CollectionCNCAsync")
     Observable<CommonResult<CncBean>> collectionCNCAsync(@Body CncRequest request);
 
 }

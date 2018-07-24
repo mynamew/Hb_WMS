@@ -316,27 +316,5 @@
                 android:text="PO689287678"
                 android:textColor="#666"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64px"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="原料批次"
-                android:textColor="#333"
-                android:textSize="13sp"/>
-
-            <TextView
-                android:id="@+id/tv_product_batch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:text="PO689287678"
-                android:textColor="#666"/>
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
