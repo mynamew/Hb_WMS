@@ -71,17 +71,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-//                    StationBean o = new StationBean();
-//                    List<StationBean.StationsBean> stationsBeans = new ArrayList<>();
-//                    for (int i = 0; i < 5; i++) {
-//                        StationBean.StationsBean bean = new StationBean.StationsBean();
-//                        bean.setProductionLineCode("注塑上料-----" + i);
-//                        bean.setStationCode("OP101-----" + i);
-//                        bean.setStationName("WorkingLine-01----" + i);
-//                        stationsBeans.add(bean);
-//                    }
-//                    o.setStations(stationsBeans);
-//                    getView().getStations(o);
+
                 }
             });
         }
@@ -101,17 +91,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-//                    InjectMoldBean bean = new InjectMoldBean();
-//                    List<InjectMoldBean.EqpmentsBean> eqpmentsBeans = new ArrayList<>();
-//                    for (int i = 0; i < 5; i++) {
-//                        InjectMoldBean.EqpmentsBean eqpmentsBean = new InjectMoldBean.EqpmentsBean();
-//                        eqpmentsBean.setDisplayText("注塑机----" + i);
-//                        eqpmentsBean.setIsSelected(false);
-//                        eqpmentsBean.setValue("");
-//                        eqpmentsBeans.add(eqpmentsBean);
-//                    }
-//                    bean.setEqpments(eqpmentsBeans);
-//                    getView().getInjectionMoldings(bean);
+
                 }
             });
         }
@@ -131,17 +111,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-//                    InjectMoldBean bean = new InjectMoldBean();
-//                    List<InjectMoldBean.EqpmentsBean> eqpmentsBeans = new ArrayList<>();
-//                    for (int i = 0; i < 5; i++) {
-//                        InjectMoldBean.EqpmentsBean eqpmentsBean = new InjectMoldBean.EqpmentsBean();
-//                        eqpmentsBean.setDisplayText("模具----" + i);
-//                        eqpmentsBean.setIsSelected(false);
-//                        eqpmentsBean.setValue("模具Value----" + i);
-//                        eqpmentsBeans.add(eqpmentsBean);
-//                    }
-//                    bean.setEqpments(eqpmentsBeans);
-//                    getView().getMould(bean);
                 }
             });
         }
@@ -161,16 +130,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-//                    WorkerOrderBean bean = new WorkerOrderBean();
-//                    List<WorkerOrderBean.MosBean> works = new ArrayList<>();
-//                    for (int i = 0; i < 5; i++) {
-//                        WorkerOrderBean.MosBean mosBean = new WorkerOrderBean.MosBean();
-//                        mosBean.setItemCode("ItemCode----" + i);
-//                        mosBean.setMoCode("MoCode----" + i);
-//                        works.add(mosBean);
-//                    }
-//                    bean.setMos(works);
-//                    getView().getMoCode(bean);
                 }
             });
         }
