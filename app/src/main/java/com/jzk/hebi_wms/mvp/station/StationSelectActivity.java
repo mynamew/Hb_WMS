@@ -111,6 +111,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     public void initData() {
         StationRequest request = new StationRequest();
         processSelectCode = SpUtils.getInstance().getProcessSelectCode();
+        // TODO: 2018/7/22 0022 正式的时候要删除设置的默认值！ 
         processSelectCode = "OP101";
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)

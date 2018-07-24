@@ -5,6 +5,7 @@ import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.data.LoginRequest;
 import com.jzk.hebi_wms.data.UserInfoBean;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
 import com.jzk.hebi_wms.data.set.ChangeOrgRequest;
@@ -142,7 +143,7 @@ public interface ApiService {
      * 注塑过站提交
      */
     @POST("api/services/productionplan/CollectionMolding/CollectionMoldingAsync")
-    Observable<CommonResult<InjectPassBean>> collectionMoldingAsync(@Body CheckRCardInfoRquest request);
+    Observable<CommonResult<InjectPassBean>> collectionMoldingAsync(@Body InjectMouldCommitRequest request);
 
     /**
      * 不良代碼組
@@ -163,5 +164,5 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("api/services/productionplan/CollectionMolding/GetErrorInfoByErrorCodeAsync")
-    Observable<CommonResult<InjectPassBean>> getErrorInfoByErrorCodeAsync(@Field("CategoryId") String categoryId, @Field("ErrorCode") String errorCode);
+    Observable<CommonResult<InjectPassBean>> getErrorInfoByErrorCodeAsync(@Field("CategoryId") int categoryId, @Field("ErrorCode") String errorCode);
 }

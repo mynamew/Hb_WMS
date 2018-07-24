@@ -30,6 +30,7 @@ public class InjectPassBean {
     private String itemName;
     private String itemStandard;
     private boolean isNeedAttachMO;
+    private ErrorInfo errorInfo;
     private Object needAttachMo;
     private Object needAttachItemCode;
     private List<ErrorGroupsBean> errorGroups;
@@ -148,6 +149,14 @@ public class InjectPassBean {
         this.resultMessages = resultMessages;
     }
 
+    public ErrorInfo getErrorInfo() {
+        return errorInfo;
+    }
+
+    public void setErrorInfo(ErrorInfo errorInfo) {
+        this.errorInfo = errorInfo;
+    }
+
     public static class ErrorGroupsBean {
         /**
          * errorCode : null
@@ -160,6 +169,7 @@ public class InjectPassBean {
         private Object errorName;
         private String errorGroupCode;
         private String errorGroupName;
+        private boolean isSelect;
 
         public Object getErrorCode() {
             return errorCode;
@@ -202,6 +212,14 @@ public class InjectPassBean {
                     ", errorGroupName='" + errorGroupName + '\'' +
                     '}';
         }
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
     }
 
     public static class ErrorCodesBean {
@@ -216,7 +234,7 @@ public class InjectPassBean {
         private String errorName;
         private String errorGroupCode;
         private String errorGroupName;
-
+        private boolean isSelect;
         public String getErrorCode() {
             return errorCode;
         }
@@ -258,6 +276,14 @@ public class InjectPassBean {
                     ", errorGroupName='" + errorGroupName + '\'' +
                     '}';
         }
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
     }
 
     @Override
@@ -278,5 +304,47 @@ public class InjectPassBean {
                 ", errorCodes=" + errorCodes +
                 ", resultMessages=" + resultMessages +
                 '}';
+    }
+
+    public static class ErrorInfo {
+        private String errorCode;
+        private String errorName;
+        private String errorGroupCode;
+        private String errorGroupName;
+
+        public ErrorInfo() {
+        }
+
+        public String getErrorGroupName() {
+            return errorGroupName;
+        }
+
+        public void setErrorGroupName(String errorGroupName) {
+            this.errorGroupName = errorGroupName;
+        }
+
+        public String getErrorGroupCode() {
+            return errorGroupCode;
+        }
+
+        public void setErrorGroupCode(String errorGroupCode) {
+            this.errorGroupCode = errorGroupCode;
+        }
+
+        public String getErrorName() {
+            return errorName;
+        }
+
+        public void setErrorName(String errorName) {
+            this.errorName = errorName;
+        }
+
+        public String getErrorCode() {
+            return errorCode;
+        }
+
+        public void setErrorCode(String errorCode) {
+            this.errorCode = errorCode;
+        }
     }
 }

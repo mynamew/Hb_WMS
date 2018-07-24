@@ -60,4 +60,20 @@ public interface InjectMoldView extends MvpBaseView {
      * @param errorCodes
      */
     void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes);
+
+    /**
+     * 提交注塑过站
+     * @param o
+     */
+    void collectionMoldingAsync(InjectPassBean o);
+    /**
+     * 设置条码选中
+     */
+    void setBarcodeSelected();
+
+    /**
+     * 根据输入找不良代码
+     * @param errorInfo
+     */
+    void getErrorInfoByErrorCodeAsync(InjectPassBean.ErrorInfo errorInfo);
 }
