@@ -158,7 +158,7 @@
             android:src="@mipmap/ic_scan"/>
     </RelativeLayout>
     <View
-        style="@style/divide_line"/>
+        style="@style/divider_10_line"/>
 
     <android.support.v7.widget.AppCompatCheckBox
         android:layout_width="wrap_content"

@@ -15,7 +15,25 @@ public class PolishBiographyRequestBean {
     String RouteVersion;
     String StationCode;
     String ProcessCode;
+    String itemStandard;
+    String itemName;
     Boolean IsCollectRepeatNG;
+
+    public String getItemStandard() {
+        return itemStandard;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setItemStandard(String itemStandard) {
+        this.itemStandard = itemStandard;
+    }
 
     public String getPolishEqpCode() {
         return PolishEqpCode;

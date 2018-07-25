@@ -5,18 +5,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
-import com.jzk.hebi_wms.data.cnc.CncRequest;
-import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
-import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.MyDialog;
@@ -28,6 +26,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 抛光
+ *
+ * @author: timi
+ * create at: 2018/7/25 8:46
+ */
 public class PolishingActivity extends BaseActivity<PolishingView, PolishingPresenter> implements PolishingView {
     String processSelectCode = "";
     @BindView(R.id.iv_title_back)
@@ -58,6 +62,10 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
     TextView tvProductName;
     @BindView(R.id.tv_Product_specification_model)
     TextView tvProductSpecificationModel;
+    @BindView(R.id.tv_process_code)
+    TextView tvProcessCode;
+    @BindView(R.id.ll_product_info)
+    LinearLayout llProductInfo;
 
     /**
      * 工位数据
@@ -179,6 +187,13 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
 
     @Override
     public void collectionPolishAsync(PolishBiographyRequestBean polishBiographyRequestBean) {
+        ToastUtils.showShort(R.string.commit_success);
+        setEdittextSelected(etAddMaterialOrder);
+        llProductInfo.setVisibility(View.VISIBLE);
+        tvWorksheetCode.setText(polishBiographyRequestBean.getMoCode());
+        tvProductCode.setText(polishBiographyRequestBean.getItemCode());
+        tvProductName.setText(polishBiographyRequestBean.getItemName());
+        tvProductSpecificationModel.setText(polishBiographyRequestBean.getItemStandard());
     }
 
     @OnClick({R.id.iv_scan})
@@ -215,7 +230,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
         request.setProcessCode(processSelectCode);
         request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
         /**
-         * 设置夹具
+         * 操作员
          */
         request.setEmployeeCode(SpUtils.getInstance().getUserName());
         request.setEmployeeName(SpUtils.getInstance().getNickName());
