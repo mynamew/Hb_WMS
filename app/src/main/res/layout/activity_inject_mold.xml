@@ -192,7 +192,7 @@
             </RadioGroup>
 
             <View
-                style="@style/divide_line"/>
+                style="@style/divider_10_line"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -254,7 +254,7 @@
 
             <View
                 android:id="@+id/divider_bad_code"
-                style="@style/divide_line"/>
+                style="@style/divider_10_line"/>
 
             <LinearLayout
                 android:id="@+id/ll_input_bad_code"
