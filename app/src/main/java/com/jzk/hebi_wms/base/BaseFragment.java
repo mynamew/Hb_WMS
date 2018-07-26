@@ -59,13 +59,12 @@ public abstract  class BaseFragment <V extends MvpView, P extends MvpPresenter<V
             this.presenter.attachView(view);
         }
         initBundle();
+        initData();
         return itemView;
     }
-
     @Override
     public void onResume() {
         super.onResume();
-        initData();
     }
 
     @Override

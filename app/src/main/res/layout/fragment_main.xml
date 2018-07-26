@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f5"
+    android:background="@color/white"
     android:scrollbars="none"
     >
 
@@ -15,6 +13,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_main_head"
             android:layout_width="match_parent"
             android:layout_height="88px"
             android:background="@color/login_txt_color"
@@ -31,123 +30,37 @@
             android:src="@mipmap/home_banner"
             />
 
-
-        <LinearLayout
-            android:id="@+id/ll_menu_bg"
+        <GridView
+            android:id="@+id/grid_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_rectangle_login_server"
-            android:orientation="vertical"
+            android:background="@color/white"
+            android:numColumns="2"
+            android:visibility="visible"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_no_permission"
+            android:layout_width="match_parent"
+            android:layout_height="500px"
             >
 
-            <LinearLayout
-                android:id="@+id/ll1"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv_nodata"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                >
+                android:layout_centerInParent="true"
+                android:src="@mipmap/no_data"/>
 
-                <TextView
-                    android:id="@+id/tv_home_process"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_set_tab_check"
-                    android:drawableTop="@mipmap/home_in_stock"
-                    android:gravity="center"
-                    android:paddingTop="20dp"
-                    android:text="@string/home_process_select"
-                    android:textColor="#333"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:id="@+id/tv_home_aplly_material"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_set_tab_check"
-                    android:drawableTop="@mipmap/home_out_stock"
-                    android:gravity="center"
-                    android:paddingTop="20dp"
-                    android:text="@string/aplly_material"
-                    android:textColor="#333"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="@+id/ll_menu_bg"
-                app:layout_constraintRight_toRightOf="@+id/ll_menu_bg"
-                app:layout_constraintTop_toBottomOf="@+id/ll1">
-
-                <TextView
-                    android:id="@+id/tv_home_inject_mold"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_set_tab_check"
-                    android:drawableTop="@mipmap/home_stock_in_work"
-                    android:gravity="center"
-                    android:paddingTop="20dp"
-                    android:text="@string/inject_mold"
-                    android:textColor="#333"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:id="@+id/tv_home_other1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_set_tab_check"
-                    android:drawableTop="@mipmap/home_quality"
-                    android:gravity="center"
-                    android:paddingTop="20dp"
-                    android:text="CNC"
-                    android:textColor="#333"
-                    android:textSize="16sp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                >
-
-                <TextView
-                    android:id="@+id/tv_home_other2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_set_tab_check"
-                    android:drawableTop="@mipmap/home_query"
-                    android:gravity="center"
-                    android:paddingTop="20dp"
-                    android:text="其他2"
-                    android:textColor="#333"
-                    android:textSize="16sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_set_tab_check"
-                    android:drawableTop="@mipmap/home_query"
-                    android:gravity="center"
-                    android:paddingTop="20dp"
-                    android:textColor="#333"
-                    android:textSize="16sp"
-                    android:visibility="invisible"/>
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll_menu_bg"/>
+                android:layout_below="@id/iv_nodata"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20px"
+                android:text="当前用户暂无权限，请联系管理员设置！"
+                android:textColor="@color/color_333"
+                android:textSize="13sp"/>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

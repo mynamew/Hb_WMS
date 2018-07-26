@@ -15,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.MyDialog;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -58,6 +60,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     TextView btnSet;
     @BindView(R.id.iv_login_clear_username)
     ImageView ivLoginClearUsername;
+    @BindView(R.id.tv_app_name)
+    TextView tvAppName;
+    @BindView(R.id.tv_head_title)
+    TextView tvHeadTitle;
 
     //flag
     private boolean isCanSeePsw = false;
@@ -94,7 +100,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
          */
         boolean isRememberPsw = SpUtils.getInstance().getBoolean(Constants.REMENBER_PSW);
         cbLoginRempsw.setChecked(isRememberPsw);
-//        LogUitls.d("是否记录密码-->" + isRememberPsw);
         unAuthorizedRequest = getIntent().getBooleanExtra("unAuthorizedRequest", false);
     }
 
@@ -193,12 +198,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         }
         //获取租户地址
         String tenancyName = SpUtils.getInstance().gettenancyName();
-        //获取mac地址
-//        String mac = PackageUtils.getLocalMacAddressFromBusybox();
         String mac = PackageUtils.getMac();
 //        //登录请求
         LoginRequest request = new LoginRequest();
-        request.setDeviceType(8);
+        request.setDeviceType(32);
         request.setMac(mac);
         request.setPassword(password);
         request.setTenancyName(tenancyName);
@@ -218,9 +221,15 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         ivLoginEye.setSelected(isCanSeePsw);
         //设置是否显示密码
         if (!isCanSeePsw) {
-            etLoginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());    //将文本框的内容以密文形式显示
+            /**
+             *  将文本框的内容以密文形式显示
+             */
+            etLoginPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         } else {
-            etLoginPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance()); // 以明文显示
+            /**
+             * 以明文显示
+             */
+            etLoginPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         }
         Selection.setSelection(etLoginPassword.getText(), etLoginPassword.getText().length());
     }
@@ -241,7 +250,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         /**
          * 存储用户的所有信息 以字符串的形式
          */
-        SpUtils.getInstance().putString(Constants.USER_INFO, new Gson().toJson(bean));
+        SpUtils.getInstance().putLoginBeanStr(new Gson().toJson(bean));
         LogUitls.e("用户信息---->", new Gson().toJson(bean));
         jumpToMainActivity();
     }
@@ -250,11 +259,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
      * 跳转到主页的方法
      */
     private void jumpToMainActivity() {
-//        //是否第一次登录
-//        boolean isFirstLog = SpUtils.getInstance().getBoolean(Constants.IS_FIRST_LOG);
-//        //设置 第一次登录为 false
-//        SpUtils.getInstance().putBoolean(Constants.IS_FIRST_LOG, true);
-//        判断跳转到不同界面
         if (!unAuthorizedRequest) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
@@ -279,45 +283,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     }
 
     /**
-     * 显示下拉框 选择语言
-     *
-     * @param view
-     */
-//    private PopupWindow mPop = null;
-
-//        public void showSelectLanguagePopwindow(View view) {
-//            if (null == mPop) {
-//                mPop = new PopupWindow(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                View content = LayoutInflater.from(this).inflate(R.layout.popwindow_select_language, null);
-//                final TextView tvSimple = (TextView) content.findViewById(R.id.tv_language_simple);
-//                tvSimple.setOnClickListener(v -> {
-//                    tvSimple.setText(getResources().getString(R.string.language_simple));
-//                    setCurrentActivityLanguage(0);
-//                    //发送事件 更新主界面的文字
-//                });
-//                final TextView tvTrad = (TextView) content.findViewById(R.id.tv_language_trad);
-//                tvTrad.setOnClickListener(v -> {
-//                    tvTrad.setText(getResources().getString(R.string.language_tradtional));
-//                    setCurrentActivityLanguage(1);
-//                });
-//                final TextView tvEnglish = (TextView) content.findViewById(R.id.tv_language_en);
-//                tvEnglish.setOnClickListener(v -> {
-//                    tvEnglish.setText(getResources().getString(R.string.language_tradtional));
-//                    setCurrentActivityLanguage(2);
-//                });
-//                mPop.setContentView(content);
-//                mPop.setOutsideTouchable(false);
-//                mPop.setTouchable(true);
-//                mPop.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00ffffff")));
-//                mPop.setAnimationStyle(R.style.popWindow_animation_push);
-//            }
-//            if (null != mPop) {
-//                //显示窗体
-//                mPop.showAsDropDown(view);
-//            }
-//        }
-
-    /**
      * 选择不同的语言 显示不同的语言文字以及Dialog的消失
      *
      * @param index
@@ -329,27 +294,40 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         final TextView tvLoginUrlTip = myDialog.getTextView(R.id.login_url_tip);
         final TextView tvLoginLanguageTip = myDialog.getTextView(R.id.login_language_tip);
         final TextView btnLoginComfirmSet = (TextView) myDialog.getView(R.id.bt_login__confirm);
-        EditText etLoginUrl = (EditText) myDialog.findViewById(R.id.et_login_server);
-        EditText etLoginZuhu = (EditText) myDialog.findViewById(R.id.et_login_zuhu);
+        EditText etLoginUrl =  myDialog.findViewById(R.id.et_login_server);
+        EditText etLoginZuhu =  myDialog.findViewById(R.id.et_login_zuhu);
+        RadioButton rdSimple =  myDialog.findViewById(R.id.rd_simple);
+        RadioButton rdTradtional =  myDialog.findViewById(R.id.rd_tradtional);
+        RadioButton rdEnglish =  myDialog.findViewById(R.id.rd_english);
         switch (index) {
-            case 0://简体
+            /**
+             * 简体
+             */
+            case 0:
                 SpUtils.getInstance().putLocaleLanguage("zh-CN");
                 //存储选择的语言
                 LanguageUtils.switchAppLanguage(LoginActivity.this);
                 tvLoginLanguage.setText(getString(R.string.language_simple));
                 break;
-            case 1://繁体
+            /**
+             * 繁体
+             */
+            case 1:
                 SpUtils.getInstance().putLocaleLanguage("zh-TW");
                 LanguageUtils.switchAppLanguage(LoginActivity.this);
                 tvLoginLanguage.setText(getString(R.string.language_tradtional));
 
                 break;
-            case 2://英文
+            /**
+             * 英文
+             */
+            case 2:
                 SpUtils.getInstance().putLocaleLanguage("en");
                 LanguageUtils.switchAppLanguage(LoginActivity.this);
                 tvLoginLanguage.setText(getString(R.string.language_english));
 
                 break;
+            default:
         }
         //切换界面的语言
         btnLogin.setText(getResources().getString(R.string.login_login));
@@ -366,10 +344,16 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         etLoginZuhu.setHint(getResources().getString(R.string.login_please_input_zuhu));
         etLoginPassword.setHint(getResources().getString(R.string.login_inpiut_psw));
         etLoginUsername.setHint(getResources().getString(R.string.login_input_username));
+
+        tvAppName.setText(R.string.home_title);
+        tvHeadTitle.setText(R.string.user_log_tip);
+
+        rdSimple.setText(R.string.language_simple);
+        rdEnglish.setText(R.string.language_english);
+        rdTradtional.setText(R.string.language_tradtional);
         //发送事件 更新主界面的文字
         BaseMessage.post(new HomeEvent(HomeEvent.LANGUAGE_UPDATE));
-        //Dialog消失
-//            mPop.dismiss();
+
     }
 
     //显示和隐藏语言选择图片
@@ -440,7 +424,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                             animation.setFillAfter(true);
                             ivLoginDown.startAnimation(animation);
                             llSelectLauguage.setVisibility(View.GONE);
-//                            mPop.dismiss();
                         } else {
                             Animation animation = AnimationUtils.loadAnimation(LoginActivity.this, R.anim.rotation_down);
                             animation.setFillAfter(true);
@@ -467,6 +450,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                     case R.id.rd_english:
                         setCurrentActivityLanguage(2);
                         break;
+                    default:
                 }
             });
             llSelectLauguage = myDialog.findViewById(R.id.ll_select_lauguage);
@@ -476,4 +460,10 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

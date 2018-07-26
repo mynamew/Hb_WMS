@@ -13,16 +13,6 @@ public class Constants {
     //    public static final String BASE_URL = "http://192.168.18.117:8066/";
     //超时时间   2分钟
     public static int DEFAULT_TIMEOUT = 2;
-
-    /***********
-     * PDA  配置
-     *********************************************************************************************/
-    //是否有备品
-    public static final String IS_GIVE_GOOD = "is_give_goods";
-    //是否有附加属性
-    public static final String IS_MATERAIL_ATTR = "is_material_attr";
-    //是否无纸化作业（即无条码，直接通过单据列表找到单号等数据）
-    public static final String IS_BILL_LIST = "is_bill_list";
     /**********
      * 状态栏颜色
      *********************************************************************************************/
@@ -30,37 +20,65 @@ public class Constants {
     /**********
      * SharePerference　存储用户信息 相关
      *********************************************************************************************/
-    //记录密码
+    /**
+     * 记录密码
+     */
     public static final String REMENBER_PSW = "REMENBER_PSW";
-    //是否是第一次登录
+    /**
+     * 是否是第一次登录
+     */
     public static final String IS_FIRST_LOG = "IS_FIRST_LOG";
-    //用户名、
+    /**
+     * 用户名
+     */
     public static final String USER_NAME = "USER_NAME";
     /**
      * 用户姓名
      */
     public static final String NCIK_NAME = "NCIK_NAME";
-    //用户编号
+    /**
+     * 用户编号
+     */
     public static final String USER_NUM = "USER_NUM";
-    //用户密码
+    /**
+     * 用户密码
+     */
     public static final String USER_PSW = "USER_PSW";
-    //用户部门
+    /**
+     * 用户部门
+     */
     public static final String USER_DEPART = "USER_DEPART";
-    //用户性别
+    /**
+     * 用户性别
+     */
     public static final String USER_SEX = "USER_SEX";
-    //用户手机
+    /**
+     * 用户手机
+     */
     public static final String USER_TEL = "USER_TEL";
-    //用户所属组织
+    /**
+     * 用户所属组织
+     */
     public static final String USER_FROM = "USER_FROM";
-    //组织id
+    /**
+     * 组织id
+     */
     public static final String ORGANAZATION_ID = "ORGANAZATION_ID";
-    //用户权限组织
+    /**
+     * 用户权限组织
+     */
     public static final String USER_ROOT = "USER_ROOT";
-    //登录的id
+    /**
+     * 登录的id
+     */
     public static final String CUSER_ID = "USER_ID";
-    //租户信息
+    /**
+     * 租户信息
+     */
     public static final String TENANCY_NAME = "TENANCY_NAME";
-    //用户所有的信息
+    /**
+     * 用户所有的信息
+     */
     public static final String USER_INFO = "USER_INFO";
     /***********
      * 扫码相关
@@ -95,12 +113,26 @@ public class Constants {
      *********************************************************************************************/
     public static final String IS_NEED_SHOW_SHOW_SERVER_SET = "isNeedShowServerSet";
     /***********
+     * 权限控制菜单的字段
+     * 1、PERMISSION_SUPPLY 供货上料权限
+     * 2、PERMISSION_INJECT 注塑过站权限
+     * 3、PERMISSION_CNC1   CNC1权限
+     * 4、PERMISSION_CNC2   CNC2权限
+     * 5、PERMISSION_POLISH  抛光
+     *********************************************************************************************/
+    public static final String PERMISSION_SUPPLY = "Pages.ProductionPlan.DataCollection.OnWipMaterial";
+    public static final String PERMISSION_INJECT = "Pages.ProductionPlan.DataCollection.Molding";
+    public static final String PERMISSION_CNC1 = "Pages.ProductionPlan.DataCollection.CNC";
+    public static final String PERMISSION_CNC2 = "Pages.ProductionPlan.DataCollection.CNC2";
+    public static final String PERMISSION_POLISH = "Pages.ProductionPlan.DataCollection.Polish";
+
+    /***********
      * 设备类型
      * 1、INJECT_MOLD 注塑机
      * 2、MOULD 模具
      * 3、FEED  供料机
      *********************************************************************************************/
-    public enum  DeviceType{
+    public enum DeviceType {
         /**
          * 注塑机
          */

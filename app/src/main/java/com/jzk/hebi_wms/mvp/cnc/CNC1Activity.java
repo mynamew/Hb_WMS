@@ -54,8 +54,6 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     TextView tvProductName;
     @BindView(R.id.tv_product_model)
     TextView tvProductModel;
-    @BindView(R.id.tv_product_batch)
-    TextView tvProductBatch;
     @BindView(R.id.tv_cnc_tongs_tip)
     TextView tvCncTongsTip;
     @BindView(R.id.et_add_cnc_tongs)
@@ -211,7 +209,6 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         ToastUtils.showShort(R.string.commit_success);
         llProductInfo.setVisibility(View.VISIBLE);
         tvMoCode.setText(o.getmOCode());
-        tvProductBatch.setText(o.getMaterialBatch());
         tvProductCode.setText(o.getItemCode());
         tvProductName.setText(o.getItemName());
         tvProductModel.setText(o.getItemStandard());

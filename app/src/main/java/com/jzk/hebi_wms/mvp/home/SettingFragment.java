@@ -6,30 +6,35 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jzk.hebi_wms.MainActivity;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseFragment;
-import com.jzk.hebi_wms.data.UserInfoBean;
+import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
 import com.jzk.hebi_wms.mvp.about.AboutActivity;
 import com.jzk.hebi_wms.mvp.deviceinfo.DeviceInfoActivity;
 import com.jzk.hebi_wms.mvp.login.LoginActivity;
 import com.jzk.hebi_wms.mvp.org_change.OrganizationSwitchActivity;
+import com.jzk.hebi_wms.mvp.process.ProcessSelectActivity;
 import com.jzk.hebi_wms.mvp.update_password.UpdatePasswordActivity;
 import com.jzk.hebi_wms.mvp.userinfo.UserInfoActivity;
-import com.jzk.hebi_wms.utils.LanguageUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.view.MyDialog;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+
 /**
  * 个人设置的碎片
  * author: timi
  * create at: 2017-08-17 11:34
  */
-public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPresenter> implements SetFragmentDataCallBack, SetFragmentView {
+public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPresenter> implements SetFragmentView {
     @BindView(R.id.iv_set_need_update)
     ImageView ivSetNewVersion;
     @BindView(R.id.tv_set_userinfo)
@@ -40,12 +45,12 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
     TextView tvSetDeviceinfo;
     @BindView(R.id.tv_set_update_psw)
     TextView tvSetUpdatePsw;
-    @BindView(R.id.tv_set_language)
-    TextView tvSetLanguage;
     @BindView(R.id.tv_set_server)
     TextView tvSetServer;
     @BindView(R.id.tv_set_about)
     TextView tvSetAbout;
+    @BindView(R.id.tv_set_title)
+    TextView tvSetTitle;
     @BindView(R.id.tv_set_update_version)
     TextView tvSetUpdateVersion;
     @BindView(R.id.tv_set_update_team)
@@ -54,47 +59,72 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
     TextView btnSetExit;
     @BindView(R.id.rl_set_update_version)
     RelativeLayout rlSetUpdateVersion;
-    private UserInfoBean bean = null;
+    private LoginBean bean = null;
 
     /**
      * 点击事件
      *
      * @param view
      */
-    @OnClick({R.id.tv_set_update_team, R.id.tv_set_language, R.id.tv_set_exit, R.id.tv_set_server, R.id.btn_set_exit, R.id.rl_set_update_version, R.id.tv_set_userinfo, R.id.tv_set_deviceinfo, R.id.tv_set_update_psw, R.id.tv_set_about})
+    @OnClick({R.id.tv_set_update_team, R.id.tv_set_process, R.id.tv_set_exit, R.id.tv_set_server, R.id.btn_set_exit, R.id.rl_set_update_version, R.id.tv_set_userinfo, R.id.tv_set_deviceinfo, R.id.tv_set_update_psw, R.id.tv_set_about})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_set_userinfo://跳转到用户信息
+            /**
+             * 跳转到用户信息
+             */
+            case R.id.tv_set_userinfo:
                 startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
-            case R.id.tv_set_deviceinfo://跳转到设备信息
+            /**
+             * 跳转到设备信息
+             */
+            case R.id.tv_set_deviceinfo:
                 startActivity(new Intent(getActivity(), DeviceInfoActivity.class));
                 break;
-            case R.id.tv_set_update_psw://跳转到设置密码
+            /**
+             * 跳转到设置密码
+             */
+            case R.id.tv_set_update_psw:
                 startActivity(new Intent(getActivity(), UpdatePasswordActivity.class));
                 break;
-            case R.id.tv_set_about://跳转到关于
+            /**
+             * 跳转到关于
+             */
+            case R.id.tv_set_about:
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
-            case R.id.rl_set_update_version://更新版本
-
-                break;
-            case R.id.btn_set_exit://退出登录
+            /**
+             * 退出登录
+             */
+            case R.id.btn_set_exit:
                 shwoLogoutDialog();
                 break;
-            case R.id.tv_set_exit://退出登录
+            /**
+             * 退出登录
+             */
+            case R.id.tv_set_exit:
                 //退出登录 跳转到登录界面
                 shwoLogoutDialog();
                 break;
-            case R.id.tv_set_language://选择语言
-                showSelectLanguageDialog(view);
+            /**
+             * 选择工序
+             */
+            case R.id.tv_set_process:
+                startActivity(new Intent(getActivity(), ProcessSelectActivity.class));
                 break;
-            case R.id.tv_set_server://服务配置
+            /**
+             * 服务配置
+             */
+            case R.id.tv_set_server:
                 shwoServerSetDialog();
                 break;
-            case R.id.tv_set_update_team://组织切换
+            /**
+             * 组织切换
+             */
+            case R.id.tv_set_update_team:
                 startActivity(new Intent(getActivity(), OrganizationSwitchActivity.class));
                 break;
+            default:
         }
     }
 
@@ -168,67 +198,6 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
         mServerSetDialog.show();
     }
 
-    /**
-     * 显示下拉框 选择语言
-     *
-     * @param view
-     */
-    private MyDialog mSelectLanguageDialog = null;
-
-    public void showSelectLanguageDialog(View view) {
-        if (null == mSelectLanguageDialog) {
-            mSelectLanguageDialog = new MyDialog(getContext(), R.layout.popwindow_select_language)
-                    .setTextViewListener(R.id.tv_language_simple, dialog -> setCurrentActivityLanguage(0))
-                    .setTextViewListener(R.id.tv_language_trad, dialog -> setCurrentActivityLanguage(1))
-                    .setTextViewListener(R.id.tv_language_en, dialog -> setCurrentActivityLanguage(2)).setAnimation(R.style.popWindow_animation_push);
-        }
-        mSelectLanguageDialog.setContentViewListener(v -> mSelectLanguageDialog.dismiss());
-        mSelectLanguageDialog.show();
-    }
-
-    /**
-     * 设置当前语言
-     *
-     * @param index
-     */
-    private void setCurrentActivityLanguage(int index) {
-        switch (index) {
-            case 0://简体
-                SpUtils.getInstance().putLocaleLanguage("zh-CN");
-                break;
-            case 1://繁体
-                SpUtils.getInstance().putLocaleLanguage("zh-TW");
-                break;
-            case 2://英文
-                SpUtils.getInstance().putLocaleLanguage("en");
-                break;
-        }
-        //存储选择的语言
-        LanguageUtils.switchAppLanguage(getActivity());
-        //设置弹出框的文字
-        mSelectLanguageDialog.getTextView(R.id.tv_language_simple).setText(getResources().getString(R.string.language_simple));
-        mSelectLanguageDialog.getTextView(R.id.tv_language_trad).setText(getResources().getString(R.string.language_tradtional));
-        mSelectLanguageDialog.getTextView(R.id.tv_language_en).setText(getResources().getString(R.string.language_english));
-        //设置 设置界面的文字
-        tvSetUserinfo.setText(getResources().getString(R.string.set_userinfo));
-        tvSetDeviceinfo.setText(getResources().getString(R.string.set_device_info));
-        tvSetUpdatePsw.setText(getResources().getString(R.string.set_update_psw));
-        tvSetLanguage.setText(getResources().getString(R.string.set_language));
-        tvSetServer.setText(getResources().getString(R.string.server_set));
-        tvSetAbout.setText(getResources().getString(R.string.set_about));
-        tvSetUpdateVersion.setText(getResources().getString(R.string.set_update_version));
-        btnSetExit.setText(getResources().getString(R.string.set_exit));
-        tvSetUpdateTeam.setText(getResources().getString(R.string.set_team));
-        //发送事件 更新主界面的文字
-        BaseMessage.post(new HomeEvent(HomeEvent.LANGUAGE_UPDATE));
-        //弹出框消失
-        mSelectLanguageDialog.dismiss();
-    }
-
-    @Override
-    public void setData(UserInfoBean bean) {
-        this.bean = bean;
-    }
     @Override
     public int setLayoutId() {
         return R.layout.fragment_setting;
@@ -237,13 +206,14 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
     @Override
     public void initData() {
         if (null != bean) {
-            tvSetUserName.setText(bean.userName);
+            tvSetUserName.setText(bean.getFullName());
         }
+        BaseMessage.register(this);
     }
 
     @Override
     public void initBundle() {
-
+        bean = new Gson().fromJson(SpUtils.getInstance().getLoginBeanStr(), LoginBean.class);
     }
 
     @Override
@@ -251,17 +221,40 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
         return new SetFragmentPresenter(getActivity());
     }
 
-    /**
-     * 设置是否需要更新
-     *
-     * @param isNeedUpdate
-     */
-    public void needUpdateVersionTip(boolean isNeedUpdate) {
-        ivSetNewVersion.setVisibility(isNeedUpdate ? View.VISIBLE : View.GONE);
-    }
-
     @Override
     public SetFragmentView createView() {
         return this;
+    }
+
+    /**
+     * 接受语言改变的事件 更改文字
+     *
+     * @param event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void languageUpdate(HomeEvent event) {
+        /**
+         * 更改本地多语言 设置文本
+         */
+        /**
+         * 设置用户名
+         */
+        tvSetUserName.setText(new Gson().fromJson(SpUtils.getInstance().getLoginBeanStr(), LoginBean.class).getFullName());
+        /**
+         * 本地多语言设置
+         */
+        tvSetAbout.setText(R.string.about);
+        tvSetDeviceinfo.setText(R.string.deviceinfo);
+        tvSetUpdatePsw.setText(R.string.update_password);
+        tvSetServer.setText(R.string.server_set);
+        tvSetUserinfo.setText(R.string.set_userinfo);
+
+        tvSetTitle.setText(R.string.home_mine);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BaseMessage.unregister(this);
     }
 }

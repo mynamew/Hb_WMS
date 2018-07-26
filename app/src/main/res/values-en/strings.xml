@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">智能仓储</string>
+    <string name="app_name">条码追溯系统</string>
 
     <!-- Strings related to login -->
     <string name="property">© 版权所有：正业玖坤</string>

@@ -54,6 +54,7 @@ public class MainActivity extends BaseNoMvpActivity {
     public void initData() {
 
     }
+
     /**
      * 主页下方按钮的点击事件
      *
@@ -118,7 +119,7 @@ public class MainActivity extends BaseNoMvpActivity {
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getMessageLanguageUpdata(HomeEvent event) {
+    public void languageUpdate(HomeEvent event) {
         tvHomeSet.setText(getResources().getString(R.string.home_set));
     }
 
@@ -132,6 +133,7 @@ public class MainActivity extends BaseNoMvpActivity {
         ivHomeTxt.setSelected(isHome);
         tvHomeSet.setSelected(!isHome);
     }
+
     @OnClick({R.id.rl_home, R.id.rl_mine})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -141,6 +143,7 @@ public class MainActivity extends BaseNoMvpActivity {
             case R.id.rl_mine:
                 intentIndex(1);
                 break;
+            default:
         }
     }
 

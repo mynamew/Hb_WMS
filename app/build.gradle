@@ -25,7 +25,7 @@ android {
             //APK 包名
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "wms_${variant.versionName}.apk"
+                    outputFileName = "hb_wms_${variant.versionName}.apk"
                 }
             }
         }

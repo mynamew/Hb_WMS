@@ -377,4 +377,28 @@ public class SpUtils {
         }
         return  processSelectCode;
     }
+    /**
+     * 存入登录的实体
+     *
+     * @param value
+     */
+    public SpUtils putLoginBeanStr(String value) {
+        getSharedPreferences();
+        editor.putString(Constants.USER_INFO, value).commit();
+        return this;
+    }
+
+    /**
+     *  获取登录的实体
+     *
+     * @return
+     */
+    public String getLoginBeanStr() {
+        getSharedPreferences();
+        String processSelectCode = mPreference.getString(Constants.USER_INFO, "");
+        if (TextUtils.isEmpty(processSelectCode)) {
+            return "";
+        }
+        return  processSelectCode;
+    }
 }

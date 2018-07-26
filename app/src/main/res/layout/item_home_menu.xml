@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_set_tab_check"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10px"
+        android:src="@mipmap/home_select_process"/>
+
+    <TextView
+        android:id="@+id/tv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginBottom="10px"
+        android:paddingTop="10px"
+        android:text="@string/home_process_select"
+        android:textColor="#333"
+        android:textSize="16sp"/>
+</com.zhy.autolayout.AutoLinearLayout>
