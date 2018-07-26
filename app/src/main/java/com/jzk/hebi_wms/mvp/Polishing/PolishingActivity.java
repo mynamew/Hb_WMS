@@ -94,7 +94,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
 
     @Override
     public void initBundle(Bundle savedInstanceState) {
-
+      setActivityTitle(R.string.title_polish);
     }
 
     @Override
@@ -113,8 +113,8 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
         processSelectCode = SpUtils.getInstance().getProcessSelectCode();
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, "错误信息")
-                    .setTextViewContent(R.id.tv_content, "请先选择工序再进行此操作！")
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
@@ -169,7 +169,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
     @Override
     public void getPolish(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerPolishingEquipment.setText("暂无抛光机信息");
+            spinnerPolishingEquipment.setText(R.string.tip_no_polish_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             cncDevices.clear();

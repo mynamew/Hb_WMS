@@ -87,6 +87,10 @@ public class Constants {
     public static final int REQUEST_SCAN_CODE_BARCODE = 1001;
     //CNC夹具
     public static final int REQUEST_SCAN_CODE_CNC_TONGS = 1002;
+    //注塑机
+    public static final int REQUEST_SCAN_CODE_INJECT_MACHINE = 1003;
+    //不良代码
+    public static final int REQUEST_SCAN_CODE_BAD_CODE = 1004;
     /***********
      * SharePerference存储token   key /  value的前缀
      *********************************************************************************************/

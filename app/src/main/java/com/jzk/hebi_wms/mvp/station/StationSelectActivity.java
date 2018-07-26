@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -64,6 +65,12 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     TextView tvWorkLineCode;
     @BindView(R.id.tv_process_code)
     TextView tvProcessCode;
+    @BindView(R.id.tv_inject_tip)
+    TextView tvInjectTip;
+    @BindView(R.id.et_inject_machine)
+    EditText etInjectMachine;
+    @BindView(R.id.iv_inject_scan)
+    ImageView ivInjectScan;
     /**
      * 工位数据
      */
@@ -107,7 +114,30 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     @Override
     public void initView() {
-
+        /**
+         * 产品序列号
+         */
+        setEdittextListener(etAddMaterialOrder, Constants.REQUEST_SCAN_CODE_BARCODE, R.string.input_product_code, R.string.input_no_low_four, new EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+                /**
+                 * 提交的方法
+                 */
+                addMateriaCommitlRequest(result);
+            }
+        });
+        /**
+         * 注塑机
+         */
+        setEdittextListener(etInjectMachine, Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, R.string.input_inject_machine, 0, new EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+                /**
+                 * 注塑机判断的方法
+                 */
+                injectMachineScanResultDeal(result);
+            }
+        });
     }
 
     @Override
@@ -181,7 +211,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     @Override
     public void getInjectionMoldings(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerInjectMachine.setText("暂无注塑机信息");
+            spinnerInjectMachine.setText(R.string.tip_no_inject_machine_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mInjectMolds.clear();
@@ -199,7 +229,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     @Override
     public void getSuppliyEqps(SupplyMaterialBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerAddMaterial.setText("暂无供料机信息");
+            spinnerAddMaterial.setText(R.string.tip_no_supply_material_machine_info);
         } else {
             List<SupplyMaterialBean.EqpmentsBean> stations = o.getEqpments();
             mSupplyMaterials.clear();
@@ -218,7 +248,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     @Override
     public void getMoCode(WorkerOrderBean o) {
         if (null == o.getMos() || o.getMos().isEmpty()) {
-            spinnerWorkerOrder.setText("暂无工单信息");
+            spinnerWorkerOrder.setText(R.string.tip_no_mocode_info);
         } else {
             List<WorkerOrderBean.MosBean> stations = o.getMos();
             mMoCodes.clear();
@@ -246,12 +276,12 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     public void valIsInjectSameBatch(Object o) {
         if (o instanceof Boolean) {
             if ((Boolean) o) {
-                ToastUtils.showShort("上料条码校验成功,可以进行提交！");
+                ToastUtils.showShort(R.string.tip_add_material_barcode_check_success);
                 btnCommit.performClick();
             } else {
                 new MyDialog(this, R.layout.dialog_logout)
-                        .setTextViewContent(R.id.tv_title, "扫码提示")
-                        .setTextViewContent(R.id.tv_content, "当前上料条码与单号不一致，是否强制提交？")
+                        .setTextViewContent(R.id.tv_title, getString(R.string.tip_scan))
+                        .setTextViewContent(R.id.tv_content, getString(R.string.tip_add_material_barcode_no_same_order))
                         .setButtonListener(R.id.tv_logout_confirm, null, dialog ->
                         {
                             dialog.dismiss();
@@ -277,38 +307,97 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         setEdittextSelected(etAddMaterialOrder);
     }
 
-    @OnClick({R.id.iv_scan, R.id.btn_commit})
+    @OnClick({R.id.iv_scan, R.id.btn_commit, R.id.iv_inject_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            /**
+             * 产品序列号
+             */
             case R.id.iv_scan:
                 scan(Constants.REQUEST_SCAN_CODE_BARCODE, (requestCode, result) -> {
                     etAddMaterialOrder.setText(result);
                     judgeSameBatch(result);
                 });
                 break;
+            /**
+             * 注塑机
+             */
+            case R.id.iv_inject_scan:
+                scan(Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, (requestCode, result) -> {
+                    injectMachineScanResultDeal(result);
+                });
+                break;
             case R.id.btn_commit:
                 String barcode = etAddMaterialOrder.getText().toString().trim();
                 if (TextUtils.isEmpty(barcode)) {
-                    ToastUtils.showShort("请扫描上料单号！");
+                    ToastUtils.showShort(R.string.input_product_code);
                     return;
                 }
-                AddMaterialRequest request = new AddMaterialRequest();
-                request.setBarCode(barcode);
-                request.setProcessCode(processSelectCode);
-                request.setEmployeeCode("");
-                request.setEmployeeName("");
-                request.setInjectionMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
-                request.setMoCode(mMoCodes.get(spinnerWorkerOrder.getSelectedIndex()).getMoCode());
-                request.setItemCode(mMoCodes.get(spinnerWorkerOrder.getSelectedIndex()).getItemCode());
-                request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
-                request.setProductionLineCode(mStations.get(spinnerStation.getSelectedIndex()).getProductionLineCode());
-                request.setSuppliyEqpCode(mSupplyMaterials.get(spinnerAddMaterial.getSelectedIndex()).getValue());
-                //发起请求
-                showProgressDialog();
-                getPresenter().createOrUpdateOnWipMaterial(request);
+                /**
+                 * 上料提交
+                 */
+                 addMateriaCommitlRequest(barcode);
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 上料提交
+     * @param barcode
+     */
+    private void addMateriaCommitlRequest(String barcode) {
+        AddMaterialRequest request = new AddMaterialRequest();
+        request.setBarCode(barcode);
+        request.setProcessCode(processSelectCode);
+        request.setEmployeeCode("");
+        request.setEmployeeName("");
+        request.setInjectionMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+        request.setMoCode(mMoCodes.get(spinnerWorkerOrder.getSelectedIndex()).getMoCode());
+        request.setItemCode(mMoCodes.get(spinnerWorkerOrder.getSelectedIndex()).getItemCode());
+        request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
+        request.setProductionLineCode(mStations.get(spinnerStation.getSelectedIndex()).getProductionLineCode());
+        request.setSuppliyEqpCode(mSupplyMaterials.get(spinnerAddMaterial.getSelectedIndex()).getValue());
+        //发起请求
+        showProgressDialog();
+        getPresenter().createOrUpdateOnWipMaterial(request);
+    }
+
+    /**
+     * 注塑机扫描/输入结果处理
+     * @param result
+     */
+    private void injectMachineScanResultDeal(String result) {
+        boolean isInjectNameTrue=false;
+        for (int i = 0; i < mInjectMolds.size(); i++) {
+            /**
+             * 如果在数据中查找到注塑机则设置注塑机
+             */
+            if (mInjectMolds.get(i).getValue().equals(result)) {
+                /**
+                 * 设置是否找到所扫描或输入的注塑机
+                 */
+                isInjectNameTrue=true;
+                /**
+                 * 设置注塑机文字及位置
+                 */
+                etInjectMachine.setText(result);
+                spinnerInjectMachine.setText(result);
+                spinnerInjectMachine.setSelectedIndex(i);
+                /**
+                 * 设置产品序列号获取焦点
+                 */
+                setBarcodeSelected();
+            }
+        }
+        /**
+         * 如果扫描的注塑机不村子啊
+         */
+        if(!isInjectNameTrue){
+            etInjectMachine.setText("");
+            ToastUtils.showShort(R.string.tip_inject_machine_not_alive);
+            setEdittextSelected(etInjectMachine);
         }
     }
 
@@ -322,12 +411,5 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         request.setSuppliyEqpCode(mSupplyMaterials.get(spinnerAddMaterial.getSelectedIndex()).getValue());
         showProgressDialog();
         getPresenter().valIsInjectSameBatch(request);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

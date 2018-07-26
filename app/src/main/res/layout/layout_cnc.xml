@@ -17,15 +17,18 @@
             android:layout_height="88px"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="工序代码："
+            android:text="@string/process_code"
             android:textColor="#333"
             />
 
         <TextView
+            android:textColor="@color/color_666"
+            android:layout_marginLeft="20px"
+            android:textSize="13sp"
             android:id="@+id/tv_process_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="OP01"/>
+            android:text=""/>
     </LinearLayout>
 
     <TextView
@@ -33,7 +36,7 @@
         android:layout_height="64px"
         android:layout_marginLeft="20px"
         android:gravity="center_vertical"
-        android:text="工位"
+        android:text="@string/worker_position"
         android:textColor="#333"
         android:textSize="13sp"
         />
@@ -69,12 +72,15 @@
             android:layout_height="88px"
             android:gravity="center_vertical"
             android:paddingLeft="20px"
-            android:text="产线代码："
+            android:text="@string/product_line"
             android:textColor="#333"
             />
 
         <TextView
             android:id="@+id/tv_work_line_code"
+            android:textColor="@color/color_666"
+            android:layout_marginLeft="20px"
+            android:textSize="13sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""/>
@@ -121,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
-            android:text="CNC夹具："
+            android:text="@string/cnc_fixture"
             android:textColor="#333"
             android:textSize="13sp"
             />
@@ -167,7 +173,7 @@
         android:layout_marginLeft="20px"
         android:checked="true"
         android:clickable="false"
-        android:text="良品"
+        android:text="@string/good_quality"
         android:textColor="@color/color_333"
         />
 
@@ -183,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
-            android:text="产品序列号"
+            android:text="@string/product_num"
             android:textColor="#333"
             android:textSize="13sp"
             />
@@ -238,7 +244,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="工单代码"
+                android:text="@string/work_order_code"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -247,7 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
-                android:text="PO689287678"
+                android:text=""
                 android:textColor="#666"/>
         </LinearLayout>
 
@@ -260,7 +266,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产品代码"
+                android:text="@string/product_code"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -269,7 +275,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
-                android:text="PO689287678"
+                android:text=""
                 android:textColor="#666"/>
         </LinearLayout>
 
@@ -282,7 +288,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="产品名称"
+                android:text="@string/product_name"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 
@@ -291,7 +297,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
-                android:text="PO689287678"
+                android:text=""
                 android:textColor="#666"/>
         </LinearLayout>
 
@@ -304,7 +310,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="规格型号"
+                android:text="@string/product_standard"
                 android:textColor="#333"
                 android:textSize="13sp"/>
 

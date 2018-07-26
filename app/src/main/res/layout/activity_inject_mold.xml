@@ -38,13 +38,16 @@
                         android:layout_height="88px"
                         android:gravity="center_vertical"
                         android:paddingLeft="20px"
-                        android:text="工序代码："
+                        android:text="@string/process_code"
                         android:textColor="#333"
                         />
 
                     <TextView
                         android:id="@+id/tv_process_code"
                         android:layout_width="match_parent"
+                        android:textColor="@color/color_666"
+                        android:layout_marginLeft="20px"
+                        android:textSize="13sp"
                         android:layout_height="wrap_content"
                         android:text=""/>
                 </LinearLayout>
@@ -53,7 +56,7 @@
                     android:layout_height="64px"
                     android:layout_marginLeft="20px"
                     android:gravity="center_vertical"
-                    android:text="工位"
+                    android:text="@string/worker_position"
                     android:textColor="#333"
                     android:textSize="13sp"
                     />
@@ -89,13 +92,16 @@
                         android:layout_height="88px"
                         android:gravity="center_vertical"
                         android:paddingLeft="20px"
-                        android:text="产线代码："
+                        android:text="@string/product_line"
                         android:textColor="#333"
                         />
 
                     <TextView
                         android:id="@+id/tv_work_line_code"
                         android:layout_width="match_parent"
+                        android:textColor="@color/color_666"
+                        android:layout_marginLeft="20px"
+                        android:textSize="13sp"
                         android:layout_height="wrap_content"
                         android:text=""/>
                 </LinearLayout>
@@ -105,7 +111,7 @@
                     android:layout_height="64px"
                     android:layout_marginLeft="20px"
                     android:gravity="center_vertical"
-                    android:text="注塑机"
+                    android:text="@string/inject_machine"
                     android:textColor="#333"
                     android:textSize="13sp"
                     />
@@ -128,13 +134,58 @@
                         app:ms_dropdown_max_height="350dp"
                         app:ms_hint_color="@color/color_666"/>
                 </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="88px"
+                    android:layout_marginRight="30px"
+                    android:layout_marginTop="20px">
 
+                    <TextView
+                        android:id="@+id/tv_inject_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="30px"
+                        android:text="@string/inject_machine"
+                        android:textColor="#333"
+                        android:textSize="13sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/et_inject_machine"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20px"
+                        android:layout_toEndOf="@id/tv_inject_tip"
+                        android:layout_toRightOf="@id/tv_inject_tip"
+                        android:background="@drawable/selector_et"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:hint="@string/input_inject_machine"
+                        android:imeOptions="actionSearch"
+                        android:paddingLeft="20px"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textSize="13sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_inject_scan"
+                        android:layout_width="100px"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30px"
+                        android:paddingLeft="60px"
+                        android:src="@mipmap/ic_scan"/>
+                </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="64px"
                     android:layout_marginLeft="20px"
                     android:gravity="center_vertical"
-                    android:text="模具"
+                    android:text="@string/mould"
                     android:textColor="#333"
                     android:textSize="13sp"
                     />
@@ -164,7 +215,7 @@
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:text="品质"
+                android:text="@string/quality"
                 android:textColor="#333"
                 android:textSize="13sp"
                 />
@@ -181,14 +232,14 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="良品"/>
+                    android:text="@string/good_quality"/>
 
                 <RadioButton
                     android:id="@+id/rd_bad"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="不良品"/>
+                    android:text="@string/bad_quality"/>
             </RadioGroup>
 
             <View
@@ -206,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:text="产品序列号"
+                    android:text="@string/product_num"
                     android:textColor="#333"
                     android:textSize="13sp"
                     />
@@ -260,13 +311,14 @@
                 android:id="@+id/ll_input_bad_code"
                 android:layout_width="match_parent"
                 android:layout_height="88px"
+                android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="不良代码"
+                    android:text="@string/bad_code"
                     android:textColor="@color/color_333"
                     android:textSize="13sp"/>
 
@@ -277,7 +329,7 @@
                     android:layout_margin="10px"
                     android:background="@drawable/bg_rectangle_et_unfocused"
                     android:ellipsize="end"
-                    android:hint="请输入/选择不良代码"
+                    android:hint="@string/input_bad_code"
                     android:imeOptions="actionSearch"
                     android:paddingLeft="20px"
                     android:singleLine="true"
@@ -292,7 +344,7 @@
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:text="不良代码组"
+                android:text="@string/bad_code_group"
                 android:textColor="#333"
                 android:textSize="13sp"
                 />
@@ -323,7 +375,7 @@
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:text="不良代码"
+                android:text="@string/bad_code"
                 android:textColor="@color/color_333"
                 android:textSize="13sp"/>
 
@@ -349,7 +401,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="20px"
                     android:gravity="center"
-                    android:text="备注"
+                    android:text="@string/remark"
                     android:textColor="@color/color_333"
                     android:textSize="13sp"/>
 
@@ -359,7 +411,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20px"
                     android:background="@drawable/selector_et"
-                    android:hint="请输入备注信息"
+                    android:hint="@string/input_remark_info"
                     android:paddingLeft="20px"
                     android:textColor="@color/color_666"
 

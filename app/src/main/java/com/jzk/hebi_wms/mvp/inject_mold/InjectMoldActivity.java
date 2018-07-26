@@ -102,6 +102,12 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     LinearLayout llBadCodeRemark;
     @BindView(R.id.tv_process_code)
     TextView tvProcessCode;
+    @BindView(R.id.tv_inject_tip)
+    TextView tvInjectTip;
+    @BindView(R.id.et_inject_machine)
+    EditText etInjectMachine;
+    @BindView(R.id.iv_inject_scan)
+    ImageView ivInjectScan;
 
     /********工位***********************************************************************************************/
     /**
@@ -200,13 +206,25 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             }
         });
         /**
-         * 设置输入备注的回车
+         * 设置输入不良代码的回车
          */
-        setEdittextListener(etRemark, Constants.REQUEST_SCAN_CODE_BARCODE, R.string.input_product_code, R.string.input_no_low_four, new EdittextInputListener() {
+        setEdittextListener(etBadCode, Constants.REQUEST_SCAN_CODE_BAD_CODE, R.string.input_bad_code, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
                 showProgressDialog();
                 getPresenter().getErrorInfoByErrorCodeAsync(categoryId, result);
+            }
+        });
+        /**
+         * 注塑机
+         */
+        setEdittextListener(etInjectMachine, Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, R.string.input_inject_machine, 0, new EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+                /**
+                 * 注塑机判断的方法
+                 */
+                injectMachineScanResultDeal(result);
             }
         });
         /**
@@ -285,7 +303,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     @Override
     public void getInjectionMoldings(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerInjectMachine.setText("暂无注塑机信息");
+            spinnerInjectMachine.setText(R.string.tip_no_inject_machine_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mInjectMolds.clear();
@@ -305,7 +323,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     @Override
     public void getMould(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerMold.setText("暂无模具信息");
+            spinnerMold.setText(R.string.tip_no_mould_info);
         } else {
 
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
@@ -333,7 +351,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 存储校验实体
          */
         mCheckRcardResult = o;
-        ToastUtils.showShort("校验成功！");
+        ToastUtils.showShort(R.string.tip_check_success);
         /**
          * 设置产品属性
          */
@@ -363,7 +381,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
              */
             injectMoldingRequest();
         } else {
-            ToastUtils.showShort("请选择不良代码！");
+            ToastUtils.showShort(R.string.input_bad_code);
             /**
              * 设置提交按钮显示，不良品手动提交
              */
@@ -416,7 +434,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @Override
     public void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes) {
-        LogUitls.e("获取的不良代码---->", errorCodes.size());
         mErrorAdapter = null;
         mErrors.clear();
         mErrors.addAll(errorCodes);
@@ -471,7 +488,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @Override
     public void collectionMoldingAsync(InjectPassBean o) {
-        ToastUtils.showShort("注塑过站提交成功！");
+        ToastUtils.showShort(R.string.tip_inject_pass_success);
     }
 
     @Override
@@ -488,7 +505,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         errorCode = errorInfo.getErrorCode();
     }
 
-    @OnClick({R.id.iv_scan, R.id.btn_commit})
+    @OnClick({R.id.iv_scan, R.id.btn_commit, R.id.iv_inject_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
@@ -504,6 +521,14 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     getPresenter().checkRCardInfoAsync(request);
                 });
                 break;
+            /**
+             * 注塑机
+             */
+            case R.id.iv_inject_scan:
+                scan(Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, (requestCode, result) -> {
+                    injectMachineScanResultDeal(result);
+                });
+                break;
             case R.id.btn_commit:
                 injectMoldingRequest();
                 break;
@@ -513,19 +538,61 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     }
 
     /**
+     * 注塑机扫描/输入结果处理
+     *
+     * @param result
+     */
+    private void injectMachineScanResultDeal(String result) {
+        boolean isInjectNameTrue = false;
+        for (int i = 0; i < mInjectMolds.size(); i++) {
+            /**
+             * 如果在数据中查找到注塑机则设置注塑机
+             */
+            if (mInjectMolds.get(i).getValue().equals(result)) {
+                /**
+                 * 设置是否找到所扫描或输入的注塑机
+                 */
+                isInjectNameTrue = true;
+                /**
+                 * 设置注塑机文字及位置
+                 */
+                etAddMaterialOrder.setText(result);
+                spinnerInjectMachine.setText(result);
+                spinnerInjectMachine.setSelectedIndex(i);
+                /**
+                 * 设置产品序列号获取焦点
+                 */
+                setBarcodeSelected();
+            }
+        }
+        /**
+         * 如果扫描的注塑机不村子啊
+         */
+        if (!isInjectNameTrue) {
+            etAddMaterialOrder.setText("");
+            ToastUtils.showShort("您输入/扫描注塑机不存在！");
+            setEdittextSelected(etInjectMachine);
+        }
+    }
+
+    /**
      * 注塑机过站提交请求
      */
     private void injectMoldingRequest() {
         String barcode = etAddMaterialOrder.getText().toString().trim();
         if (TextUtils.isEmpty(barcode)) {
-            ToastUtils.showShort("请扫描上料单号！");
+            ToastUtils.showShort(R.string.input_product_code);
             return;
         }
         if (rdBad.isChecked() && TextUtils.isEmpty(errorCode)) {
-            ToastUtils.showShort("由于您选择了不良品，请选择不良代码进行提交！");
+            ToastUtils.showShort(R.string.tip_please_select_bad_code);
             return;
         }
         InjectMouldCommitRequest request = new InjectMouldCommitRequest();
+        /**
+         * 设置物料代码
+         */
+        request.setMaterialCard(mCheckRcardResult.getMaterialCard());
         /**
          * 根据是否选择良品 设置不良代码
          * rdGood.isChecked() 设置默认为空

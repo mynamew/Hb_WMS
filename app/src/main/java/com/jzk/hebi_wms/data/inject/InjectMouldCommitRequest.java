@@ -28,6 +28,7 @@ public class InjectMouldCommitRequest {
     private String errorcode;
     private String remark;
     private String mouldcode;
+    private String materialCard;
     private String materialbatch;
     private String employeecode;
 
@@ -183,5 +184,13 @@ public class InjectMouldCommitRequest {
 
     public void setRemark(String Remark) {
         this.remark = Remark;
+    }
+
+    public String getMaterialCard() {
+        return materialCard;
+    }
+
+    public void setMaterialCard(String materialCard) {
+        this.materialCard = materialCard;
     }
 }

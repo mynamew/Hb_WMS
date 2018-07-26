@@ -79,10 +79,10 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             Intent it = new Intent();
             switch (permissonCode) {
                 case Constants.PERMISSION_SUPPLY:
-                    it.setClass(Objects.requireNonNull(getActivity()), InjectMoldActivity.class);
+                    it.setClass(Objects.requireNonNull(getActivity()), StationSelectActivity.class);
                     break;
                 case Constants.PERMISSION_INJECT:
-                    it.setClass(Objects.requireNonNull(getActivity()), StationSelectActivity.class);
+                    it.setClass(Objects.requireNonNull(getActivity()), InjectMoldActivity.class);
                     break;
                 case Constants.PERMISSION_CNC1:
                 case Constants.PERMISSION_CNC2:

@@ -29,6 +29,7 @@ public class InjectPassBean {
     private String itemCode;
     private String itemName;
     private String itemStandard;
+    private String materialCard;
     private boolean isNeedAttachMO;
     private ErrorInfo errorInfo;
     private Object needAttachMo;
@@ -155,6 +156,14 @@ public class InjectPassBean {
 
     public void setErrorInfo(ErrorInfo errorInfo) {
         this.errorInfo = errorInfo;
+    }
+
+    public String getMaterialCard() {
+        return materialCard;
+    }
+
+    public void setMaterialCard(String materialCard) {
+        this.materialCard = materialCard;
     }
 
     public static class ErrorGroupsBean {

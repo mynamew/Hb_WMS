@@ -111,13 +111,50 @@
     <string name="title_add_material">供料上料</string>
     <string name="no_worker_order_info">暂无工位信息</string>
     <string name="scan_point_title">此单号系统中未找到，请确认后，再进行查询！</string>
+    <string name="process_code">工序代码</string>
+    <string name="worker_position">工位</string>
+    <string name="product_line">产线代码</string>
+    <string name="worker_ordeer">工单</string>
+    <string name="product_code">产品代码</string>
+    <string name="inject_machine">注塑机</string>
+    <string name="supply_material_machine">供料机</string>
+    <string name="tip_please_select_process">请先选择工序再进行此操作！</string>
+    <string name="input_inject_machine">请输入/扫描上注塑机</string>
+    <string name="tip_no_inject_machine_info">暂无注塑机信息</string>
+    <string name="tip_no_supply_material_machine_info">暂无供料机信息</string>
+    <string name="tip_no_mocode_info">暂无工单信息</string>
+    <string name="tip_add_material_barcode_check_success">上料条码校验成功,可以进行提交！</string>
+    <string name="tip_scan">扫码提示</string>
+    <string name="tip_add_material_barcode_no_same_order">当前上料条码与单号不一致，是否强制提交？</string>
+    <string name="tip_inject_machine_not_alive">您输入/扫描注塑机不存在！</string>
     /**====== 注塑过站 ======**/
     <string name="title_inject_mold_pass">注塑过站</string>
     <string name="input_add_material_code">请输入/扫描上料单号</string>
     <string name="input_product_code">请输入/扫描产品序列号</string>
     <string name="input_no_low_four">产品序列号的长度不能小于4</string>
+    <string name="tip_no_mould_info">暂无模具信息</string>
+    <string name="tip_inject_pass_success">注塑过站提交成功！</string>
+    <string name="tip_check_success">校验成功！</string>
+    <string name="tip_please_select_bad_code">由于您选择了不良品，请选择不良代码进行提交！</string>
+    <string name="input_bad_code">请输入/选择不良代码</string>
+    <string name="mould">模具</string>
+    <string name="quality">品质</string>
+    <string name="good_quality">良品</string>
+    <string name="bad_quality">不良品</string>
+    <string name="product_num">产品序列号</string>
+    <string name="bad_code">不良代码</string>
+    <string name="bad_code_group">不良代码组</string>
+    <string name="remark">备注</string>
+    <string name="input_remark_info">请输入备注信息</string>
     /**====== CNC ======**/
     <string name="input_cnc_tongs">请输入/扫描CNC夹具</string>
     <string name="title_cnc">CNC</string>
-    <string name="tip_please_select_process">请先选择工序再进行此操作！</string>
+    <string name="cnc_fixture">CNC夹具</string>
+    <string name="work_order_code">工单代码</string>
+    <string name="product_name">产品名称</string>
+    <string name="product_standard">规格型号</string>
+    /**====== 抛光 ======**/
+    <string name="title_polish">抛光</string>
+    <string name="tip_no_polish_info">暂无抛光机信息</string>
+    <string name="polish_device">抛光设备</string>
 </resources>

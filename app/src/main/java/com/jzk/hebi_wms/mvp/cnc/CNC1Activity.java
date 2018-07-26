@@ -96,7 +96,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         /**
          * 设置CNC夹具的输入框事件
          */
-        setEdittextListener(etAddCncTongs, Constants.REQUEST_SCAN_CODE_CNC_TONGS, R.string.input_cnc_tongs, R.string.input_no_low_four, new EdittextInputListener() {
+        setEdittextListener(etAddCncTongs, Constants.REQUEST_SCAN_CODE_CNC_TONGS, R.string.input_cnc_tongs, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
 
@@ -189,7 +189,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     @Override
     public void getCNCTongs(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerCncDevice.setText("暂无注塑机信息");
+            spinnerCncDevice.setText(R.string.tip_no_inject_machine_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             cncDevices.clear();
