@@ -83,71 +83,71 @@
     <string name="update">修改</string>
     <string name="change_password_tip">密碼修改成功，請重新登錄！</string>
     <string name="twice_password_no_same">兩次填寫的密碼不一致！</string>
-    /**====== 首页 ======**/
-    <string name="home_process_select">工序选择</string>
+    /**====== 首頁 ======**/
+    <string name="home_process_select">工序選擇</string>
     <string name="aplly_material">供料上料</string>
-    <string name="inject_mold">注塑过站</string>
-    <string name="home_title">条码追溯系统</string>
+    <string name="inject_mold">註塑過站</string>
+    <string name="home_title">條碼追溯系統</string>
     <string name="btn_commit">提交</string>
-    /**====== 错误提示 ======**/
-    <string name="error_title">错误提示</string>
+    /**====== 錯誤提示 ======**/
+    <string name="error_title">錯誤提示</string>
     <string name="dialog_batch_tip">有更早批次的物料可以進行清點, 點擊確定進行提交！</string>
     <string name="close">關閉</string>
     <string name="cancel">取消</string>
     <string name="isloading">正在加載</string>
-    /**====== 工序选择 ======**/
-    <string name="title_process_select">工序选择</string>
+    /**====== 工序選擇 ======**/
+    <string name="title_process_select">工序選擇</string>
     <string name="commit_success">提交成功</string>
-    <string name="no_process">暂无工序</string>
-    <string name="no_process_no_commit">暂无工序，不能提交！</string>
+    <string name="no_process">暫無工序</string>
+    <string name="no_process_no_commit">暫無工序，不能提交！</string>
     /**====== 供料上料 ======**/
     <string name="title_add_material">供料上料</string>
-    <string name="no_worker_order_info">暂无工位信息</string>
-    <string name="scan_point_title">此单号系统中未找到，请确认后，再进行查询！</string>
-    <string name="process_code">工序代码</string>
+    <string name="no_worker_order_info">暫無工位信息</string>
+    <string name="scan_point_title">此單號系統中未找到，請確認後，再進行查詢！</string>
+    <string name="process_code">工序代碼</string>
     <string name="worker_position">工位</string>
-    <string name="product_line">产线代码</string>
-    <string name="worker_ordeer">工单</string>
-    <string name="product_code">产品代码</string>
-    <string name="inject_machine">注塑机</string>
-    <string name="supply_material_machine">供料机</string>
-    <string name="tip_please_select_process">请先选择工序再进行此操作！</string>
-    <string name="input_inject_machine">请输入/扫描上注塑机</string>
-    <string name="tip_no_inject_machine_info">暂无注塑机信息</string>
-    <string name="tip_no_supply_material_machine_info">暂无供料机信息</string>
-    <string name="tip_no_mocode_info">暂无工单信息</string>
-    <string name="tip_add_material_barcode_check_success">上料条码校验成功,可以进行提交！</string>
-    <string name="tip_scan">扫码提示</string>
-    <string name="tip_add_material_barcode_no_same_order">当前上料条码与单号不一致，是否强制提交？</string>
-    <string name="tip_inject_machine_not_alive">您输入/扫描注塑机不存在！</string>
-    /**====== 注塑过站 ======**/
-    <string name="title_inject_mold_pass">注塑过站</string>
-    <string name="input_add_material_code">请输入/扫描上料单号</string>
-    <string name="input_product_code">请输入/扫描产品序列号</string>
-    <string name="input_no_low_four">产品序列号的长度不能小于4</string>
-    <string name="tip_no_mould_info">暂无模具信息</string>
-    <string name="tip_inject_pass_success">注塑过站提交成功！</string>
-    <string name="tip_check_success">校验成功！</string>
-    <string name="tip_please_select_bad_code">由于您选择了不良品，请选择不良代码进行提交！</string>
-    <string name="input_bad_code">请输入/选择不良代码</string>
+    <string name="product_line">產線代碼</string>
+    <string name="worker_ordeer">工單</string>
+    <string name="product_code">產品代碼</string>
+    <string name="inject_machine">註塑機</string>
+    <string name="supply_material_machine">供料機</string>
+    <string name="tip_please_select_process">請先選擇工序再進行此操作！</string>
+    <string name="input_inject_machine">請輸入/掃描上註塑機</string>
+    <string name="tip_no_inject_machine_info">暫無註塑機信息</string>
+    <string name="tip_no_supply_material_machine_info">暫無供料機信息</string>
+    <string name="tip_no_mocode_info">暫無工單信息</string>
+    <string name="tip_add_material_barcode_check_success">上料條碼校驗成功,可以進行提交！</string>
+    <string name="tip_scan">掃碼提示</string>
+    <string name="tip_add_material_barcode_no_same_order">當前上料條碼與單號不壹致，是否強制提交？</string>
+    <string name="tip_inject_machine_not_alive">您輸入/掃描註塑機不存在！</string>
+    /**====== 註塑過站 ======**/
+    <string name="title_inject_mold_pass">註塑過站</string>
+    <string name="input_add_material_code">請輸入/掃描上料單號</string>
+    <string name="input_product_code">請輸入/掃描產品序列號</string>
+    <string name="input_no_low_four">產品序列號的長度不能小於4</string>
+    <string name="tip_no_mould_info">暫無模具信息</string>
+    <string name="tip_inject_pass_success">註塑過站提交成功！</string>
+    <string name="tip_check_success">校驗成功！</string>
+    <string name="tip_please_select_bad_code">由於您選擇了不良品，請選擇不良代碼進行提交！</string>
+    <string name="input_bad_code">請輸入/選擇不良代碼</string>
     <string name="mould">模具</string>
-    <string name="quality">品质</string>
+    <string name="quality">品質</string>
     <string name="good_quality">良品</string>
     <string name="bad_quality">不良品</string>
-    <string name="product_num">产品序列号</string>
-    <string name="bad_code">不良代码</string>
-    <string name="bad_code_group">不良代码组</string>
-    <string name="remark">备注</string>
-    <string name="input_remark_info">请输入备注信息</string>
+    <string name="product_num">產品序列號</string>
+    <string name="bad_code">不良代碼</string>
+    <string name="bad_code_group">不良代碼組</string>
+    <string name="remark">備註</string>
+    <string name="input_remark_info">請輸入備註信息</string>
     /**====== CNC ======**/
-    <string name="input_cnc_tongs">请输入/扫描CNC夹具</string>
+    <string name="input_cnc_tongs">請輸入/掃描CNC夾具</string>
     <string name="title_cnc">CNC</string>
-    <string name="cnc_fixture">CNC夹具</string>
-    <string name="work_order_code">工单代码</string>
-    <string name="product_name">产品名称</string>
-    <string name="product_standard">规格型号</string>
-    /**====== 抛光 ======**/
-    <string name="title_polish">抛光</string>
-    <string name="tip_no_polish_info">暂无抛光机信息</string>
-    <string name="polish_device">抛光设备</string>
+    <string name="cnc_fixture">CNC夾具</string>
+    <string name="work_order_code">工單代碼</string>
+    <string name="product_name">產品名稱</string>
+    <string name="product_standard">規格型號</string>
+    /**====== 拋光 ======**/
+    <string name="title_polish">拋光</string>
+    <string name="tip_no_polish_info">暫無拋光機信息</string>
+    <string name="polish_device">拋光設備</string>
 </resources>
