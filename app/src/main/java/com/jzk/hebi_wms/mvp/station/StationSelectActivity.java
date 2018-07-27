@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
-import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -206,6 +204,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                                 tvWorkLineCode.setText(stations.get(position).getProductionLineCode());
                             });
         }
+        //隐藏加载框
+        dismissProgressDialog();
     }
 
     @Override
@@ -224,6 +224,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
             spinnerInjectMachine.setItems(mStrs);
             spinnerInjectMachine.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
         }
+        //隐藏加载框
+        dismissProgressDialog();
     }
 
     @Override
@@ -241,8 +243,9 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
             //设置数据源
             spinnerAddMaterial.setItems(mStrs);
             spinnerAddMaterial.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
-
         }
+        //隐藏加载框
+        dismissProgressDialog();
     }
 
     @Override
@@ -270,6 +273,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                                 tvPonum.setText(stations.get(position).getItemCode());
                             });
         }
+        //隐藏加载框
+        dismissProgressDialog();
     }
 
     @Override
@@ -336,7 +341,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                 /**
                  * 上料提交
                  */
-                 addMateriaCommitlRequest(barcode);
+                addMateriaCommitlRequest(barcode);
                 break;
             default:
                 break;
@@ -345,6 +350,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     /**
      * 上料提交
+     *
      * @param barcode
      */
     private void addMateriaCommitlRequest(String barcode) {
@@ -366,10 +372,11 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     /**
      * 注塑机扫描/输入结果处理
+     *
      * @param result
      */
     private void injectMachineScanResultDeal(String result) {
-        boolean isInjectNameTrue=false;
+        boolean isInjectNameTrue = false;
         for (int i = 0; i < mInjectMolds.size(); i++) {
             /**
              * 如果在数据中查找到注塑机则设置注塑机
@@ -378,7 +385,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                 /**
                  * 设置是否找到所扫描或输入的注塑机
                  */
-                isInjectNameTrue=true;
+                isInjectNameTrue = true;
                 /**
                  * 设置注塑机文字及位置
                  */
@@ -394,7 +401,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         /**
          * 如果扫描的注塑机不村子啊
          */
-        if(!isInjectNameTrue){
+        if (!isInjectNameTrue) {
             etInjectMachine.setText("");
             ToastUtils.showShort(R.string.tip_inject_machine_not_alive);
             setEdittextSelected(etInjectMachine);
@@ -411,5 +418,14 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         request.setSuppliyEqpCode(mSupplyMaterials.get(spinnerAddMaterial.getSelectedIndex()).getValue());
         showProgressDialog();
         getPresenter().valIsInjectSameBatch(request);
+    }
+
+    /**
+     * 判断是否隐藏加载框
+     */
+    public void dismissProgressDialog() {
+        if (!mStations.isEmpty() && !mInjectMolds.isEmpty() && !mSupplyMaterials.isEmpty() && !mMoCodes.isEmpty()) {
+            dismisProgressDialog();
+        }
     }
 }

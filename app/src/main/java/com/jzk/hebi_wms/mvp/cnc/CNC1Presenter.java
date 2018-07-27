@@ -29,7 +29,7 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
      */
     public void getStations(StationRequest request) {
         if (null == stationBeanHttpSubscriber) {
-            stationBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<StationBean>() {
+            stationBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<StationBean>() {
                 @Override
                 public void onSuccess(StationBean o) {
                     getView().getStations(o);
@@ -37,7 +37,7 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                   getView().dismisProgressDialog();
                 }
             });
         }
@@ -49,7 +49,7 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
      */
     public void getCNCTongs() {
         if (null == cncDeviceHttpSubscriber) {
-            cncDeviceHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectMoldBean>() {
+            cncDeviceHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getCNCTongs(o);
@@ -57,7 +57,7 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }

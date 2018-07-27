@@ -165,6 +165,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
                                 tvWorkLineCode.setText(stations.get(position).getProductionLineCode());
                             });
         }
+        dismissProgressDialog();
     }
 
     @Override
@@ -183,6 +184,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
             spinnerPolishingEquipment.setItems(mStrs);
             spinnerPolishingEquipment.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
         }
+        dismissProgressDialog();
     }
 
 
@@ -240,5 +242,13 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
          */
         request.setRCard(rCard);
         getPresenter().collectionPolishAsync(request);
+    }
+    /**
+     * 判断是否隐藏加载框
+     */
+    public void dismissProgressDialog() {
+        if (!mStations.isEmpty() && !cncDevices.isEmpty()) {
+            dismisProgressDialog();
+        }
     }
 }

@@ -33,7 +33,7 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
      */
     public void getStations(StationRequest request) {
         if (null == stationBeanHttpSubscriber) {
-            stationBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<StationBean>() {
+            stationBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<StationBean>() {
                 @Override
                 public void onSuccess(StationBean o) {
                     getView().getStations(o);
@@ -41,7 +41,7 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                  getView().dismisProgressDialog();
                 }
             });
         }
@@ -73,7 +73,7 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
      */
     public void getPolish() {
         if (null == polishHtpSubscriber) {
-            polishHtpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectMoldBean>() {
+            polishHtpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getPolish(o);
@@ -81,7 +81,7 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }

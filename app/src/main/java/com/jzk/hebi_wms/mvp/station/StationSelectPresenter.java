@@ -40,7 +40,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getStations(StationRequest request) {
         if (null == stationBeanHttpSubscriber) {
-            stationBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<StationBean>() {
+            stationBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<StationBean>() {
                 @Override
                 public void onSuccess(StationBean o) {
                     getView().getStations(o);
@@ -48,7 +48,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -60,7 +60,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectMoldBean>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getInjectionMoldings(o);
@@ -68,7 +68,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -80,7 +80,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getSuppliyEqps() {
         if (null == supplyMaterialBeanHttpSubscriber) {
-            supplyMaterialBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<SupplyMaterialBean>() {
+            supplyMaterialBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<SupplyMaterialBean>() {
                 @Override
                 public void onSuccess(SupplyMaterialBean o) {
                     getView().getSuppliyEqps(o);
@@ -88,7 +88,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -100,7 +100,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getMoCode() {
         if (null == workerOrderBeanHttpSubscriber) {
-            workerOrderBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<WorkerOrderBean>() {
+            workerOrderBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<WorkerOrderBean>() {
                 @Override
                 public void onSuccess(WorkerOrderBean o) {
                     getView().getMoCode(o);
@@ -108,7 +108,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }

@@ -302,6 +302,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 mStationPosition = position;
             });
         }
+        dismissProgressDialog();
     }
 
     @Override
@@ -320,8 +321,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             //设置数据源
             spinnerInjectMachine.setItems(mstrs);
             spinnerInjectMachine.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
-
         }
+        dismissProgressDialog();
     }
 
     @Override
@@ -342,6 +343,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             spinnerMold.setItems(mstrs);
             spinnerMold.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
         }
+        dismissProgressDialog();
     }
 
     /**
@@ -708,5 +710,13 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         llInputBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
         tvHaveSelectTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
         rlvHaveSelectBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+    /**
+     * 判断是否隐藏加载框
+     */
+    public void dismissProgressDialog() {
+        if (!mStations.isEmpty() && !mInjectMolds.isEmpty() && !mMoulds.isEmpty()) {
+            dismisProgressDialog();
+        }
     }
 }

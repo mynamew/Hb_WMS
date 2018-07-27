@@ -62,7 +62,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getStations(StationRequest request) {
         if (null == stationBeanHttpSubscriber) {
-            stationBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<StationBean>() {
+            stationBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<StationBean>() {
                 @Override
                 public void onSuccess(StationBean o) {
                     getView().getStations(o);
@@ -70,7 +70,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -82,7 +82,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectMoldBean>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getInjectionMoldings(o);
@@ -90,7 +90,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                  getView().dismisProgressDialog();
                 }
             });
         }
@@ -102,7 +102,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getMould() {
         if (null == mouldHttpSubscriber) {
-            mouldHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectMoldBean>() {
+            mouldHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getMould(o);
@@ -110,6 +110,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
+                    getView().dismisProgressDialog();
                 }
             });
         }

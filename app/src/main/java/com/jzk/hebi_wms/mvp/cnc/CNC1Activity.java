@@ -184,12 +184,16 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
                                 tvWorkLineCode.setText(stations.get(position).getProductionLineCode());
                             });
         }
+        /**
+         * 是否隐藏加载框
+         */
+        dismissProgressDialog();
     }
 
     @Override
     public void getCNCTongs(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerCncDevice.setText(R.string.tip_no_inject_machine_info);
+            spinnerCncDevice.setText("暂无CNC设备信息");
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             cncDevices.clear();
@@ -202,6 +206,10 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
             spinnerCncDevice.setItems(mStrs);
             spinnerCncDevice.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
         }
+        /**
+         * 是否隐藏加载框
+         */
+        dismissProgressDialog();
     }
 
     @Override
@@ -285,5 +293,12 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         request.setrCard(rCard);
         getPresenter().cncCommit(request);
     }
-
+    /**
+     * 判断是否隐藏加载框
+     */
+    public void dismissProgressDialog() {
+        if (!mStations.isEmpty() && !cncDevices.isEmpty()) {
+            dismisProgressDialog();
+        }
+    }
 }
