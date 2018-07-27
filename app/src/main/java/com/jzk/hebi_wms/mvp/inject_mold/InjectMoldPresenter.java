@@ -9,13 +9,8 @@ import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
-import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 import com.jzk.hebi_wms.http.callback.OnResultCallBack;
 import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * @author: timi
@@ -62,7 +57,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getStations(StationRequest request) {
         if (null == stationBeanHttpSubscriber) {
-            stationBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<StationBean>() {
+            stationBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<StationBean>() {
                 @Override
                 public void onSuccess(StationBean o) {
                     getView().getStations(o);
@@ -82,7 +77,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getInjectionMoldings(o);
@@ -90,7 +85,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-                  getView().dismisProgressDialog();
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -102,7 +97,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getMould() {
         if (null == mouldHttpSubscriber) {
-            mouldHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
+            mouldHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getMould(o);
@@ -116,12 +111,13 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
         }
         model.getMould(mouldHttpSubscriber);
     }
+
     /**
      * 校验
      */
     public void checkRCardInfoAsync(CheckRCardInfoRquest request) {
         if (null == injectPassBeanHttpSubscriber) {
-            injectPassBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+            injectPassBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
                     getView().checkRCardInfoAsync(o);
@@ -130,6 +126,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
                 @Override
                 public void onError(String errorMsg) {
                     getView().checkRCardInfoAsyncFalse();
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -149,16 +146,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-//                    InjectPassBean bean = new InjectPassBean();
-//                    bean.setCategoryId(1);
-//                    List<InjectPassBean.ErrorGroupsBean> groupsBeans = new ArrayList<>();
-//                    for (int i = 0; i < 15; i++) {
-//                        InjectPassBean.ErrorGroupsBean errorGroupsBean = new InjectPassBean.ErrorGroupsBean();
-//                        errorGroupsBean.setErrorGroupCode("表面不良--" + i);
-//                        groupsBeans.add(errorGroupsBean);
-//                    }
-//                    bean.setErrorGroups(groupsBeans);
-//                    getView().errorGroupHttpSubscriber(bean.getErrorGroups());
                 }
             });
         }
@@ -178,16 +165,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
-//                    InjectPassBean bean = new InjectPassBean();
-//                    bean.setCategoryId(1);
-//                    List<InjectPassBean.ErrorCodesBean> groupsBeans = new ArrayList<>();
-//                    for (int i = 0; i < 15; i++) {
-//                        InjectPassBean.ErrorCodesBean errorBean = new InjectPassBean.ErrorCodesBean();
-//                        errorBean.setErrorName("表面不良代码--" +new Random(100));
-//                        groupsBeans.add(errorBean);
-//                    }
-//                    bean.setErrorCodes(groupsBeans);
-//                    getView().getErrorInfoByGroupCode(bean.getErrorCodes());
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -235,10 +213,48 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
+                    getView().dismisProgressDialog();
                     getView().setBarcodeSelected();
                 }
             });
         }
         model.collectionMoldingAsync(injectPassCommitSubscriber, request);
+    }
+
+    @Override
+    public void dettachView() {
+        super.dettachView();
+        if (null != injectPassCommitSubscriber) {
+            injectPassCommitSubscriber.unSubscribe();
+            injectPassCommitSubscriber = null;
+        }
+        if (null != errorCodeByInputHttpSubscriber) {
+            errorCodeByInputHttpSubscriber.unSubscribe();
+            errorCodeByInputHttpSubscriber = null;
+        }
+        if (null != errorCodeHttpSubscriber) {
+            errorCodeHttpSubscriber.unSubscribe();
+            errorCodeHttpSubscriber = null;
+        }
+        if (null != errorGroupHttpSubscriber) {
+            errorGroupHttpSubscriber.unSubscribe();
+            errorGroupHttpSubscriber = null;
+        }
+        if (null != injectPassBeanHttpSubscriber) {
+            injectPassBeanHttpSubscriber.unSubscribe();
+            injectPassBeanHttpSubscriber = null;
+        }
+        if (null != mouldHttpSubscriber) {
+            mouldHttpSubscriber.unSubscribe();
+            mouldHttpSubscriber = null;
+        }
+        if (null != injectMoldBeanHttpSubscriber) {
+            injectMoldBeanHttpSubscriber.unSubscribe();
+            injectMoldBeanHttpSubscriber = null;
+        }
+        if (null != stationBeanHttpSubscriber) {
+            stationBeanHttpSubscriber.unSubscribe();
+            stationBeanHttpSubscriber = null;
+        }
     }
 }

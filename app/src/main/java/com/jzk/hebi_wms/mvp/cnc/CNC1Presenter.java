@@ -84,4 +84,21 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
         }
         model.cncCommit(cncBeanHttpSubscriber, request);
     }
+
+    @Override
+    public void dettachView() {
+        super.dettachView();
+        if (null != stationBeanHttpSubscriber) {
+            stationBeanHttpSubscriber.unSubscribe();
+            stationBeanHttpSubscriber = null;
+        }
+        if (null != cncDeviceHttpSubscriber) {
+            cncDeviceHttpSubscriber.unSubscribe();
+            cncDeviceHttpSubscriber = null;
+        }
+        if (null != cncBeanHttpSubscriber) {
+            cncBeanHttpSubscriber.unSubscribe();
+            cncBeanHttpSubscriber = null;
+        }
+    }
 }

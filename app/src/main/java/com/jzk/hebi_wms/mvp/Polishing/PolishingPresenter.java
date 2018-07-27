@@ -59,7 +59,7 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
 
                 @Override
                 public void onError(String errorMsg) {
-
+                  getView().setProductCodeSelect();
                 }
             });
 
@@ -86,5 +86,22 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
             });
         }
         model.getPolish(polishHtpSubscriber);
+    }
+
+    @Override
+    public void dettachView() {
+        super.dettachView();
+        if (null != polishHtpSubscriber) {
+            polishHtpSubscriber.unSubscribe();
+            polishHtpSubscriber = null;
+        }
+        if (null != polishResultBeanHttpSubscriber) {
+            polishResultBeanHttpSubscriber.unSubscribe();
+            polishResultBeanHttpSubscriber = null;
+        }
+        if (null != stationBeanHttpSubscriber) {
+            stationBeanHttpSubscriber.unSubscribe();
+            stationBeanHttpSubscriber = null;
+        }
     }
 }

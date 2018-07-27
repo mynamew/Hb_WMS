@@ -30,4 +30,8 @@ public interface PolishingView extends MvpBaseView {
      * @param resultBean
      */
     void collectionPolishAsync(PolishResultBean resultBean);
+    /**
+     * 设置产品序列号选中
+     */
+    void setProductCodeSelect();
 }

@@ -40,7 +40,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getStations(StationRequest request) {
         if (null == stationBeanHttpSubscriber) {
-            stationBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<StationBean>() {
+            stationBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<StationBean>() {
                 @Override
                 public void onSuccess(StationBean o) {
                     getView().getStations(o);
@@ -60,7 +60,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<InjectMoldBean>() {
                 @Override
                 public void onSuccess(InjectMoldBean o) {
                     getView().getInjectionMoldings(o);
@@ -80,7 +80,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getSuppliyEqps() {
         if (null == supplyMaterialBeanHttpSubscriber) {
-            supplyMaterialBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<SupplyMaterialBean>() {
+            supplyMaterialBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<SupplyMaterialBean>() {
                 @Override
                 public void onSuccess(SupplyMaterialBean o) {
                     getView().getSuppliyEqps(o);
@@ -100,7 +100,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getMoCode() {
         if (null == workerOrderBeanHttpSubscriber) {
-            workerOrderBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<WorkerOrderBean>() {
+            workerOrderBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<WorkerOrderBean>() {
                 @Override
                 public void onSuccess(WorkerOrderBean o) {
                     getView().getMoCode(o);
@@ -153,5 +153,38 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
             });
         }
         model.createOrUpdateOnWipMaterial(request, addMaterialBeanHttpSubscriber);
+    }
+
+    @Override
+    public void dettachView() {
+        super.dettachView();
+        if (null != supplyMaterialBeanHttpSubscriber) {
+            supplyMaterialBeanHttpSubscriber.unSubscribe();
+            supplyMaterialBeanHttpSubscriber = null;
+        }
+        if (null != stationBeanHttpSubscriber) {
+            stationBeanHttpSubscriber.unSubscribe();
+            stationBeanHttpSubscriber = null;
+        }
+        if (null != injectMoldBeanHttpSubscriber) {
+            injectMoldBeanHttpSubscriber.unSubscribe();
+            injectMoldBeanHttpSubscriber = null;
+        }
+        if (null != addMaterialBeanHttpSubscriber) {
+            addMaterialBeanHttpSubscriber.unSubscribe();
+            addMaterialBeanHttpSubscriber = null;
+        }
+        if (null != workerOrderBeanHttpSubscriber) {
+            workerOrderBeanHttpSubscriber.unSubscribe();
+            workerOrderBeanHttpSubscriber = null;
+        }
+        if (null != valIsInjectSameBatchSubscriber) {
+            valIsInjectSameBatchSubscriber.unSubscribe();
+            valIsInjectSameBatchSubscriber = null;
+        }
+        if (null != addMaterialBeanHttpSubscriber) {
+            addMaterialBeanHttpSubscriber.unSubscribe();
+            addMaterialBeanHttpSubscriber = null;
+        }
     }
 }

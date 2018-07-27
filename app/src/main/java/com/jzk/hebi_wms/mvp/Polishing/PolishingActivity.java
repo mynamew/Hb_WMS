@@ -95,7 +95,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
 
     @Override
     public void initBundle(Bundle savedInstanceState) {
-      setActivityTitle(R.string.title_polish);
+        setActivityTitle(R.string.title_polish);
     }
 
     @Override
@@ -199,6 +199,11 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
         tvProductSpecificationModel.setText(polishBiographyRequestBean.getItemStandard());
     }
 
+    @Override
+    public void setProductCodeSelect() {
+        setEdittextSelected(etAddMaterialOrder);
+    }
+
     @OnClick({R.id.iv_scan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -243,6 +248,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
         request.setRCard(rCard);
         getPresenter().collectionPolishAsync(request);
     }
+
     /**
      * 判断是否隐藏加载框
      */

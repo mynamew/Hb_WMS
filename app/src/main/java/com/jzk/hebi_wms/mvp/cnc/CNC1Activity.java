@@ -99,7 +99,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         setEdittextListener(etAddCncTongs, Constants.REQUEST_SCAN_CODE_CNC_TONGS, R.string.input_cnc_tongs, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-
+                 setEdittextSelected(etAddMaterialOrder);
             }
         });
         /**

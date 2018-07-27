@@ -692,7 +692,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 发起请求
          */
-        showProgressDialog();
         getPresenter().collectionMoldingAsync(request);
     }
 
@@ -710,6 +709,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         llInputBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
         tvHaveSelectTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
         rlvHaveSelectBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        btnCommit.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
     /**
      * 判断是否隐藏加载框
