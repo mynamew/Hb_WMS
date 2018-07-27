@@ -21,7 +21,7 @@ public class MyProgressDialog  extends MyDialog {
             synchronized (MyProgressDialog.class) {
                 if (null == instance) {
                     instance = new MyProgressDialog(context, R.layout.dialog_progress);
-                    instance.setCantCancelByBackPress();
+//                    instance.setCantCancelByBackPress();
                     instance.setCanceledOnTouchOutside(false);
                 }
             }

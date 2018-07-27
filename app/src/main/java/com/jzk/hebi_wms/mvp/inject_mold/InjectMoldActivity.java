@@ -385,7 +385,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             /**
              * 提交
              */
-            injectMoldingRequest();
+            injectMoldingRequest(false);
         } else {
             ToastUtils.showShort(R.string.input_bad_code);
             /**
@@ -399,7 +399,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 /**
                  * 获取不良代码组
                  */
-                showProgressDialog();
                 getPresenter().getErrorGroups(categoryId);
             }
         }
@@ -433,7 +432,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 获取不良代码 默认第0个元素
          */
-        showProgressDialog();
         getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(0).getErrorGroupCode());
     }
 
@@ -491,7 +489,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     rlvHaveSelectBadCode.setLayoutManager(new LinearLayoutManager(this));
                     rlvHaveSelectBadCode.setAdapter(mErrorSelectAdapter);
                     rlvHaveSelectBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
-                }else {
+                } else {
                     mErrorSelectAdapter.notifyDataSetChanged();
                 }
                 mErrors.remove(pos);
@@ -506,10 +504,12 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             rlvBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
         }
         mErrorAdapter.notifyDataSetChanged();
+        dismissProgressDialog();
     }
 
     @Override
     public void collectionMoldingAsync(InjectPassBean o) {
+        dismissProgressDialog();
         ToastUtils.showShort(R.string.tip_inject_pass_success);
     }
 
@@ -582,7 +582,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 });
                 break;
             case R.id.btn_commit:
-                injectMoldingRequest();
+                injectMoldingRequest(true);
                 break;
             default:
                 break;
@@ -630,7 +630,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     /**
      * 注塑机过站提交请求
      */
-    private void injectMoldingRequest() {
+    private void injectMoldingRequest(boolean isShowProgressDialog) {
         String barcode = etAddMaterialOrder.getText().toString().trim();
         if (TextUtils.isEmpty(barcode)) {
             ToastUtils.showShort(R.string.input_product_code);
@@ -639,6 +639,12 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         if (rdBad.isChecked() && mErrorsSelect.isEmpty()) {
             ToastUtils.showShort(R.string.tip_please_select_bad_code);
             return;
+        }
+        /**
+         * 是否显示加载框
+         */
+        if (isShowProgressDialog) {
+            showProgressDialog();
         }
         InjectMouldCommitRequest request = new InjectMouldCommitRequest();
         /**
@@ -711,6 +717,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         rlvHaveSelectBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
         btnCommit.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
+
     /**
      * 判断是否隐藏加载框
      */

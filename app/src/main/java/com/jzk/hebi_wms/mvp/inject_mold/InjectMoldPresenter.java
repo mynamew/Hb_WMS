@@ -138,7 +138,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getErrorGroups(int categoryId) {
         if (null == errorGroupHttpSubscriber) {
-            errorGroupHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+            errorGroupHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
                     getView().errorGroupHttpSubscriber(o.getErrorGroups());
@@ -146,6 +146,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
                 @Override
                 public void onError(String errorMsg) {
+                    getView().dismisProgressDialog();
                 }
             });
         }
@@ -160,6 +161,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
             errorCodeHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
+                    getView().dismisProgressDialog();
                     getView().getErrorInfoByGroupCode(o.getErrorCodes());
                 }
 
@@ -207,6 +209,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
             injectPassCommitSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
+                    getView().dismisProgressDialog();
                     getView().collectionMoldingAsync(o);
                     getView().setBarcodeSelected();
                 }
