@@ -51,10 +51,10 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
 
     public void collectionPolishAsync(PolishBiographyRequestBean polishBiographyRequestBean){
         if(null==polishResultBeanHttpSubscriber){
-            polishResultBeanHttpSubscriber=new HttpSubscriber<PolishResultBean>(new OnResultCallBack() {
+            polishResultBeanHttpSubscriber=new HttpSubscriber<>(new OnResultCallBack<PolishResultBean>() {
                 @Override
-                public void onSuccess(Object o) {
-                    getView().collectionPolishAsync(polishBiographyRequestBean);
+                public void onSuccess(PolishResultBean o) {
+                    getView().collectionPolishAsync(o);
                 }
 
                 @Override

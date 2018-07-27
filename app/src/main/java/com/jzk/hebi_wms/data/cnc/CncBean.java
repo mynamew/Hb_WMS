@@ -9,22 +9,33 @@ import java.util.List;
  * create at: 2018/7/24 14:49
  */
 public class CncBean {
-    private String mOCode;
+
+    /**
+     * moCode : MO201807240001
+     * itemCode : 50101010002
+     * itemName : 成品手机后壳
+     * itemStandard : 成品手机后壳
+     * resultMessages : [{"messageType":2,"isSuccess":true,"messageText":" << 良品采集成功","result":null}]
+     * isNeedAttachMO : false
+     * needAttachMo : null
+     * needAttachItemCode : null
+     */
+
+    private String moCode;
     private String itemCode;
     private String itemName;
     private String itemStandard;
-    private String needAttachMo;
-    private String materialBatch;
     private boolean isNeedAttachMO;
-    private boolean needAttachItemCode;
-    private List<?> resultMessages;
+    private Object needAttachMo;
+    private Object needAttachItemCode;
+    private List<ResultMessagesBean> resultMessages;
 
-    public String getmOCode() {
-        return mOCode;
+    public String getMoCode() {
+        return moCode;
     }
 
-    public void setmOCode(String mOCode) {
-        this.mOCode = mOCode;
+    public void setMoCode(String moCode) {
+        this.moCode = moCode;
     }
 
     public String getItemCode() {
@@ -51,43 +62,81 @@ public class CncBean {
         this.itemStandard = itemStandard;
     }
 
-    public String getNeedAttachMo() {
-        return needAttachMo;
-    }
-
-    public void setNeedAttachMo(String needAttachMo) {
-        this.needAttachMo = needAttachMo;
-    }
-
-    public boolean isNeedAttachMO() {
+    public boolean isIsNeedAttachMO() {
         return isNeedAttachMO;
     }
 
-    public void setNeedAttachMO(boolean needAttachMO) {
-        isNeedAttachMO = needAttachMO;
+    public void setIsNeedAttachMO(boolean isNeedAttachMO) {
+        this.isNeedAttachMO = isNeedAttachMO;
     }
 
-    public boolean isNeedAttachItemCode() {
+    public Object getNeedAttachMo() {
+        return needAttachMo;
+    }
+
+    public void setNeedAttachMo(Object needAttachMo) {
+        this.needAttachMo = needAttachMo;
+    }
+
+    public Object getNeedAttachItemCode() {
         return needAttachItemCode;
     }
 
-    public void setNeedAttachItemCode(boolean needAttachItemCode) {
+    public void setNeedAttachItemCode(Object needAttachItemCode) {
         this.needAttachItemCode = needAttachItemCode;
     }
 
-    public List<?> getResultMessages() {
+    public List<ResultMessagesBean> getResultMessages() {
         return resultMessages;
     }
 
-    public void setResultMessages(List<?> resultMessages) {
+    public void setResultMessages(List<ResultMessagesBean> resultMessages) {
         this.resultMessages = resultMessages;
     }
 
-    public String getMaterialBatch() {
-        return materialBatch;
-    }
+    public static class ResultMessagesBean {
+        /**
+         * messageType : 2
+         * isSuccess : true
+         * messageText :  << 良品采集成功
+         * result : null
+         */
 
-    public void setMaterialBatch(String materialBatch) {
-        this.materialBatch = materialBatch;
+        private int messageType;
+        private boolean isSuccess;
+        private String messageText;
+        private Object result;
+
+        public int getMessageType() {
+            return messageType;
+        }
+
+        public void setMessageType(int messageType) {
+            this.messageType = messageType;
+        }
+
+        public boolean isIsSuccess() {
+            return isSuccess;
+        }
+
+        public void setIsSuccess(boolean isSuccess) {
+            this.isSuccess = isSuccess;
+        }
+
+        public String getMessageText() {
+            return messageText;
+        }
+
+        public void setMessageText(String messageText) {
+            this.messageText = messageText;
+        }
+
+        public Object getResult() {
+            return result;
+        }
+
+        public void setResult(Object result) {
+            this.result = result;
+        }
     }
 }

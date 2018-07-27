@@ -1,5 +1,7 @@
 package com.jzk.hebi_wms.data.inject;
 
+import java.util.List;
+
 /**
  * 注塑机过站提交
  *
@@ -32,6 +34,15 @@ public class InjectMouldCommitRequest {
     private String materialbatch;
     private String employeecode;
 
+    public List<InjectPassBean.ErrorCodesBean> getErrorCodes() {
+        return errorCodes;
+    }
+
+    public void setErrorCodes(List<InjectPassBean.ErrorCodesBean> errorCodes) {
+        this.errorCodes = errorCodes;
+    }
+
+    public List<InjectPassBean.ErrorCodesBean> errorCodes;
     public String getRcard() {
         return rcard;
     }

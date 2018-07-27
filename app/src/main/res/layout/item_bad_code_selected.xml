@@ -13,4 +13,13 @@
         android:gravity="center"
         android:text="不良代码组"
         android:textColor="@drawable/tab_bad_text"/>
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="20px"
+        android:src="@mipmap/alter_delete"
+        />
 </com.zhy.autolayout.AutoLinearLayout>

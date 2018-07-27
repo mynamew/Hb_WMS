@@ -5,7 +5,7 @@
                                      android:background="@color/white">
 
     <TextView
-        android:id="@+id/tv_bad_code"
+        android:id="@+id/tv_bad_code_group"
         android:layout_width="0dp"
         android:layout_height="64px"
         android:layout_weight="1"
@@ -13,4 +13,5 @@
         android:gravity="center"
         android:text="不良代码组"
         android:textColor="@drawable/tab_bad_text"/>
+
 </com.zhy.autolayout.AutoLinearLayout>

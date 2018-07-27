@@ -375,7 +375,7 @@
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:text="@string/bad_code"
+                android:text="可选不良代码"
                 android:textColor="@color/color_333"
                 android:textSize="13sp"/>
 
@@ -386,7 +386,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"/>
+            <TextView
+                android:id="@+id/tv_have_select_tip"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_marginLeft="20px"
+                android:gravity="center_vertical"
+                android:text="已选不良代码"
+                android:textColor="@color/color_333"
+                android:textSize="13sp"/>
 
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rlv_have_select_bad_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"/>
             <LinearLayout
                 android:id="@+id/ll_bad_code_remark"
                 android:layout_width="match_parent"

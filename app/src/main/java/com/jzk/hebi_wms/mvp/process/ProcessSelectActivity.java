@@ -102,18 +102,10 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
             spinnerProcess.setOnItemSelectedListener((view, position, id, item) -> {
                 //设置文字
                 processSelect=mProcesses.get(position);
-                spinnerProcess.setText(processSelect);
                 tvTip.setText(processSelect);
                 llProcessUnselected.setVisibility(View.GONE);
                 llProcessSelected.setVisibility(View.VISIBLE);
             });
-            /**
-             * 当已经选过工序时设置成选择过的工序
-             */
-
-            if (!TextUtils.isEmpty(processSelect)) {
-                spinnerProcess.setText(processSelect);
-            }
         }
     }
 

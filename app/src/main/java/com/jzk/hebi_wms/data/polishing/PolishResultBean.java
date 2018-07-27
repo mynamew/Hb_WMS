@@ -7,78 +7,134 @@ import java.util.List;
  */
 
 public class PolishResultBean {
-    String MOCode;
-    String ItemCode;
-    String ItemName;
-    String ItemStandard;
-    String NeedAttachMo;
-    String NeedAttachItemCode;
-    Boolean IsNeedAttachMO;
-    List<String> ResultMessages;
 
-    public String getMOCode() {
-        return MOCode;
+    /**
+     * moCode : MO201807240001
+     * itemCode : 50101010002
+     * itemName : 成品手机后壳
+     * itemStandard : 成品手机后壳
+     * resultMessages : [{"messageType":2,"isSuccess":true,"messageText":" << 良品采集成功","result":null}]
+     * isNeedAttachMO : false
+     * needAttachMo : null
+     * needAttachItemCode : null
+     */
+
+    private String moCode;
+    private String itemCode;
+    private String itemName;
+    private String itemStandard;
+    private boolean isNeedAttachMO;
+    private Object needAttachMo;
+    private Object needAttachItemCode;
+    private List<ResultMessagesBean> resultMessages;
+
+    public String getMoCode() {
+        return moCode;
     }
 
-    public void setMOCode(String MOCode) {
-        this.MOCode = MOCode;
+    public void setMoCode(String moCode) {
+        this.moCode = moCode;
     }
 
     public String getItemCode() {
-        return ItemCode;
+        return itemCode;
     }
 
     public void setItemCode(String itemCode) {
-        ItemCode = itemCode;
+        this.itemCode = itemCode;
     }
 
     public String getItemName() {
-        return ItemName;
+        return itemName;
     }
 
     public void setItemName(String itemName) {
-        ItemName = itemName;
+        this.itemName = itemName;
     }
 
     public String getItemStandard() {
-        return ItemStandard;
+        return itemStandard;
     }
 
     public void setItemStandard(String itemStandard) {
-        ItemStandard = itemStandard;
+        this.itemStandard = itemStandard;
     }
 
-    public String getNeedAttachMo() {
-        return NeedAttachMo;
+    public boolean isIsNeedAttachMO() {
+        return isNeedAttachMO;
     }
 
-    public void setNeedAttachMo(String needAttachMo) {
-        NeedAttachMo = needAttachMo;
+    public void setIsNeedAttachMO(boolean isNeedAttachMO) {
+        this.isNeedAttachMO = isNeedAttachMO;
     }
 
-    public String getNeedAttachItemCode() {
-        return NeedAttachItemCode;
+    public Object getNeedAttachMo() {
+        return needAttachMo;
     }
 
-    public void setNeedAttachItemCode(String needAttachItemCode) {
-        NeedAttachItemCode = needAttachItemCode;
+    public void setNeedAttachMo(Object needAttachMo) {
+        this.needAttachMo = needAttachMo;
     }
 
-    public Boolean getNeedAttachMO() {
-        return IsNeedAttachMO;
+    public Object getNeedAttachItemCode() {
+        return needAttachItemCode;
     }
 
-    public void setNeedAttachMO(Boolean needAttachMO) {
-        IsNeedAttachMO = needAttachMO;
+    public void setNeedAttachItemCode(Object needAttachItemCode) {
+        this.needAttachItemCode = needAttachItemCode;
     }
 
-    public List<String> getResultMessages() {
-        return ResultMessages;
+    public List<ResultMessagesBean> getResultMessages() {
+        return resultMessages;
     }
 
-    public void setResultMessages(List<String> resultMessages) {
-        ResultMessages = resultMessages;
+    public void setResultMessages(List<ResultMessagesBean> resultMessages) {
+        this.resultMessages = resultMessages;
     }
 
+    public static class ResultMessagesBean {
+        /**
+         * messageType : 2
+         * isSuccess : true
+         * messageText :  << 良品采集成功
+         * result : null
+         */
 
+        private int messageType;
+        private boolean isSuccess;
+        private String messageText;
+        private Object result;
+
+        public int getMessageType() {
+            return messageType;
+        }
+
+        public void setMessageType(int messageType) {
+            this.messageType = messageType;
+        }
+
+        public boolean isIsSuccess() {
+            return isSuccess;
+        }
+
+        public void setIsSuccess(boolean isSuccess) {
+            this.isSuccess = isSuccess;
+        }
+
+        public String getMessageText() {
+            return messageText;
+        }
+
+        public void setMessageText(String messageText) {
+            this.messageText = messageText;
+        }
+
+        public Object getResult() {
+            return result;
+        }
+
+        public void setResult(Object result) {
+            this.result = result;
+        }
+    }
 }

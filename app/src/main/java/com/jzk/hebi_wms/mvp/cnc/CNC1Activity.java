@@ -208,7 +208,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     public void cncCommit(CncBean o) {
         ToastUtils.showShort(R.string.commit_success);
         llProductInfo.setVisibility(View.VISIBLE);
-        tvMoCode.setText(o.getmOCode());
+        tvMoCode.setText(o.getMoCode());
         tvProductCode.setText(o.getItemCode());
         tvProductName.setText(o.getItemName());
         tvProductModel.setText(o.getItemStandard());

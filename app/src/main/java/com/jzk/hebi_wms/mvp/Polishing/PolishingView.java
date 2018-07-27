@@ -2,6 +2,7 @@ package com.jzk.hebi_wms.mvp.Polishing;
 
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
+import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
@@ -26,7 +27,7 @@ public interface PolishingView extends MvpBaseView {
 
     /**
      * 抛光
-     * @param polishBiographyRequestBean
+     * @param resultBean
      */
-    void collectionPolishAsync(PolishBiographyRequestBean polishBiographyRequestBean);
+    void collectionPolishAsync(PolishResultBean resultBean);
 }

@@ -24,7 +24,6 @@ import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
-import com.jzk.hebi_wms.utils.LogUitls;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.MyDialog;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -108,6 +106,10 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     EditText etInjectMachine;
     @BindView(R.id.iv_inject_scan)
     ImageView ivInjectScan;
+    @BindView(R.id.tv_have_select_tip)
+    TextView tvHaveSelectTip;
+    @BindView(R.id.rlv_have_select_bad_code)
+    RecyclerView rlvHaveSelectBadCode;
 
     /********工位***********************************************************************************************/
     /**
@@ -150,10 +152,12 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     private List<String> mErrorGroupStrs = new ArrayList<>();
     //产品别Id
     private int categoryId;
-    /**************不良代码*****************************************************************************/
+    /**************可选不良代码*****************************************************************************/
     private BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> mErrorAdapter;
     private List<InjectPassBean.ErrorCodesBean> mErrors = new ArrayList<>();
-    private String errorCode = "";
+    /**************不良代码*****************************************************************************/
+    private BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> mErrorSelectAdapter;
+    private List<InjectPassBean.ErrorCodesBean> mErrorsSelect = new ArrayList<>();
 
     @Override
     public int setLayoutId() {
@@ -457,27 +461,43 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             };
             mErrorAdapter.setOnItemClickListener((itemView, pos) -> {
                 /**
-                 * 设置不良代码用于提交
+                 * 初始化已选不良代码
                  */
-                errorCode = mErrors.get(pos).getErrorCode();
-                /**
-                 * 设置选中
-                 */
-                itemView.setSelected(true);
-                /**
-                 * 设置标识
-                 */
-                for (int i = 0; i < mErrors.size(); i++) {
-                    mErrors.get(i).setSelect(i == pos);
+                mErrorsSelect.add(mErrors.get(pos));
+                if (null == mErrorSelectAdapter) {
+                    mErrorSelectAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrorsSelect) {
+                        @Override
+                        protected int getItemLayoutId(int viewType) {
+                            return R.layout.item_bad_code_selected;
+                        }
+
+                        @Override
+                        protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
+                            TextView tvBad = holder.getTextView(R.id.tv_bad_code);
+                            tvBad.setText(mErrorsSelect.get(position).getErrorName());
+                            holder.getImageView(R.id.iv_delete).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mErrors.add(mErrorsSelect.get(pos));
+                                    mErrorAdapter.notifyDataSetChanged();
+                                    mErrorsSelect.remove(pos);
+                                    mErrorSelectAdapter.notifyDataSetChanged();
+                                }
+                            });
+                        }
+                    };
+                    rlvHaveSelectBadCode.setLayoutManager(new LinearLayoutManager(this));
+                    rlvHaveSelectBadCode.setAdapter(mErrorSelectAdapter);
+                    rlvHaveSelectBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
+                }else {
+                    mErrorSelectAdapter.notifyDataSetChanged();
                 }
+                mErrors.remove(pos);
                 /**
                  * 更新Adapter
                  */
                 mErrorAdapter.notifyDataSetChanged();
-                /**
-                 * 设置不良代码
-                 */
-                etBadCode.setText(mErrors.get(pos).getErrorName());
+
             });
             rlvBadCode.setAdapter(mErrorAdapter);
             rlvBadCode.setLayoutManager(new LinearLayoutManager(this));
@@ -501,8 +521,38 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 根据不良代码成功获取，设置errorcode
          */
-        ToastUtils.showShort("获取不良代码成功！");
-        errorCode = errorInfo.getErrorCode();
+        /**
+         * 查找已选不良代码更新链表和Adapter
+         */
+        boolean isHaveSelectError = false;
+        for (int i = 0; i < mErrorsSelect.size(); i++) {
+            if (errorInfo.getErrorCode().equals(mErrorsSelect.get(i).getErrorCode())) {
+                isHaveSelectError = true;
+            }
+        }
+        /**
+         * 可选不良代码更新
+         */
+        for (int i = 0; i < mErrors.size(); i++) {
+            if (errorInfo.getErrorCode().equals(mErrors.get(i).getErrorCode())) {
+                mErrors.remove(i);
+                mErrorAdapter.notifyDataSetChanged();
+            }
+        }
+        /**
+         * 如果没有则添加进去并且更新
+         */
+        if (!isHaveSelectError) {
+            InjectPassBean.ErrorCodesBean errorCodesBean = new InjectPassBean.ErrorCodesBean();
+            errorCodesBean.setErrorCode(errorInfo.getErrorCode());
+            errorCodesBean.setErrorName(errorInfo.getErrorName());
+            errorCodesBean.setErrorGroupCode(errorInfo.getErrorGroupCode());
+            errorCodesBean.setErrorGroupName(errorInfo.getErrorGroupName());
+            mErrorsSelect.add(errorCodesBean);
+            mErrorSelectAdapter.notifyDataSetChanged();
+        } else {
+            ToastUtils.showShort("您输入的不良代码已选中，请重新输入！");
+        }
     }
 
     @OnClick({R.id.iv_scan, R.id.btn_commit, R.id.iv_inject_scan})
@@ -556,7 +606,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 /**
                  * 设置注塑机文字及位置
                  */
-                etAddMaterialOrder.setText(result);
+                etInjectMachine.setText(result);
                 spinnerInjectMachine.setText(result);
                 spinnerInjectMachine.setSelectedIndex(i);
                 /**
@@ -584,7 +634,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             ToastUtils.showShort(R.string.input_product_code);
             return;
         }
-        if (rdBad.isChecked() && TextUtils.isEmpty(errorCode)) {
+        if (rdBad.isChecked() && mErrorsSelect.isEmpty()) {
             ToastUtils.showShort(R.string.tip_please_select_bad_code);
             return;
         }
@@ -595,10 +645,10 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         request.setMaterialCard(mCheckRcardResult.getMaterialCard());
         /**
          * 根据是否选择良品 设置不良代码
-         * rdGood.isChecked() 设置默认为空
+         * rdGood.isChecked() 设置默认为null
          * rdBad.isChecked()  设置errorCode
          */
-        request.setErrorCode(rdGood.isChecked() ? "" : errorCode);
+        request.setErrorCodes(rdGood.isChecked() ? null : mErrorsSelect);
         /**
          * 设置是否为不良品
          */
@@ -656,5 +706,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         llBadCodeRemark.setVisibility(isShow ? View.VISIBLE : View.GONE);
         llBadGroup.setVisibility(isShow ? View.VISIBLE : View.GONE);
         llInputBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        tvHaveSelectTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
+        rlvHaveSelectBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 }

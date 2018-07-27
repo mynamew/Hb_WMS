@@ -12,6 +12,7 @@ import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
+import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -186,7 +187,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
 
 
     @Override
-    public void collectionPolishAsync(PolishBiographyRequestBean polishBiographyRequestBean) {
+    public void collectionPolishAsync(PolishResultBean polishBiographyRequestBean) {
         ToastUtils.showShort(R.string.commit_success);
         setEdittextSelected(etAddMaterialOrder);
         llProductInfo.setVisibility(View.VISIBLE);
