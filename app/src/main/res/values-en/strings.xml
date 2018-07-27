@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">条码追溯系统</string>
+    <string name="app_name">Barcode traceability system</string>
 
     <!-- Strings related to login -->
-    <string name="property">© 版权所有：正业玖坤</string>
+    <string name="property">© Copyright：Nine Kun</string>
     /******************************************************************************************************************************************************/
     /******************************************************************************************************************************************************/
     /**====== 登录 ======**/
@@ -20,12 +20,12 @@
     /******************************************************************************************************************************************************/
     /******************************************************************************************************************************************************/
     /**====== 个人信息 ======**/
-    <string name="login_success_tip">提示：首次登录需进行个人信息确认，如有问题，请到ERP中进行修改。</string>
-    <string name="name">姓名：%1$s</string>
-    <string name="sex">性别：%1$s</string>
-    <string name="work_num">工号：%1$s</string>
-    <string name="depart">部门：%1$s</string>
-    <string name="tel">手机：%1$s</string>
+    <string name="login_success_tip">Tip: first login requires personal information confirmation. If there are problems, please go to ERP for revision.</string>
+    <string name="name">Full name：%1$s</string>
+    <string name="sex">Sex：%1$s</string>
+    <string name="work_num">Work number：%1$s</string>
+    <string name="depart">Department：%1$s</string>
+    <string name="tel">Mobile phone：%1$s</string>
     <string name="confirm">Confrim</string>
   /******************************************************************************************************************************************************/
     /******************************************************************************************************************************************************/
@@ -86,13 +86,13 @@
     /******************************************************************************************************************************************************/
     /******************************************************************************************************************************************************/
     /**====== 首页 ======**/
-    <string name="home_process_select">工序选择</string>
-    <string name="aplly_material">供料上料</string>
-    <string name="inject_mold">注塑过站</string>
+    <string name="home_process_select">Process selection</string>
+    <string name="aplly_material">Feeding material</string>
+    <string name="inject_mold">Injection station</string>
     <string name="btn_commit">commit</string>
     <string name="home_set">Set</string>
     <string name="home_mine">Mine</string>
-    <string name="home_title">条码追溯系统</string>
+    <string name="home_title">Barcode traceability system</string>
     /**====== 错误提示 ======**/
     <string name="error_title">Error Tip</string>
     <string name="dialog_batch_tip">The material with earlier batch can be counted, click ok to submit!</string>
@@ -100,58 +100,58 @@
     <string name="cancel">Cancel</string>
     <string name="isloading">Loading</string>
   /**====== 工序选择 ======**/
-  <string name="title_process_select">工序选择</string>
-  <string name="commit_success">提交成功</string>
-  <string name="no_process">暂无工序</string>
-  <string name="no_process_no_commit">暂无工序，不能提交！</string>
+  <string name="title_process_select">Process selection</string>
+  <string name="commit_success">Submission of success</string>
+  <string name="no_process">No process</string>
+  <string name="no_process_no_commit">No process, can not be submitted!</string>
   /**====== 供料上料 ======**/
-  <string name="title_add_material">供料上料</string>
-  <string name="no_worker_order_info">暂无工位信息</string>
-  <string name="scan_point_title">此单号系统中未找到，请确认后，再进行查询！</string>
-  <string name="process_code">工序代码</string>
-  <string name="worker_position">工位</string>
-  <string name="product_line">产线代码</string>
-  <string name="worker_ordeer">工单</string>
-  <string name="product_code">产品代码</string>
-  <string name="inject_machine">注塑机</string>
-  <string name="supply_material_machine">供料机</string>
-  <string name="tip_please_select_process">请先选择工序再进行此操作！</string>
-  <string name="input_inject_machine">请输入/扫描上注塑机</string>
-  <string name="tip_no_inject_machine_info">暂无注塑机信息</string>
-  <string name="tip_no_supply_material_machine_info">暂无供料机信息</string>
-  <string name="tip_no_mocode_info">暂无工单信息</string>
-  <string name="tip_add_material_barcode_check_success">上料条码校验成功,可以进行提交！</string>
-  <string name="tip_scan">扫码提示</string>
-  <string name="tip_add_material_barcode_no_same_order">当前上料条码与单号不一致，是否强制提交？</string>
-  <string name="tip_inject_machine_not_alive">您输入/扫描注塑机不存在！</string>
+  <string name="title_add_material">Feeding material</string>
+  <string name="no_worker_order_info">No station information</string>
+  <string name="scan_point_title">This single number system has not been found. Please confirm it and check again.</string>
+  <string name="process_code">Process code</string>
+  <string name="worker_position">Work position</string>
+  <string name="product_line">Line code</string>
+  <string name="worker_ordeer">Work list</string>
+  <string name="product_code">Product code</string>
+  <string name="inject_machine">Injection molding machine</string>
+  <string name="supply_material_machine">Feeding machine</string>
+  <string name="tip_please_select_process">Please select the process first and then do this！</string>
+  <string name="input_inject_machine">Please input / scan the injection molding machine</string>
+  <string name="tip_no_inject_machine_info">No information on injection molding machine</string>
+  <string name="tip_no_supply_material_machine_info">No information on feeding machine</string>
+  <string name="tip_no_mocode_info">No work list information</string>
+  <string name="tip_add_material_barcode_check_success">The bar code check is successful and can be submitted！</string>
+  <string name="tip_scan">Scavenging hint</string>
+  <string name="tip_add_material_barcode_no_same_order">At present, the barcode is not identical with the odd number. Is it compulsory to submit?？</string>
+  <string name="tip_inject_machine_not_alive">Your input / scan injection molding machine does not exist！</string>
   /**====== 注塑过站 ======**/
-  <string name="title_inject_mold_pass">注塑过站</string>
-  <string name="input_add_material_code">请输入/扫描上料单号</string>
-  <string name="input_product_code">请输入/扫描产品序列号</string>
-  <string name="input_no_low_four">产品序列号的长度不能小于4</string>
-  <string name="tip_no_mould_info">暂无模具信息</string>
-  <string name="tip_inject_pass_success">注塑过站提交成功！</string>
-  <string name="tip_check_success">校验成功！</string>
-  <string name="tip_please_select_bad_code">由于您选择了不良品，请选择不良代码进行提交！</string>
-  <string name="input_bad_code">请输入/选择不良代码</string>
-  <string name="mould">模具</string>
-  <string name="quality">品质</string>
-  <string name="good_quality">良品</string>
-  <string name="bad_quality">不良品</string>
-  <string name="product_num">产品序列号</string>
-  <string name="bad_code">不良代码</string>
-  <string name="bad_code_group">不良代码组</string>
-  <string name="remark">备注</string>
-  <string name="input_remark_info">请输入备注信息</string>
+  <string name="title_inject_mold_pass">Injection station</string>
+  <string name="input_add_material_code">Please input / scan single number</string>
+  <string name="input_product_code">Please enter / scan the serial number of the product</string>
+  <string name="input_no_low_four">The length of the serial number of the product should not be less than 4</string>
+  <string name="tip_no_mould_info">No mold information</string>
+  <string name="tip_inject_pass_success">Injection station submission success！</string>
+  <string name="tip_check_success">Check success！</string>
+  <string name="tip_please_select_bad_code">Since you have chosen bad products, please select bad code for submission.！</string>
+  <string name="input_bad_code">Please enter / select bad code</string>
+  <string name="mould">mould</string>
+  <string name="quality">quality</string>
+  <string name="good_quality">Good product</string>
+  <string name="bad_quality">Rejects</string>
+  <string name="product_num">product ID</string>
+  <string name="bad_code">Bad code</string>
+  <string name="bad_code_group">Bad code group</string>
+  <string name="remark">Remarks</string>
+  <string name="input_remark_info">Please enter the note information</string>
   /**====== CNC ======**/
-  <string name="input_cnc_tongs">请输入/扫描CNC夹具</string>
+  <string name="input_cnc_tongs">Please enter / scan the CNC fixture</string>
   <string name="title_cnc">CNC</string>
-  <string name="cnc_fixture">CNC夹具</string>
-  <string name="work_order_code">工单代码</string>
-  <string name="product_name">产品名称</string>
-  <string name="product_standard">规格型号</string>
+  <string name="cnc_fixture">CNC jig</string>
+  <string name="work_order_code">Worksheet code</string>
+  <string name="product_name">Product name</string>
+  <string name="product_standard">Specification model</string>
   /**====== 抛光 ======**/
-  <string name="title_polish">抛光</string>
-  <string name="tip_no_polish_info">暂无抛光机信息</string>
-  <string name="polish_device">抛光设备</string>
+  <string name="title_polish">Polishing</string>
+  <string name="tip_no_polish_info">No polishing machine information</string>
+  <string name="polish_device">Polishing equipment</string>
 </resources>
