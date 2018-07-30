@@ -460,10 +460,21 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 }
             };
             mErrorAdapter.setOnItemClickListener((itemView, pos) -> {
+                boolean badCodeIsSelect=false;
+                for (int i = 0; i <mErrorsSelect.size() ; i++) {
+                  if(mErrors.get(pos).getErrorCode().equals(mErrorsSelect.get(i).getErrorCode())){
+                      badCodeIsSelect=true;
+                  }
+                }
+                if(badCodeIsSelect){
+                    ToastUtils.showShort("您选择的不良代码已经选中，请重新选择！");
+                    return;
+                }
+                mErrorsSelect.add(mErrors.get(pos));
                 /**
                  * 初始化已选不良代码
                  */
-                mErrorsSelect.add(mErrors.get(pos));
+
                 if (null == mErrorSelectAdapter) {
                     mErrorSelectAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrorsSelect) {
                         @Override
@@ -621,9 +632,9 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 如果扫描的注塑机不村子啊
          */
         if (!isInjectNameTrue) {
-            etAddMaterialOrder.setText("");
-            ToastUtils.showShort("您输入/扫描注塑机不存在！");
+            etInjectMachine.setText("");
             setEdittextSelected(etInjectMachine);
+            ToastUtils.showShort("您输入/扫描的注塑机不存在！");
         }
     }
 
