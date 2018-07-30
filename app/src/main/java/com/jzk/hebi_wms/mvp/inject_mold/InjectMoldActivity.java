@@ -467,7 +467,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                   }
                 }
                 if(badCodeIsSelect){
-                    ToastUtils.showShort("您选择的不良代码已经选中，请重新选择！");
+                    ToastUtils.showShort(R.string.tip_bad_code_have_selected);
                     return;
                 }
                 mErrorsSelect.add(mErrors.get(pos));
@@ -564,7 +564,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             mErrorsSelect.add(errorCodesBean);
             mErrorSelectAdapter.notifyDataSetChanged();
         } else {
-            ToastUtils.showShort("您输入的不良代码已选中，请重新输入！");
+            ToastUtils.showShort(R.string.tip_bad_code_have_selected);
         }
     }
 
@@ -634,7 +634,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         if (!isInjectNameTrue) {
             etInjectMachine.setText("");
             setEdittextSelected(etInjectMachine);
-            ToastUtils.showShort("您输入/扫描的注塑机不存在！");
+            ToastUtils.showShort(R.string.tip_inject_machine_not_alive);
         }
     }
 

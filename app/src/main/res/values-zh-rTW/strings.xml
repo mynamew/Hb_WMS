@@ -150,4 +150,5 @@
     <string name="title_polish">拋光</string>
     <string name="tip_no_polish_info">暫無拋光機信息</string>
     <string name="polish_device">拋光設備</string>
+    <string name="tip_bad_code_have_selected">您选择的不良代码已经选中，请重新选择！</string>
 </resources>

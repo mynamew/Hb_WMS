@@ -154,4 +154,5 @@
   <string name="title_polish">Polishing</string>
   <string name="tip_no_polish_info">No polishing machine information</string>
   <string name="polish_device">Polishing equipment</string>
+    <string name="tip_bad_code_have_selected">您选择的不良代码已经选中，请重新选择！</string>
 </resources>
