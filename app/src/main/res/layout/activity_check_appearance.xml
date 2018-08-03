@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mvp.ipqc.CheckAppearanceActivity">
+
+    <include
+        android:id="@+id/head"
+        layout="@layout/title_head"/>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10px"
+        android:layout_marginRight="30px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="88px"
+            android:layout_marginRight="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_bottom_product_serial_no_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="30px"
+                android:text="序列号"
+                android:textColor="#333"
+                android:textSize="13sp"
+                />
+
+            <EditText
+                android:id="@+id/et_bottom_product_serial_no"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_toEndOf="@id/tv_bottom_product_serial_no_tip"
+                android:layout_toRightOf="@id/tv_bottom_product_serial_no_tip"
+                android:background="@drawable/selector_et"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="请输入/扫描序列号"
+                android:imeOptions="actionSearch"
+                android:inputType="textVisiblePassword"
+                android:paddingLeft="20px"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="13sp"/>
+
+            <ImageView
+                android:id="@+id/iv_bottom_product_serial_no_scan"
+                android:layout_width="100px"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:paddingLeft="60px"
+                android:src="@mipmap/ic_scan"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_batch_pass"
+            android:layout_width="110px"
+            android:layout_height="64px"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10px"
+            android:background="@drawable/selector_btn_bg_login"
+            android:text="批通过"
+            android:textColor="@color/white"
+            android:visibility="visible"/>
+
+        <Button
+            android:id="@+id/btn_batch_return"
+            android:layout_width="110px"
+            android:layout_height="64px"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_btn_bg_login"
+            android:text="批退"
+            android:textColor="@color/white"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_bottom"
+        android:layout_below="@id/head">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:layout_marginRight="30px"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="88px"
+                    android:layout_marginRight="30px"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_add_material_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="30px"
+                        android:text="抽检批号"
+                        android:textColor="#333"
+                        android:textSize="13sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/et_batch_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20px"
+                        android:layout_toEndOf="@id/tv_add_material_tip"
+                        android:layout_toRightOf="@id/tv_add_material_tip"
+                        android:background="@drawable/selector_et"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:hint="请输入/生成批次号"
+                        android:imeOptions="actionSearch"
+                        android:inputType="textVisiblePassword"
+                        android:paddingLeft="20px"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textSize="13sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_scan"
+                        android:layout_width="100px"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="30px"
+                        android:paddingLeft="60px"
+                        android:src="@mipmap/ic_scan"/>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/tv_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="64px"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/selector_btn_bg_login"
+                    android:text="生成批号"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="质检名称"
+                    android:textColor="#333"
+                    android:textSize="13sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_rectangle_et_unfocused"
+                    android:orientation="horizontal"
+                    android:padding="5px">
+
+                    <com.jzk.spinnerlibrary.MaterialSpinner
+                        android:id="@+id/spinner_quality_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="64px"
+                        android:textSize="13sp"
+                        app:ms_dropdown_height="wrap_content"
+                        app:ms_dropdown_max_height="350dp"
+                        app:ms_hint_color="@color/color_666"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>
