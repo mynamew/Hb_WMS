@@ -168,17 +168,17 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     public void submit() {
         String baseUrl = SpUtils.getInstance().getBaseUrl();
         if (TextUtils.isEmpty(baseUrl)) {
-            ToastUtils.showShort(this, "请先配置服务地址");
+            ToastUtils.showShort(this, getString(R.string.tip_set_servise_address));
             return;
         }
         String username = etLoginUsername.getText().toString().trim();
         if (TextUtils.isEmpty(username)) {
-            ToastUtils.showShort(this, "请输入用户名");
+            ToastUtils.showShort(this, getString(R.string.tip_username));
             return;
         }
         String password = etLoginPassword.getText().toString().trim();
         if (TextUtils.isEmpty(password)) {
-            ToastUtils.showShort(this, "请输入密码");
+            ToastUtils.showShort(this, getString(R.string.tip_password));
             return;
         }
 //        //如果记录密码 存储用户名和密码
@@ -457,13 +457,5 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
             ivLoginDown = (ImageView) myDialog.getView(R.id.iv_login_down);
         }
         myDialog.show();
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

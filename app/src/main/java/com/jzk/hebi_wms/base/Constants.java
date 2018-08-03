@@ -9,8 +9,6 @@ public class Constants {
      * base url
      */
     public static final String BASE_URL = "http://szjuqent.imwork.net:91/";
-    //    public static final String BASE_URL = "http://192.168.0.39:8066/";
-    //    public static final String BASE_URL = "http://192.168.18.117:8066/";
     //超时时间   2分钟
     public static int DEFAULT_TIMEOUT = 2;
     /**********
@@ -83,14 +81,34 @@ public class Constants {
     /***********
      * 扫码相关
      *********************************************************************************************/
-    //产品序列号
+    /**
+     * 产品序列号
+     */
     public static final int REQUEST_SCAN_CODE_BARCODE = 1001;
-    //CNC夹具
+    /**
+     * CNC夹具
+     */
     public static final int REQUEST_SCAN_CODE_CNC_TONGS = 1002;
-    //注塑机
+    /**
+     * 注塑机
+     */
     public static final int REQUEST_SCAN_CODE_INJECT_MACHINE = 1003;
-    //不良代码
+    /**
+     * 不良代码
+     */
     public static final int REQUEST_SCAN_CODE_BAD_CODE = 1004;
+    /**
+     * 批号
+     */
+    public static final int REQUEST_SCAN_CODE_BATCH_NO = 1005;
+    /**
+     * 产品序列号
+     */
+    public static final int REQUEST_SCAN_CODE_PRODUCT_SERIAL_NO = 1006;
+    /**
+     * 箱号
+     */
+    public static final int REQUEST_SCAN_CODE_BOX_NO = 1007;
     /***********
      * SharePerference存储token   key /  value的前缀
      *********************************************************************************************/

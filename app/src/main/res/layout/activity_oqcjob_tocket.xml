@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".mvp.oqc.ticket.OqcJobTocketActivity">
+
+    <include layout="@layout/title_head"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginRight="30px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="88px"
+            android:layout_marginRight="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_add_material_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="30px"
+                android:text="批次号"
+                android:textColor="#333"
+                android:textSize="13sp"
+                />
+
+            <EditText
+                android:id="@+id/et_batch_no"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_toEndOf="@id/tv_add_material_tip"
+                android:layout_toRightOf="@id/tv_add_material_tip"
+                android:background="@drawable/selector_et"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="请输入/扫描批次号"
+                android:imeOptions="actionSearch"
+                android:inputType="textVisiblePassword"
+                android:paddingLeft="20px"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="13sp"/>
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="100px"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:paddingLeft="60px"
+                android:src="@mipmap/ic_scan"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/tv_new_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="64px"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_btn_bg_login"
+            android:text="新批次"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginRight="30px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="88px"
+            android:layout_marginRight="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_product_serial_no_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="30px"
+                android:text="序列号"
+                android:textColor="#333"
+                android:textSize="13sp"
+                />
+
+            <EditText
+                android:id="@+id/et_product_serial_no"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_toEndOf="@id/tv_product_serial_no_tip"
+                android:layout_toRightOf="@id/tv_product_serial_no_tip"
+                android:background="@drawable/selector_et"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="请输入/扫描序列号"
+                android:imeOptions="actionSearch"
+                android:inputType="textVisiblePassword"
+                android:paddingLeft="20px"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="13sp"/>
+
+            <ImageView
+                android:id="@+id/iv_product_serial_no_scan"
+                android:layout_width="100px"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:paddingLeft="60px"
+                android:src="@mipmap/ic_scan"/>
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="64px"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_btn_bg_login"
+            android:text="新批次"
+            android:visibility="invisible"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginRight="30px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="88px"
+            android:layout_marginRight="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_box_num_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="55px"
+                android:text="箱号"
+                android:textColor="#333"
+                android:textSize="13sp"
+                />
+
+            <EditText
+                android:id="@+id/et_box_num"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_toEndOf="@id/tv_box_num_tip"
+                android:layout_toRightOf="@id/tv_box_num_tip"
+                android:background="@drawable/selector_et"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="请输入/扫描箱号"
+                android:imeOptions="actionSearch"
+                android:inputType="textVisiblePassword"
+                android:paddingLeft="20px"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="13sp"/>
+
+            <ImageView
+                android:id="@+id/iv_box_num_scan"
+                android:layout_width="100px"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:paddingLeft="60px"
+                android:src="@mipmap/ic_scan"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_get_batch"
+            android:layout_width="wrap_content"
+            android:layout_height="64px"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_btn_bg_login"
+            android:text="获取批"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="10px"
+        android:layout_marginTop="10px"
+        android:background="@color/divide_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="产品代码"
+            android:textColor="#333"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_product_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50px"
+            android:text="PO689287678"
+            android:textColor="#666"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工单代码"
+            android:textColor="#333"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_mo_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50px"
+            android:text="PO689287678"
+            android:textColor="#666"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="质检状态"
+            android:textColor="#333"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/tv_quality_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50px"
+            android:text="在检"
+            android:textColor="#666"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlv_box_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divide_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginTop="30px"
+        android:layout_marginBottom="30px"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="88px"
+            android:layout_marginRight="30px"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_box_no_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="30px"
+                android:text="箱号"
+                android:textColor="#333"
+                android:textSize="13sp"
+                />
+
+            <EditText
+                android:id="@+id/et_box_no"
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_toEndOf="@id/tv_box_no_tip"
+                android:layout_toRightOf="@id/tv_box_no_tip"
+                android:background="@drawable/selector_et"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:hint="请输入/扫描箱号"
+                android:imeOptions="actionSearch"
+                android:inputType="textVisiblePassword"
+                android:paddingLeft="20px"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="13sp"/>
+
+            <ImageView
+                android:id="@+id/iv_box_no_scan"
+                android:layout_width="100px"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:paddingLeft="60px"
+                android:src="@mipmap/ic_scan"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_send_quality"
+            android:layout_width="wrap_content"
+            android:layout_height="64px"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_btn_bg_login"
+            android:text="送检"
+            android:textColor="@color/white"
+            android:visibility="visible"/>
+    </LinearLayout>
+</LinearLayout>

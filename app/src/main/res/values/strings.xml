@@ -158,4 +158,8 @@
     <string name="tip_no_polish_info">暂无抛光机信息</string>
     <string name="polish_device">抛光设备</string>
     <string name="tip_bad_code_have_selected">您选择的不良代码已经选中，请重新选择！</string>
+    <string name="tip_set_servise_address">请先配置服务地址</string>
+    <string name="tip_username">请输入用户名</string>
+    <string name="tip_password">请输入密码</string>
+    /**====== oqc 送检作业 ======**/
 </resources>

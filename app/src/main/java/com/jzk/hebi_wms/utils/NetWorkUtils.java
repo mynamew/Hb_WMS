@@ -74,15 +74,6 @@ public class NetWorkUtils {
         if(result.length()>0 && result.contains("HWaddr")==true){
             Mac = result.substring(result.indexOf("HWaddr")+6, result.length()-1);
             LogUitls.d("test","Mac:"+Mac+" Mac.length: "+Mac.length());
-
-             /*if(Mac.length()>1){
-                 Mac = Mac.replaceAll(" ", "");
-                 result = "";
-                 String[] tmp = Mac.split(":");
-                 for(int i = 0;i<tmp.length;++i){
-                     result +=tmp[i];
-                 }
-             }*/
             result = Mac;
         }
         return result;
