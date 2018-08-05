@@ -9,6 +9,10 @@ import com.jzk.hebi_wms.data.cnc.CncRequest;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
+import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
+import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
+import com.jzk.hebi_wms.data.ipqc.CollectionIpqcDataRequest;
+import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
 import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
@@ -182,4 +186,72 @@ public interface ApiService {
      */
     @POST("api/services/productionplan/CollectionPolish/CollectionPolishAsync")
     Observable<CommonResult<PolishResultBean>> collectionPolishAsync(@Body PolishBiographyRequestBean request);
+
+    /********外观抽检******************************************************************************/
+    /**
+     * 获取批号信息
+     *
+     * @param lotNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/GetLotInfoAsync")
+    Observable<CommonResult<IpqcCommonResult>> getLotInfoAsync(@Field("LotNo") String lotNo);
+
+    /**
+     * 生成批号
+     *
+     * @param ruleCode 固定字段 IPQC
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/CreateNewLotNoAsync")
+    Observable<CommonResult<IpqcCommonResult>> createNewLotNoAsync(@Field("RuleCode") String ruleCode);
+
+    /**
+     * 获取质检名称
+     *
+     * @param noneClass
+     * @return
+     */
+    @POST("api/services/qualitycontrol/iPQCCollection/GetIQPCNameAsync")
+    Observable<CommonResult<IpqcCommonResult>> getIQPCNameAsync(@Body NoneClass noneClass);
+
+    /**
+     * 获取抽检时段
+     *
+     * @param noneClass
+     * @return
+     */
+    @POST("api/services/qualitycontrol/iPQCCollection/GetTimePerodAsync")
+    Observable<CommonResult<IpqcCommonResult>> getTimePerodAsync(@Body NoneClass noneClass);
+
+    /**
+     * 获取抽检工序
+     *
+     * @param typeCode
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/GetProcessAsync")
+    Observable<CommonResult<IpqcCommonResult>> getProcessAsync(@Field("TypeCode") String typeCode);
+
+    /**
+     * 抽检校验
+     *
+     * @param recardInfoRequest
+     * @return
+     */
+    @POST("api/services/qualitycontrol/iPQCCollection/CheckRCardInfoAsync")
+    Observable<CommonResult<IpqcCommonResult>> checkRCardInfoAsync(@Body CheckRecardInfoRequest recardInfoRequest);
+
+    /**
+     * 获取采集数据
+     *
+     * @param collectionIpqcDataRequest
+     * @return
+     */
+    @POST("api/services/qualitycontrol/collectionIPQCData/GetCollectionIPQCDataAsync")
+    Observable<CommonResult<CollectionIpqcData>> getCollectionIPQCDataAsync(@Body CollectionIpqcDataRequest collectionIpqcDataRequest);
+
 }
