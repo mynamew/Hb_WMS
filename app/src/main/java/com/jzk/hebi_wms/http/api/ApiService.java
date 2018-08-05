@@ -254,4 +254,5 @@ public interface ApiService {
     @POST("api/services/qualitycontrol/collectionIPQCData/GetCollectionIPQCDataAsync")
     Observable<CommonResult<CollectionIpqcData>> getCollectionIPQCDataAsync(@Body CollectionIpqcDataRequest collectionIpqcDataRequest);
 
+
 }
