@@ -14,7 +14,6 @@ import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -83,18 +82,12 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
         return this;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
     @OnClick({R.id.btn_quality, R.id.btn_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_quality:
-                new MyDialog(this, R.layout.dialog_quality).show();
+                MyDialog myDialog = new MyDialog(this, R.layout.dialog_quality);
+                myDialog.show();
                 break;
             case R.id.btn_save:
                 break;

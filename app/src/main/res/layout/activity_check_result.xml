@@ -131,7 +131,29 @@
                 <!--android:layout_marginBottom="10px"-->
                 <!--android:layout_marginTop="10px"-->
                 <!--android:background="@color/divide_color"/>-->
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="检验项目"
+            android:textColor="#333"
+            android:textSize="13sp"/>
+
+            <TextView
+            android:id="@+id/tv_product_standard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50px"
+            android:text="IPQC抽检外观"
+            android:textColor="#666"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="检验类型"
+                    android:text="检验项目"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
