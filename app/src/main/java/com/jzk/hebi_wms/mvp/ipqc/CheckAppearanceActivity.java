@@ -189,6 +189,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
             for (int i = 0; i < qualityNames.size(); i++) {
                 strs.add(qualityNames.get(i).getDisplayText());
             }
+
             spinnerQualityType.setItems(strs);
 
             dismissLoadingDataDialog();
