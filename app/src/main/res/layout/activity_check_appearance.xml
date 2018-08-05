@@ -157,7 +157,7 @@
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/tv_refresh"
+                    android:id="@+id/btn_create_batchno"
                     android:layout_width="wrap_content"
                     android:layout_height="64px"
                     android:layout_gravity="center_vertical"

@@ -142,11 +142,12 @@ public class Constants {
      * 4、PERMISSION_CNC2   CNC2权限
      * 5、PERMISSION_POLISH  抛光
      *********************************************************************************************/
-    public static final String PERMISSION_SUPPLY = "Pages.ProductionPlan.DataCollection.OnWipMaterial";
+    public static final String PERMISSION_SUPPLY = "Pages.ProductionPlan.DataCollection.OnWipMaterial.AddMaterial";
     public static final String PERMISSION_INJECT = "Pages.ProductionPlan.DataCollection.Molding";
     public static final String PERMISSION_CNC1 = "Pages.ProductionPlan.DataCollection.CNC";
     public static final String PERMISSION_CNC2 = "Pages.ProductionPlan.DataCollection.CNC2";
     public static final String PERMISSION_POLISH = "Pages.ProductionPlan.DataCollection.Polish";
+    public static final String PERMISSION_QUALITY= "Pages.QualityControl.IPQC.IPQCManage.IPQCCollection";
 
     /***********
      * 设备类型

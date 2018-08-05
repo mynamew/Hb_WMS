@@ -18,6 +18,7 @@ import com.jzk.hebi_wms.http.message.event.HomeEvent;
 import com.jzk.hebi_wms.mvp.Polishing.PolishingActivity;
 import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
+import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;
 import com.jzk.hebi_wms.mvp.station.StationSelectActivity;
 import com.jzk.hebi_wms.utils.SpUtils;
 
@@ -91,6 +92,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 case Constants.PERMISSION_POLISH:
                     it.setClass(Objects.requireNonNull(getActivity()), PolishingActivity.class);
                     break;
+                case Constants.PERMISSION_QUALITY:
+                    it.setClass(Objects.requireNonNull(getActivity()), CheckAppearanceActivity.class);
+                    break;
                 default:
                     break;
             }
@@ -106,36 +110,33 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
         Map<String, String> codePermission = new HashMap<>();
         String loginBeanStr = SpUtils.getInstance().getLoginBeanStr();
         LoginBean loginBean = new Gson().fromJson(loginBeanStr, LoginBean.class);
-        List<LoginBean.GrantPermissionBean.ChildPermissionsBeanXX> childPermissions1 = loginBean.getGrantPermission().getChildPermissions();
+        List<LoginBean.GrantPermissionBean.ChildPermissionsBeanXXX> childPermissions1 = loginBean.getGrantPermission().getChildPermissions();
         if (null != childPermissions1 && !childPermissions1.isEmpty()) {
-            /**
-             * 获取生产计划数据采集的权限
-             */
-            List<LoginBean.GrantPermissionBean.ChildPermissionsBeanXX.ChildPermissionsBeanX.ChildPermissionsBean> childPermissions = childPermissions1.get(1).getChildPermissions().get(0).getChildPermissions();
-            if (null != childPermissions && !childPermissions.isEmpty()) {
-                for (int i = 0; i < childPermissions.size(); i++) {
-                    LoginBean.GrantPermissionBean.ChildPermissionsBeanXX.ChildPermissionsBeanX.ChildPermissionsBean childPermissionsBean = childPermissions.get(i);
-                    switch (childPermissionsBean.getPermissionCode()) {
-                        case Constants.PERMISSION_SUPPLY:
-                            codePermission.put(Constants.PERMISSION_SUPPLY, childPermissionsBean.getPermissionName());
-                            break;
-                        case Constants.PERMISSION_INJECT:
-                            codePermission.put(Constants.PERMISSION_INJECT, childPermissionsBean.getPermissionName());
-                            break;
-                        case Constants.PERMISSION_CNC1:
-                            codePermission.put(Constants.PERMISSION_CNC1, childPermissionsBean.getPermissionName());
-                            break;
-                        case Constants.PERMISSION_CNC2:
-                            codePermission.put(Constants.PERMISSION_CNC2, childPermissionsBean.getPermissionName());
-                            break;
-                        case Constants.PERMISSION_POLISH:
-                            codePermission.put(Constants.PERMISSION_POLISH, childPermissionsBean.getPermissionName());
-                            break;
-                        default:
-                            break;
+            for (int i = 0; i < childPermissions1.size(); i++) {
+                /**
+                 * 获取权限
+                 */
+                List<LoginBean.GrantPermissionBean.ChildPermissionsBeanXXX.ChildPermissionsBeanXX> childPermissions = childPermissions1.get(i).getChildPermissions();
+                for (int j = 0; j < childPermissions.size(); j++) {
+                    if (null != childPermissions.get(j).getChildPermissions()) {
+                        List<LoginBean.GrantPermissionBean.ChildPermissionsBeanXXX.ChildPermissionsBeanXX.ChildPermissionsBeanX> childPermissions2 = childPermissions.get(j).getChildPermissions();
+                        childPermissions.get(j).getChildPermissions();
+                        for (int k = 0; k < childPermissions2.size(); k++) {
+                            List<LoginBean.GrantPermissionBean.ChildPermissionsBeanXXX.ChildPermissionsBeanXX.ChildPermissionsBeanX.ChildPermissionsBean> childPermissions3 = childPermissions2.get(k).getChildPermissions();
+                            if (null != childPermissions3) {
+                                for (int l = 0; l < childPermissions3.size(); l++) {
+                                    getUserPermission(codePermission, childPermissions3.get(l).getPermissionCode(), childPermissions3.get(l).getPermissionName());
+                                }
+                            } else {
+                                getUserPermission(codePermission, childPermissions2.get(k).getPermissionCode(), childPermissions2.get(k).getPermissionName());
+                            }
+                        }
+                    } else {
+                        getUserPermission(codePermission, childPermissions.get(j).getPermissionCode(), childPermissions.get(j).getPermissionName());
                     }
                 }
             }
+
         }
         /**
          * 如果未设置菜单的数据源证明用户还没有权限！则显示没有权限的界面,并返回
@@ -156,7 +157,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 R.mipmap.home_inject_pass,
                 R.mipmap.home_cnc,
                 R.mipmap.home_cnc,
-                R.mipmap.home_polish};
+                R.mipmap.home_polish,
+                R.mipmap.qulity_inspection
+        };
         /**
          * 权限Codes
          */
@@ -167,6 +170,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                         Constants.PERMISSION_CNC1,
                         Constants.PERMISSION_CNC2,
                         Constants.PERMISSION_POLISH,
+                        Constants.PERMISSION_QUALITY,
                 };
         /**
          * 设置菜单的数据源
@@ -211,5 +215,39 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             adapter.notifyDataSetChanged();
         }
         tvMainHead.setText(R.string.home_title);
+    }
+
+    /**
+     * 获取权限
+     *
+     * @param codePermission
+     * @param permissionCode
+     * @param permissionName
+     */
+    private void getUserPermission(Map<String, String> codePermission, String permissionCode, String permissionName) {
+        switch (permissionCode) {
+            case Constants.PERMISSION_SUPPLY:
+                codePermission.put(Constants.PERMISSION_SUPPLY, permissionName);
+                break;
+            case Constants.PERMISSION_INJECT:
+                codePermission.put(Constants.PERMISSION_INJECT, permissionName);
+                break;
+            case Constants.PERMISSION_CNC1:
+                codePermission.put(Constants.PERMISSION_CNC1, permissionName);
+                break;
+            case Constants.PERMISSION_CNC2:
+                codePermission.put(Constants.PERMISSION_CNC2, permissionName);
+                break;
+            case Constants.PERMISSION_POLISH:
+                codePermission.put(Constants.PERMISSION_POLISH, permissionName);
+                break;
+            case Constants.PERMISSION_QUALITY:
+                codePermission.put(Constants.PERMISSION_QUALITY, permissionName);
+                break;
+            default:
+                break;
+
+
+        }
     }
 }

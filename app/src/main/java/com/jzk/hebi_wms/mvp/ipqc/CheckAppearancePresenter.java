@@ -42,4 +42,80 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
         }
         model.getLotInfoAsync(lotNo, getLotInfoAsyncHttpSubscriber);
     }
+    /**
+     * 生成批号信息
+     */
+    public void createNewLotNoAsync() {
+        if (null == createNewLotNoAsyncSubscriber) {
+            createNewLotNoAsyncSubscriber = new HttpSubscriber<>(new OnResultCallBack<IpqcCommonResult>() {
+                @Override
+                public void onSuccess(IpqcCommonResult o) {
+                    getView().createNewLotNoAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.createNewLotNoAsync(createNewLotNoAsyncSubscriber);
+    }
+    /**
+     * 获取质检名称
+     */
+    public void getIQPCNameAsync() {
+        if (null == getIQPCNameAsyncSubscriber) {
+            getIQPCNameAsyncSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<IpqcCommonResult>() {
+                @Override
+                public void onSuccess(IpqcCommonResult o) {
+                    getView().getIQPCNameAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.getIQPCNameAsync(getIQPCNameAsyncSubscriber);
+    }
+    /**
+     * 获取时段
+     */
+    public void getTimePerodAsync() {
+        if (null == getTimePerodAsyncSubscriber) {
+            getTimePerodAsyncSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<IpqcCommonResult>() {
+                @Override
+                public void onSuccess(IpqcCommonResult o) {
+                    getView().getTimePerodAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.getTimePerodAsync(getTimePerodAsyncSubscriber);
+    }
+    /**
+     * 获取工序
+     */
+    public void getProcessAsync() {
+        if (null == getProcessAsyncSubscriber) {
+            getProcessAsyncSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<IpqcCommonResult>() {
+                @Override
+                public void onSuccess(IpqcCommonResult o) {
+                    getView().getProcessAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.getProcessAsync(getProcessAsyncSubscriber);
+    }
 }

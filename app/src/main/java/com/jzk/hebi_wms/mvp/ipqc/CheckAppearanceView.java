@@ -13,4 +13,28 @@ public interface CheckAppearanceView extends MvpBaseView {
      * @param o
      */
     void getLotInfoAsync(IpqcCommonResult o);
+
+    /**
+     * 生成批号信息
+     * @param o
+     */
+    void createNewLotNoAsync(IpqcCommonResult o);
+
+    /**
+     * 获取质检名称信息
+      * @param o
+     */
+    void getIQPCNameAsync(IpqcCommonResult o);
+
+    /**
+     * 获取时段
+     * @param o
+     */
+    void getTimePerodAsync(IpqcCommonResult o);
+
+    /**
+     * 获取工序
+     * @param o
+     */
+    void getProcessAsync(IpqcCommonResult o);
 }

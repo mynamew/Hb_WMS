@@ -14,6 +14,7 @@ import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.utils.LogUitls;
+import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
 import java.util.ArrayList;
@@ -50,8 +51,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     EditText etBatchNo;
     @BindView(R.id.iv_scan)
     ImageView ivScan;
-    @BindView(R.id.tv_refresh)
-    Button tvRefresh;
+    @BindView(R.id.btn_create_batchno)
+    Button btnCreateBatchNo;
     @BindView(R.id.spinner_quality_type)
     MaterialSpinner spinnerQualityType;
     @BindView(R.id.tv_quality_des)
@@ -77,6 +78,13 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     /***日期选择***********************************************************************************/
     private List<String> canSelectDate = new ArrayList<>();
 
+    /*****质检名称*****************************************************************************/
+    List<IpqcCommonResult.DpListBean> qualityNames = null;
+    /*****时段*****************************************************************************/
+    List<IpqcCommonResult.DpListBean> qualityTimes = null;
+    /*****工序*****************************************************************************/
+    List<IpqcCommonResult.DpListBean> qualityProcesses = null;
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_check_appearance;
@@ -95,6 +103,10 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     @Override
     public void initData() {
         getCurrentAndLastDate();
+        showProgressDialog();
+        getPresenter().getIQPCNameAsync();
+        getPresenter().getProcessAsync();
+        getPresenter().getTimePerodAsync();
     }
 
     @Override
@@ -108,7 +120,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     }
 
 
-    @OnClick({R.id.iv_scan, R.id.iv_bottom_product_serial_no_scan, R.id.btn_batch_pass, R.id.btn_batch_return, R.id.tv_refresh})
+    @OnClick({R.id.iv_scan, R.id.iv_bottom_product_serial_no_scan, R.id.btn_batch_pass, R.id.btn_batch_return, R.id.btn_create_batchno})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             /**
@@ -127,7 +139,9 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 break;
             case R.id.btn_batch_return:
                 break;
-            case R.id.tv_refresh:
+            case R.id.btn_create_batchno:
+                showProgressDialog();
+                getPresenter().createNewLotNoAsync();
                 break;
             default:
                 break;
@@ -158,5 +172,65 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     @Override
     public void getLotInfoAsync(IpqcCommonResult o) {
 
+    }
+
+    @Override
+    public void createNewLotNoAsync(IpqcCommonResult o) {
+        ToastUtils.showShort("生成批号成功！");
+        etBatchNo.setText(o.getLotNo());
+    }
+
+    @Override
+    public void getIQPCNameAsync(IpqcCommonResult o) {
+        if (null != o.getDpList() && !o.getDpList().isEmpty()) {
+            qualityNames = o.getDpList();
+
+            ArrayList<String> strs = new ArrayList<>();
+            for (int i = 0; i < qualityNames.size(); i++) {
+                strs.add(qualityNames.get(i).getDisplayText());
+            }
+            spinnerQualityType.setItems(strs);
+
+            dismissLoadingDataDialog();
+        }
+    }
+
+    @Override
+    public void getTimePerodAsync(IpqcCommonResult o) {
+        if (null != o.getDpList() && !o.getDpList().isEmpty()) {
+            qualityTimes = o.getDpList();
+
+            ArrayList<String> strs = new ArrayList<>();
+            for (int i = 0; i < qualityTimes.size(); i++) {
+                strs.add(qualityTimes.get(i).getDisplayText());
+            }
+            spinnerQualityType.setItems(strs);
+
+            dismissLoadingDataDialog();
+        }
+    }
+
+    @Override
+    public void getProcessAsync(IpqcCommonResult o) {
+        if (null != o.getDpList() && !o.getDpList().isEmpty()) {
+            qualityProcesses = o.getDpList();
+
+            ArrayList<String> strs = new ArrayList<>();
+            for (int i = 0; i < qualityProcesses.size(); i++) {
+                strs.add(qualityProcesses.get(i).getDisplayText());
+            }
+            spinnerQualityType.setItems(strs);
+
+            dismissLoadingDataDialog();
+        }
+    }
+
+    /**
+     * 隐藏初始化数据的加载框
+     */
+    private void dismissLoadingDataDialog() {
+        if (null != qualityProcesses && null != qualityTimes && null != qualityNames) {
+            dismisProgressDialog();
+        }
     }
 }

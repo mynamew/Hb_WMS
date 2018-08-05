@@ -10,12 +10,12 @@ public class LoginBean {
 
 
     /**
-     * userId : 55
-     * fullName : mes
-     * currentOrgUnit : {"id":1,"parentId":null,"code":"00000","displayName":"默认组织"}
-     * token : p7awP5clD5wzFA4WjdMEENyPG63db4E9lbNi8ilG8FG3GQ6Y7L7znDxlI6HX5pidguQurXqAscgNB9APELUinu1J7xxcVcji9Kd155aD1gD4xsS8jzjzycQUNiEF0_nJ3KaOD8uxg215SvLjcnItKlzEm4CkuygQKsYQ9BpGqOHp2wRxbb3JUO9bX9TKZIihV27yvOOYRg-qm-Ui4M-Sc5M4qHRT18-U70ITMZSi9_p9nkTfVWMdoU4fzDRl5HrF6yC6L12QSHv9eKAsHrqSO25Ivg8IrZwdvexDSk8K9fzVbF-agy_syrWfR6WYxscUlzcgNgi2SgIJMS4gtYvu9g4SAN9SWQymtNyc_jx41pHAOMVqJiOglcAcsGcxIeIRN8-Uf8hwH7t055_IHf4oqaoDtJbQF_AT95-UJuVsrPztOMYWPDFP90VWhd0R_ukID1J5cHW46JEug2B-71AhgIFUH2R8IKqzDjvvZUpU69Y3II1kMaEOBZGCL6Kc027qm76O-r2srDUa6QlGXvFb5FtQSlmSwP3L7NHgLekH9YY
-     * grantPermission : {"permissionCode":"Pages","permissionName":"Pages","childPermissions":[{"permissionCode":"Pages.WPDA","permissionName":"WPDA","childPermissions":[{"permissionCode":"Pages.WPDA.InStock","permissionName":"入库作业","childPermissions":[{"permissionCode":"Pages.WPDA.InStock.ReceiveByOrder","permissionName":"采购单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.InStock.ReceiveByDelivery","permissionName":"送货单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.IQC","permissionName":"来料质检","childPermissions":null},{"permissionCode":"Pages.WPDA.BarcodeEdit","permissionName":"无质检条码修改","childPermissions":null},{"permissionCode":"Pages.WPDA.PurInstock","permissionName":"来料入库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherInstock","permissionName":"其他入库","childPermissions":null}]},{"permissionCode":"Pages.WPDA.OutStock","permissionName":"出库作业","childPermissions":[{"permissionCode":"Pages.WPDA.PurReturn","permissionName":"采购退料","childPermissions":null},{"permissionCode":"Pages.WPDA.WWPick","permissionName":"委外发料","childPermissions":null},{"permissionCode":"Pages.WPDA.WWFeed","permissionName":"委外补料","childPermissions":null},{"permissionCode":"Pages.WPDA.WPDA_WWTransfer","permissionName":"委外调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdPick","permissionName":"生产领料","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdTransfer","permissionName":"生产调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdFeed","permissionName":"生产补料","childPermissions":null},{"permissionCode":"Pages.WPDA.SalesOutStock","permissionName":"销售出库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherOutStock","permissionName":"其他出库","childPermissions":null}]},{"permissionCode":"Pages.WPDA.StockIn","permissionName":"库内作业","childPermissions":[{"permissionCode":"Pages.WPDA.Transfer","permissionName":"调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.QueryStock","permissionName":"库存查询","childPermissions":null},{"permissionCode":"Pages.WPDA.MatConvert","permissionName":"形态转换","childPermissions":null},{"permissionCode":"Pages.WPDA.StockAdjust","permissionName":"库位调整","childPermissions":null}]},{"permissionCode":"Pages.WPDA.ReportQuery","permissionName":"报表查询","childPermissions":[{"permissionCode":"Pages.WPDA.ReportQuery.StockSummary","permissionName":"报表查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDetailSummary","permissionName":"今日入库明细列表","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDetailSummary","permissionName":"今日出库明细列表","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.BarcodeTraces","permissionName":"SN追溯查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.BillBarcode","permissionName":"单据条码查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDetail","permissionName":"入库记录查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDetail","permissionName":"出库记录查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDayStatistics","permissionName":"入库统计","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDayStatistics","permissionName":"出库统计","childPermissions":null}]}]}]}
-     * orgUnits : [{"id":1,"parentId":null,"code":"00000","displayName":"/  默认组织 "}]
+     * userId : 2
+     * fullName : ADMIN
+     * currentOrgUnit : {"id":2,"parentId":null,"code":"00000","displayName":"默认组织"}
+     * token : v59hdnoFzUiuoqj4YzSlJYtvkhDQuFEm7cbs-R-Tifm779X1eA7aaWMAedhW4GGUgLxMH0vUaXlCJ3A4qhrGlXPGbnCLFGZBuFj7qPmmLD5oS-6-5kQhpcErVpEEJRGx5DMAHHRG9zYHfrQCKQXWerYiFfnHmNqQ_XLXkdX4y8HDZsiTAj36h7DeFqPXnz__BeQmqIGnneOI_K272BQmkVpvynY9c-IXlwMDrFogbwhOgGCyxuVadnCXMvRdc1n4O-Q68jM9nH1cR65b0CcemBtzk-UAcCgnyAeSL5ODOlull-bt-RLhLo0mI1aUhcrN05VJHylnTcguFiuQ9w-j_CD_ltpw62Dti37AgokVfn_r-kh6cVj53UEzH4G-Vt6hqZbWj1ejyeyu-eCYe-WhW73Y_ENb8UUZ7NPcXodDNyVgmUcc18iAWoHy75_qsGMd44KjGCPmm1upUbEBSUbnVu4NdYH6drKPthwvMii-PbsgAQQ2RJEqPcV6pnpActaxG9JoyEHNeBFJi4tW30gALEaHcmtwGcwmpxHCuWezX5IE6kZNRopJh5qFoXWAJkbDnhMxNMbjpaWBbMLwSUgR5w
+     * grantPermission : {"permissionCode":"Pages","permissionName":"Pages","childPermissions":[{"permissionCode":"Pages.QualityControl","permissionName":"质检管理","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC","permissionName":"IPQC质检维护","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage","permissionName":"IPQC抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCCollection","permissionName":"IPQC抽检外观","childPermissions":null},{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCQuery","permissionName":"IPQC查询","childPermissions":null}]}]},{"permissionCode":"Pages.QualityControl.LQC","permissionName":"成品抽检维护","childPermissions":[{"permissionCode":"Pages.QualityControl.LQC.LQCManage","permissionName":"批抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCLotQA","permissionName":"抽检批维护","childPermissions":null},{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCCollection","permissionName":"批抽检采集","childPermissions":null},{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCQuery","permissionName":"OQC查询","childPermissions":null}]}]}]},{"permissionCode":"Pages.ProductionPlan","permissionName":"生产计划","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection","permissionName":"数据采集","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard","permissionName":"产品序列号打印","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.CreateRCard","permissionName":"生成序列号","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.DeleteAll","permissionName":"批删除","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.Export","permissionName":"导出","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.Print","permissionName":"打印序列号","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.DataCollection.RMO2RCard","permissionName":"产品序列号重打印","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Molding","permissionName":"注塑过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Laser","permissionName":"镭雕过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNC","permissionName":"CNC过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNCInspection","permissionName":"CNC全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Polish","permissionName":"抛光过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.PolishInspection","permissionName":"抛光全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Cleaning","permissionName":"清洗过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Cleaning2","permissionName":"清洗(二)过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Paint","permissionName":"漆料上料","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Coating","permissionName":"喷漆过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CoatingInspection","permissionName":"喷漆全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNC2","permissionName":"CNC(二)过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNC2Inspection","permissionName":"CNC(二)全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Cleaning3","permissionName":"清洗(三)过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.AOI","permissionName":"AOI全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.SI","permissionName":"SI全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.OnWipMaterial","permissionName":"供料上料","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection.OnWipMaterial.AddMaterial","permissionName":"上料","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.DataCollection.ViewFlow","permissionName":"作业流程图","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.PackingJob","permissionName":"包装作业","childPermissions":[{"permissionCode":"Pages.ProductionPlan.PackingJob.CollectionCarton","permissionName":"包装采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo","permissionName":"箱号条码打印","childPermissions":[{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.CreateCartonInfo","permissionName":"生产箱号条码","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.DeleteAll","permissionName":"批删除","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.Print","permissionName":"打印箱号条码","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.QueryCartonInfo","permissionName":"装箱查询","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.TSJob","permissionName":"返工作业","childPermissions":[{"permissionCode":"Pages.ProductionPlan.TSJob.TSComplete","permissionName":"返工返工","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.TSJob.TSRCardReflow","permissionName":"返工查询","childPermissions":null}]}]}]}
+     * orgUnits : [{"id":2,"parentId":null,"code":"00000","displayName":"/  默认组织 "}]
      */
 
     private int userId;
@@ -75,7 +75,7 @@ public class LoginBean {
 
     public static class CurrentOrgUnitBean {
         /**
-         * id : 1
+         * id : 2
          * parentId : null
          * code : 00000
          * displayName : 默认组织
@@ -123,12 +123,12 @@ public class LoginBean {
         /**
          * permissionCode : Pages
          * permissionName : Pages
-         * childPermissions : [{"permissionCode":"Pages.WPDA","permissionName":"WPDA","childPermissions":[{"permissionCode":"Pages.WPDA.InStock","permissionName":"入库作业","childPermissions":[{"permissionCode":"Pages.WPDA.InStock.ReceiveByOrder","permissionName":"采购单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.InStock.ReceiveByDelivery","permissionName":"送货单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.IQC","permissionName":"来料质检","childPermissions":null},{"permissionCode":"Pages.WPDA.BarcodeEdit","permissionName":"无质检条码修改","childPermissions":null},{"permissionCode":"Pages.WPDA.PurInstock","permissionName":"来料入库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherInstock","permissionName":"其他入库","childPermissions":null}]},{"permissionCode":"Pages.WPDA.OutStock","permissionName":"出库作业","childPermissions":[{"permissionCode":"Pages.WPDA.PurReturn","permissionName":"采购退料","childPermissions":null},{"permissionCode":"Pages.WPDA.WWPick","permissionName":"委外发料","childPermissions":null},{"permissionCode":"Pages.WPDA.WWFeed","permissionName":"委外补料","childPermissions":null},{"permissionCode":"Pages.WPDA.WPDA_WWTransfer","permissionName":"委外调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdPick","permissionName":"生产领料","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdTransfer","permissionName":"生产调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdFeed","permissionName":"生产补料","childPermissions":null},{"permissionCode":"Pages.WPDA.SalesOutStock","permissionName":"销售出库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherOutStock","permissionName":"其他出库","childPermissions":null}]},{"permissionCode":"Pages.WPDA.StockIn","permissionName":"库内作业","childPermissions":[{"permissionCode":"Pages.WPDA.Transfer","permissionName":"调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.QueryStock","permissionName":"库存查询","childPermissions":null},{"permissionCode":"Pages.WPDA.MatConvert","permissionName":"形态转换","childPermissions":null},{"permissionCode":"Pages.WPDA.StockAdjust","permissionName":"库位调整","childPermissions":null}]},{"permissionCode":"Pages.WPDA.ReportQuery","permissionName":"报表查询","childPermissions":[{"permissionCode":"Pages.WPDA.ReportQuery.StockSummary","permissionName":"报表查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDetailSummary","permissionName":"今日入库明细列表","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDetailSummary","permissionName":"今日出库明细列表","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.BarcodeTraces","permissionName":"SN追溯查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.BillBarcode","permissionName":"单据条码查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDetail","permissionName":"入库记录查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDetail","permissionName":"出库记录查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDayStatistics","permissionName":"入库统计","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDayStatistics","permissionName":"出库统计","childPermissions":null}]}]}]
+         * childPermissions : [{"permissionCode":"Pages.QualityControl","permissionName":"质检管理","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC","permissionName":"IPQC质检维护","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage","permissionName":"IPQC抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCCollection","permissionName":"IPQC抽检外观","childPermissions":null},{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCQuery","permissionName":"IPQC查询","childPermissions":null}]}]},{"permissionCode":"Pages.QualityControl.LQC","permissionName":"成品抽检维护","childPermissions":[{"permissionCode":"Pages.QualityControl.LQC.LQCManage","permissionName":"批抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCLotQA","permissionName":"抽检批维护","childPermissions":null},{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCCollection","permissionName":"批抽检采集","childPermissions":null},{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCQuery","permissionName":"OQC查询","childPermissions":null}]}]}]},{"permissionCode":"Pages.ProductionPlan","permissionName":"生产计划","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection","permissionName":"数据采集","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard","permissionName":"产品序列号打印","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.CreateRCard","permissionName":"生成序列号","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.DeleteAll","permissionName":"批删除","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.Export","permissionName":"导出","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.MO2RCard.Print","permissionName":"打印序列号","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.DataCollection.RMO2RCard","permissionName":"产品序列号重打印","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Molding","permissionName":"注塑过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Laser","permissionName":"镭雕过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNC","permissionName":"CNC过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNCInspection","permissionName":"CNC全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Polish","permissionName":"抛光过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.PolishInspection","permissionName":"抛光全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Cleaning","permissionName":"清洗过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Cleaning2","permissionName":"清洗(二)过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Paint","permissionName":"漆料上料","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Coating","permissionName":"喷漆过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CoatingInspection","permissionName":"喷漆全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNC2","permissionName":"CNC(二)过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.CNC2Inspection","permissionName":"CNC(二)全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.Cleaning3","permissionName":"清洗(三)过站采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.AOI","permissionName":"AOI全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.SI","permissionName":"SI全检采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.DataCollection.OnWipMaterial","permissionName":"供料上料","childPermissions":[{"permissionCode":"Pages.ProductionPlan.DataCollection.OnWipMaterial.AddMaterial","permissionName":"上料","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.DataCollection.ViewFlow","permissionName":"作业流程图","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.PackingJob","permissionName":"包装作业","childPermissions":[{"permissionCode":"Pages.ProductionPlan.PackingJob.CollectionCarton","permissionName":"包装采集","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo","permissionName":"箱号条码打印","childPermissions":[{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.CreateCartonInfo","permissionName":"生产箱号条码","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.DeleteAll","permissionName":"批删除","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.Print","permissionName":"打印箱号条码","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.PackingJob.CartonInfo.QueryCartonInfo","permissionName":"装箱查询","childPermissions":null}]},{"permissionCode":"Pages.ProductionPlan.TSJob","permissionName":"返工作业","childPermissions":[{"permissionCode":"Pages.ProductionPlan.TSJob.TSComplete","permissionName":"返工返工","childPermissions":null},{"permissionCode":"Pages.ProductionPlan.TSJob.TSRCardReflow","permissionName":"返工查询","childPermissions":null}]}]}]
          */
 
         private String permissionCode;
         private String permissionName;
-        private List<ChildPermissionsBeanXX> childPermissions;
+        private List<ChildPermissionsBeanXXX> childPermissions;
 
         public String getPermissionCode() {
             return permissionCode;
@@ -146,24 +146,24 @@ public class LoginBean {
             this.permissionName = permissionName;
         }
 
-        public List<ChildPermissionsBeanXX> getChildPermissions() {
+        public List<ChildPermissionsBeanXXX> getChildPermissions() {
             return childPermissions;
         }
 
-        public void setChildPermissions(List<ChildPermissionsBeanXX> childPermissions) {
+        public void setChildPermissions(List<ChildPermissionsBeanXXX> childPermissions) {
             this.childPermissions = childPermissions;
         }
 
-        public static class ChildPermissionsBeanXX {
+        public static class ChildPermissionsBeanXXX {
             /**
-             * permissionCode : Pages.WPDA
-             * permissionName : WPDA
-             * childPermissions : [{"permissionCode":"Pages.WPDA.InStock","permissionName":"入库作业","childPermissions":[{"permissionCode":"Pages.WPDA.InStock.ReceiveByOrder","permissionName":"采购单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.InStock.ReceiveByDelivery","permissionName":"送货单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.IQC","permissionName":"来料质检","childPermissions":null},{"permissionCode":"Pages.WPDA.BarcodeEdit","permissionName":"无质检条码修改","childPermissions":null},{"permissionCode":"Pages.WPDA.PurInstock","permissionName":"来料入库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherInstock","permissionName":"其他入库","childPermissions":null}]},{"permissionCode":"Pages.WPDA.OutStock","permissionName":"出库作业","childPermissions":[{"permissionCode":"Pages.WPDA.PurReturn","permissionName":"采购退料","childPermissions":null},{"permissionCode":"Pages.WPDA.WWPick","permissionName":"委外发料","childPermissions":null},{"permissionCode":"Pages.WPDA.WWFeed","permissionName":"委外补料","childPermissions":null},{"permissionCode":"Pages.WPDA.WPDA_WWTransfer","permissionName":"委外调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdPick","permissionName":"生产领料","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdTransfer","permissionName":"生产调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.PrdFeed","permissionName":"生产补料","childPermissions":null},{"permissionCode":"Pages.WPDA.SalesOutStock","permissionName":"销售出库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherOutStock","permissionName":"其他出库","childPermissions":null}]},{"permissionCode":"Pages.WPDA.StockIn","permissionName":"库内作业","childPermissions":[{"permissionCode":"Pages.WPDA.Transfer","permissionName":"调拨","childPermissions":null},{"permissionCode":"Pages.WPDA.QueryStock","permissionName":"库存查询","childPermissions":null},{"permissionCode":"Pages.WPDA.MatConvert","permissionName":"形态转换","childPermissions":null},{"permissionCode":"Pages.WPDA.StockAdjust","permissionName":"库位调整","childPermissions":null}]},{"permissionCode":"Pages.WPDA.ReportQuery","permissionName":"报表查询","childPermissions":[{"permissionCode":"Pages.WPDA.ReportQuery.StockSummary","permissionName":"报表查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDetailSummary","permissionName":"今日入库明细列表","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDetailSummary","permissionName":"今日出库明细列表","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.BarcodeTraces","permissionName":"SN追溯查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.BillBarcode","permissionName":"单据条码查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDetail","permissionName":"入库记录查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDetail","permissionName":"出库记录查询","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.InStockDayStatistics","permissionName":"入库统计","childPermissions":null},{"permissionCode":"Pages.WPDA.ReportQuery.OutStockDayStatistics","permissionName":"出库统计","childPermissions":null}]}]
+             * permissionCode : Pages.QualityControl
+             * permissionName : 质检管理
+             * childPermissions : [{"permissionCode":"Pages.QualityControl.IPQC","permissionName":"IPQC质检维护","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage","permissionName":"IPQC抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCCollection","permissionName":"IPQC抽检外观","childPermissions":null},{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCQuery","permissionName":"IPQC查询","childPermissions":null}]}]},{"permissionCode":"Pages.QualityControl.LQC","permissionName":"成品抽检维护","childPermissions":[{"permissionCode":"Pages.QualityControl.LQC.LQCManage","permissionName":"批抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCLotQA","permissionName":"抽检批维护","childPermissions":null},{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCCollection","permissionName":"批抽检采集","childPermissions":null},{"permissionCode":"Pages.QualityControl.LQC.LQCManage.LQCQuery","permissionName":"OQC查询","childPermissions":null}]}]}]
              */
 
             private String permissionCode;
             private String permissionName;
-            private List<ChildPermissionsBeanX> childPermissions;
+            private List<ChildPermissionsBeanXX> childPermissions;
 
             public String getPermissionCode() {
                 return permissionCode;
@@ -181,24 +181,24 @@ public class LoginBean {
                 this.permissionName = permissionName;
             }
 
-            public List<ChildPermissionsBeanX> getChildPermissions() {
+            public List<ChildPermissionsBeanXX> getChildPermissions() {
                 return childPermissions;
             }
 
-            public void setChildPermissions(List<ChildPermissionsBeanX> childPermissions) {
+            public void setChildPermissions(List<ChildPermissionsBeanXX> childPermissions) {
                 this.childPermissions = childPermissions;
             }
 
-            public static class ChildPermissionsBeanX {
+            public static class ChildPermissionsBeanXX {
                 /**
-                 * permissionCode : Pages.WPDA.InStock
-                 * permissionName : 入库作业
-                 * childPermissions : [{"permissionCode":"Pages.WPDA.InStock.ReceiveByOrder","permissionName":"采购单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.InStock.ReceiveByDelivery","permissionName":"送货单收货","childPermissions":null},{"permissionCode":"Pages.WPDA.IQC","permissionName":"来料质检","childPermissions":null},{"permissionCode":"Pages.WPDA.BarcodeEdit","permissionName":"无质检条码修改","childPermissions":null},{"permissionCode":"Pages.WPDA.PurInstock","permissionName":"来料入库","childPermissions":null},{"permissionCode":"Pages.WPDA.OtherInstock","permissionName":"其他入库","childPermissions":null}]
+                 * permissionCode : Pages.QualityControl.IPQC
+                 * permissionName : IPQC质检维护
+                 * childPermissions : [{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage","permissionName":"IPQC抽检作业","childPermissions":[{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCCollection","permissionName":"IPQC抽检外观","childPermissions":null},{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCQuery","permissionName":"IPQC查询","childPermissions":null}]}]
                  */
 
                 private String permissionCode;
                 private String permissionName;
-                private List<ChildPermissionsBean> childPermissions;
+                private List<ChildPermissionsBeanX> childPermissions;
 
                 public String getPermissionCode() {
                     return permissionCode;
@@ -216,24 +216,24 @@ public class LoginBean {
                     this.permissionName = permissionName;
                 }
 
-                public List<ChildPermissionsBean> getChildPermissions() {
+                public List<ChildPermissionsBeanX> getChildPermissions() {
                     return childPermissions;
                 }
 
-                public void setChildPermissions(List<ChildPermissionsBean> childPermissions) {
+                public void setChildPermissions(List<ChildPermissionsBeanX> childPermissions) {
                     this.childPermissions = childPermissions;
                 }
 
-                public static class ChildPermissionsBean {
+                public static class ChildPermissionsBeanX {
                     /**
-                     * permissionCode : Pages.WPDA.InStock.ReceiveByOrder
-                     * permissionName : 采购单收货
-                     * childPermissions : null
+                     * permissionCode : Pages.QualityControl.IPQC.IPQCManage
+                     * permissionName : IPQC抽检作业
+                     * childPermissions : [{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCCollection","permissionName":"IPQC抽检外观","childPermissions":null},{"permissionCode":"Pages.QualityControl.IPQC.IPQCManage.IPQCQuery","permissionName":"IPQC查询","childPermissions":null}]
                      */
 
                     private String permissionCode;
                     private String permissionName;
-                    private Object childPermissions;
+                    private List<ChildPermissionsBean> childPermissions;
 
                     public String getPermissionCode() {
                         return permissionCode;
@@ -251,12 +251,48 @@ public class LoginBean {
                         this.permissionName = permissionName;
                     }
 
-                    public Object getChildPermissions() {
+                    public List<ChildPermissionsBean> getChildPermissions() {
                         return childPermissions;
                     }
 
-                    public void setChildPermissions(Object childPermissions) {
+                    public void setChildPermissions(List<ChildPermissionsBean> childPermissions) {
                         this.childPermissions = childPermissions;
+                    }
+
+                    public static class ChildPermissionsBean {
+                        /**
+                         * permissionCode : Pages.QualityControl.IPQC.IPQCManage.IPQCCollection
+                         * permissionName : IPQC抽检外观
+                         * childPermissions : null
+                         */
+
+                        private String permissionCode;
+                        private String permissionName;
+                        private Object childPermissions;
+
+                        public String getPermissionCode() {
+                            return permissionCode;
+                        }
+
+                        public void setPermissionCode(String permissionCode) {
+                            this.permissionCode = permissionCode;
+                        }
+
+                        public String getPermissionName() {
+                            return permissionName;
+                        }
+
+                        public void setPermissionName(String permissionName) {
+                            this.permissionName = permissionName;
+                        }
+
+                        public Object getChildPermissions() {
+                            return childPermissions;
+                        }
+
+                        public void setChildPermissions(Object childPermissions) {
+                            this.childPermissions = childPermissions;
+                        }
                     }
                 }
             }
@@ -265,7 +301,7 @@ public class LoginBean {
 
     public static class OrgUnitsBean {
         /**
-         * id : 1
+         * id : 2
          * parentId : null
          * code : 00000
          * displayName : /  默认组织
