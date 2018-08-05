@@ -31,8 +31,6 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     TextView tvProductName;
     @BindView(R.id.tv_product_standard)
     TextView tvProductStandard;
-    @BindView(R.id.tv_quality_type)
-    TextView tvQualityType;
     @BindView(R.id.spinner_quality_type)
     MaterialSpinner spinnerQualityType;
     @BindView(R.id.btn_quality)

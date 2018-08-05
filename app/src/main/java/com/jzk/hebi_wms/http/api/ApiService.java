@@ -244,7 +244,24 @@ public interface ApiService {
      */
     @POST("api/services/qualitycontrol/iPQCCollection/CheckRCardInfoAsync")
     Observable<CommonResult<IpqcCommonResult>> checkRCardInfoAsync(@Body CheckRecardInfoRequest recardInfoRequest);
-
+    /**
+     * 批通过
+     *
+     * @param lotNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/IPQCLotPassAsync")
+    Observable<CommonResult<IpqcCommonResult>> ipacLotPassAsync(@Field("LotNo") String lotNo);
+    /**
+     * 批退
+     *
+     * @param lotNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/IPQCLotRejectAsync")
+    Observable<CommonResult<IpqcCommonResult>> ipqcLotRejectAsync(@Field("LotNo") String lotNo);
     /**
      * 获取采集数据
      *

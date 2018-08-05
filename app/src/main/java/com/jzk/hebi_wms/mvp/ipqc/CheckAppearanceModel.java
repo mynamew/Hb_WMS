@@ -99,4 +99,32 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+    /**
+     * 批通过
+     *
+     * @param lotNo
+     * @param observer
+     */
+    public void ipacLotPassAsync(String lotNo, Observer<IpqcCommonResult> observer) {
+        HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
+            @Override
+            public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
+                return apiService.ipacLotPassAsync(lotNo);
+            }
+        });
+    }
+    /**
+     * 批退
+     *
+     * @param lotNo
+     * @param observer
+     */
+    public void ipqcLotRejectAsync(String lotNo, Observer<IpqcCommonResult> observer) {
+        HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
+            @Override
+            public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
+                return apiService.ipqcLotRejectAsync(lotNo);
+            }
+        });
+    }
 }

@@ -38,7 +38,7 @@ public class IpqcCommonResult {
     private String planTpCode;
     private String processCode;
     private List<Lot2RcardListBean> lot2RcardList;
-    private List<?> resultMessages;
+    private List<ResultMessagesBean> resultMessages;
     private List<DpListBean> dpList;
 
     public String getLotNo() {
@@ -137,11 +137,11 @@ public class IpqcCommonResult {
         this.lot2RcardList = lot2RcardList;
     }
 
-    public List<?> getResultMessages() {
+    public List<ResultMessagesBean> getResultMessages() {
         return resultMessages;
     }
 
-    public void setResultMessages(List<?> resultMessages) {
+    public void setResultMessages(List<ResultMessagesBean> resultMessages) {
         this.resultMessages = resultMessages;
     }
 
@@ -222,6 +222,51 @@ public class IpqcCommonResult {
 
         public void setIsSelected(boolean isSelected) {
             this.isSelected = isSelected;
+        }
+    }
+    public static class ResultMessagesBean {
+        /**
+         * messageType : 2
+         * isSuccess : true
+         * messageText : 上料成功
+         * result : null
+         */
+
+        private int messageType;
+        private boolean isSuccess;
+        private String messageText;
+        private Object result;
+
+        public int getMessageType() {
+            return messageType;
+        }
+
+        public void setMessageType(int messageType) {
+            this.messageType = messageType;
+        }
+
+        public boolean isIsSuccess() {
+            return isSuccess;
+        }
+
+        public void setIsSuccess(boolean isSuccess) {
+            this.isSuccess = isSuccess;
+        }
+
+        public String getMessageText() {
+            return messageText;
+        }
+
+        public void setMessageText(String messageText) {
+            this.messageText = messageText;
+        }
+
+        public Object getResult() {
+            return result;
+        }
+
+        public void setResult(Object result) {
+            this.result = result;
         }
     }
 }
