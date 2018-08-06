@@ -10,11 +10,8 @@ import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
-import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
 import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,8 +31,6 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     TextView tvProductName;
     @BindView(R.id.tv_product_standard)
     TextView tvProductStandard;
-//    @BindView(R.id.tv_quality_type)
-//    TextView tvQualityType;
     @BindView(R.id.spinner_quality_type)
     MaterialSpinner spinnerQualityType;
     @BindView(R.id.btn_quality)
@@ -98,23 +93,4 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                 break;
         }
     }
-
-    @Override
-    public void GetCollectionIPQCDataAsyncUploadBean(CollectionIpqcData collectionIpqcData) {
-        /*if (null != collectionIpqcData.getDpList() && !collectionIpqcData.getDpList().isEmpty()) {
-            qualityNames = o.getDpList();
-
-            ArrayList<String> strs = new ArrayList<>();
-            for (int i = 0; i < qualityNames.size(); i++) {
-                strs.add(qualityNames.get(i).getDisplayText());
-            }
-
-            spinnerQualityType.setItems(strs);
-
-            dismissLoadingDataDialog();
-        }*/
-
-    }
-
-
 }

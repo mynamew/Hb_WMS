@@ -153,4 +153,6 @@
     <string name="tip_set_servise_address">请先配置服务地址</string>
     <string name="tip_username">请输入用户名</string>
     <string name="tip_password">请输入密码</string>
+    <string name="input_batch_no">请输入/生成批次号</string>
+    <string name="input_serial_no">请输入/扫描序列号</string>
 </resources>

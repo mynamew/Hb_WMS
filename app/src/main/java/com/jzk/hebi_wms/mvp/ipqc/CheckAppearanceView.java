@@ -37,4 +37,26 @@ public interface CheckAppearanceView extends MvpBaseView {
      * @param o
      */
     void getProcessAsync(IpqcCommonResult o);
+
+    /**
+     * 校验
+     * @param o
+     */
+    void checkRCardInfoAsync(IpqcCommonResult o);
+
+    void setBatchNoSelect();
+
+    void setProductSerialNoSelect();
+
+    /**
+     * 批通过
+     * @param o
+     */
+    void ipacLotPassAsync(IpqcCommonResult o);
+
+    /***
+     * 批退
+     * @param o
+     */
+    void ipqcLotRejectAsync(IpqcCommonResult o);
 }
