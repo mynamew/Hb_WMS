@@ -288,4 +288,5 @@ public interface ApiService {
     @POST("api/services/qualitycontrol/collectionIPQCData/GetErrorInfoByGroupCodeAsync")
     Observable<CommonResult<CollectionIpqcData>> getErrorInfoByGroupCodeAsyncByQuality(@Field("ErrorGroupCode") String errorGroupCode);
 
+
 }
