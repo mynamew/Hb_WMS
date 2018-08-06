@@ -279,5 +279,13 @@ public interface ApiService {
      */
     @POST("api/services/qualitycontrol/collectionIPQCData/CreateIPQCTemporaryDatasAsync")
     Observable<CommonResult<Object>> createIPQCTemporaryDatasAsync(@Body SaveCheckResultRequest request);
+    /**
+     * 抽检获取不良代码
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/collectionIPQCData/GetErrorInfoByGroupCodeAsync")
+    Observable<CommonResult<CollectionIpqcData>> getErrorInfoByGroupCodeAsyncByQuality(@Field("ErrorGroupCode") String errorGroupCode);
 
 }

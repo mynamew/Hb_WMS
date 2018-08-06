@@ -23,7 +23,7 @@ public class CheckResultPresenter extends MvpBasePresenter<CheckResultView> {
     /**
      * 根据不良代码组获取不良代码
      */
-    private HttpSubscriber<InjectPassBean> errorCodeHttpSubscriber;
+    private HttpSubscriber<CollectionIpqcData> errorCodeHttpSubscriber;
     public CheckResultPresenter(Context context) {
         super(context);
         model = new CheckResultModel();
@@ -57,8 +57,8 @@ public class CheckResultPresenter extends MvpBasePresenter<CheckResultView> {
      * @param request
      */
     public void saveCheckResult(SaveCheckResultRequest request) {
-        if (null == getCollectionIPQCDataAsyncHttpSubscriber) {
-            getCollectionIPQCDataAsyncHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<CollectionIpqcData>() {
+        if (null == saveCheckResultHttpSubscriber) {
+            saveCheckResultHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<CollectionIpqcData>() {
                 @Override
                 public void onSuccess(CollectionIpqcData o) {
                    getView().saveCheckResult(o);
@@ -75,11 +75,11 @@ public class CheckResultPresenter extends MvpBasePresenter<CheckResultView> {
     /**
      * 获取不良代码！
      */
-    public void getErrorInfoByGroupCode(String errorGroupId) {
+    public void getErrorInfoByGroupCodeAsyncByQuality(String errorGroupId) {
         if (null == errorCodeHttpSubscriber) {
-            errorCodeHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<InjectPassBean>() {
+            errorCodeHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<CollectionIpqcData>() {
                 @Override
-                public void onSuccess(InjectPassBean o) {
+                public void onSuccess(CollectionIpqcData o) {
                     getView().dismisProgressDialog();
                     getView().getErrorInfoByGroupCode(o.getErrorCodes());
                 }
@@ -90,6 +90,6 @@ public class CheckResultPresenter extends MvpBasePresenter<CheckResultView> {
                 }
             });
         }
-        model.getErrorInfoByGroupCodeAsync(errorCodeHttpSubscriber, errorGroupId);
+        model.getErrorInfoByGroupCodeAsyncByQuality(errorCodeHttpSubscriber, errorGroupId);
     }
 }

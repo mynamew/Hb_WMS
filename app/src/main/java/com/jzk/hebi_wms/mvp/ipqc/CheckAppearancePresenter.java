@@ -61,7 +61,6 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
 
                 @Override
                 public void onError(String errorMsg) {
-
                 }
             });
         }
@@ -129,7 +128,7 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
     }
 
     /**
-     * 获取工序
+     * 校验
      */
     public void checkRCardInfoAsync(CheckRecardInfoRequest request) {
         if (null == checkRCardInfoAsyncSubscriber) {
@@ -141,12 +140,13 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
 
                 @Override
                 public void onError(String errorMsg) {
-
+                    getView().setProductSerialNoSelect();
                 }
             });
         }
         model.checkRCardInfoAsync(request, checkRCardInfoAsyncSubscriber);
     }
+
     /**
      * 批通过
      */
@@ -166,6 +166,7 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
         }
         model.ipacLotPassAsync(lotNo, ipacLotPassAsyncSubscriber);
     }
+
     /**
      * 批退
      */

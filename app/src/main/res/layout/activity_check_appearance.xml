@@ -356,7 +356,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30px"
-                    android:text="04-06"
+                    android:text=""
                     android:textColor="#666"/>
             </LinearLayout>
 

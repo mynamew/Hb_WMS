@@ -40,9 +40,9 @@ public class CheckResultModel extends MvpBaseModel {
      *
      * @param stationBeanHttpSubscriber
      */
-    public void getErrorInfoByGroupCodeAsync
-    (HttpSubscriber<InjectPassBean> stationBeanHttpSubscriber, String request) {
-        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getErrorInfoByGroupCodeAsync(request));
+    public void getErrorInfoByGroupCodeAsyncByQuality
+    (HttpSubscriber<CollectionIpqcData> stationBeanHttpSubscriber, String request) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getErrorInfoByGroupCodeAsyncByQuality(request));
     }
     /**
      * 保存采集数据

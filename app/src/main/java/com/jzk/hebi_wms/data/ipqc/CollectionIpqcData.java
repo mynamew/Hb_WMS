@@ -1,5 +1,7 @@
 package com.jzk.hebi_wms.data.ipqc;
 
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
+
 import java.util.List;
 /** 
   * 抽检采集数据
@@ -35,7 +37,7 @@ public class CollectionIpqcData {
     private List<CheckTypesBean> checkTypes;
     private List<CheckItemsBean> checkItems;
     private List<ErrorGroupsBean> errorGroups;
-    private List<?> errorCodes;
+    private List<InjectPassBean.ErrorCodesBean> errorCodes;
     private List<?> resultMessages;
 
     public Object getErrorInfo() {
@@ -126,11 +128,11 @@ public class CollectionIpqcData {
         this.errorGroups = errorGroups;
     }
 
-    public List<?> getErrorCodes() {
+    public List<InjectPassBean.ErrorCodesBean> getErrorCodes() {
         return errorCodes;
     }
 
-    public void setErrorCodes(List<?> errorCodes) {
+    public void setErrorCodes(List<InjectPassBean.ErrorCodesBean> errorCodes) {
         this.errorCodes = errorCodes;
     }
 
@@ -395,6 +397,15 @@ public class CollectionIpqcData {
         private String errorGroupCode;
         private String errorGroupName;
 
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
+
+        private boolean isSelect;
         public Object getErrorCode() {
             return errorCode;
         }

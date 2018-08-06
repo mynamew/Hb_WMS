@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
@@ -131,9 +132,9 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 CheckRecardInfoRequest recardInfoRequest = new CheckRecardInfoRequest();
                 recardInfoRequest.setLotNo(etBatchNo.getText().toString().trim());
                 recardInfoRequest.setInputBox(result);
-                recardInfoRequest.setPlanDate(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+                recardInfoRequest.setPlanDate(canSelectDate.get(spinnerTimeFrame.getSelectedIndex()));
                 recardInfoRequest.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
-                recardInfoRequest.setTimePerod(canSelectDate.get(spinnerTimeFrame.getSelectedIndex()));
+                recardInfoRequest.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
                 getPresenter().checkRCardInfoAsync(recardInfoRequest);
             }
         });
@@ -186,15 +187,19 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                     CheckRecardInfoRequest recardInfoRequest = new CheckRecardInfoRequest();
                     recardInfoRequest.setLotNo(etBatchNo.getText().toString().trim());
                     recardInfoRequest.setInputBox(result);
-                    recardInfoRequest.setPlanDate(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+                    recardInfoRequest.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
                     recardInfoRequest.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
-                    recardInfoRequest.setTimePerod(canSelectDate.get(spinnerTimeFrame.getSelectedIndex()));
+                    recardInfoRequest.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
                     getPresenter().checkRCardInfoAsync(recardInfoRequest);
                 });
                 break;
             case R.id.btn_batch_pass:
+                showProgressDialog();
+                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim());
                 break;
             case R.id.btn_batch_return:
+                showProgressDialog();
+                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim());
                 break;
             case R.id.btn_create_batchno:
                 showProgressDialog();
@@ -326,6 +331,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     public void createNewLotNoAsync(IpqcCommonResult o) {
         ToastUtils.showShort("生成批号成功！");
         etBatchNo.setText(o.getLotNo());
+        setProductSerialNoSelect();
     }
 
     @Override
@@ -354,7 +360,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 strs.add(qualityTimes.get(i).getValue());
             }
             spinnerTimeFrame.setItems(strs);
-
+            tvTimeFrameName.setText(strs.get(0));
             dismissLoadingDataDialog();
         }
     }
@@ -379,14 +385,14 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         ToastUtils.showShort("产品序列号校验成功！");
         SaveCheckResultRequest resultRequest = new SaveCheckResultRequest();
         resultRequest.setLotNo(etBatchNo.getText().toString().trim());
-        resultRequest.setIPQCName(qualityNames.get(spinnerQualityType.getSelectedIndex()).getValue());
+        resultRequest.setIPQCName(qualityNames.get(spinnerQualityType.getSelectedIndex()).getDisplayText());
         resultRequest.setPlanday(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
         resultRequest.setRCard(etBottomProductSerialNo.getText().toString().trim());
         resultRequest.setProcessCode(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
         resultRequest.setPlanTpCode(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
 
         Intent intent = new Intent(this, CheckResultActivity.class);
-        intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, resultRequest.toString());
+        intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, new Gson().toJson(resultRequest));
         startActivity(intent);
     }
 
@@ -427,6 +433,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshCheckAppearanceData(CheckAppearanceEvent event) {
+        LogUitls.e("更新数据-->","更新了数据");
         showProgressDialog();
         getPresenter().getLotInfoAsync(etBatchNo.getText().toString().trim());
     }

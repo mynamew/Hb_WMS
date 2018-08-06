@@ -41,12 +41,6 @@ import butterknife.OnClick;
  * create at: 2018/8/3 11:22
  */
 public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResultPresenter> implements CheckResultView {
-
-
-    @BindView(R.id.tv_product_code)
-    TextView tvProductCode;
-    @BindView(R.id.tv_product_name)
-    TextView tvProductName;
     @BindView(R.id.tv_product_standard)
     TextView tvProductStandard;
     @BindView(R.id.spinner_quality_type)
@@ -67,6 +61,8 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     RecyclerView rlvBacCode;
     @BindView(R.id.btn_save)
     TextView btnSave;
+
+
     /**
      * 提交的实体
      */
@@ -99,7 +95,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 showProgressDialog();
-                getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(position).getErrorGroupCode());
+                getPresenter().getErrorInfoByGroupCodeAsyncByQuality(mErrorGroups.get(position).getErrorGroupCode());
             }
         });
         /**
@@ -145,29 +141,58 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                 /**
                  * 检验项目是否完成的判断
                  */
-                if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
+                if (currentCheckIremPosition + 1 > resultRequest.getExtendIPQCDatas().size()) {
                     ToastUtils.showShort("所有检验项目已完成！");
                     return;
                 }
                 MyDialog myDialog = new MyDialog(this, R.layout.dialog_quality);
+                myDialog.setImageViewListener(R.id.iv_close, new MyDialog.DialogClickListener() {
+                    @Override
+                    public void dialogClick(MyDialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+
                 setCheckItemDialogData(myDialog);
                 myDialog.setButtonListener(R.id.btn_next, null, new MyDialog.DialogClickListener() {
                     @Override
                     public void dialogClick(MyDialog dialog) {
-                        setCheckItemDialogData(myDialog);
+                        /**
+                         * 检验项目是否完成的判断
+                         */
+                        if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
+                            ToastUtils.showShort("所有检验项目已完成！");
+                            dialog.dismiss();
+                            return;
+                        }
+                        RadioButton rdGood = (RadioButton) myDialog.getView(R.id.rd_good);
                         List<CollectionIpqcData.CheckItemsBean> extendIPQCDatas = resultRequest.getExtendIPQCDatas();
                         CollectionIpqcData.CheckItemsBean checkItemsBean = extendIPQCDatas.get(currentCheckIremPosition);
                         /**
-                         * 是否为良品
+                         * 设置结果，设置是否显示不良代码
                          */
-                        RadioButton rdGood = (RadioButton) myDialog.getView(R.id.rd_good);
                         checkItemsBean.setResult(rdGood.isChecked());
+                        isShowBadCode(extendIPQCDatas);
+                        /**
+                         * 设置数据
+                         */
+                        currentCheckIremPosition = currentCheckIremPosition + 1;
                         /**
                          * 如果是最后一个检验项目则显示完成
                          */
                         if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
                             ((Button) myDialog.getView(R.id.btn_next)).setText("完成");
                         }
+                        setCheckItemDialogData(myDialog);
+                        /**
+                         * 设置检验项目已经被检验过
+                         */
+                        checkItemsBean.setHaveChecked(true);
+                        /**
+                         * 设置检验项目的下拉框的选择
+                         */
+                        spinnerQualityType.setText(mCheckItems.get(currentCheckIremPosition).getCheckItemName());
+                        spinnerQualityType.setSelectedIndex(currentCheckIremPosition);
                     }
                 });
                 myDialog.show();
@@ -191,14 +216,34 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                     return;
                 }
                 /**
+                 * 判断是否有不良品提示选择不良代码
+                 */
+                boolean isHaveBad = false;
+                for (int i = 0; i < extendIPQCDatas.size(); i++) {
+                    if (!extendIPQCDatas.get(i).isResult()) {
+                        isHaveBad = true;
+                    }
+                }
+                /**
                  * 加入不良代码
                  * 如果不良代码是选中则加入，否则则不加入
                  */
-                resultRequest.setErrorCodes(new ArrayList<>());
+                if (null == resultRequest.getErrorCodes()) {
+                    resultRequest.setErrorCodes(new ArrayList<>());
+                } else {
+                    resultRequest.getErrorCodes().clear();
+                }
                 for (int i = 0; i < mErrorCodes.size(); i++) {
                     if (mErrorCodes.get(i).isSelect()) {
                         resultRequest.getErrorCodes().add(mErrorCodes.get(i));
                     }
+                }
+                /**
+                 * 如果有不良代码
+                 */
+                if (isHaveBad && resultRequest.getErrorCodes().isEmpty()) {
+                    ToastUtils.showShort("您检验项目结果为不良，请选择不良代码！");
+                    return;
                 }
                 showProgressDialog();
                 getPresenter().saveCheckResult(resultRequest);
@@ -224,7 +269,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
         /**
          * 获取errorgroup
          */
-        if (null != o.getErrorGroups() && !mErrorGroups.isEmpty()) {
+        if (null != o.getErrorGroups() && !o.getErrorGroups().isEmpty()) {
             mErrorGroups.addAll(o.getErrorGroups());
             /**
              *不良代码组的下拉框数据初始化
@@ -234,6 +279,8 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                 mstrs.add(mErrorGroups.get(i).getErrorGroupName());
             }
             spinnerBadGroups.setItems(mstrs);
+            showProgressDialog();
+            getPresenter().getErrorInfoByGroupCodeAsyncByQuality(mErrorGroups.get(0).getErrorGroupCode());
         }
         /**
          * 设置检验项目
@@ -310,5 +357,32 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
          * 设置标准
          */
         dialog.setTextViewContent(R.id.tv_standard_value, checkItemsBean.getActual());
+    }
+
+    /**
+     * 是否显示不良代码的布局
+     *
+     * @param extendIPQCDatas
+     */
+    private void isShowBadCode(List<CollectionIpqcData.CheckItemsBean> extendIPQCDatas) {
+        /**
+         * 判断是否需要显示不良代码
+         */
+        boolean isHaveBad = false;
+        for (int i = 0; i < extendIPQCDatas.size(); i++) {
+            if (!extendIPQCDatas.get(i).isResult()) {
+                isHaveBad = true;
+            }
+        }
+        /**
+         * 是否显示不良代码布局
+         */
+        if (!isHaveBad) {
+            findViewById(R.id.ll_bad_code).setVisibility(View.GONE);
+            rlvBacCode.setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.ll_bad_code).setVisibility(View.VISIBLE);
+            rlvBacCode.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -97,6 +97,8 @@ public class MyDialog extends Dialog {
         //设置内容
         if (null != tv && null != content) {
             tv.setText(String.valueOf(content));
+        }else {
+            tv.setText(R.string.none);
         }
         return this;
     }
