@@ -95,22 +95,7 @@
             android:name=".mvp.Polishing.PolishingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity
-            android:name=".mvp.oqc.ticket.OqcJobTocketActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name=".mvp.oqc.check.OqcCheckActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-        </activity>
-        <activity
-            android:name=".mvp.oqc.result.CheckResultActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden">
 
-        </activity>
         <activity
             android:name=".mvp.ipqc.CheckAppearanceActivity"
             android:screenOrientation="portrait"

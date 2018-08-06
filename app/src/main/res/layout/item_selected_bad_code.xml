@@ -5,6 +5,7 @@
               android:orientation="horizontal">
 
     <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/cb_bad_code"
         android:layout_width="match_parent"
         android:layout_marginLeft="20px"
         android:layout_height="wrap_content"

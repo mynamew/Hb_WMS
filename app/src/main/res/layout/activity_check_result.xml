@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mvp.oqc.result.CheckResultActivity">
+    tools:context=".mvp.ipqc.result.CheckResultActivity">
 
     <include layout="@layout/title_head"/>
 

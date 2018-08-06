@@ -13,6 +13,7 @@ import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
 import com.jzk.hebi_wms.data.ipqc.CollectionIpqcDataRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
+import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
 import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
@@ -270,5 +271,13 @@ public interface ApiService {
      */
     @POST("api/services/qualitycontrol/collectionIPQCData/GetCollectionIPQCDataAsync")
     Observable<CommonResult<CollectionIpqcData>> getCollectionIPQCDataAsync(@Body CollectionIpqcDataRequest collectionIpqcDataRequest);
+    /**
+     * 保存采集数据
+     *
+     * @param request
+     * @return
+     */
+    @POST("api/services/qualitycontrol/collectionIPQCData/CreateIPQCTemporaryDatasAsync")
+    Observable<CommonResult<Object>> createIPQCTemporaryDatasAsync(@Body SaveCheckResultRequest request);
 
 }

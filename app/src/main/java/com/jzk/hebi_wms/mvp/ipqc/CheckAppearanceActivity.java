@@ -1,5 +1,6 @@
 package com.jzk.hebi_wms.mvp.ipqc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,10 +18,17 @@ import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
 import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
+import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
+import com.jzk.hebi_wms.http.message.BaseMessage;
+import com.jzk.hebi_wms.http.message.event.CheckAppearanceEvent;
+import com.jzk.hebi_wms.mvp.ipqc.result.CheckResultActivity;
 import com.jzk.hebi_wms.utils.DateUtils;
 import com.jzk.hebi_wms.utils.LogUitls;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.spinnerlibrary.MaterialSpinner;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -104,6 +112,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     @Override
     public void initBundle(Bundle savedInstanceState) {
         setActivityTitle("外观抽检");
+        BaseMessage.register(this);
     }
 
     @Override
@@ -368,6 +377,17 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     @Override
     public void checkRCardInfoAsync(IpqcCommonResult o) {
         ToastUtils.showShort("产品序列号校验成功！");
+        SaveCheckResultRequest resultRequest = new SaveCheckResultRequest();
+        resultRequest.setLotNo(etBatchNo.getText().toString().trim());
+        resultRequest.setIPQCName(qualityNames.get(spinnerQualityType.getSelectedIndex()).getValue());
+        resultRequest.setPlanday(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
+        resultRequest.setRCard(etBottomProductSerialNo.getText().toString().trim());
+        resultRequest.setProcessCode(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
+        resultRequest.setPlanTpCode(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+
+        Intent intent = new Intent(this, CheckResultActivity.class);
+        intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, resultRequest.toString());
+        startActivity(intent);
     }
 
     @Override
@@ -397,5 +417,17 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         if (null != qualityProcesses && null != qualityTimes && null != qualityNames) {
             dismisProgressDialog();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaseMessage.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshCheckAppearanceData(CheckAppearanceEvent event) {
+        showProgressDialog();
+        getPresenter().getLotInfoAsync(etBatchNo.getText().toString().trim());
     }
 }

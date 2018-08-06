@@ -220,10 +220,10 @@ public class CollectionIpqcData {
          */
 
         private String ipqcName;
-        private Object unit;
-        private Object limitLow;
-        private Object limitHigh;
-        private Object standard;
+        private String unit;
+        private String limitLow;
+        private String limitHigh;
+        private String standard;
         private String resultType;
         private String judgeType;
         private int checkTypeId;
@@ -234,9 +234,9 @@ public class CollectionIpqcData {
         private String checkItemName;
         private String actual;
         private boolean result;
-        private Object remark;
+        private String remark;
         private int resultNumber;
-
+        private boolean isHaveChecked;
         public String getIpqcName() {
             return ipqcName;
         }
@@ -245,35 +245,35 @@ public class CollectionIpqcData {
             this.ipqcName = ipqcName;
         }
 
-        public Object getUnit() {
+        public String getUnit() {
             return unit;
         }
 
-        public void setUnit(Object unit) {
+        public void setUnit(String unit) {
             this.unit = unit;
         }
 
-        public Object getLimitLow() {
+        public String getLimitLow() {
             return limitLow;
         }
 
-        public void setLimitLow(Object limitLow) {
+        public void setLimitLow(String limitLow) {
             this.limitLow = limitLow;
         }
 
-        public Object getLimitHigh() {
+        public String getLimitHigh() {
             return limitHigh;
         }
 
-        public void setLimitHigh(Object limitHigh) {
+        public void setLimitHigh(String limitHigh) {
             this.limitHigh = limitHigh;
         }
 
-        public Object getStandard() {
+        public String getStandard() {
             return standard;
         }
 
-        public void setStandard(Object standard) {
+        public void setStandard(String standard) {
             this.standard = standard;
         }
 
@@ -357,11 +357,11 @@ public class CollectionIpqcData {
             this.result = result;
         }
 
-        public Object getRemark() {
+        public String getRemark() {
             return remark;
         }
 
-        public void setRemark(Object remark) {
+        public void setRemark(String remark) {
             this.remark = remark;
         }
 
@@ -371,6 +371,14 @@ public class CollectionIpqcData {
 
         public void setResultNumber(int resultNumber) {
             this.resultNumber = resultNumber;
+        }
+
+        public boolean isHaveChecked() {
+            return isHaveChecked;
+        }
+
+        public void setHaveChecked(boolean haveChecked) {
+            isHaveChecked = haveChecked;
         }
     }
 

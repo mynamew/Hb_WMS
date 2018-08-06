@@ -1,0 +1,314 @@
+package com.jzk.hebi_wms.mvp.ipqc.result;
+
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.jzk.hebi_wms.R;
+import com.jzk.hebi_wms.base.BaseActivity;
+import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
+import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
+import com.jzk.hebi_wms.data.inject.InjectPassBean;
+import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
+import com.jzk.hebi_wms.data.ipqc.CollectionIpqcDataRequest;
+import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
+import com.jzk.hebi_wms.http.message.BaseMessage;
+import com.jzk.hebi_wms.http.message.event.CheckAppearanceEvent;
+import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.hebi_wms.view.MyDialog;
+import com.jzk.spinnerlibrary.MaterialSpinner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+/**
+ * 设置抽检采集结果
+ *
+ * @author jzk
+ * create at: 2018/8/3 11:22
+ */
+public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResultPresenter> implements CheckResultView {
+
+
+    @BindView(R.id.tv_product_code)
+    TextView tvProductCode;
+    @BindView(R.id.tv_product_name)
+    TextView tvProductName;
+    @BindView(R.id.tv_product_standard)
+    TextView tvProductStandard;
+    @BindView(R.id.spinner_quality_type)
+    MaterialSpinner spinnerQualityType;
+    @BindView(R.id.btn_quality)
+    Button btnQuality;
+    @BindView(R.id.et_bad_code)
+    EditText etBadCode;
+    @BindView(R.id.ll_input_bad_code)
+    LinearLayout llInputBadCode;
+    @BindView(R.id.tv_bad_group_tip)
+    TextView tvBadGroupTip;
+    @BindView(R.id.spinner_bad_groups)
+    MaterialSpinner spinnerBadGroups;
+    @BindView(R.id.ll_bad_group)
+    LinearLayout llBadGroup;
+    @BindView(R.id.rlv_bac_code)
+    RecyclerView rlvBacCode;
+    @BindView(R.id.btn_save)
+    TextView btnSave;
+    /**
+     * 提交的实体
+     */
+    SaveCheckResultRequest resultRequest;
+    /******检验项目********************************************************************************/
+    List<CollectionIpqcData.CheckItemsBean> mCheckItems = new ArrayList<>();
+    /*****不良代码组*******************************************************************************/
+    List<CollectionIpqcData.ErrorGroupsBean> mErrorGroups = new ArrayList<>();
+    /*****不良代码*********************************************************************************/
+    List<InjectPassBean.ErrorCodesBean> mErrorCodes = new ArrayList<>();
+    BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> adapter;
+
+    @Override
+    public int setLayoutId() {
+        return R.layout.activity_check_result;
+    }
+
+    @Override
+    public void initBundle(Bundle savedInstanceState) {
+        setActivityTitle("产品检验");
+        resultRequest = new Gson().fromJson(getIntent().getStringExtra(Constants.QUALITY_APPEARANCE_BEAN), SaveCheckResultRequest.class);
+    }
+
+    @Override
+    public void initView() {
+        /**
+         * 不良代码组的方法
+         */
+        spinnerBadGroups.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                showProgressDialog();
+                getPresenter().getErrorInfoByGroupCode(mErrorGroups.get(position).getErrorGroupCode());
+            }
+        });
+        /**
+         * 检验项目
+         */
+        spinnerQualityType.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                currentCheckIremPosition = position;
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+        showProgressDialog();
+        CollectionIpqcDataRequest request = new CollectionIpqcDataRequest();
+        request.setIPQCName(resultRequest.getIPQCName());
+        request.setLotNo(resultRequest.getLotNo());
+        request.setRCard(resultRequest.getRCard());
+        getPresenter().getCollectionIPQCDataAsync(request);
+    }
+
+    @Override
+    public CheckResultPresenter createPresenter() {
+        return new CheckResultPresenter(this);
+    }
+
+    @Override
+    public CheckResultView createView() {
+        return this;
+    }
+
+    /**
+     * 检验项目的位置
+     */
+    int currentCheckIremPosition = 0;
+
+    @OnClick({R.id.btn_quality, R.id.btn_save})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_quality:
+                /**
+                 * 检验项目是否完成的判断
+                 */
+                if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
+                    ToastUtils.showShort("所有检验项目已完成！");
+                    return;
+                }
+                MyDialog myDialog = new MyDialog(this, R.layout.dialog_quality);
+                setCheckItemDialogData(myDialog);
+                myDialog.setButtonListener(R.id.btn_next, null, new MyDialog.DialogClickListener() {
+                    @Override
+                    public void dialogClick(MyDialog dialog) {
+                        setCheckItemDialogData(myDialog);
+                        List<CollectionIpqcData.CheckItemsBean> extendIPQCDatas = resultRequest.getExtendIPQCDatas();
+                        CollectionIpqcData.CheckItemsBean checkItemsBean = extendIPQCDatas.get(currentCheckIremPosition);
+                        /**
+                         * 是否为良品
+                         */
+                        RadioButton rdGood = (RadioButton) myDialog.getView(R.id.rd_good);
+                        checkItemsBean.setResult(rdGood.isChecked());
+                        /**
+                         * 如果是最后一个检验项目则显示完成
+                         */
+                        if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
+                            ((Button) myDialog.getView(R.id.btn_next)).setText("完成");
+                        }
+                    }
+                });
+                myDialog.show();
+                break;
+            case R.id.btn_save:
+                /**
+                 * 判断是否做过检验项目
+                 */
+                List<CollectionIpqcData.CheckItemsBean> extendIPQCDatas = resultRequest.getExtendIPQCDatas();
+                boolean isHaveChecked = false;
+                for (int i = 0; i < extendIPQCDatas.size(); i++) {
+                    if (extendIPQCDatas.get(i).isHaveChecked()) {
+                        isHaveChecked = true;
+                    }
+                }
+                /**
+                 * 未做过检验提醒
+                 */
+                if (!isHaveChecked) {
+                    ToastUtils.showShort("请先完成检验项目！");
+                    return;
+                }
+                /**
+                 * 加入不良代码
+                 * 如果不良代码是选中则加入，否则则不加入
+                 */
+                resultRequest.setErrorCodes(new ArrayList<>());
+                for (int i = 0; i < mErrorCodes.size(); i++) {
+                    if (mErrorCodes.get(i).isSelect()) {
+                        resultRequest.getErrorCodes().add(mErrorCodes.get(i));
+                    }
+                }
+                showProgressDialog();
+                getPresenter().saveCheckResult(resultRequest);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void getCollectionIPQCDataAsync(CollectionIpqcData o) {
+        if (null != o.getCheckItems() && !o.getCheckItems().isEmpty()) {
+            mCheckItems.addAll(o.getCheckItems());
+            /**
+             * 抽检项目的下拉框数据初始化
+             */
+            ArrayList<String> mstrs = new ArrayList<>();
+            for (int i = 0; i < mCheckItems.size(); i++) {
+                mstrs.add(mCheckItems.get(i).getCheckItemName());
+            }
+            spinnerQualityType.setItems(mstrs);
+        }
+        /**
+         * 获取errorgroup
+         */
+        if (null != o.getErrorGroups() && !mErrorGroups.isEmpty()) {
+            mErrorGroups.addAll(o.getErrorGroups());
+            /**
+             *不良代码组的下拉框数据初始化
+             */
+            ArrayList<String> mstrs = new ArrayList<>();
+            for (int i = 0; i < mErrorGroups.size(); i++) {
+                mstrs.add(mErrorGroups.get(i).getErrorGroupName());
+            }
+            spinnerBadGroups.setItems(mstrs);
+        }
+        /**
+         * 设置检验项目
+         */
+        resultRequest.setExtendIPQCDatas(o.getCheckItems());
+    }
+
+    @Override
+    public void saveCheckResult(CollectionIpqcData o) {
+        ToastUtils.showShort("保存检验结果成功！");
+        /**
+         * 发送事件更新前个界面的数据
+         */
+        BaseMessage.post(new CheckAppearanceEvent(CheckAppearanceEvent.REFRESH_CHECK_DATA));
+        onBackPressed();
+    }
+
+    @Override
+    public void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes) {
+        /**
+         * 初始化不良代码
+         */
+        if (null != errorCodes && !errorCodes.isEmpty()) {
+            mErrorCodes.addAll(errorCodes);
+            if (null == adapter) {
+                adapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrorCodes) {
+                    @Override
+                    protected int getItemLayoutId(int viewType) {
+                        return R.layout.item_selected_bad_code;
+                    }
+
+                    @Override
+                    protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
+                        CheckBox checkBox = holder.getCheckBox(R.id.cb_bad_code);
+                        checkBox.setText(item.getErrorName());
+                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                mErrorCodes.get(position).setSelect(isChecked);
+                            }
+                        });
+                    }
+                };
+                rlvBacCode.setAdapter(adapter);
+                rlvBacCode.setLayoutManager(new LinearLayoutManager(this));
+            } else {
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    /**
+     * 设置检验项目弹出框的数据
+     *
+     * @param dialog
+     */
+    private void setCheckItemDialogData(MyDialog dialog) {
+        List<CollectionIpqcData.CheckItemsBean> extendIPQCDatas = resultRequest.getExtendIPQCDatas();
+        CollectionIpqcData.CheckItemsBean checkItemsBean = extendIPQCDatas.get(currentCheckIremPosition);
+        /**
+         * 设置检验项目
+         */
+        dialog.setTextViewContent(R.id.tv_sample_code, checkItemsBean.getCheckItemName());
+        /**
+         * 设置上下限
+         */
+        dialog.setTextViewContent(R.id.tv_sample_up, checkItemsBean.getLimitHigh());
+        dialog.setTextViewContent(R.id.tv_sample_down, checkItemsBean.getLimitLow());
+        /**
+         * 设置单位
+         */
+        dialog.setTextViewContent(R.id.tv_sample_unit, checkItemsBean.getUnit());
+        /**
+         * 设置标准
+         */
+        dialog.setTextViewContent(R.id.tv_standard_value, checkItemsBean.getActual());
+    }
+}
