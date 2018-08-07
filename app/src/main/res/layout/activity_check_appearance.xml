@@ -75,7 +75,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="10px"
             android:background="@drawable/selector_btn_bg_login"
-            android:text="批通过"
+            android:text="@string/batch_pass"
             android:textColor="@color/white"
             android:visibility="visible"/>
 
@@ -85,7 +85,7 @@
             android:layout_height="64px"
             android:layout_gravity="center_vertical"
             android:background="@drawable/selector_btn_bg_login"
-            android:text="批退"
+            android:text="@string/batch_return"
             android:textColor="@color/white"
             android:visibility="visible"/>
     </LinearLayout>
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:paddingLeft="30px"
-                        android:text="抽检批号"
+                        android:text="@string/quality_batch_no"
                         android:textColor="#333"
                         android:textSize="13sp"
                         />
@@ -162,7 +162,7 @@
                     android:layout_height="64px"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/selector_btn_bg_login"
-                    android:text="生成批号"
+                    android:text="@string/create_batch_no"
                     android:textColor="@color/white"/>
             </LinearLayout>
 
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="质检名称"
+                    android:text="@string/quality_name"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -213,7 +213,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="质检描述"
+                    android:text="@string/quality_dsc"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -222,7 +222,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30px"
-                    android:text="IPC抽检(外观)"
+                    android:text=""
                     android:textColor="#666"/>
             </LinearLayout>
 
@@ -244,7 +244,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="工序选择"
+                    android:text="@string/home_process_select"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -280,7 +280,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="工序名称"
+                    android:text="@string/process_name"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -289,7 +289,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30px"
-                    android:text="IPC抽检(外观)"
+                    android:text=""
                     android:textColor="#666"/>
             </LinearLayout>
 
@@ -311,7 +311,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="时段代码"
+                    android:text="@string/time_frame_code"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -347,7 +347,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="时段名称"
+                    android:text="@string/time_frame_name"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -371,7 +371,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="计划日期"
+                    android:text="@string/plan_date"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -414,7 +414,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="实际样本"
+                    android:text="@string/actual_sample"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -438,7 +438,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="合格样本"
+                    android:text="@string/pass_sample"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -462,7 +462,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="不合格样本"
+                    android:text="@string/unpass_sample"
                     android:textColor="#333"
                     android:textSize="13sp"/>
 
@@ -492,7 +492,7 @@
                     android:layout_height="64px"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="产品序列号"
+                    android:text="@string/product_num"
                     android:textColor="@color/color_666"
                     android:textSize="13sp"/>
 
@@ -507,7 +507,7 @@
                     android:layout_height="64px"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="状态"
+                    android:text="@string/product_status"
                     android:textColor="@color/color_666"
                     android:textSize="13sp"/>
             </LinearLayout>

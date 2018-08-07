@@ -112,7 +112,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void initBundle(Bundle savedInstanceState) {
-        setActivityTitle("外观抽检");
+        setActivityTitle(R.string.title_appearance_quality);
         BaseMessage.register(this);
     }
 
@@ -142,7 +142,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                     timeFrameBuffer.append(":00:00");
                     long timeFrameMs = DateUtils.Date2ms(timeFrameBuffer.toString());
                     if(System.currentTimeMillis()<timeFrameMs){
-                        ToastUtils.showShort("当前操作时间不能小于您所选的时间段!");
+                        ToastUtils.showShort(R.string.tip_select_timeframe_low);
                         setProductSerialNoSelect();
                         return;
                     }
@@ -349,7 +349,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void createNewLotNoAsync(IpqcCommonResult o) {
-        ToastUtils.showShort("生成批号成功！");
+        ToastUtils.showShort(R.string.tip_create_batch_no_success);
         etBatchNo.setText(o.getLotNo());
         setProductSerialNoSelect();
     }
@@ -402,7 +402,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void checkRCardInfoAsync(IpqcCommonResult o) {
-        ToastUtils.showShort("产品序列号校验成功！");
+        ToastUtils.showShort(R.string.tip_product_serial_check_success);
         SaveCheckResultRequest resultRequest = new SaveCheckResultRequest();
         resultRequest.setLotNo(etBatchNo.getText().toString().trim());
         resultRequest.setIPQCName(qualityNames.get(spinnerQualityType.getSelectedIndex()).getDisplayText());

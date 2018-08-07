@@ -82,7 +82,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
 
     @Override
     public void initBundle(Bundle savedInstanceState) {
-        setActivityTitle("产品检验");
+        setActivityTitle(R.string.title_product_result);
         resultRequest = new Gson().fromJson(getIntent().getStringExtra(Constants.QUALITY_APPEARANCE_BEAN), SaveCheckResultRequest.class);
     }
 
@@ -142,7 +142,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                  * 检验项目是否完成的判断
                  */
                 if (currentCheckIremPosition + 1 > resultRequest.getExtendIPQCDatas().size()) {
-                    ToastUtils.showShort("所有检验项目已完成！");
+                    ToastUtils.showShort(R.string.tip_all_checkiten_have_complete);
                     return;
                 }
                 MyDialog myDialog = new MyDialog(this, R.layout.dialog_quality);
@@ -161,7 +161,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                          * 检验项目是否完成的判断
                          */
                         if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
-                            ToastUtils.showShort("所有检验项目已完成！");
+                            ToastUtils.showShort(R.string.tip_all_checkiten_have_complete);
                             dialog.dismiss();
                             return;
                         }
@@ -181,7 +181,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                          * 如果是最后一个检验项目则显示完成
                          */
                         if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
-                            ((Button) myDialog.getView(R.id.btn_next)).setText("完成");
+                            ((Button) myDialog.getView(R.id.btn_next)).setText(R.string.complete);
                         }
                         setCheckItemDialogData(myDialog);
                         /**
@@ -212,7 +212,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                  * 未做过检验提醒
                  */
                 if (!isHaveChecked) {
-                    ToastUtils.showShort("请先完成检验项目！");
+                    ToastUtils.showShort(R.string.tip_complete_checkitems);
                     return;
                 }
                 /**
@@ -242,7 +242,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                  * 如果有不良代码
                  */
                 if (isHaveBad && resultRequest.getErrorCodes().isEmpty()) {
-                    ToastUtils.showShort("您检验项目结果为不良，请选择不良代码！");
+                    ToastUtils.showShort(R.string.tip_select_bad_code);
                     return;
                 }
                 showProgressDialog();
@@ -290,7 +290,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
 
     @Override
     public void saveCheckResult(CollectionIpqcData o) {
-        ToastUtils.showShort("保存检验结果成功！");
+        ToastUtils.showShort(R.string.tip_save_check_result_success);
         /**
          * 发送事件更新前个界面的数据
          */
