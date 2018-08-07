@@ -38,7 +38,21 @@ public class DateUtils {
             return 0;
         }
     }
-
+    /**
+     * 标准时间转换成时间戳
+     *
+     * @param _data
+     * @return
+     */
+    public static long Date2msOnlyDay(String _data) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = format.parse(_data);
+            return date.getTime();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
     /**
      * yyyy-MM-dd  提取年 月  日
      *
@@ -66,5 +80,32 @@ public class DateUtils {
         dates[1]=date%10000/100;
         dates[2]=date%10000%100;
         return dates;
+    }
+
+    /**
+     * 年 月 日  获取标准年月日
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
+    public static  String dateStr2CommonDateStr(int year,int month,int day){
+        StringBuilder builder=new StringBuilder();
+        builder.append(year);
+        if(month<10){
+            builder.append("-0");
+            builder.append(month);
+        }else {
+            builder.append("-");
+            builder.append(month);
+        }
+        if(day<10){
+            builder.append("-0");
+            builder.append(day);
+        }else {
+            builder.append("-");
+            builder.append(day);
+        }
+        return builder.toString();
     }
 }

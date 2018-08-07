@@ -128,11 +128,34 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         setEdittextListener(etBottomProductSerialNo, Constants.REQUEST_SCAN_CODE_PRODUCT_SERIAL_NO, R.string.input_serial_no, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
+                long selectDateMs=DateUtils.Date2msOnlyDay(canSelectDate.get(1));
+                long currentDateMs=DateUtils.Date2msOnlyDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+                if(selectDateMs<=currentDateMs){
+                    /**
+                     * 判断时间段是否可操作
+                     */
+                    String timeFrame=qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue();
+                    String[] split = timeFrame.split("-");
+                    StringBuffer timeFrameBuffer=new StringBuffer();
+                    timeFrameBuffer.append(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+                    timeFrameBuffer.append(" "+split[1]);
+                    timeFrameBuffer.append(":00:00");
+                    long timeFrameMs = DateUtils.Date2ms(timeFrameBuffer.toString());
+                    if(System.currentTimeMillis()<timeFrameMs){
+                        ToastUtils.showShort("当前操作时间不能小于您所选的时间段!");
+                        setProductSerialNoSelect();
+                        return;
+                    }
+                }
+
+                /**
+                 * 发起请求
+                 */
                 showProgressDialog();
                 CheckRecardInfoRequest recardInfoRequest = new CheckRecardInfoRequest();
                 recardInfoRequest.setLotNo(etBatchNo.getText().toString().trim());
                 recardInfoRequest.setInputBox(result);
-                recardInfoRequest.setPlanDate(canSelectDate.get(spinnerTimeFrame.getSelectedIndex()));
+                recardInfoRequest.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
                 recardInfoRequest.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
                 recardInfoRequest.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
                 getPresenter().checkRCardInfoAsync(recardInfoRequest);
@@ -222,20 +245,17 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         calendar.set(Calendar.YEAR, yearInput);
         calendar.set(Calendar.MONTH, monthInput);
         calendar.set(Calendar.DAY_OF_MONTH, dayInput);
-
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        String currentDate = year + "-" + month + "-" + day;
-        LogUitls.e("当前时间--->", currentDate);
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         int yearLast = calendar.get(Calendar.YEAR);
         int monthLast = calendar.get(Calendar.MONTH);
         int dayLast = calendar.get(Calendar.DAY_OF_MONTH);
-        String lastDate = yearLast + "-" + monthLast + "-" + dayLast;
-        LogUitls.e("前一天时间--->", lastDate);
-        canSelectDate.add(currentDate);
-        canSelectDate.add(lastDate);
+        canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearLast,monthLast,dayLast));
+        canSelectDate.add(DateUtils.dateStr2CommonDateStr(year,month,day));
+//   canSelectDate.add(DateUtils.dateStr2CommonDateStr(2018,8,5));
+//        canSelectDate.add(DateUtils.dateStr2CommonDateStr(2018,8,6));
         spinnerProjectDate.setItems(canSelectDate);
     }
 
