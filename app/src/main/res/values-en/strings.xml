@@ -46,6 +46,7 @@
     <string name="login_please_input_right_serverurl">Please enter the correct address</string>
     <string name="login_confirm_set">Confirm the setting</string>
     <string name="login_please_input_zuhu">Please enter tenant information</string>
+  <string name="is_new_version">It is the latest version, no need to update is the latest version, no need to update</string>
     /**====== 設置 ======**/
     <string name="set_language">Select Language</string>
     <string name="set_exit">Log out</string>

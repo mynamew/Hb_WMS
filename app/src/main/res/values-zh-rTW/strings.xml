@@ -58,6 +58,7 @@
     <string name="server_set">服務設置</string>
     <string name="set_team">組織切換</string>
     <string name="go_login">去登錄</string>
+    <string name="is_new_version">已是最新版本，無需更新！</string>
     /**====== 設備信息 ======**/
     <string name="deviceinfo">設備信息</string>
     <string name="set_deviceinfo_num">設備編號：</string>

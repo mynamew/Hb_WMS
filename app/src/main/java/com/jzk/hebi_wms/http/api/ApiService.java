@@ -4,6 +4,7 @@ package com.jzk.hebi_wms.http.api;
 import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.data.LoginRequest;
 import com.jzk.hebi_wms.data.UserInfoBean;
+import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.data.cnc.CncBean;
 import com.jzk.hebi_wms.data.cnc.CncRequest;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
@@ -94,6 +95,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/Account/ClientChangeOrgainzation")
     Observable<CommonResult<LoginBean>> changeOrgainzation(@Body ChangeOrgRequest params);
+    /**
+     * 获取版本
+     */
+    @FormUrlEncoded
+    @POST("api/services/app/clientVersion/GetCSVersion")
+    Observable<CommonResult<VersionBean>> getAppVersion(@Field("TenantId") int tenantId, @Field("ClientCode") String clientCode);
 
     /**
      * 工序选择

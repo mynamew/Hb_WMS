@@ -8,11 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.allenliu.versionchecklib.v2.callback.ForceUpdateListener;
 import com.google.gson.Gson;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseFragment;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.data.LoginBean;
+import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
 import com.jzk.hebi_wms.mvp.Polishing.PolishingActivity;
@@ -20,7 +22,11 @@ import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;
 import com.jzk.hebi_wms.mvp.station.StationSelectActivity;
+import com.jzk.hebi_wms.utils.PackageUtils;
+import com.jzk.hebi_wms.utils.SDCardUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
+import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.versionlibrary.UpdateDownLoadUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -100,6 +106,11 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             }
             getActivity().startActivity(it);
         });
+        /**
+         * 获取版本
+         */
+        showProgressDialog();
+        getPresenter().getVersion();
     }
 
     /**
@@ -248,6 +259,35 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 break;
 
 
+        }
+    }
+
+    @Override
+    public void getVersion(VersionBean versionBean) {
+        try {
+            String versionName = PackageUtils.getVersionName(getActivity());
+            //新版本号：需要自己合成
+            final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion() % 100;
+
+            String updateUrl=SpUtils.getInstance().getBaseUrl()+versionBean.getPath();
+            //是否需要版本更新
+            if (!versionName.equals(newVersion)) {
+                ForceUpdateListener listener=null;
+                /**
+                 * 是否是强制更新
+                 */
+                if(versionBean.getUpdateMode()==2){
+                    listener= () -> {
+                        ToastUtils.showShort("当前更新为强制更新，请安装最新版本！");
+                    };
+                }
+                UpdateDownLoadUtils updateDownLoadUtils = new UpdateDownLoadUtils(getActivity(), newVersion + "版本更新", versionBean.getRemark(), updateUrl);
+                updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz",SDCardUtils.getAPKPath(getActivity()),true,updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode()==2,listener),listener);
+            }
+            //设置版本更新的标识
+            SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW,versionName.equals(newVersion));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

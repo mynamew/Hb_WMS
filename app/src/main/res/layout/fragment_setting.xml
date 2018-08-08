@@ -87,7 +87,7 @@
                 android:id="@+id/rl_set_update_version"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:background="@drawable/bg_set_tab_check">
 
                 <TextView

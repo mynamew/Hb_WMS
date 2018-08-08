@@ -6,11 +6,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.allenliu.versionchecklib.v2.callback.ForceUpdateListener;
 import com.google.gson.Gson;
 import com.jzk.hebi_wms.MainActivity;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseFragment;
+import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.data.LoginBean;
+import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
 import com.jzk.hebi_wms.mvp.about.AboutActivity;
@@ -20,8 +23,12 @@ import com.jzk.hebi_wms.mvp.org_change.OrganizationSwitchActivity;
 import com.jzk.hebi_wms.mvp.process.ProcessSelectActivity;
 import com.jzk.hebi_wms.mvp.update_password.UpdatePasswordActivity;
 import com.jzk.hebi_wms.mvp.userinfo.UserInfoActivity;
+import com.jzk.hebi_wms.utils.PackageUtils;
+import com.jzk.hebi_wms.utils.SDCardUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
+import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.MyDialog;
+import com.jzk.versionlibrary.UpdateDownLoadUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -123,6 +130,19 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
              */
             case R.id.tv_set_update_team:
                 startActivity(new Intent(getActivity(), OrganizationSwitchActivity.class));
+                break;
+            /**
+             * 版本更新
+             */
+            case R.id.rl_set_update_version:
+                /**
+                 * 显示进度条
+                 */
+                showProgressDialog();
+                /**
+                 * 获取版本
+                 */
+                getPresenter().getVersion();
                 break;
             default:
         }
@@ -256,5 +276,39 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
     public void onDestroy() {
         super.onDestroy();
         BaseMessage.unregister(this);
+    }
+
+    @Override
+    public void getVersion(VersionBean versionBean) {
+        try {
+            //当前应用的版本号
+            String versionName = PackageUtils.getVersionName(getActivity());
+            //新版本号：需要自己合成
+            final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion() % 100;
+            String updateUrl = SpUtils.getInstance().getBaseUrl() + versionBean.getPath();
+            //应用版本号和服务端的版本号不一致 则需要更新否则无操作直接提示已经是最新版本
+            //是否需要版本更新
+            if (!versionName.equals(newVersion)) {
+                ForceUpdateListener listener = null;
+                UpdateDownLoadUtils updateDownLoadUtils = null;
+                /**
+                 * 是否是强制更新
+                 */
+                if (versionBean.getUpdateMode() == 2) {
+                    listener = () -> {
+                        ToastUtils.showShort("当前更新为强制更新，请安装最新版本！");
+                    };
+                }
+                updateDownLoadUtils = new UpdateDownLoadUtils(getContext(), newVersion + "版本更新", versionBean.getRemark(), updateUrl);
+                updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz", SDCardUtils.getAPKPath(getActivity()),true, updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode() == 2, listener), false, null, listener);
+            } else {
+                ToastUtils.showShort(R.string.is_new_version);
+            }
+            //设置版本更新的标识
+            SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW, versionName.equals(newVersion));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

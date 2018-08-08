@@ -57,6 +57,7 @@
     <string name="server_set">服务设置</string>
     <string name="set_team">组织切换</string>
     <string name="go_login">去登录</string>
+    <string name="is_new_version">已是最新版本，无需更新</string>
     /**====== 设备信息 ======**/
     <string name="deviceinfo">设备信息</string>
     <string name="set_deviceinfo_num">设备编号：</string>

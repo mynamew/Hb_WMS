@@ -11,6 +11,11 @@ public class Constants {
     public static final String BASE_URL = "http://szjuqent.imwork.net:91/";
     //超时时间   2分钟
     public static int DEFAULT_TIMEOUT = 2;
+    /**
+     * 是否下载了最新版本的安装包
+     */
+    public static final String IS_HAVE_DOWNLOAD_NEW = "is_have_download_new";
+
     /**********
      * 状态栏颜色
      *********************************************************************************************/
