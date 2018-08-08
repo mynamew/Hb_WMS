@@ -44,7 +44,7 @@
     <string name="login_set">Configure the service</string>
     <string name="login_please_input_serverurl">Please enter service addres</string>
     <string name="login_please_input_right_serverurl">Please enter the correct address</string>
-    <string name="login_confirm_set">Confirm the setting</string>
+    <string name="login_confirm_set">Set</string>
     <string name="login_please_input_zuhu">Please enter tenant information</string>
     <string name="is_new_version">It is the latest version, no need to update is the latest version, no need to update</string>
     /**====== 設置 ======**/
@@ -104,7 +104,11 @@
     <string name="title_process_select">Process selection</string>
     <string name="commit_success">Submission of success</string>
     <string name="no_process">No process</string>
+    <string name="process_list">Process List</string>
+    <string name="user_not_select_process">The user has not selected procedure, please select procedure!</string>
     <string name="no_process_no_commit">No process, can not be submitted!</string>
+    <string name="user_have_select">User selected</string>
+    <string name="process">Process</string>
     /**====== 供料上料 ======**/
     <string name="title_add_material">Feeding material</string>
     <string name="no_worker_order_info">No station information</string>
@@ -188,4 +192,5 @@
     /**====== 版本更新======**/
     <string name="tip_forced_update">The current update is mandatory, please install the latest version!</string>
     <string name="tip_version_update">Version Update</string>
+
 </resources>

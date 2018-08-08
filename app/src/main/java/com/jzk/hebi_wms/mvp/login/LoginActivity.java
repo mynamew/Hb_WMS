@@ -294,6 +294,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         final TextView tvLoginUrlTip = myDialog.getTextView(R.id.login_url_tip);
         final TextView tvLoginLanguageTip = myDialog.getTextView(R.id.login_language_tip);
         final TextView btnLoginComfirmSet = (TextView) myDialog.getView(R.id.bt_login__confirm);
+        final TextView btnLoginComfirmCancel = (TextView) myDialog.getView(R.id.btn_cancel);
         EditText etLoginUrl =  myDialog.findViewById(R.id.et_login_server);
         EditText etLoginZuhu =  myDialog.findViewById(R.id.et_login_zuhu);
         RadioButton rdSimple =  myDialog.findViewById(R.id.rd_simple);
@@ -339,6 +340,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         tvLoginZuhuTip.setText(getResources().getString(R.string.login_zuhu));
         tvLoginLanguageTip.setText(getResources().getString(R.string.login_language));
         btnLoginComfirmSet.setText(getResources().getString(R.string.login_confirm_set));
+        btnLoginComfirmCancel.setText(getResources().getString(R.string.cancel));
 
         etLoginUrl.setHint(getResources().getString(R.string.login_please_input_serverurl));
         etLoginZuhu.setHint(getResources().getString(R.string.login_please_input_zuhu));

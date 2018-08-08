@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
             android:gravity="center"
-            android:text="工序列表"
+            android:text="@string/process_list"
             android:textColor="@color/color_666"
             android:textStyle="bold"/>
 
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
             android:gravity="center"
-            android:text="工序列表："
+            android:text="@string/process_list"
             android:textColor="@color/color_666"/>
 
         <LinearLayout
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="用户尚未选择工序，请选择工序！"
+            android:text="@string/user_not_select_process"
             android:layout_marginLeft="10px"
             android:textColor="@color/color_666"/>
     </LinearLayout>
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="用户已选择"
+            android:text="@string/user_have_select"
             android:layout_marginLeft="10px"
             android:textColor="@color/color_666"/>
         <TextView
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="工序"
+            android:text="@string/process"
             android:layout_marginLeft="10px"
             android:textColor="@color/color_666"/>
     </LinearLayout>
