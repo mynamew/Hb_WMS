@@ -296,10 +296,10 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
                  */
                 if (versionBean.getUpdateMode() == 2) {
                     listener = () -> {
-                        ToastUtils.showShort("当前更新为强制更新，请安装最新版本！");
+                        ToastUtils.showShort(R.string.tip_forced_update);
                     };
                 }
-                updateDownLoadUtils = new UpdateDownLoadUtils(getContext(), newVersion + "版本更新", versionBean.getRemark(), updateUrl);
+                updateDownLoadUtils = new UpdateDownLoadUtils(getContext(), newVersion + getString(R.string.tip_version_update), versionBean.getRemark(), updateUrl);
                 updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz", SDCardUtils.getAPKPath(getActivity()),true, updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode() == 2, listener), false, null, listener);
             } else {
                 ToastUtils.showShort(R.string.is_new_version);

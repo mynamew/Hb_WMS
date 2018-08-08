@@ -278,7 +278,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                  */
                 if(versionBean.getUpdateMode()==2){
                     listener= () -> {
-                        ToastUtils.showShort("当前更新为强制更新，请安装最新版本！");
+                        ToastUtils.showShort(R.string.tip_forced_update);
                     };
                 }
                 UpdateDownLoadUtils updateDownLoadUtils = new UpdateDownLoadUtils(getActivity(), newVersion + "版本更新", versionBean.getRemark(), updateUrl);
