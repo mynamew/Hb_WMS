@@ -55,6 +55,17 @@ public class ToastUtils {
         }
         mToast.show();
     }
+
+    public static void showShort(Context context, @StringRes int strId) {
+        if (mToast == null) {
+            mToast = Toast.makeText(context.getApplicationContext(), context.getString(strId), Toast.LENGTH_SHORT);
+
+        } else {
+            mToast.setText(BaseActivity.getCurrentActivty().getString(strId));
+        }
+        mToast.show();
+    }
+
     public static void showShort(@StringRes int strId) {
         if (mToast == null) {
             mToast = Toast.makeText(BaseApplication.getMApplicationContext(), BaseActivity.getCurrentActivty().getString(strId), Toast.LENGTH_SHORT);
@@ -64,6 +75,7 @@ public class ToastUtils {
         }
         mToast.show();
     }
+
     public static void showShort(Context context, Object o) {
         if (mToast == null) {
             mToast = Toast.makeText(context, o.toString(), Toast.LENGTH_SHORT);

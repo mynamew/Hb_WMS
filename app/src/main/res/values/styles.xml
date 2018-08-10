@@ -24,6 +24,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/MyInterludeStyle</item>
     </style>
+
     <style name="MyInterludeStyle">
         <item name="android:activityOpenEnterAnimation">@transition/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@transition/slide_out_left</item>
@@ -46,6 +47,7 @@
         <item name="android:layout_marginRight">20px</item>
         <item name="android:background">#e5e5e5</item>
     </style>
+
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/login_txt_color</item>
         <item name="colorControlActivated">@color/login_txt_color</item>
@@ -88,4 +90,12 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/bg_set_userinfo</item>
     </style>
+    <!--自定义设备控件-->
+    <declare-styleable name="DeviceView">
+        <attr name="textTip" format="string"/>
+        <attr name="textInput" format="string"/>
+        <attr name="noMapStrTip" format="string"/>
+        <attr name="isScanByCamera" format="boolean"/>
+        <attr name="isContainSpinner" format="boolean"/>
+    </declare-styleable>
 </resources>

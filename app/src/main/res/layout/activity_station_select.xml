@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".mvp.station.StationSelectActivity">
+    tools:context=".mvp.supply.StationSelectActivity">
 
     <include layout="@layout/title_head"/>
 
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="88px"
@@ -37,13 +38,14 @@
 
                 <TextView
                     android:id="@+id/tv_process_code"
-                    android:textColor="@color/color_666"
-                    android:layout_marginLeft="20px"
-                    android:textSize="13sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""/>
+                    android:layout_marginLeft="20px"
+                    android:text=""
+                    android:textColor="@color/color_666"
+                    android:textSize="13sp"/>
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="64px"
@@ -52,7 +54,7 @@
                 android:text="@string/worker_position"
                 android:textColor="#333"
                 android:textSize="13sp"
-                 />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +64,7 @@
                 android:background="@drawable/bg_rectangle_et_unfocused"
                 android:orientation="horizontal"
                 android:padding="5px"
-               >
+                >
 
                 <com.jzk.spinnerlibrary.MaterialSpinner
                     android:id="@+id/spinner_station"
@@ -92,11 +94,11 @@
                 <TextView
                     android:id="@+id/tv_work_line_code"
                     android:layout_width="match_parent"
-                    android:textColor="@color/color_666"
-                    android:layout_marginLeft="20px"
-                    android:textSize="13sp"
                     android:layout_height="wrap_content"
-                    android:text=""/>
+                    android:layout_marginLeft="20px"
+                    android:text=""
+                    android:textColor="@color/color_666"
+                    android:textSize="13sp"/>
             </LinearLayout>
 
             <TextView
@@ -107,7 +109,7 @@
                 android:text="@string/worker_ordeer"
                 android:textColor="#333"
                 android:textSize="13sp"
-                 />
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,6 +130,7 @@
                     app:ms_dropdown_max_height="350dp"
                     app:ms_hint_color="@color/color_666"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="88px"
@@ -146,118 +149,31 @@
                 <TextView
                     android:id="@+id/tv_ponum"
                     android:layout_width="match_parent"
-                    android:textColor="@color/color_666"
-                    android:layout_marginLeft="20px"
-                    android:textSize="13sp"
                     android:layout_height="wrap_content"
-                    android:text=""/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:gravity="center_vertical"
-                android:paddingLeft="20px"
-                android:text="@string/inject_machine"
-                android:textColor="#333"
-                android:textSize="13sp"
-                 />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:padding="5px"
-                >
-
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_inject_machine"
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:layout_marginRight="30px"
-                android:layout_marginTop="20px">
-
-                <TextView
-                    android:id="@+id/tv_inject_tip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="30px"
-                    android:text="注塑机"
-                    android:textColor="#333"
-                    android:textSize="13sp"
-                    />
-
-                <EditText
-                    android:id="@+id/et_inject_machine"
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="20px"
-                    android:layout_toEndOf="@id/tv_inject_tip"
-                    android:layout_toRightOf="@id/tv_inject_tip"
-                    android:background="@drawable/selector_et"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:hint="@string/input_inject_machine"
-                    android:imeOptions="actionSearch"
-                    android:paddingLeft="20px"
-                    android:singleLine="true"
                     android:text=""
+                    android:textColor="@color/color_666"
                     android:textSize="13sp"/>
-
-                <ImageView
-                    android:id="@+id/iv_inject_scan"
-                    android:layout_width="100px"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="30px"
-                    android:paddingLeft="60px"
-                    android:src="@mipmap/ic_scan"/>
-            </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:gravity="center_vertical"
-                android:paddingLeft="20px"
-                android:text="@string/supply_material_machine"
-                android:textColor="#333"
-                android:textSize="13sp"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:padding="5px"
-                >
-
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_add_material"
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
             </LinearLayout>
 
+            <com.jzk.hebi_wms.view.DeviceView
+                android:id="@+id/dv_inject_machine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isContainSpinner="true"
+                app:textInput="@string/input_inject_machine"
+                app:noMapStrTip="@string/tip_inject_machine_not_alive"
+                app:isScanByCamera="false"
+                app:textTip="@string/inject_machine"/>
+
+            <com.jzk.hebi_wms.view.DeviceView
+                android:id="@+id/dv_supply_material"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isContainSpinner="true"
+                app:textInput="@string/input_scan_supply_machine"
+                app:noMapStrTip="@string/tip_input_scan_supply_not_live"
+                app:textTip="@string/supply_material_machine"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20px"
@@ -275,8 +191,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="30px"
-                    android:text="@string/product_num"
+                    android:paddingLeft="20px"
+                    android:text="物料条码"
                     android:textColor="#333"
                     android:textSize="13sp"
                     />
@@ -292,7 +208,7 @@
                     android:background="@drawable/selector_et"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:hint="请输入/扫描产品序列号"
+                    android:hint="@string/input_material_barcode"
                     android:imeOptions="actionSearch"
                     android:inputType="textVisiblePassword"
                     android:paddingLeft="20px"

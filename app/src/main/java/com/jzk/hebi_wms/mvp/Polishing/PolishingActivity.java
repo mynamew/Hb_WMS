@@ -16,8 +16,10 @@ import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
+import com.jzk.hebi_wms.utils.InputMethodUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.hebi_wms.view.DeviceView;
 import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
@@ -35,20 +37,14 @@ import butterknife.OnClick;
  */
 public class PolishingActivity extends BaseActivity<PolishingView, PolishingPresenter> implements PolishingView {
     String processSelectCode = "";
-    @BindView(R.id.iv_title_back)
-    ImageView ivTitleBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.iv_title_right)
-    ImageView ivTitleRight;
-    @BindView(R.id.tv_title_right)
-    TextView tvTitleRight;
+    @BindView(R.id.tv_process_code)
+    TextView tvProcessCode;
     @BindView(R.id.spinner_station)
     MaterialSpinner spinnerStation;
     @BindView(R.id.tv_work_line_code)
     TextView tvWorkLineCode;
-    @BindView(R.id.spinner_Polishing_equipment)
-    MaterialSpinner spinnerPolishingEquipment;
+    @BindView(R.id.dv_cnc)
+    DeviceView dvCnc;
     @BindView(R.id.tv_add_material_tip)
     TextView tvAddMaterialTip;
     @BindView(R.id.et_add_material_order)
@@ -63,10 +59,9 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
     TextView tvProductName;
     @BindView(R.id.tv_Product_specification_model)
     TextView tvProductSpecificationModel;
-    @BindView(R.id.tv_process_code)
-    TextView tvProcessCode;
     @BindView(R.id.ll_product_info)
     LinearLayout llProductInfo;
+
 
     /**
      * 工位数据
@@ -104,6 +99,17 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
             @Override
             public void verticalSuccess(String result) {
                 scanUp();
+            }
+        });
+        dvCnc.setEdittextListener(new DeviceView.EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+
+            }
+
+            @Override
+            public void hideInputSoftware() {
+                InputMethodUtils.hide(PolishingActivity.this);
             }
         });
     }
@@ -171,7 +177,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
     @Override
     public void getPolish(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerPolishingEquipment.setText(R.string.tip_no_polish_info);
+            dvCnc.setSpinnerText(R.string.tip_no_polish_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             cncDevices.clear();
@@ -181,8 +187,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
                 mStrs.add(stations.get(i).getDisplayText());
             }
             //设置数据源
-            spinnerPolishingEquipment.setItems(mStrs);
-            spinnerPolishingEquipment.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
+            dvCnc.initDeviceData(cncDevices);
         }
         dismissProgressDialog();
     }
@@ -230,7 +235,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
         request.setEmployeeCode(SpUtils.getInstance().getUserName());
         request.setEmployeeName(SpUtils.getInstance().getNickName());
         //设置抛光机Code
-        request.setPolishEqpCode(cncDevices.get(spinnerPolishingEquipment.getSelectedIndex()).getValue());
+        request.setPolishEqpCode(cncDevices.get(dvCnc.getSpinnerSelectIndex()).getValue());
         /**
          * 设置工序
          * 工位Code

@@ -130,6 +130,11 @@
     <string name="tip_scan">扫码提示</string>
     <string name="tip_add_material_barcode_no_same_order">当前上料条码与单号不一致，是否强制提交？</string>
     <string name="tip_inject_machine_not_alive">您输入/扫描注塑机不存在！</string>
+    <string name="input_scan_device">输入/扫描设备</string>
+    <string name="input_material_barcode">请输入/扫描物料条码</string>
+    <string name="process">工序</string>
+    <string name="input_scan_supply_machine">请输入/扫描供料机</string>
+    <string name="tip_input_scan_supply_not_live">您输入/扫描供料机不存在！</string>
     /**====== 注塑过站 ======**/
     <string name="title_inject_mold_pass">注塑过站</string>
     <string name="input_add_material_code">请输入/扫描上料单号</string>
@@ -149,6 +154,8 @@
     <string name="bad_code_group">不良代码组</string>
     <string name="remark">备注</string>
     <string name="input_remark_info">请输入备注信息</string>
+    <string name="input_scan_mold">请输入/扫描模具</string>
+    <string name="tip_mold_no_live">您输入/扫描模具不存在！</string>
     /**====== CNC ======**/
     <string name="input_cnc_tongs">请输入/扫描CNC夹具</string>
     <string name="title_cnc">CNC</string>
@@ -195,7 +202,10 @@
     <string name="tip_forced_update">当前更新为强制更新，请安装最新版本！</string>
     <string name="tip_version_update">版本更新</string>
     <string name="user_have_select">用户已选择</string>
-    <string name="process">工序</string>
+    <string name="tip_no_cnc_info">暂无CNC设备信息</string>
+    <string name="input_polish_device">请输入/扫描抛光设备</string>
+    <string name="input_cnc_device">请输入/扫描CNC设备</string>
+    <string name="cnc_device">CND设备</string>
 
 
 </resources>

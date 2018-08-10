@@ -433,12 +433,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         tv.setText(content);
     }
 
-    /**
-     * zxing 扫码的回调接口
-     */
-    public interface ScanQRCodeResultListener {
-        void scanSuccess(int requestCode, String result);
-    }
 
     private SparseArray<EditText> edits = new SparseArray<>();
 

@@ -21,7 +21,7 @@ import com.jzk.hebi_wms.mvp.Polishing.PolishingActivity;
 import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;
-import com.jzk.hebi_wms.mvp.station.StationSelectActivity;
+import com.jzk.hebi_wms.mvp.supply.StationSelectActivity;
 import com.jzk.hebi_wms.utils.PackageUtils;
 import com.jzk.hebi_wms.utils.SDCardUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
@@ -272,6 +272,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             String updateUrl=SpUtils.getInstance().getBaseUrl()+versionBean.getPath();
             //是否需要版本更新
             if (!versionName.equals(newVersion)) {
+                SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW,true);
                 ForceUpdateListener listener=null;
                 /**
                  * 是否是强制更新

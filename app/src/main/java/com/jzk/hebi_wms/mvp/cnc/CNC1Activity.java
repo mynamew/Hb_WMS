@@ -16,8 +16,10 @@ import com.jzk.hebi_wms.data.cnc.CncRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
+import com.jzk.hebi_wms.utils.InputMethodUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.hebi_wms.view.DeviceView;
 import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
@@ -36,24 +38,15 @@ import butterknife.OnClick;
  */
 public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implements CNC1View {
 
+
     @BindView(R.id.tv_process_code)
     TextView tvProcessCode;
     @BindView(R.id.spinner_station)
     MaterialSpinner spinnerStation;
     @BindView(R.id.tv_work_line_code)
     TextView tvWorkLineCode;
-    @BindView(R.id.spinner_cnc_device)
-    MaterialSpinner spinnerCncDevice;
-    @BindView(R.id.et_add_material_order)
-    EditText etAddMaterialOrder;
-    @BindView(R.id.iv_scan)
-    ImageView ivScan;
-    @BindView(R.id.tv_product_code)
-    TextView tvProductCode;
-    @BindView(R.id.tv_product_name)
-    TextView tvProductName;
-    @BindView(R.id.tv_product_model)
-    TextView tvProductModel;
+    @BindView(R.id.dv_cnc)
+    DeviceView dvCnc;
     @BindView(R.id.tv_cnc_tongs_tip)
     TextView tvCncTongsTip;
     @BindView(R.id.et_add_cnc_tongs)
@@ -62,11 +55,20 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     ImageView ivCncScan;
     @BindView(R.id.tv_add_material_tip)
     TextView tvAddMaterialTip;
+    @BindView(R.id.et_add_material_order)
+    EditText etAddMaterialOrder;
+    @BindView(R.id.iv_scan)
+    ImageView ivScan;
     @BindView(R.id.tv_mo_code)
     TextView tvMoCode;
+    @BindView(R.id.tv_product_code)
+    TextView tvProductCode;
+    @BindView(R.id.tv_product_name)
+    TextView tvProductName;
+    @BindView(R.id.tv_product_model)
+    TextView tvProductModel;
     @BindView(R.id.ll_product_info)
     LinearLayout llProductInfo;
-
     /**
      * 工序
      */
@@ -99,7 +101,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         setEdittextListener(etAddCncTongs, Constants.REQUEST_SCAN_CODE_CNC_TONGS, R.string.input_cnc_tongs, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-                 setEdittextSelected(etAddMaterialOrder);
+                setEdittextSelected(etAddMaterialOrder);
             }
         });
         /**
@@ -112,6 +114,16 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
                  * 请求
                  */
                 requestCommitCnc();
+            }
+        });
+        dvCnc.setEdittextListener(new DeviceView.EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+            }
+
+            @Override
+            public void hideInputSoftware() {
+                InputMethodUtils.hide(CNC1Activity.this);
             }
         });
     }
@@ -193,18 +205,13 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     @Override
     public void getCNCTongs(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerCncDevice.setText("暂无CNC设备信息");
+            dvCnc.setSpinnerText(R.string.tip_no_cnc_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             cncDevices.clear();
             cncDevices.addAll(o.getEqpments());
-            List<String> mStrs = new ArrayList<>();
-            for (int i = 0; i < stations.size(); i++) {
-                mStrs.add(stations.get(i).getDisplayText());
-            }
             //设置数据源
-            spinnerCncDevice.setItems(mStrs);
-            spinnerCncDevice.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
+            dvCnc.initDeviceData(cncDevices);
         }
         /**
          * 是否隐藏加载框
@@ -286,13 +293,14 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
          * 设置夹具
          */
         request.setcNCFixture(cncTongs);
-        request.setcNCEqpCode(cncDevices.get(spinnerCncDevice.getSelectedIndex()).getValue());
+        request.setcNCEqpCode(cncDevices.get(dvCnc.getSpinnerSelectIndex()).getValue());
         /**
          * 设置产品序列号
          */
         request.setrCard(rCard);
         getPresenter().cncCommit(request);
     }
+
     /**
      * 判断是否隐藏加载框
      */

@@ -6,7 +6,7 @@
               android:layout_height="match_parent"
               android:background="@color/white"
               android:orientation="vertical"
-              tools:context=".mvp.station.StationSelectActivity">
+              tools:context=".mvp.supply.StationSelectActivity">
 
     <include layout="@layout/title_head"/>
 
@@ -98,37 +98,14 @@
                     android:layout_height="wrap_content"
                     android:text=""/>
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:gravity="center_vertical"
-                android:paddingLeft="20px"
-                android:text="@string/polish_device"
-                android:textColor="#333"
-                android:textSize="13sp"/>
-
-            <LinearLayout
+            <com.jzk.hebi_wms.view.DeviceView
+                android:id="@+id/dv_cnc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/bg_rectangle_et_unfocused"
-                android:orientation="horizontal"
-                android:paddingLeft="5px"
-                android:paddingRight="5px"
-                android:paddingTop="5px">
-
-                <com.jzk.spinnerlibrary.MaterialSpinner
-                    android:id="@+id/spinner_Polishing_equipment"
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:textSize="13sp"
-                    app:ms_dropdown_height="wrap_content"
-                    app:ms_dropdown_max_height="350dp"
-                    app:ms_hint_color="@color/color_666"/>
-            </LinearLayout>
-
+                app:isContainSpinner="true"
+                app:isScanByCamera="false"
+                app:textInput="@string/input_polish_device"
+                app:textTip="@string/polish_device"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20px"

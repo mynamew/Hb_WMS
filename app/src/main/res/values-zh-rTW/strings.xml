@@ -188,5 +188,15 @@
     /**====== 版本更新======**/
     <string name="tip_forced_update">當前更新爲強制更新，請安裝最新版本！</string>
     <string name="tip_version_update">版本更新</string>
+    <string name="input_scan_device">输入/扫描设备</string>
+    <string name="input_material_barcode">请输入/扫描物料条码</string>
+    <string name="input_scan_supply_machine">请输入/扫描上供料机</string>
+    <string name="tip_input_scan_supply_not_live">您输入/扫描供料机不存在！</string>
+    <string name="input_scan_mold">请输入/扫描模具</string>
+    <string name="tip_mold_no_live">您输入/扫描模具不存在！</string>
+    <string name="tip_no_cnc_info">暂无CNC设备信息</string>
+    <string name="input_polish_device">请输入/扫描抛光设备</string>
+    <string name="input_cnc_device">请输入/扫描CNC设备</string>
+    <string name="cnc_device">CND设备</string>
 
 </resources>

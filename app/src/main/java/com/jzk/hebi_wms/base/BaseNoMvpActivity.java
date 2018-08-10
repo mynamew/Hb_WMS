@@ -1,10 +1,14 @@
 package com.jzk.hebi_wms.base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +22,8 @@ import com.jzk.hebi_wms.mvp.login.LoginActivity;
 import com.jzk.hebi_wms.utils.statusutils.StatusBarUtil;
 import com.jzk.hebi_wms.view.MyProgressDialog;
 import com.jzk.hebi_wms.view.SwipeBackLayout;
+import com.jzk.qrcodelibrary.CommonScanActivity;
+import com.jzk.qrcodelibrary.utils.Constant;
 import com.orhanobut.logger.Logger;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -170,6 +176,51 @@ public abstract class BaseNoMvpActivity extends AutoLayoutActivity implements Mv
             }
         });
         return container;
+    }
+
+    /**
+     * 扫码的返回 监听器
+     */
+    private ScanQRCodeResultListener mListener = null;
+
+    /**
+     * 调用相机扫描二维码的方法
+     *
+     * @param requestCode
+     */
+    public void scan(int requestCode, ScanQRCodeResultListener listener) {
+        if (null != listener) {
+            mListener = listener;
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //权限还没有授予，需要在这里写申请权限的代码
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 60);
+        } else {
+            //权限已经被授予，在这里直接写要执行的相应方法即可
+            Intent intent = new Intent(this, CommonScanActivity.class);
+
+            String pointMsg = getResources().getString(R.string.scan_point_title);
+            Bundle bundle = new Bundle();
+            bundle.putString("pointMsg", pointMsg);
+            intent.putExtras(bundle);
+
+            intent.putExtra(Constant.REQUEST_SCAN_MODE, Constant.REQUEST_SCAN_MODE_ALL_MODE);
+            startActivityForResult(intent, requestCode);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                if (null != mListener) {
+                    mListener.scanSuccess(requestCode, bundle.getString("result"));
+                }
+            }
+        }
     }
     /********
      * 页面跳转相关的方法

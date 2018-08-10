@@ -106,108 +106,26 @@
                         android:text=""/>
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:layout_marginLeft="20px"
-                    android:gravity="center_vertical"
-                    android:text="@string/inject_machine"
-                    android:textColor="#333"
-                    android:textSize="13sp"
-                    />
-
-                <LinearLayout
+                <com.jzk.hebi_wms.view.DeviceView
+                    android:id="@+id/dv_inject_machine"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:background="@drawable/bg_rectangle_et_unfocused"
-                    android:orientation="horizontal"
-                    android:padding="5px">
-
-                    <com.jzk.spinnerlibrary.MaterialSpinner
-                        android:id="@+id/spinner_inject_machine"
-                        android:layout_width="match_parent"
-                        android:layout_height="64px"
-                        android:textSize="13sp"
-                        app:ms_dropdown_height="wrap_content"
-                        app:ms_dropdown_max_height="350dp"
-                        app:ms_hint_color="@color/color_666"/>
-                </LinearLayout>
-                <RelativeLayout
+                    app:isContainSpinner="true"
+                    app:textInput="@string/input_inject_machine"
+                    app:noMapStrTip="@string/tip_inject_machine_not_alive"
+                    app:isScanByCamera="false"
+                    app:textTip="@string/inject_machine"/>
+                <com.jzk.hebi_wms.view.DeviceView
+                    android:id="@+id/dv_mold"
                     android:layout_width="match_parent"
-                    android:layout_height="88px"
-                    android:layout_marginRight="30px"
-                    android:layout_marginTop="20px">
-
-                    <TextView
-                        android:id="@+id/tv_inject_tip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="30px"
-                        android:text="@string/inject_machine"
-                        android:textColor="#333"
-                        android:textSize="13sp"
-                        />
-
-                    <EditText
-                        android:id="@+id/et_inject_machine"
-                        android:layout_width="match_parent"
-                        android:layout_height="64px"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="20px"
-                        android:layout_toEndOf="@id/tv_inject_tip"
-                        android:layout_toRightOf="@id/tv_inject_tip"
-                        android:background="@drawable/selector_et"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical"
-                        android:hint="@string/input_inject_machine"
-                        android:imeOptions="actionSearch"
-                        android:paddingLeft="20px"
-                        android:singleLine="true"
-                        android:text=""
-                        android:textSize="13sp"/>
-
-                    <ImageView
-                        android:id="@+id/iv_inject_scan"
-                        android:layout_width="100px"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="30px"
-                        android:paddingLeft="60px"
-                        android:src="@mipmap/ic_scan"/>
-                </RelativeLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="64px"
-                    android:layout_marginLeft="20px"
-                    android:gravity="center_vertical"
-                    android:text="@string/mould"
-                    android:textColor="#333"
-                    android:textSize="13sp"
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginBottom="20px"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:background="@drawable/bg_rectangle_et_unfocused"
-                    android:orientation="horizontal"
-                    android:padding="5px">
+                    app:isContainSpinner="true"
+                    app:textInput="@string/input_scan_mold"
+                    app:noMapStrTip="@string/tip_mold_no_live"
+                    app:isScanByCamera="false"
+                    app:textTip="@string/mould"/>
 
-                    <com.jzk.spinnerlibrary.MaterialSpinner
-                        android:id="@+id/spinner_mold"
-                        android:layout_width="match_parent"
-                        android:layout_height="64px"
-                        android:textSize="13sp"
-                        app:ms_dropdown_height="wrap_content"
-                        app:ms_dropdown_max_height="350dp"
-                        app:ms_hint_color="@color/color_666"/>
-                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -368,31 +286,13 @@
                     app:ms_dropdown_max_height="350dp"
                     app:ms_hint_color="@color/color_666"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_bad_code_tip"
-                android:layout_width="match_parent"
-                android:layout_height="64px"
-                android:layout_marginLeft="20px"
-                android:gravity="center_vertical"
-                android:text="可选不良代码"
-                android:textColor="@color/color_333"
-                android:textSize="13sp"/>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rlv_bac_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="20px"/>
             <TextView
                 android:id="@+id/tv_have_select_tip"
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:layout_marginLeft="20px"
                 android:gravity="center_vertical"
-                android:text="已选不良代码"
+                android:text="@string/bad_code"
                 android:textColor="@color/color_333"
                 android:textSize="13sp"/>
 

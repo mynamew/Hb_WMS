@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,8 +26,10 @@ import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
+import com.jzk.hebi_wms.utils.InputMethodUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.hebi_wms.view.DeviceView;
 import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
@@ -33,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -42,20 +47,28 @@ import butterknife.OnClick;
  * create at: 2018/7/20 9:21
  */
 public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldPresenter> implements InjectMoldView {
-
-
+    @BindView(R.id.tv_process_code)
+    TextView tvProcessCode;
     @BindView(R.id.spinner_station)
     MaterialSpinner spinnerStation;
-    @BindView(R.id.spinner_inject_machine)
-    MaterialSpinner spinnerInjectMachine;
-    @BindView(R.id.spinner_mold)
-    MaterialSpinner spinnerMold;
+    @BindView(R.id.tv_work_line_code)
+    TextView tvWorkLineCode;
+    @BindView(R.id.dv_inject_machine)
+    DeviceView dvInjectMachine;
+    @BindView(R.id.dv_mold)
+    DeviceView dvMold;
+    @BindView(R.id.ll_header)
+    LinearLayout llHeader;
+    @BindView(R.id.rd_good)
+    RadioButton rdGood;
+    @BindView(R.id.rd_bad)
+    RadioButton rdBad;
+    @BindView(R.id.rg_is_good)
+    RadioGroup rgIsGood;
     @BindView(R.id.tv_add_material_tip)
     TextView tvAddMaterialTip;
     @BindView(R.id.et_add_material_order)
     EditText etAddMaterialOrder;
-    @BindView(R.id.et_remark)
-    EditText etRemark;
     @BindView(R.id.iv_scan)
     ImageView ivScan;
     @BindView(R.id.tv_product_code)
@@ -66,50 +79,28 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     TextView tvProductModel;
     @BindView(R.id.tv_product_batch)
     TextView tvProductBatch;
-    @BindView(R.id.rd_good)
-    RadioButton rdGood;
-    @BindView(R.id.rd_bad)
-    RadioButton rdBad;
-    @BindView(R.id.et_bad_code)
-    EditText etBadCode;
-    @BindView(R.id.btn_commit)
-    TextView btnCommit;
-    @BindView(R.id.tv_work_line_code)
-    TextView tvWorkLineCode;
-    @BindView(R.id.ll_header)
-    LinearLayout llHeader;
-    @BindView(R.id.spinner_bad_groups)
-    MaterialSpinner spinnerBadGroups;
-    @BindView(R.id.rlv_bac_code)
-    RecyclerView rlvBadCode;
-    @BindView(R.id.rg_is_good)
-    RadioGroup rgIsGood;
-    @BindView(R.id.layout_product)
-    View layoutProduct;
     @BindView(R.id.divider_bad_code)
     View dividerBadCode;
+    @BindView(R.id.et_bad_code)
+    EditText etBadCode;
     @BindView(R.id.ll_input_bad_code)
     LinearLayout llInputBadCode;
     @BindView(R.id.tv_bad_group_tip)
     TextView tvBadGroupTip;
+    @BindView(R.id.spinner_bad_groups)
+    MaterialSpinner spinnerBadGroups;
     @BindView(R.id.ll_bad_group)
     LinearLayout llBadGroup;
-    @BindView(R.id.tv_bad_code_tip)
-    TextView tvBadCodeTip;
-    @BindView(R.id.ll_bad_code_remark)
-    LinearLayout llBadCodeRemark;
-    @BindView(R.id.tv_process_code)
-    TextView tvProcessCode;
-    @BindView(R.id.tv_inject_tip)
-    TextView tvInjectTip;
-    @BindView(R.id.et_inject_machine)
-    EditText etInjectMachine;
-    @BindView(R.id.iv_inject_scan)
-    ImageView ivInjectScan;
     @BindView(R.id.tv_have_select_tip)
     TextView tvHaveSelectTip;
     @BindView(R.id.rlv_have_select_bad_code)
     RecyclerView rlvHaveSelectBadCode;
+    @BindView(R.id.et_remark)
+    EditText etRemark;
+    @BindView(R.id.ll_bad_code_remark)
+    LinearLayout llBadCodeRemark;
+    @BindView(R.id.btn_commit)
+    TextView btnCommit;
 
     /********工位***********************************************************************************************/
     /**
@@ -152,9 +143,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     private List<String> mErrorGroupStrs = new ArrayList<>();
     //产品别Id
     private int categoryId;
-    /**************可选不良代码*****************************************************************************/
-    private BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> mErrorAdapter;
-    private List<InjectPassBean.ErrorCodesBean> mErrors = new ArrayList<>();
     /**************不良代码*****************************************************************************/
     private BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> mErrorSelectAdapter;
     private List<InjectPassBean.ErrorCodesBean> mErrorsSelect = new ArrayList<>();
@@ -202,7 +190,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                  */
                 CheckRCardInfoRquest request = new CheckRCardInfoRquest();
                 request.setRCard(result);
-                request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+                request.setMoldingEqpCode(mInjectMolds.get(dvInjectMachine.getSpinnerSelectIndex()).getValue());
                 request.setProcessCode(processSelectCode);
                 request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
                 showProgressDialog();
@@ -219,16 +207,26 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 getPresenter().getErrorInfoByErrorCodeAsync(categoryId, result);
             }
         });
-        /**
-         * 注塑机
-         */
-        setEdittextListener(etInjectMachine, Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, R.string.input_inject_machine, 0, new EdittextInputListener() {
+        dvInjectMachine.setEdittextListener(new DeviceView.EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-                /**
-                 * 注塑机判断的方法
-                 */
-                injectMachineScanResultDeal(result);
+
+            }
+
+            @Override
+            public void hideInputSoftware() {
+                InputMethodUtils.hide(InjectMoldActivity.this);
+            }
+        });
+        dvMold.setEdittextListener(new DeviceView.EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+
+            }
+
+            @Override
+            public void hideInputSoftware() {
+                InputMethodUtils.hide(InjectMoldActivity.this);
             }
         });
         /**
@@ -308,19 +306,13 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     @Override
     public void getInjectionMoldings(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerInjectMachine.setText(R.string.tip_no_inject_machine_info);
+            dvInjectMachine.setSpinnerText(R.string.tip_no_inject_machine_info);
         } else {
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mInjectMolds.clear();
             mInjectMolds.addAll(stations);
-            List<String> mstrs = new ArrayList<>();
-            mstrs.clear();
-            for (int i = 0; i < stations.size(); i++) {
-                mstrs.add(stations.get(i).getDisplayText());
-            }
             //设置数据源
-            spinnerInjectMachine.setItems(mstrs);
-            spinnerInjectMachine.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
+            dvInjectMachine.initDeviceData(mInjectMolds);
         }
         dismissProgressDialog();
     }
@@ -328,20 +320,13 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     @Override
     public void getMould(InjectMoldBean o) {
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
-            spinnerMold.setText(R.string.tip_no_mould_info);
+            dvMold.setSpinnerText(R.string.tip_no_mould_info);
         } else {
 
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mMoulds.clear();
             mMoulds.addAll(stations);
-            List<String> mstrs = new ArrayList<>();
-            mstrs.clear();
-            for (int i = 0; i < stations.size(); i++) {
-                mstrs.add(stations.get(i).getDisplayText());
-            }
-            //设置数据源
-            spinnerMold.setItems(mstrs);
-            spinnerMold.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> view.setText(item));
+            dvMold.initDeviceData(mMoulds);
         }
         dismissProgressDialog();
     }
@@ -361,7 +346,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 设置产品属性
          */
-        layoutProduct.setVisibility(View.VISIBLE);
+        findViewById(R.id.layout_product).setVisibility(View.VISIBLE);
         tvProductCode.setText(o.getItemCode());
         tvProductName.setText(o.getItemName());
         tvProductModel.setText(o.getItemStandard());
@@ -410,7 +395,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 校验失败重置
          */
         isCheckProduct = false;
-        layoutProduct.setVisibility(View.GONE);
+        findViewById(R.id.layout_product).setVisibility(View.GONE);
     }
 
     @Override
@@ -438,84 +423,39 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @Override
     public void getErrorInfoByGroupCode(List<InjectPassBean.ErrorCodesBean> errorCodes) {
-        mErrorAdapter = null;
-        mErrors.clear();
-        mErrors.addAll(errorCodes);
+        mErrorsSelect.clear();
+        mErrorsSelect.addAll(errorCodes);
         /**
-         * 初始化适配器
+         * 初始化已选不良代码
          */
-        if (null == mErrorAdapter) {
-            mErrorAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrors) {
+        if (null == mErrorSelectAdapter) {
+            mErrorSelectAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrorsSelect) {
                 @Override
                 protected int getItemLayoutId(int viewType) {
-                    return R.layout.item_bad_code;
+                    return R.layout.item_selected_bad_code;
                 }
 
                 @Override
                 protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
-
-                    TextView tvBad = holder.getTextView(R.id.tv_bad_code);
-                    tvBad.setText(mErrors.get(position).getErrorName());
-                    tvBad.setSelected(mErrors.get(position).isSelect());
+                    CheckBox checkBox = holder.getCheckBox(R.id.cb_bad_code);
+                    checkBox.setText(item.getErrorName());
+                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            mErrorsSelect.get(position).setSelect(isChecked);
+                        }
+                    });
                 }
             };
-            mErrorAdapter.setOnItemClickListener((itemView, pos) -> {
-                boolean badCodeIsSelect=false;
-                for (int i = 0; i <mErrorsSelect.size() ; i++) {
-                  if(mErrors.get(pos).getErrorCode().equals(mErrorsSelect.get(i).getErrorCode())){
-                      badCodeIsSelect=true;
-                  }
-                }
-                if(badCodeIsSelect){
-                    ToastUtils.showShort(R.string.tip_bad_code_have_selected);
-                    return;
-                }
-                mErrorsSelect.add(mErrors.get(pos));
-                /**
-                 * 初始化已选不良代码
-                 */
-
-                if (null == mErrorSelectAdapter) {
-                    mErrorSelectAdapter = new BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean>(this, mErrorsSelect) {
-                        @Override
-                        protected int getItemLayoutId(int viewType) {
-                            return R.layout.item_bad_code_selected;
-                        }
-
-                        @Override
-                        protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
-                            TextView tvBad = holder.getTextView(R.id.tv_bad_code);
-                            tvBad.setText(mErrorsSelect.get(position).getErrorName());
-                            holder.getImageView(R.id.iv_delete).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mErrors.add(mErrorsSelect.get(pos));
-                                    mErrorAdapter.notifyDataSetChanged();
-                                    mErrorsSelect.remove(pos);
-                                    mErrorSelectAdapter.notifyDataSetChanged();
-                                }
-                            });
-                        }
-                    };
-                    rlvHaveSelectBadCode.setLayoutManager(new LinearLayoutManager(this));
-                    rlvHaveSelectBadCode.setAdapter(mErrorSelectAdapter);
-                    rlvHaveSelectBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
-                } else {
-                    mErrorSelectAdapter.notifyDataSetChanged();
-                }
-                mErrors.remove(pos);
-                /**
-                 * 更新Adapter
-                 */
-                mErrorAdapter.notifyDataSetChanged();
-
-            });
-            rlvBadCode.setAdapter(mErrorAdapter);
-            rlvBadCode.setLayoutManager(new LinearLayoutManager(this));
-            rlvBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            rlvHaveSelectBadCode.setLayoutManager(linearLayoutManager);
+            rlvHaveSelectBadCode.setAdapter(mErrorSelectAdapter);
+            rlvHaveSelectBadCode.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, R.drawable.item_point_divider));
+            setRecycleViewScrollSmooth(rlvHaveSelectBadCode, linearLayoutManager);
+        } else {
+            mErrorSelectAdapter.notifyDataSetChanged();
         }
-        mErrorAdapter.notifyDataSetChanged();
-        dismissProgressDialog();
+
     }
 
     @Override
@@ -544,15 +484,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             }
         }
         /**
-         * 可选不良代码更新
-         */
-        for (int i = 0; i < mErrors.size(); i++) {
-            if (errorInfo.getErrorCode().equals(mErrors.get(i).getErrorCode())) {
-                mErrors.remove(i);
-                mErrorAdapter.notifyDataSetChanged();
-            }
-        }
-        /**
          * 如果没有则添加进去并且更新
          */
         if (!isHaveSelectError) {
@@ -568,7 +499,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         }
     }
 
-    @OnClick({R.id.iv_scan, R.id.btn_commit, R.id.iv_inject_scan})
+    @OnClick({R.id.iv_scan, R.id.btn_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
@@ -577,19 +508,11 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     // TODO: 2018/7/20  校验
                     CheckRCardInfoRquest request = new CheckRCardInfoRquest();
                     request.setRCard(result);
-                    request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+                    request.setMoldingEqpCode(mInjectMolds.get(dvInjectMachine.getSpinnerSelectIndex()).getValue());
                     request.setProcessCode(processSelectCode);
                     request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
                     showProgressDialog();
                     getPresenter().checkRCardInfoAsync(request);
-                });
-                break;
-            /**
-             * 注塑机
-             */
-            case R.id.iv_inject_scan:
-                scan(Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, (requestCode, result) -> {
-                    injectMachineScanResultDeal(result);
                 });
                 break;
             case R.id.btn_commit:
@@ -599,45 +522,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 break;
         }
     }
-
-    /**
-     * 注塑机扫描/输入结果处理
-     *
-     * @param result
-     */
-    private void injectMachineScanResultDeal(String result) {
-        boolean isInjectNameTrue = false;
-        for (int i = 0; i < mInjectMolds.size(); i++) {
-            /**
-             * 如果在数据中查找到注塑机则设置注塑机
-             */
-            if (mInjectMolds.get(i).getValue().equals(result)) {
-                /**
-                 * 设置是否找到所扫描或输入的注塑机
-                 */
-                isInjectNameTrue = true;
-                /**
-                 * 设置注塑机文字及位置
-                 */
-                etInjectMachine.setText(result);
-                spinnerInjectMachine.setText(result);
-                spinnerInjectMachine.setSelectedIndex(i);
-                /**
-                 * 设置产品序列号获取焦点
-                 */
-                setBarcodeSelected();
-            }
-        }
-        /**
-         * 如果扫描的注塑机不村子啊
-         */
-        if (!isInjectNameTrue) {
-            etInjectMachine.setText("");
-            setEdittextSelected(etInjectMachine);
-            ToastUtils.showShort(R.string.tip_inject_machine_not_alive);
-        }
-    }
-
     /**
      * 注塑机过站提交请求
      */
@@ -679,7 +563,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 注塑机Code
          */
-        request.setMoldingEqpCode(mInjectMolds.get(spinnerInjectMachine.getSelectedIndex()).getValue());
+        request.setMoldingEqpCode(mInjectMolds.get(dvInjectMachine.getSpinnerSelectIndex()).getValue());
         /**
          * 工序Code
          */
@@ -697,7 +581,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 设置模具
          */
-        request.setMouldcode(mMoulds.get(spinnerMold.getSelectedIndex()).getValue());
+        request.setMouldcode(mMoulds.get(dvMold.getSpinnerSelectIndex()).getValue());
         /**
          * 设置工位
          */
@@ -718,9 +602,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      * @param isShow
      */
     private void showOrHideBadCode(boolean isShow) {
-        tvBadCodeTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
         tvBadGroupTip.setVisibility(isShow ? View.VISIBLE : View.GONE);
-        rlvBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
         llBadCodeRemark.setVisibility(isShow ? View.VISIBLE : View.GONE);
         llBadGroup.setVisibility(isShow ? View.VISIBLE : View.GONE);
         llInputBadCode.setVisibility(isShow ? View.VISIBLE : View.GONE);
@@ -737,4 +619,5 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             dismisProgressDialog();
         }
     }
+
 }

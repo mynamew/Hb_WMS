@@ -229,6 +229,9 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
             tvSetUserName.setText(bean.getFullName());
         }
         BaseMessage.register(this);
+
+        boolean isHaveDownloadNew = SpUtils.getInstance().getBoolean(Constants.IS_HAVE_DOWNLOAD_NEW);
+        ivSetNewVersion.setVisibility(isHaveDownloadNew?View.VISIBLE:View.INVISIBLE);
     }
 
     @Override

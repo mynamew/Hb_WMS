@@ -22,13 +22,13 @@
             />
 
         <TextView
-            android:textColor="@color/color_666"
-            android:layout_marginLeft="20px"
-            android:textSize="13sp"
             android:id="@+id/tv_process_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:layout_marginLeft="20px"
+            android:text=""
+            android:textColor="@color/color_666"
+            android:textSize="13sp"/>
     </LinearLayout>
 
     <TextView
@@ -78,43 +78,23 @@
 
         <TextView
             android:id="@+id/tv_work_line_code"
-            android:textColor="@color/color_666"
-            android:layout_marginLeft="20px"
-            android:textSize="13sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:layout_marginLeft="20px"
+            android:text=""
+            android:textColor="@color/color_666"
+            android:textSize="13sp"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="64px"
-        android:layout_marginLeft="20px"
-        android:gravity="center_vertical"
-        android:text="CNC设备"
-        android:textColor="#333"
-        android:textSize="13sp"
-        />
-
-    <LinearLayout
+    <com.jzk.hebi_wms.view.DeviceView
+        android:id="@+id/dv_cnc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20px"
-        android:layout_marginRight="20px"
-        android:background="@drawable/bg_rectangle_et_unfocused"
-        android:orientation="horizontal"
-        android:padding="5px"
-        >
+        app:isContainSpinner="true"
+        app:isScanByCamera="false"
+        app:textInput="@string/input_cnc_device"
+        app:textTip="@string/cnc_device"/>
 
-        <com.jzk.spinnerlibrary.MaterialSpinner
-            android:id="@+id/spinner_cnc_device"
-            android:layout_width="match_parent"
-            android:layout_height="64px"
-            android:textSize="13sp"
-            app:ms_dropdown_height="wrap_content"
-            app:ms_dropdown_max_height="350dp"
-            app:ms_hint_color="@color/color_666"/>
-    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -163,6 +143,7 @@
             android:paddingLeft="60px"
             android:src="@mipmap/ic_scan"/>
     </RelativeLayout>
+
     <View
         style="@style/divider_10_line"/>
 
@@ -232,9 +213,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20px"
-        android:visibility="gone"
         android:orientation="vertical"
+        android:visibility="gone"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="64px"
