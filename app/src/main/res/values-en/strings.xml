@@ -129,6 +129,10 @@
     <string name="tip_scan">Scavenging hint</string>
     <string name="tip_add_material_barcode_no_same_order">At present, the barcode is not identical with the odd number. Is it compulsory to submit?？</string>
     <string name="tip_inject_machine_not_alive">Your input / scan injection molding machine does not exist！</string>
+    <string name="input_scan_device">Input/scan equipment</string>
+    <string name="input_material_barcode">Please enter/scan the barcode</string>
+    <string name="input_scan_supply_machine">Please enter/scan feeder</string>
+    <string name="tip_input_scan_supply_not_live">Your input/scan feeder does not exist!</string>
     /**====== 注塑过站 ======**/
     <string name="title_inject_mold_pass">Injection station</string>
     <string name="input_add_material_code">Please input / scan single number</string>
@@ -148,6 +152,8 @@
     <string name="bad_code_group">Bad code group</string>
     <string name="remark">Remarks</string>
     <string name="input_remark_info">Please enter the note information</string>
+    <string name="input_scan_mold">Please enter/scan the mold</string>
+    <string name="tip_mold_no_live">You input/scan mold does not exist!</string>
     /**====== CNC ======**/
     <string name="input_cnc_tongs">Please enter / scan the CNC fixture</string>
     <string name="title_cnc">CNC</string>
@@ -155,7 +161,11 @@
     <string name="work_order_code">Worksheet code</string>
     <string name="product_name">Product name</string>
     <string name="product_standard">Specification model</string>
+    <string name="tip_no_cnc_info">No CNC equipment information</string>
+    <string name="input_cnc_device">Please input/scan CNC equipment</string>
+    <string name="cnc_device">CNC equipment</string>
     /**====== 抛光 ======**/
+    <string name="input_polish_device">Please enter/scan polishing device</string>
     <string name="title_polish">Polishing</string>
     <string name="tip_no_polish_info">No polishing machine information</string>
     <string name="polish_device">Polishing equipment</string>
@@ -163,6 +173,7 @@
     <string name="tip_set_servise_address">Please configure the service address first</string>
     <string name="tip_username">Please enter the username</string>
     <string name="tip_password">Please enter the password</string>
+    /**====== ipqc 外观抽检作业 ======**/
     <string name="input_batch_no">Please enter/generate batch number</string>
     <string name="input_serial_no">Please enter/scan the serial number</string>
     <string name="quality_batch_no">CheckBatchNo</string>
@@ -192,15 +203,4 @@
     /**====== 版本更新======**/
     <string name="tip_forced_update">The current update is mandatory, please install the latest version!</string>
     <string name="tip_version_update">Version Update</string>
-    <string name="input_scan_device">输入/扫描设备</string>
-    <string name="input_material_barcode">请输入/扫描物料条码</string>
-    <string name="input_scan_supply_machine">请输入/扫描上供料机</string>
-    <string name="tip_input_scan_supply_not_live">您输入/扫描供料机不存在！</string>
-    <string name="input_scan_mold">请输入/扫描模具</string>
-    <string name="tip_mold_no_live">您输入/扫描模具不存在！</string>
-    <string name="tip_no_cnc_info">暂无CNC设备信息</string>
-    <string name="input_polish_device">请输入/扫描抛光设备</string>
-    <string name="input_cnc_device">请输入/扫描CNC设备</string>
-    <string name="cnc_device">CND设备</string>
-
 </resources>

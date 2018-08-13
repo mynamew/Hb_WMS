@@ -163,6 +163,9 @@
     <string name="work_order_code">工单代码</string>
     <string name="product_name">产品名称</string>
     <string name="product_standard">规格型号</string>
+    <string name="tip_no_cnc_info">暂无CNC设备信息</string>
+    <string name="input_cnc_device">请输入/扫描CNC设备</string>
+    <string name="cnc_device">CNC设备</string>
     /**====== 抛光 ======**/
     <string name="title_polish">抛光</string>
     <string name="tip_no_polish_info">暂无抛光机信息</string>
@@ -171,6 +174,7 @@
     <string name="tip_set_servise_address">请先配置服务地址</string>
     <string name="tip_username">请输入用户名</string>
     <string name="tip_password">请输入密码</string>
+    <string name="input_polish_device">请输入/扫描抛光设备</string>
     /**====== ipqc 外观抽检作业 ======**/
     <string name="input_batch_no">请输入/生成批次号</string>
     <string name="input_serial_no">请输入/扫描序列号</string>
@@ -202,10 +206,7 @@
     <string name="tip_forced_update">当前更新为强制更新，请安装最新版本！</string>
     <string name="tip_version_update">版本更新</string>
     <string name="user_have_select">用户已选择</string>
-    <string name="tip_no_cnc_info">暂无CNC设备信息</string>
-    <string name="input_polish_device">请输入/扫描抛光设备</string>
-    <string name="input_cnc_device">请输入/扫描CNC设备</string>
-    <string name="cnc_device">CND设备</string>
+
 
 
 </resources>
