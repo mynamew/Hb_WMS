@@ -210,5 +210,6 @@
     <string name="process_polish">PRL</string>
     <string name="process_cnc1">CNC1</string>
     <string name="process_cnc2">CNC2</string>
-    <string name="tip_no_cnc_process">The current process is not CNC process, please select the process first!</string>
+    <string name="tip_no_cnc_process1">The current process is not CNC1 process, please select the process first!</string>
+    <string name="tip_no_cnc_process2">The current process is not CNC2 process, please select the process first!</string>
 </resources>

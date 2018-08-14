@@ -24,11 +24,12 @@ public class CNC1Model extends MvpBaseModel {
     /**
      * 获取CNC设备
      *
+     * @param isCnc1
      * @param stationBeanHttpSubscriber
      */
-    public void getCNCTongs(HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
+    public void getCNCTongs(boolean isCnc1, HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService ->
-                apiService.getInjectionMoldings(Constants.DeviceType.CNC.toString()));
+                apiService.getInjectionMoldings(isCnc1?Constants.DeviceType.CNC1.toString():Constants.DeviceType.CNC2.toString()));
     }
 
     /**

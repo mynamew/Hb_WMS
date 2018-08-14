@@ -46,8 +46,9 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
 
     /**
      * 获取CNC设备
+     * @param isCnc1
      */
-    public void getCNCTongs() {
+    public void getCNCTongs(boolean isCnc1) {
         if (null == cncDeviceHttpSubscriber) {
             cncDeviceHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
                 @Override
@@ -61,7 +62,7 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
                 }
             });
         }
-        model.getCNCTongs(cncDeviceHttpSubscriber);
+        model.getCNCTongs(isCnc1,cncDeviceHttpSubscriber);
     }
 
     /**

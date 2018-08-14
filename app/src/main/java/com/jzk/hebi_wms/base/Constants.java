@@ -156,7 +156,7 @@ public class Constants {
     public static final String PERMISSION_CNC1 = "Pages.ProductionPlan.DataCollection.CNC";
     public static final String PERMISSION_CNC2 = "Pages.ProductionPlan.DataCollection.CNC2";
     public static final String PERMISSION_POLISH = "Pages.ProductionPlan.DataCollection.Polish";
-    public static final String PERMISSION_QUALITY= "Pages.QualityControl.IPQC.IPQCManage.IPQCCollection";
+    public static final String PERMISSION_QUALITY = "Pages.QualityControl.IPQC.IPQCManage.IPQCCollection";
 
     /***********
      * 设备类型
@@ -178,9 +178,13 @@ public class Constants {
          */
         FEED,
         /**
-         * CNC
+         * CNC1
          */
-        CNC,
+        CNC1,
+        /**
+         * CNC2
+         */
+        CNC2,
         /**
          * 抛光设备
          */

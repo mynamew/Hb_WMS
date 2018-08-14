@@ -92,7 +92,11 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                     it.setClass(Objects.requireNonNull(getActivity()), InjectMoldActivity.class);
                     break;
                 case Constants.PERMISSION_CNC1:
+                    it.putExtra("cnc",true);
+                    it.setClass(Objects.requireNonNull(getActivity()), CNC1Activity.class);
+                    break;
                 case Constants.PERMISSION_CNC2:
+                    it.putExtra("cnc",false);
                     it.setClass(Objects.requireNonNull(getActivity()), CNC1Activity.class);
                     break;
                 case Constants.PERMISSION_POLISH:

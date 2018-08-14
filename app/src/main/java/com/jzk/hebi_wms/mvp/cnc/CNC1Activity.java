@@ -82,6 +82,10 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
      * 工位的数据源
      */
     private List<StationBean.StationsBean> mStations = new ArrayList<>();
+    /**
+     * 是否是CNC1
+     */
+    private boolean isCnc1;
 
     @Override
     public int setLayoutId() {
@@ -91,6 +95,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     @Override
     public void initBundle(Bundle savedInstanceState) {
         setActivityTitle(R.string.title_cnc);
+        isCnc1=getIntent().getBooleanExtra("cnc",false);
     }
 
     @Override
@@ -133,7 +138,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         /**
          * 获取CNC设备
          */
-        getPresenter().getCNCTongs();
+        getPresenter().getCNCTongs(isCnc1);
         /**
          * 获取SP的工序
          */
@@ -156,11 +161,10 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         /**
          * 判断工序是否正确
          */
-        if(!getString(R.string.process_cnc1).equals(processCode)
-                &&!getString(R.string.process_cnc2).equals(processCode)){
+        if(!getString(isCnc1?R.string.process_cnc1:R.string.process_cnc2).equals(processCode)){
             new MyDialog(this, R.layout.dialog_error_tip)
                     .setTextViewContent(R.id.tv_title, R.string.error_title)
-                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_cnc_process))
+                    .setTextViewContent(R.id.tv_content, getString(isCnc1?R.string.tip_no_cnc_process1:R.string.tip_no_cnc_process2))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
