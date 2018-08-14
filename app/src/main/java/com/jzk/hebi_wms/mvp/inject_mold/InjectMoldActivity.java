@@ -254,6 +254,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     .setCantCancelByBackPress().setCancelByOutside(false).show();
             return;
         }
+        /**
+         * 判断工序是否正确
+         */
+        if(!processSelectCode.equals("MD")){
+            new MyDialog(this, R.layout.dialog_error_tip)
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_inject_process))
+                    .setButtonListener(R.id.btn_cancel, null, dialog -> {
+                        onBackPressed();
+                    }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
+                    .setCantCancelByBackPress().setCancelByOutside(false).show();
+            return;
+        }
         request.setEmployeeCode("");
         request.setEqpTypeCode("");
         request.setProcessCode(processSelectCode);

@@ -128,6 +128,19 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
                     .setCantCancelByBackPress().setCancelByOutside(false).show();
             return;
         }
+        /**
+         * 判断工序是否正确
+         */
+        if(!getString(R.string.process_polish).equals(processSelectCode)){
+            new MyDialog(this, R.layout.dialog_error_tip)
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_polish_process))
+                    .setButtonListener(R.id.btn_cancel, null, dialog -> {
+                        onBackPressed();
+                    }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
+                    .setCantCancelByBackPress().setCancelByOutside(false).show();
+            return;
+        }
         request.setEmployeeCode("");
         request.setEqpTypeCode("");
         request.setProcessCode(processSelectCode);

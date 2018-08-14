@@ -26,7 +26,8 @@ public class StationSelectModel extends MvpBaseModel {
      * @param stationBeanHttpSubscriber
      */
     public void getStations(StationRequest request, HttpSubscriber<StationBean> stationBeanHttpSubscriber) {
-        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getStations(request));
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber,
+                apiService -> apiService.getStations(request));
     }
 
     /**

@@ -206,7 +206,13 @@
     <string name="tip_forced_update">当前更新为强制更新，请安装最新版本！</string>
     <string name="tip_version_update">版本更新</string>
     <string name="user_have_select">用户已选择</string>
-
+    <string name="tip_no_inject_process">当前工序不是注塑工序，请先选择工序</string>
+    <string name="process_inject">MD</string>
+    <string name="tip_no_polish_process">当前工序不是抛光工序，请先选择工序！</string>
+    <string name="process_polish">PRL</string>
+    <string name="process_cnc1">CNC1</string>
+    <string name="process_cnc2">CNC2</string>
+    <string name="tip_no_cnc_process">当前工序不是CNC工序，请先选择工序！</string>
 
 
 </resources>

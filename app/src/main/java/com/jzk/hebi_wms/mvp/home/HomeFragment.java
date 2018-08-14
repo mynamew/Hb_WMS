@@ -272,7 +272,6 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             String updateUrl=SpUtils.getInstance().getBaseUrl()+versionBean.getPath();
             //是否需要版本更新
             if (!versionName.equals(newVersion)) {
-                SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW,true);
                 ForceUpdateListener listener=null;
                 /**
                  * 是否是强制更新

@@ -203,4 +203,12 @@
     /**====== 版本更新======**/
     <string name="tip_forced_update">The current update is mandatory, please install the latest version!</string>
     <string name="tip_version_update">Version Update</string>
+    /**====== 工序是否正确的判断======**/
+    <string name="tip_no_inject_process">The current procedure is not injection molding. Please select the procedure first</string>
+    <string name="process_inject">MD</string>
+    <string name="tip_no_polish_process">The current process is not the polishing process, please select the process first!</string>
+    <string name="process_polish">PRL</string>
+    <string name="process_cnc1">CNC1</string>
+    <string name="process_cnc2">CNC2</string>
+    <string name="tip_no_cnc_process">The current process is not CNC process, please select the process first!</string>
 </resources>

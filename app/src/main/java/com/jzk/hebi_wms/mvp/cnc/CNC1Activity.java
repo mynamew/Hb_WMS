@@ -153,6 +153,20 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
                     .setCantCancelByBackPress().setCancelByOutside(false).show();
             return;
         }
+        /**
+         * 判断工序是否正确
+         */
+        if(!getString(R.string.process_cnc1).equals(processCode)
+                &&!getString(R.string.process_cnc2).equals(processCode)){
+            new MyDialog(this, R.layout.dialog_error_tip)
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_cnc_process))
+                    .setButtonListener(R.id.btn_cancel, null, dialog -> {
+                        onBackPressed();
+                    }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
+                    .setCantCancelByBackPress().setCancelByOutside(false).show();
+            return;
+        }
         request.setEmployeeCode(SpUtils.getInstance().getUserName());
         request.setEqpTypeCode("");
         request.setProcessCode(processCode);

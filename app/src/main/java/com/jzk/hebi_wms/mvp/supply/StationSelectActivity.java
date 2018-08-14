@@ -114,10 +114,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         setEdittextListener(etAddMaterialOrder, Constants.REQUEST_SCAN_CODE_BARCODE, R.string.input_product_code, R.string.input_no_low_four, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-                /**
-                 * 提交的方法
-                 */
-                addMateriaCommitlRequest(result);
+                judgeSameBatch(result);
             }
         });
         dvInjectMachine.setEdittextListener(new DeviceView.EdittextInputListener() {
@@ -162,6 +159,20 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                     .setCantCancelByBackPress().setCancelByOutside(false).show();
             return;
         }
+        /**
+         * 判断工序是否正确
+         */
+        if(!getString(R.string.process_inject).equals(processSelectCode)){
+            new MyDialog(this, R.layout.dialog_error_tip)
+                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_inject_process))
+                    .setButtonListener(R.id.btn_cancel, null, dialog -> {
+                        onBackPressed();
+                    }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
+                    .setCantCancelByBackPress().setCancelByOutside(false).show();
+             return;
+        }
+
         request.setEmployeeCode("");
         request.setEqpTypeCode("");
         request.setProcessCode(processSelectCode);
@@ -316,7 +327,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     public void onViewClicked(View view) {
         switch (view.getId()) {
             /**
-             * 产品序列号
+             * 物料条码
              */
             case R.id.iv_scan:
                 scan(Constants.REQUEST_SCAN_CODE_BARCODE, (requestCode, result) -> {
@@ -383,10 +394,4 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
