@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
 import com.jzk.hebi_wms.data.cnc.CncBean;
 import com.jzk.hebi_wms.data.cnc.CncRequest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -14,7 +15,7 @@ import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
 public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
     private CNC1Model model;
     private HttpSubscriber<StationBean> stationBeanHttpSubscriber;
-    private HttpSubscriber<InjectMoldBean> cncDeviceHttpSubscriber;
+    private HttpSubscriber<EquipmentByTypeList> cncDeviceHttpSubscriber;
     private HttpSubscriber<CncBean> cncBeanHttpSubscriber;
 
     public CNC1Presenter(Context context) {
@@ -50,9 +51,9 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
      */
     public void getCNCTongs(boolean isCnc1) {
         if (null == cncDeviceHttpSubscriber) {
-            cncDeviceHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectMoldBean>() {
+            cncDeviceHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<EquipmentByTypeList>() {
                 @Override
-                public void onSuccess(InjectMoldBean o) {
+                public void onSuccess(EquipmentByTypeList o) {
                     getView().getCNCTongs(o);
                 }
 
@@ -73,8 +74,9 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
             cncBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<CncBean>() {
                 @Override
                 public void onSuccess(CncBean o) {
-                    getView().cncCommit(o);
                     getView().setProductCodeSelect();
+                    getView().cncCommit(o);
+
                 }
 
                 @Override

@@ -5,9 +5,9 @@ ext {
             minSdkVersion    : 15,
             buildToolsVersion: "27.0.3",
             targetSdkVersion : 27,
-            versionCode      : 3,
+            versionCode      : 5,
             applicationId    : "com.jzk.hebi_wms",
-            versionName      : "1.0.2"
+            versionName      : "1.0.4"
     ]
     //version配置
     version = [

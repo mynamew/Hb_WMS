@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.spinnerlibrary.MaterialSpinner;
@@ -61,6 +62,7 @@ public class DeviceView extends AutoLinearLayout {
      * Spinner的源数据
      */
     private List<InjectMoldBean.EqpmentsBean> mDiveces = new ArrayList<>();
+    private List<EquipmentByTypeList.EquipmentListBean> eqpmentsBeanList = new ArrayList<>();
     public DeviceView(Context context) {
         super(context);
         initView(context);
@@ -138,6 +140,35 @@ public class DeviceView extends AutoLinearLayout {
         return this;
     }
 
+    /**
+     * 设置Spinner的数据
+     *
+     * @param mDatas
+     * @return
+     */
+    public DeviceView initDeviceDataSupply(List<EquipmentByTypeList.EquipmentListBean> mDatas,DeviceListener listener) {
+        /**
+         * 设置原数据
+         */
+        this.eqpmentsBeanList.clear();
+        this.eqpmentsBeanList.addAll(mDatas);
+
+        ArrayList<String> mStrs=new ArrayList<>();
+        for (int i = 0; i <eqpmentsBeanList.size() ; i++) {
+            mStrs.add(eqpmentsBeanList.get(i).getDisplayText());
+        }
+        /**
+         * 设置Spinner的数据
+         */
+        spinnerDevice.setItems(mStrs);
+        spinnerDevice.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>)
+                (view, position, id, item) -> {
+                    etInput.setText(eqpmentsBeanList.get(position).getValue());
+                    listener.deviceSelect(position);
+                });
+
+        return this;
+    }
     /**
      * 设置Spinner的数据和Spinner 的监听器
      *
@@ -265,7 +296,10 @@ public class DeviceView extends AutoLinearLayout {
         spinnerDevice.setSelectedIndex(position);
         return this;
     }
-
+    public DeviceView setEdittextContent(String content){
+        etInput.setText(content);
+        return  this;
+    }
     /**
      * 设置当前Spinner的内容
      *
@@ -287,7 +321,7 @@ public class DeviceView extends AutoLinearLayout {
     /**
      * Spinner 设备选择接口
      */
-    private interface DeviceListener {
+    public interface DeviceListener {
         /**
          * 选择设备的方法
          *

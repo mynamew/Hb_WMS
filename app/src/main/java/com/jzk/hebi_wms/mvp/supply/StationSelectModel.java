@@ -1,6 +1,7 @@
 package com.jzk.hebi_wms.mvp.supply;
 
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -35,8 +36,8 @@ public class StationSelectModel extends MvpBaseModel {
      *
      * @param stationBeanHttpSubscriber
      */
-    public void getInjectionMoldings(HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
-        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getInjectionMoldings("MOLDING"));
+    public void getEquipmentByTypeList(HttpSubscriber<EquipmentByTypeList> stationBeanHttpSubscriber) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getEquipmentByTypeList("MOLDING"));
     }
 
     /**

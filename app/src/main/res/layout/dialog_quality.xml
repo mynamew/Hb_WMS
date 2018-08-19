@@ -260,7 +260,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_btn_bg_login"
                     android:gravity="center"
-                    android:text="下一项"
+                    android:text="@string/next"
                     android:textColor="@color/white"
                     android:textSize="16sp"/>
             </LinearLayout>

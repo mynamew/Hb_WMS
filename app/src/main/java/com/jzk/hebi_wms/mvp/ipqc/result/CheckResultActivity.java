@@ -154,17 +154,9 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                 });
 
                 setCheckItemDialogData(myDialog);
-                myDialog.setButtonListener(R.id.btn_next, null, new MyDialog.DialogClickListener() {
+                myDialog.setButtonListener(R.id.btn_next, currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size() ? getString(R.string.complete) : getString(R.string.next), new MyDialog.DialogClickListener() {
                     @Override
                     public void dialogClick(MyDialog dialog) {
-                        /**
-                         * 检验项目是否完成的判断
-                         */
-                        if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
-                            ToastUtils.showShort(R.string.tip_all_checkiten_have_complete);
-                            dialog.dismiss();
-                            return;
-                        }
                         RadioButton rdGood = (RadioButton) myDialog.getView(R.id.rd_good);
                         List<CollectionIpqcData.CheckItemsBean> extendIPQCDatas = resultRequest.getExtendIPQCDatas();
                         CollectionIpqcData.CheckItemsBean checkItemsBean = extendIPQCDatas.get(currentCheckIremPosition);
@@ -173,17 +165,13 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                          */
                         checkItemsBean.setResult(rdGood.isChecked());
                         isShowBadCode(extendIPQCDatas);
-                        /**
-                         * 设置数据
-                         */
-                        currentCheckIremPosition = currentCheckIremPosition + 1;
+
                         /**
                          * 如果是最后一个检验项目则显示完成
                          */
                         if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
                             ((Button) myDialog.getView(R.id.btn_next)).setText(R.string.complete);
                         }
-                        setCheckItemDialogData(myDialog);
                         /**
                          * 设置检验项目已经被检验过
                          */
@@ -193,6 +181,16 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                          */
                         spinnerQualityType.setText(mCheckItems.get(currentCheckIremPosition).getCheckItemName());
                         spinnerQualityType.setSelectedIndex(currentCheckIremPosition);
+
+                        /**
+                         * 设置数据
+                         */
+                        currentCheckIremPosition = currentCheckIremPosition + 1;
+                        if (currentCheckIremPosition + 1 >= resultRequest.getExtendIPQCDatas().size()) {
+                            myDialog.dismiss();
+                        } else {
+                            setCheckItemDialogData(myDialog);
+                        }
                     }
                 });
                 myDialog.show();

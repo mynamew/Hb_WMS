@@ -8,6 +8,7 @@ import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.data.cnc.CncBean;
 import com.jzk.hebi_wms.data.cnc.CncRequest;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
@@ -127,6 +128,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/productionplan/OnWipMaterial/GetInjectionMoldings")
     Observable<CommonResult<InjectMoldBean>> getInjectionMoldings(@Field("EqpTypeCode") String eqpTypeCode);
+ /**
+     * 注塑机列表
+     */
+    @FormUrlEncoded
+    @POST("api/services/productionplan/OnWipMaterial/GetEquipmentByTypeList")
+    Observable<CommonResult<EquipmentByTypeList>> getEquipmentByTypeList(@Field("EqpTypeCode") String eqpTypeCode);
 
     /**
      * 供料机列表

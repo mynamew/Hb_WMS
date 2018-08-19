@@ -380,6 +380,12 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 strs.add(qualityTimes.get(i).getValue());
             }
             spinnerTimeFrame.setItems(strs);
+            spinnerTimeFrame.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                    tvTimeFrameName.setText(strs.get(position));
+                }
+            });
             tvTimeFrameName.setText(strs.get(0));
             dismissLoadingDataDialog();
         }
@@ -402,6 +408,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void checkRCardInfoAsync(IpqcCommonResult o) {
+        setProductSerialNoSelect();
         ToastUtils.showShort(R.string.tip_product_serial_check_success);
         SaveCheckResultRequest resultRequest = new SaveCheckResultRequest();
         resultRequest.setLotNo(etBatchNo.getText().toString().trim());
@@ -423,6 +430,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void setProductSerialNoSelect() {
+        etBottomProductSerialNo.setText("");
         setEdittextSelected(etBottomProductSerialNo);
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -87,7 +87,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
      *
      * @return
      */
-    private List<InjectMoldBean.EqpmentsBean> mInjectMolds = new ArrayList<>();
+    private List<EquipmentByTypeList.EquipmentListBean> mInjectMolds = new ArrayList<>();
     /********供料机***********************************************************************************************/
     /**
      * 供料机数据源
@@ -95,6 +95,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
      * @return
      */
     private List<InjectMoldBean.EqpmentsBean> mSupplyMaterials = new ArrayList<>();
+    private List<InjectMoldBean.EqpmentsBean> mOldSupplyMaterials = new ArrayList<>();
 
     @Override
     public int setLayoutId() {
@@ -162,7 +163,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         /**
          * 判断工序是否正确
          */
-        if(!getString(R.string.process_inject).equals(processSelectCode)){
+        if (!getString(R.string.process_inject).equals(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
                     .setTextViewContent(R.id.tv_title, R.string.error_title)
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_inject_process))
@@ -170,7 +171,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
                     .setCantCancelByBackPress().setCancelByOutside(false).show();
-             return;
+            return;
         }
 
         request.setEmployeeCode("");
@@ -226,18 +227,72 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     }
 
     @Override
-    public void getInjectionMoldings(InjectMoldBean o) {
-        if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
+    public void getInjectionMoldings(EquipmentByTypeList o) {
+        if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
             dvInjectMachine.setSpinnerText(R.string.tip_no_inject_machine_info);
         } else {
-            List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
+            List<EquipmentByTypeList.EquipmentListBean> stations = o.getEquipmentList();
             mInjectMolds.clear();
             mInjectMolds.addAll(stations);
             //设置数据源
-            dvInjectMachine.initDeviceData(mInjectMolds);
+            dvInjectMachine.initDeviceDataSupply(mInjectMolds, new DeviceView.DeviceListener() {
+                @Override
+                public void deviceSelect(int position) {
+                   dealWithInjectAndSupply(position);
+                }
+            });
+        }
+        if(!mSupplyMaterials.isEmpty()&&!mInjectMolds.isEmpty()){
+            dealWithInjectAndSupply(0);
         }
         //隐藏加载框
         dismissProgressDialog();
+    }
+
+    /**
+     * 处理 注塑机和供料机的数据
+     * @param position
+     */
+    private void dealWithInjectAndSupply(int position) {
+        /**
+         * 清空链表
+         */
+        mSupplyMaterials.clear();
+        if (TextUtils.isEmpty(mInjectMolds.get(position).getRelatedEquipment())) {
+            mSupplyMaterials.addAll(mOldSupplyMaterials);
+            /**
+             * 初始化数据
+             */
+            dvSupplyMaterial.setEdittextContent(mSupplyMaterials.get(0).getValue());
+            dvSupplyMaterial.setSpinnerSelectIndex(0);
+            //设置数据源
+            dvSupplyMaterial.initDeviceData(mSupplyMaterials);
+            return;
+        }
+
+        /**
+         * 处理点击事件，获取供料机的列表
+         */
+        String[] split = mInjectMolds.get(position).getRelatedEquipment().trim().split("\\|");
+        for (int i = 0; i < mOldSupplyMaterials.size(); i++) {
+            String value = mOldSupplyMaterials.get(i).getValue();
+            boolean isContainSupply=false;
+            for (int j = 0; j <split.length; j++) {
+                if(value.equals(split[j])){
+                    isContainSupply=true;
+                }
+            }
+            if(isContainSupply){
+                mSupplyMaterials.add(mOldSupplyMaterials.get(i));
+            }
+        }
+        /**
+         * 初始化数据
+         */
+        dvSupplyMaterial.setEdittextContent(mSupplyMaterials.get(0).getValue());
+        dvSupplyMaterial.setSpinnerSelectIndex(0);
+        //设置数据源
+        dvSupplyMaterial.initDeviceData(mSupplyMaterials);
     }
 
     @Override
@@ -248,12 +303,13 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mSupplyMaterials.clear();
             mSupplyMaterials.addAll(stations);
-            List<String> mStrs = new ArrayList<>();
-            for (int i = 0; i < stations.size(); i++) {
-                mStrs.add(stations.get(i).getDisplayText());
-            }
+            mOldSupplyMaterials.clear();
+            mOldSupplyMaterials.addAll(stations);
             //设置数据源
             dvSupplyMaterial.initDeviceData(mSupplyMaterials);
+        }
+        if(!mSupplyMaterials.isEmpty()&&!mInjectMolds.isEmpty()){
+            dealWithInjectAndSupply(0);
         }
         //隐藏加载框
         dismissProgressDialog();
@@ -320,6 +376,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     @Override
     public void setBarcodeSelected() {
+        etAddMaterialOrder.setText("");
         setEdittextSelected(etAddMaterialOrder);
     }
 

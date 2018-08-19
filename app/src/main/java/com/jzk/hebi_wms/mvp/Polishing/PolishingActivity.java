@@ -219,6 +219,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
 
     @Override
     public void setProductCodeSelect() {
+        etAddMaterialOrder.setText("");
         setEdittextSelected(etAddMaterialOrder);
     }
 

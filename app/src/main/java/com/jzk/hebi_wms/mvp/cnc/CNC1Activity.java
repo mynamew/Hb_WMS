@@ -13,6 +13,7 @@ import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.data.cnc.CncBean;
 import com.jzk.hebi_wms.data.cnc.CncRequest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -77,7 +78,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     /**
      * CNC设备
      */
-    private List<InjectMoldBean.EqpmentsBean> cncDevices = new ArrayList<>();
+    private List<EquipmentByTypeList.EquipmentListBean> cncDevices = new ArrayList<>();
     /**
      * 工位的数据源
      */
@@ -221,16 +222,25 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     }
 
     @Override
-    public void getCNCTongs(InjectMoldBean o) {
-        if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
+    public void getCNCTongs(EquipmentByTypeList o) {
+        if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
             dvCnc.setSpinnerText(R.string.tip_no_cnc_info);
         } else {
-            List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
+            List<EquipmentByTypeList.EquipmentListBean> stations = o.getEquipmentList();
             cncDevices.clear();
-            cncDevices.addAll(o.getEqpments());
+            cncDevices.addAll(stations);
             //设置数据源
-            dvCnc.initDeviceData(cncDevices);
+            dvCnc.initDeviceDataSupply(cncDevices, new DeviceView.DeviceListener() {
+                @Override
+                public void deviceSelect(int position) {
+                    etAddCncTongs.setText(stations.get(position).getRelatedEquipment());
+                }
+            });
         }
+        /**
+         * 设置初始值
+         */
+        etAddCncTongs.setText(cncDevices.get(0).getRelatedEquipment());
         /**
          * 是否隐藏加载框
          */
@@ -250,6 +260,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
 
     @Override
     public void setProductCodeSelect() {
+        etAddMaterialOrder.setText("");
         setEdittextSelected(etAddMaterialOrder);
     }
 

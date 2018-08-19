@@ -3,6 +3,7 @@ package com.jzk.hebi_wms.mvp.supply;
 import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -21,7 +22,7 @@ import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
  */
 public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> {
     private HttpSubscriber<StationBean> stationBeanHttpSubscriber;
-    private HttpSubscriber<InjectMoldBean> injectMoldBeanHttpSubscriber;
+    private HttpSubscriber<EquipmentByTypeList> injectMoldBeanHttpSubscriber;
     private HttpSubscriber<SupplyMaterialBean> supplyMaterialBeanHttpSubscriber;
     private HttpSubscriber<WorkerOrderBean> workerOrderBeanHttpSubscriber;
     private HttpSubscriber<Object> valIsInjectSameBatchSubscriber;
@@ -60,9 +61,9 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<InjectMoldBean>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<EquipmentByTypeList>() {
                 @Override
-                public void onSuccess(InjectMoldBean o) {
+                public void onSuccess(EquipmentByTypeList o) {
                     getView().getInjectionMoldings(o);
                 }
 
@@ -72,7 +73,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
                 }
             });
         }
-        model.getInjectionMoldings(injectMoldBeanHttpSubscriber);
+        model.getEquipmentByTypeList(injectMoldBeanHttpSubscriber);
     }
 
     /**
@@ -123,6 +124,7 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
             valIsInjectSameBatchSubscriber = new HttpSubscriber<>(new OnResultCallBack<Object>() {
                 @Override
                 public void onSuccess(Object o) {
+                    getView().setBarcodeSelected();
                     getView().valIsInjectSameBatch(o);
                 }
 

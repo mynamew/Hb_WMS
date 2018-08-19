@@ -1,6 +1,7 @@
   package com.jzk.hebi_wms.mvp.inject_mold;
 
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
@@ -23,7 +24,7 @@ public interface InjectMoldView extends MvpBaseView {
      * 获取注塑机
      * @param o
      */
-    void getInjectionMoldings(InjectMoldBean o);
+    void getInjectionMoldings(EquipmentByTypeList o);
     /**
      * 获取模具
      * @param o

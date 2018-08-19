@@ -54,6 +54,7 @@ public class PolishingPresenter extends MvpBasePresenter<PolishingView> {
             polishResultBeanHttpSubscriber=new HttpSubscriber<>(new OnResultCallBack<PolishResultBean>() {
                 @Override
                 public void onSuccess(PolishResultBean o) {
+                    getView().setProductCodeSelect();
                     getView().collectionPolishAsync(o);
                 }
 

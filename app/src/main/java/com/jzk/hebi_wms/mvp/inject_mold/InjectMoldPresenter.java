@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -20,7 +21,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
 
     private final InjectMoldModel model;
     private HttpSubscriber<StationBean> stationBeanHttpSubscriber;
-    private HttpSubscriber<InjectMoldBean> injectMoldBeanHttpSubscriber;
+    private HttpSubscriber<EquipmentByTypeList> injectMoldBeanHttpSubscriber;
     private HttpSubscriber<InjectMoldBean> mouldHttpSubscriber;
     /**
      * 校验的观察者
@@ -77,9 +78,9 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<InjectMoldBean>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<EquipmentByTypeList>() {
                 @Override
-                public void onSuccess(InjectMoldBean o) {
+                public void onSuccess(EquipmentByTypeList o) {
                     getView().getInjectionMoldings(o);
                 }
 
@@ -89,7 +90,7 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
                 }
             });
         }
-        model.getInjectionMoldings(injectMoldBeanHttpSubscriber);
+        model.getEquipmentByTypeList(injectMoldBeanHttpSubscriber);
     }
 
     /**
@@ -120,13 +121,14 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
             injectPassBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
-                    getView().checkRCardInfoAsync(o);
                     getView().setBarcodeSelected();
+                    getView().checkRCardInfoAsync(o);
                 }
 
                 @Override
                 public void onError(String errorMsg) {
                     getView().checkRCardInfoAsyncFalse();
+                    getView().setBarcodeSelected();
                     getView().dismisProgressDialog();
                 }
             });

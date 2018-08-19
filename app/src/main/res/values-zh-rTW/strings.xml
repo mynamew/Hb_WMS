@@ -215,4 +215,5 @@
     <string name="process_cnc2">CNC2</string>
     <string name="tip_no_cnc_process1">當前工序不是CNC1工序，請先選擇工序！</string>
     <string name="tip_no_cnc_process2">當前工序不是CNC2工序，請先選擇工序！</string>
+    <string name="next">下一项</string>
 </resources>

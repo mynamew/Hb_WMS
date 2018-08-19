@@ -3,6 +3,7 @@ package com.jzk.hebi_wms.mvp.inject_mold;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -31,9 +32,9 @@ public class InjectMoldModel extends MvpBaseModel {
      *
      * @param stationBeanHttpSubscriber
      */
-    public void getInjectionMoldings(HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
+    public void getEquipmentByTypeList(HttpSubscriber<EquipmentByTypeList> stationBeanHttpSubscriber) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService ->
-                apiService.getInjectionMoldings(Constants.DeviceType.MOLDING.toString()));
+                apiService.getEquipmentByTypeList(Constants.DeviceType.MOLDING.toString()));
     }
 
     /**

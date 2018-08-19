@@ -4,6 +4,7 @@ import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
 import com.jzk.hebi_wms.data.cnc.CncBean;
 import com.jzk.hebi_wms.data.cnc.CncRequest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -27,9 +28,9 @@ public class CNC1Model extends MvpBaseModel {
      * @param isCnc1
      * @param stationBeanHttpSubscriber
      */
-    public void getCNCTongs(boolean isCnc1, HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
+    public void getCNCTongs(boolean isCnc1, HttpSubscriber<EquipmentByTypeList> stationBeanHttpSubscriber) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService ->
-                apiService.getInjectionMoldings(isCnc1?Constants.DeviceType.CNC1.toString():Constants.DeviceType.CNC2.toString()));
+                apiService.getEquipmentByTypeList(isCnc1?Constants.DeviceType.CNC1.toString():Constants.DeviceType.CNC2.toString()));
     }
 
     /**

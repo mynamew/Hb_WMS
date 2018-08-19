@@ -21,6 +21,7 @@ import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
 import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
 import com.jzk.hebi_wms.base.divider.DividerItemDecoration;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
+import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
@@ -37,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -121,7 +121,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      *
      * @return
      */
-    private List<InjectMoldBean.EqpmentsBean> mInjectMolds = new ArrayList<>();
+    private List<EquipmentByTypeList.EquipmentListBean> mInjectMolds = new ArrayList<>();
     /********模具***********************************************************************************************/
     /**
      * 模具数据源
@@ -129,6 +129,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      * @return
      */
     private List<InjectMoldBean.EqpmentsBean> mMoulds = new ArrayList<>();
+    private List<InjectMoldBean.EqpmentsBean> mOldMoulds = new ArrayList<>();
     /**
      * 工序Code
      */
@@ -257,7 +258,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 判断工序是否正确
          */
-        if(!processSelectCode.equals("MD")){
+        if (!processSelectCode.equals("MD")) {
             new MyDialog(this, R.layout.dialog_error_tip)
                     .setTextViewContent(R.id.tv_title, R.string.error_title)
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_inject_process))
@@ -317,17 +318,69 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     }
 
     @Override
-    public void getInjectionMoldings(InjectMoldBean o) {
-        if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
+    public void getInjectionMoldings(EquipmentByTypeList o) {
+        if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
             dvInjectMachine.setSpinnerText(R.string.tip_no_inject_machine_info);
         } else {
-            List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
+            List<EquipmentByTypeList.EquipmentListBean> stations = o.getEquipmentList();
             mInjectMolds.clear();
             mInjectMolds.addAll(stations);
             //设置数据源
-            dvInjectMachine.initDeviceData(mInjectMolds);
+            dvInjectMachine.initDeviceDataSupply(mInjectMolds, new DeviceView.DeviceListener() {
+                @Override
+                public void deviceSelect(int position) {
+                    dealWithInjectAndSupply(position);
+                }
+            });
+        }
+        if(!mMoulds.isEmpty()&&!mInjectMolds.isEmpty()){
+            dealWithInjectAndSupply(0);
         }
         dismissProgressDialog();
+    }
+
+    /**
+     * 处理 注塑机和供料机的数据
+     *
+     * @param position
+     */
+    private void dealWithInjectAndSupply(int position) {
+        /**
+         * 清空链表
+         */
+        mMoulds.clear();
+        if (TextUtils.isEmpty(mInjectMolds.get(position).getRelatedEquipment())) {
+            mMoulds.addAll(mOldMoulds);
+            /**
+             * 初始化数据
+             */
+            dvMold.setEdittextContent(mMoulds.get(0).getValue());
+            dvMold.setSpinnerSelectIndex(0);
+            //设置数据源
+            dvMold.initDeviceData(mMoulds);
+            return;
+        }
+
+        /**
+         * 处理点击事件，获取供料机的列表
+         */
+        String[] split = mInjectMolds.get(position).getRelatedEquipment().trim().split("\\|");
+        if(split.length>=3){
+            for (int i = 0; i < mOldMoulds.size(); i++) {
+                if(mOldMoulds.get(i).getValue().equals(split[2])){
+                    mMoulds.add(mOldMoulds.get(i));
+                }
+            }
+        }else {
+            mMoulds.addAll(mOldMoulds);
+        }
+        /**
+         * 初始化数据
+         */
+        dvMold.setEdittextContent(mMoulds.get(0).getValue());
+        dvMold.setSpinnerSelectIndex(0);
+        //设置数据源
+        dvMold.initDeviceData(mMoulds);
     }
 
     @Override
@@ -335,11 +388,15 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
             dvMold.setSpinnerText(R.string.tip_no_mould_info);
         } else {
-
             List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mMoulds.clear();
             mMoulds.addAll(stations);
+            mOldMoulds.clear();
+            mOldMoulds.addAll(stations);
             dvMold.initDeviceData(mMoulds);
+        }
+        if(!mMoulds.isEmpty()&&!mInjectMolds.isEmpty()){
+            dealWithInjectAndSupply(0);
         }
         dismissProgressDialog();
     }
@@ -479,6 +536,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @Override
     public void setBarcodeSelected() {
+        etAddMaterialOrder.setText("");
         setEdittextSelected(etAddMaterialOrder);
     }
 
@@ -535,6 +593,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 break;
         }
     }
+
     /**
      * 注塑机过站提交请求
      */
