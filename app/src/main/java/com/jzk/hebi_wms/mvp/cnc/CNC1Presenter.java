@@ -74,9 +74,8 @@ public class CNC1Presenter extends MvpBasePresenter<CNC1View> {
             cncBeanHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<CncBean>() {
                 @Override
                 public void onSuccess(CncBean o) {
-                    getView().setProductCodeSelect();
                     getView().cncCommit(o);
-
+                    getView().setProductCodeSelect();
                 }
 
                 @Override

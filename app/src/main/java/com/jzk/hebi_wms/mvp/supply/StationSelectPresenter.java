@@ -124,7 +124,6 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
             valIsInjectSameBatchSubscriber = new HttpSubscriber<>(new OnResultCallBack<Object>() {
                 @Override
                 public void onSuccess(Object o) {
-                    getView().setBarcodeSelected();
                     getView().valIsInjectSameBatch(o);
                 }
 
@@ -146,6 +145,8 @@ public class StationSelectPresenter extends MvpBasePresenter<StationSelectView> 
                 @Override
                 public void onSuccess(AddMaterialBean o) {
                     getView().createOrUpdateOnWipMaterial(o);
+                    getView().setBarcodeSelected();
+
                 }
 
                 @Override

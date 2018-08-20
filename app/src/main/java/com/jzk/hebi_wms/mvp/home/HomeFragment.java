@@ -286,6 +286,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                     };
                 }
                 UpdateDownLoadUtils updateDownLoadUtils = new UpdateDownLoadUtils(getActivity(), newVersion + "版本更新", versionBean.getRemark(), updateUrl);
+                ToastUtils.showShort("下载链接---->"+updateDownLoadUtils.uiData.getDownloadUrl());
                 updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz",SDCardUtils.getAPKPath(getActivity()),true,updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode()==2,listener),listener);
             }
             //设置版本更新的标识

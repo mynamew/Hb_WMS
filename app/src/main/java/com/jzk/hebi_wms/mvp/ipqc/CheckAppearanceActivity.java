@@ -252,10 +252,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         int yearLast = calendar.get(Calendar.YEAR);
         int monthLast = calendar.get(Calendar.MONTH);
         int dayLast = calendar.get(Calendar.DAY_OF_MONTH);
-        canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearLast,monthLast,dayLast));
         canSelectDate.add(DateUtils.dateStr2CommonDateStr(year,month,day));
-//   canSelectDate.add(DateUtils.dateStr2CommonDateStr(2018,8,5));
-//        canSelectDate.add(DateUtils.dateStr2CommonDateStr(2018,8,6));
+        canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearLast,monthLast,dayLast));
         spinnerProjectDate.setItems(canSelectDate);
     }
 
@@ -408,7 +406,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void checkRCardInfoAsync(IpqcCommonResult o) {
-        setProductSerialNoSelect();
+        setEdittextSelected(etBottomProductSerialNo);
         ToastUtils.showShort(R.string.tip_product_serial_check_success);
         SaveCheckResultRequest resultRequest = new SaveCheckResultRequest();
         resultRequest.setLotNo(etBatchNo.getText().toString().trim());
@@ -464,5 +462,6 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         LogUitls.e("更新数据-->","更新了数据");
         showProgressDialog();
         getPresenter().getLotInfoAsync(etBatchNo.getText().toString().trim());
+        getView().setProductSerialNoSelect();
     }
 }

@@ -121,7 +121,6 @@ public class InjectMoldPresenter extends MvpBasePresenter<InjectMoldView> {
             injectPassBeanHttpSubscriber = new HttpSubscriber<>(false,new OnResultCallBack<InjectPassBean>() {
                 @Override
                 public void onSuccess(InjectPassBean o) {
-                    getView().setBarcodeSelected();
                     getView().checkRCardInfoAsync(o);
                 }
 
