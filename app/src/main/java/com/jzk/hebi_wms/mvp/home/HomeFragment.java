@@ -22,6 +22,7 @@ import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;
 import com.jzk.hebi_wms.mvp.supply.StationSelectActivity;
+import com.jzk.hebi_wms.utils.LogUitls;
 import com.jzk.hebi_wms.utils.PackageUtils;
 import com.jzk.hebi_wms.utils.SDCardUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
@@ -92,11 +93,11 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                     it.setClass(Objects.requireNonNull(getActivity()), InjectMoldActivity.class);
                     break;
                 case Constants.PERMISSION_CNC1:
-                    it.putExtra("cnc",true);
+                    it.putExtra("cnc", true);
                     it.setClass(Objects.requireNonNull(getActivity()), CNC1Activity.class);
                     break;
                 case Constants.PERMISSION_CNC2:
-                    it.putExtra("cnc",false);
+                    it.putExtra("cnc", false);
                     it.setClass(Objects.requireNonNull(getActivity()), CNC1Activity.class);
                     break;
                 case Constants.PERMISSION_POLISH:
@@ -273,24 +274,24 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             //新版本号：需要自己合成
             final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion() % 100;
 
-            String updateUrl=SpUtils.getInstance().getBaseUrl()+versionBean.getPath();
+            String updateUrl = SpUtils.getInstance().getBaseUrl() + versionBean.getPath();
             //是否需要版本更新
             if (!versionName.equals(newVersion)) {
-                ForceUpdateListener listener=null;
+                ForceUpdateListener listener = null;
                 /**
                  * 是否是强制更新
                  */
-                if(versionBean.getUpdateMode()==2){
-                    listener= () -> {
+                if (versionBean.getUpdateMode() == 2) {
+                    listener = () -> {
                         ToastUtils.showShort(R.string.tip_forced_update);
                     };
                 }
                 UpdateDownLoadUtils updateDownLoadUtils = new UpdateDownLoadUtils(getActivity(), newVersion + "版本更新", versionBean.getRemark(), updateUrl);
-                ToastUtils.showShort("下载链接---->"+updateDownLoadUtils.uiData.getDownloadUrl());
-                updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz",SDCardUtils.getAPKPath(getActivity()),true,updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode()==2,listener),listener);
+                LogUitls.e("下载链接---->" + updateDownLoadUtils.uiData.getDownloadUrl());
+                updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz", SDCardUtils.getAPKPath(getActivity()), true, updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode() == 2, listener), listener);
             }
             //设置版本更新的标识
-            SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW,versionName.equals(newVersion));
+            SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW, versionName.equals(newVersion));
         } catch (Exception e) {
             e.printStackTrace();
         }

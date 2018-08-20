@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -70,7 +69,6 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
         } else {
             llProcessUnselected.setVisibility(View.GONE);
             llProcessSelected.setVisibility(View.VISIBLE);
-            tvTip.setText(processSelect);
         }
         showProgressDialog();
         getPresenter().getProcessSelectSubscriber();
@@ -95,13 +93,29 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
             mData.clear();
             mData.addAll(data);
             mProcesses.clear();
+            int spinnerPosition = 0;
             for (int i = 0; i < data.size(); i++) {
                 mProcesses.add(data.get(i).getProcessName());
+                /**
+                 * 设置选中的位置
+                 */
+                if (processSelect.equals(data.get(i).getProcessName())) {
+                    spinnerPosition = i;
+
+                }
             }
             spinnerProcess.setItems(mProcesses);
+            /**
+             * 设置位置和内容
+             */
+            spinnerProcess.setSelectedIndex(spinnerPosition);
+            tvTip.setText(data.get(spinnerPosition).getProcessName());
+            /**
+             * 设置监听器
+             */
             spinnerProcess.setOnItemSelectedListener((view, position, id, item) -> {
                 //设置文字
-                processSelect=mProcesses.get(position);
+                processSelect = mProcesses.get(position);
                 tvTip.setText(processSelect);
                 llProcessUnselected.setVisibility(View.GONE);
                 llProcessSelected.setVisibility(View.VISIBLE);
@@ -116,7 +130,7 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
             ToastUtils.showShort(R.string.no_process_no_commit);
             return;
         }
-        SpUtils.getInstance().putProcessSelect(processSelect);
+        SpUtils.getInstance().putProcessSelect(mData.get(spinnerProcess.getSelectedIndex()).getProcessName());
         SpUtils.getInstance().putProcessSelectCode(mData.get(spinnerProcess.getSelectedIndex()).getProcessCode());
         ToastUtils.showShort(R.string.commit_success);
         onBackPressed();
