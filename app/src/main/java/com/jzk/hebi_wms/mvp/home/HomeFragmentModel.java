@@ -8,6 +8,8 @@ import com.jzk.hebi_wms.http.api.ApiService;
 import com.jzk.hebi_wms.http.api.CommonResult;
 import com.jzk.hebi_wms.http.callback.ApiServiceMethodCallBack;
 
+import java.io.File;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 
@@ -30,5 +32,14 @@ public class HomeFragmentModel extends MvpBaseModel {
                 return apiService.getAppVersion(1,"WPDA");
             }
         });
+    }
+    /**
+     * 下载APK
+     *
+     * @param url
+     * @param observer
+     */
+    public void downLoadApk(final String url, Observer<File> observer) {
+        HttpManager.getInstance().downLoadAPkRequest(observer, url);
     }
 }

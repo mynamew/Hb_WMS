@@ -213,4 +213,6 @@
     <string name="tip_no_cnc_process1">The current process is not CNC1 process, please select the process first!</string>
     <string name="tip_no_cnc_process2">The current process is not CNC2 process, please select the process first!</string>
     <string name="next">下一项</string>
+    <string name="quality_total">抽检总数</string>
+    <string name="count_quality_total">计算抽检总数</string>
 </resources>

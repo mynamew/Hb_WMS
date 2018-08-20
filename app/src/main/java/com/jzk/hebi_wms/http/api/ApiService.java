@@ -11,6 +11,7 @@ import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
+import com.jzk.hebi_wms.data.ipqc.CalculateCheckCountRequest;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
 import com.jzk.hebi_wms.data.ipqc.CollectionIpqcDataRequest;
@@ -35,11 +36,15 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 /**
  * retrofit 的网络请求api
  * author: timi
@@ -62,6 +67,11 @@ public interface ApiService {
      */
     @POST("api/Account/ClientLogin")
     Observable<CommonResult<LoginBean>> login(@Body LoginRequest bean);
+
+
+    @Streaming
+    @GET
+    Observable<ResponseBody> downloadFile(@Url String fileUrl);
 
     /**
      * 获取用户信息
@@ -250,6 +260,14 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/GetProcessAsync")
     Observable<CommonResult<IpqcCommonResult>> getProcessAsync(@Field("TypeCode") String typeCode);
+    /**
+     * 获取抽检总数
+     *
+     * @param recardInfoRequest
+     * @return
+     */
+    @POST("api/services/qualitycontrol/IPQCCollection/CalculateCheckCountAsync")
+    Observable<CommonResult<IpqcCommonResult>> calculateCheckCountAsync(@Body CalculateCheckCountRequest recardInfoRequest);
 
     /**
      * 抽检校验

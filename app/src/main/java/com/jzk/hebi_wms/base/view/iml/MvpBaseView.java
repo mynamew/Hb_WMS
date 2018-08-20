@@ -10,5 +10,6 @@ import com.jzk.hebi_wms.base.view.MvpView;
 public interface MvpBaseView extends MvpView {
     void showProgressDialog();
 
+
     void dismisProgressDialog();
 }

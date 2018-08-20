@@ -1,14 +1,15 @@
 package com.jzk.hebi_wms.http;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.jzk.hebi_wms.base.BaseApplication;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.http.api.ApiService;
 import com.jzk.hebi_wms.http.api.CommonResult;
 import com.jzk.hebi_wms.http.callback.ApiServiceMethodCallBack;
-import com.jzk.hebi_wms.http.callback.HttpDownloadCallBack;
 import com.jzk.hebi_wms.http.exception.ApiException;
-import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
+import com.jzk.hebi_wms.http.update.FileDownLoadObserver;
 import com.jzk.hebi_wms.utils.LogUitls;
+import com.jzk.hebi_wms.utils.SDCardUtils;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -128,5 +129,41 @@ public class HttpManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 下载的方法
+     */
+    public void downLoadAPkRequest(@NonNull String url, final String destDir, final String fileName, final FileDownLoadObserver<File> fileDownLoadObserver) {
+        Observable<ResponseBody> responseBodyObservable = mApiService.downloadFile(url);
+        responseBodyObservable.subscribeOn(Schedulers.io())
+                .map(new Function<ResponseBody, File>() {
+                    @Override
+                    public File apply(@NonNull ResponseBody responseBody) throws Exception {
+                        return fileDownLoadObserver.saveFile(responseBody, destDir, fileName);
+                    }
+                })
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(fileDownLoadObserver);
+    }
+    /**
+     * 下载的方法
+     */
+    public void downLoadAPkRequest(final Observer<File> subscriber, String
+
+            url) {
+        LogUitls.e("存储APK的路径---->", SDCardUtils.getAPKPath(BaseApplication.getMApplicationContext()));
+        Observable<ResponseBody> responseBodyObservable = mApiService.downloadFile(url);
+        responseBodyObservable.subscribeOn(Schedulers.io())
+                .map(new Function<ResponseBody, File>() {
+                    @Override
+                    public File apply(@NonNull ResponseBody reponse) throws Exception {
+                        return SDCardUtils.saveFile(reponse,SDCardUtils.getAPKPath(BaseApplication.getMApplicationContext()), Constants.APK_NAME);
+                    }
+                })
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
     }
 }

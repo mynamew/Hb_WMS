@@ -333,7 +333,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 }
             });
         }
-        if(!mMoulds.isEmpty()&&!mInjectMolds.isEmpty()){
+        if (!mMoulds.isEmpty() && !mInjectMolds.isEmpty()) {
             dealWithInjectAndSupply(0);
         }
         dismissProgressDialog();
@@ -365,13 +365,18 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * 处理点击事件，获取供料机的列表
          */
         String[] split = mInjectMolds.get(position).getRelatedEquipment().trim().split("\\|");
-        if(split.length>=3){
+        if (split.length >= 3) {
+            boolean isHaveData = false;
             for (int i = 0; i < mOldMoulds.size(); i++) {
-                if(mOldMoulds.get(i).getValue().equals(split[2])){
+                if (mOldMoulds.get(i).getValue().equals(split[2])) {
+                    isHaveData = true;
                     mMoulds.add(mOldMoulds.get(i));
                 }
             }
-        }else {
+            if (!isHaveData) {
+                mMoulds.addAll(mOldMoulds);
+            }
+        } else {
             mMoulds.addAll(mOldMoulds);
         }
         /**
@@ -395,7 +400,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             mOldMoulds.addAll(stations);
             dvMold.initDeviceData(mMoulds);
         }
-        if(!mMoulds.isEmpty()&&!mInjectMolds.isEmpty()){
+        if (!mMoulds.isEmpty() && !mInjectMolds.isEmpty()) {
             dealWithInjectAndSupply(0);
         }
         dismissProgressDialog();

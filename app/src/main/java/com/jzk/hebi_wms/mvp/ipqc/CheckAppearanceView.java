@@ -59,4 +59,10 @@ public interface CheckAppearanceView extends MvpBaseView {
      * @param o
      */
     void ipqcLotRejectAsync(IpqcCommonResult o);
+
+    /**
+     * 计算抽检总数
+     * @param o
+     */
+    void calculateCheckCountAsync(IpqcCommonResult o);
 }

@@ -1,12 +1,12 @@
 package com.jzk.hebi_wms.mvp.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.allenliu.versionchecklib.v2.callback.ForceUpdateListener;
 import com.google.gson.Gson;
 import com.jzk.hebi_wms.MainActivity;
 import com.jzk.hebi_wms.R;
@@ -28,10 +28,11 @@ import com.jzk.hebi_wms.utils.SDCardUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.MyDialog;
-import com.jzk.versionlibrary.UpdateDownLoadUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -231,7 +232,7 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
         BaseMessage.register(this);
 
         boolean isHaveDownloadNew = SpUtils.getInstance().getBoolean(Constants.IS_HAVE_DOWNLOAD_NEW);
-        ivSetNewVersion.setVisibility(!isHaveDownloadNew?View.VISIBLE:View.INVISIBLE);
+        ivSetNewVersion.setVisibility(!isHaveDownloadNew ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -281,6 +282,8 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
         BaseMessage.unregister(this);
     }
 
+    MyDialog myDialogProgress;
+
     @Override
     public void getVersion(VersionBean versionBean) {
         try {
@@ -292,18 +295,28 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
             //应用版本号和服务端的版本号不一致 则需要更新否则无操作直接提示已经是最新版本
             //是否需要版本更新
             if (!versionName.equals(newVersion)) {
-                ForceUpdateListener listener = null;
-                UpdateDownLoadUtils updateDownLoadUtils = null;
+                MyDialog myDialog = new MyDialog(getActivity(), R.layout.dialog_update_version)
+                        .setButtonListener(R.id.versionchecklib_version_dialog_commit, null, new MyDialog.DialogClickListener() {
+                            @Override
+                            public void dialogClick(MyDialog dialog) {
+                                dialog.dismiss();
+                                myDialogProgress = new MyDialog(getActivity(), R.layout.dialog_progress)
+                                        .setTextViewContent(R.id.tv_content, "正在下载...")
+                                        .setCantCancelByBackPress()
+                                        .setCancelByOutside(false);
+                                myDialogProgress.show();
+                                getPresenter().downLoad(updateUrl, versionBean, newVersion);
+                            }
+                        });
                 /**
                  * 是否是强制更新
                  */
                 if (versionBean.getUpdateMode() == 2) {
-                    listener = () -> {
-                        ToastUtils.showShort(R.string.tip_forced_update);
-                    };
+                    myDialog.setCantCancelByBackPress();
                 }
-                updateDownLoadUtils = new UpdateDownLoadUtils(getContext(), newVersion + getString(R.string.tip_version_update), versionBean.getRemark(), updateUrl);
-                updateDownLoadUtils.downloadBuilderInit("https://www.pgyer.com/FVKz", SDCardUtils.getAPKPath(getActivity()),true, updateDownLoadUtils.createCustomDialogTwo(versionBean.getUpdateMode() == 2, listener), false, null, listener);
+                myDialog.setTextViewContent(R.id.tv_title, newVersion + "版本更新")
+                        .setTextViewContent(R.id.tv_msg, versionBean.getRemark());
+                myDialog.show();
             } else {
                 ToastUtils.showShort(R.string.is_new_version);
             }
@@ -313,5 +326,17 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void downLoadApk(File o, VersionBean versionBean, String newVersion) {
+        myDialogProgress.dismiss();
+        Intent intent = new Intent();
+        // 执行动作
+        intent.setAction(Intent.ACTION_VIEW);
+        File file = new File(SDCardUtils.getAPKPath(getActivity()) + "/" + Constants.APK_NAME);
+        // 执行的数据类型
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        getActivity().startActivity(intent);
     }
 }

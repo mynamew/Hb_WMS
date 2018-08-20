@@ -3,6 +3,7 @@ package com.jzk.hebi_wms.mvp.ipqc;
 import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
+import com.jzk.hebi_wms.data.ipqc.CalculateCheckCountRequest;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.http.callback.OnResultCallBack;
@@ -19,6 +20,7 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
     private HttpSubscriber<IpqcCommonResult> checkRCardInfoAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> ipacLotPassAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> ipqcLotRejectAsyncSubscriber;
+    private HttpSubscriber<IpqcCommonResult> calculateCheckTotalSubscriber;
 
     public CheckAppearancePresenter(Context context) {
         super(context);
@@ -145,6 +147,24 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
             });
         }
         model.checkRCardInfoAsync(request, checkRCardInfoAsyncSubscriber);
+    }
+    /**
+     * 计算抽检总数
+     */
+    public void calculateCheckCountAsync(CalculateCheckCountRequest request) {
+        if (null == calculateCheckTotalSubscriber) {
+            calculateCheckTotalSubscriber = new HttpSubscriber<>(new OnResultCallBack<IpqcCommonResult>() {
+                @Override
+                public void onSuccess(IpqcCommonResult o) {
+                    getView().calculateCheckCountAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                }
+            });
+        }
+        model.calculateCheckCountAsync(request, calculateCheckTotalSubscriber);
     }
 
     /**

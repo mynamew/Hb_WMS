@@ -1,6 +1,7 @@
 package com.jzk.hebi_wms.mvp.ipqc;
 
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
+import com.jzk.hebi_wms.data.ipqc.CalculateCheckCountRequest;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.station.NoneClass;
@@ -33,12 +34,28 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
+    /**
+     * 计算抽检总数
+     *
+     * @param request
+     * @param observer
+     */
+    public void calculateCheckCountAsync(CalculateCheckCountRequest request, Observer<IpqcCommonResult> observer) {
+        HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
+            @Override
+            public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
+                return apiService.calculateCheckCountAsync(request);
+            }
+        });
+    }
+
     /**
      * 生成批号
      *
      * @param observer
      */
-    public void createNewLotNoAsync( Observer<IpqcCommonResult> observer) {
+    public void createNewLotNoAsync(Observer<IpqcCommonResult> observer) {
         HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
             @Override
             public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
@@ -46,6 +63,7 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
     /**
      * 获取质检名称
      *
@@ -59,12 +77,13 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
     /**
      * 获取抽检时段
      *
      * @param observer
      */
-    public void getTimePerodAsync( Observer<IpqcCommonResult> observer) {
+    public void getTimePerodAsync(Observer<IpqcCommonResult> observer) {
         HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
             @Override
             public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
@@ -72,6 +91,7 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
     /**
      * 获取抽检工序
      *
@@ -85,6 +105,7 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
     /**
      * 抽检校验
      *
@@ -99,6 +120,7 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
     /**
      * 批通过
      *
@@ -113,6 +135,7 @@ public class CheckAppearanceModel extends MvpBaseModel {
             }
         });
     }
+
     /**
      * 批退
      *

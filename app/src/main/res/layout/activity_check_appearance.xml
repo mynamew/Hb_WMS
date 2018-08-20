@@ -146,14 +146,14 @@
                     <ImageView
                         android:id="@+id/iv_scan"
                         android:layout_width="100px"
-                        android:visibility="visible"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="30px"
                         android:paddingLeft="60px"
-                        android:src="@mipmap/ic_scan"/>
+                        android:src="@mipmap/ic_scan"
+                        android:visibility="visible"/>
                 </RelativeLayout>
 
                 <Button
@@ -474,18 +474,59 @@
                     android:text="0"
                     android:textColor="#666"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:layout_marginRight="30px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="30px"
+                    android:text="@string/quality_total"
+                    android:textColor="#333"
+                    android:textSize="13sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_quality_total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:layout_weight="1"
+                    android:text="0"
+                    android:textColor="#666"/>
+
+                <Button
+                    android:id="@+id/btn_mark_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="64px"
+                    android:paddingLeft="10px"
+                    android:paddingRight="10px"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/selector_btn_bg_login"
+                    android:text="@string/count_quality_total"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10px"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="10px"
                 android:background="@color/divide_color"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:layout_marginRight="30px"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tv_product_serial_no"
                     android:layout_width="0dp"
@@ -511,12 +552,13 @@
                     android:textColor="@color/color_666"
                     android:textSize="13sp"/>
             </LinearLayout>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rlv_product"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

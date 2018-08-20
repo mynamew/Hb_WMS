@@ -37,7 +37,7 @@ public class CommonInterceptor implements Interceptor {
          */
         HttpUrl parseUrl = null;
         // 为了测试下载
-        if (oldUrl.toString().contains("http://7xk9dj.com1.z0.glb.clouddn.com/BGAUpdateDemo_v1.0.1_debug.apk")) {
+        if (oldUrl.toString().contains("ApkVersion")) {
             parseUrl = oldUrl;
         } else {
             /**

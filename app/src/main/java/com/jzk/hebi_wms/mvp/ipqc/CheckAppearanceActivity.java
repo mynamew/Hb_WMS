@@ -17,6 +17,7 @@ import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
 import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
+import com.jzk.hebi_wms.data.ipqc.CalculateCheckCountRequest;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
@@ -89,6 +90,14 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     TextView tvUnpassSample;
     @BindView(R.id.rlv_product)
     RecyclerView rlvProduct;
+    @BindView(R.id.tv_quality_total)
+    TextView tvQualityTotal;
+    @BindView(R.id.btn_mark_total)
+    Button btnMarkTotal;
+    @BindView(R.id.tv_product_serial_no)
+    TextView tvProductSerialNo;
+    @BindView(R.id.tv_product_status)
+    TextView tvProductStatus;
     /***日期选择***********************************************************************************/
     private List<String> canSelectDate = new ArrayList<>();
 
@@ -128,20 +137,20 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         setEdittextListener(etBottomProductSerialNo, Constants.REQUEST_SCAN_CODE_PRODUCT_SERIAL_NO, R.string.input_serial_no, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-                long selectDateMs=DateUtils.Date2msOnlyDay(canSelectDate.get(1));
-                long currentDateMs=DateUtils.Date2msOnlyDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
-                if(selectDateMs<=currentDateMs){
+                long selectDateMs = DateUtils.Date2msOnlyDay(canSelectDate.get(1));
+                long currentDateMs = DateUtils.Date2msOnlyDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+                if (selectDateMs <= currentDateMs) {
                     /**
                      * 判断时间段是否可操作
                      */
-                    String timeFrame=qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue();
+                    String timeFrame = qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue();
                     String[] split = timeFrame.split("-");
-                    StringBuffer timeFrameBuffer=new StringBuffer();
+                    StringBuffer timeFrameBuffer = new StringBuffer();
                     timeFrameBuffer.append(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
-                    timeFrameBuffer.append(" "+split[1]);
+                    timeFrameBuffer.append(" " + split[1]);
                     timeFrameBuffer.append(":00:00");
                     long timeFrameMs = DateUtils.Date2ms(timeFrameBuffer.toString());
-                    if(System.currentTimeMillis()<timeFrameMs){
+                    if (System.currentTimeMillis() < timeFrameMs) {
                         ToastUtils.showShort(R.string.tip_select_timeframe_low);
                         setProductSerialNoSelect();
                         return;
@@ -252,8 +261,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         int yearLast = calendar.get(Calendar.YEAR);
         int monthLast = calendar.get(Calendar.MONTH);
         int dayLast = calendar.get(Calendar.DAY_OF_MONTH);
-        canSelectDate.add(DateUtils.dateStr2CommonDateStr(year,month,day));
-        canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearLast,monthLast,dayLast));
+        canSelectDate.add(DateUtils.dateStr2CommonDateStr(year, month, day));
+        canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearLast, monthLast, dayLast));
         spinnerProjectDate.setItems(canSelectDate);
     }
 
@@ -442,6 +451,11 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
     }
 
+    @Override
+    public void calculateCheckCountAsync(IpqcCommonResult o) {
+        setTextViewContent(tvQualityTotal, o.getTotalCount());
+    }
+
     /**
      * 隐藏初始化数据的加载框
      */
@@ -459,9 +473,19 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshCheckAppearanceData(CheckAppearanceEvent event) {
-        LogUitls.e("更新数据-->","更新了数据");
+        LogUitls.e("更新数据-->", "更新了数据");
         showProgressDialog();
         getPresenter().getLotInfoAsync(etBatchNo.getText().toString().trim());
         getView().setProductSerialNoSelect();
+    }
+
+    @OnClick(R.id.btn_mark_total)
+    public void onViewClicked() {
+        showProgressDialog();
+        CalculateCheckCountRequest request = new CalculateCheckCountRequest();
+        request.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
+        request.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
+        request.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+        getPresenter().calculateCheckCountAsync(request);
     }
 }

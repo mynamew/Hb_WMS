@@ -7,6 +7,8 @@ import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.http.callback.OnResultCallBack;
 import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
 
+import java.io.File;
+
 
 /**
  * $dsc
@@ -16,6 +18,7 @@ import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
 public class HomeFragmentPresenter extends MvpBasePresenter<HomeFragmentView> {
     HomeFragmentModel model;
     private HttpSubscriber<VersionBean> versionBeanHttpSubscriber;
+    private HttpSubscriber<File> downloadHttpSubscriber;
     public HomeFragmentPresenter(Context context) {
         super(context);
         model=new HomeFragmentModel();
@@ -38,6 +41,28 @@ public class HomeFragmentPresenter extends MvpBasePresenter<HomeFragmentView> {
             });
         }
         model.getVersion( versionBeanHttpSubscriber);
+    }
+    /**
+     * 下载APK
+     *  @param url
+     * @param versionBean
+     * @param newVersion
+     */
+    public void downLoad(String url, VersionBean versionBean, String newVersion) {
+        if (null == downloadHttpSubscriber) {
+            downloadHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<File>() {
+                @Override
+                public void onSuccess(File o) {
+                    getView().downLoadApk(o,versionBean,newVersion);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.downLoadApk(url, downloadHttpSubscriber);
     }
 
     @Override

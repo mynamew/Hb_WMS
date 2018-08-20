@@ -35,6 +35,7 @@ public class IpqcCommonResult {
     private String ipqcName;
     private String ipqcDesc;
     private int planDay;
+    private int totalCount;
     private String planTpCode;
     private String processCode;
     private List<Lot2RcardListBean> lot2RcardList;
@@ -63,6 +64,14 @@ public class IpqcCommonResult {
 
     public void setActualSampleSize(int actualSampleSize) {
         this.actualSampleSize = actualSampleSize;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
     }
 
     public int getGoodSampleSize() {

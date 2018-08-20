@@ -4,6 +4,8 @@ package com.jzk.hebi_wms.mvp.home;
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
 import com.jzk.hebi_wms.data.VersionBean;
 
+import java.io.File;
+
 /**
  * $dsc
  * author: timi
@@ -16,4 +18,11 @@ public interface HomeFragmentView extends MvpBaseView {
      */
     void getVersion(VersionBean versionBean);
 
+    /**
+     * 下载安装包
+     * @param o
+     * @param versionBean
+     * @param newVersion
+     */
+    void downLoadApk(File o, VersionBean versionBean, String newVersion);
 }

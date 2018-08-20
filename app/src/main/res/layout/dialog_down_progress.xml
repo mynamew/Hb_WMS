@@ -6,6 +6,7 @@
      <RelativeLayout
          android:layout_centerInParent="true"
          android:layout_width="300px"
+         android:background="@color/color_666"
          android:gravity="center"
          android:layout_height="180px">
          <pl.droidsonroids.gif.GifImageView

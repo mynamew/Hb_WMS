@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jzk/hebi_wms/http/RxBus.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jzk/hebi_wms/http/update/FileCallBack.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jzk/hebi_wms/http/update/FileLoadEvent.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jzk/hebi_wms/http/update/FileSubscriber.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jzk/hebi_wms/http/update/ProgressInterceptor.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jzk/hebi_wms/http/update/ProgressResponseBody.java" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
