@@ -137,26 +137,25 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         setEdittextListener(etBottomProductSerialNo, Constants.REQUEST_SCAN_CODE_PRODUCT_SERIAL_NO, R.string.input_serial_no, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
-                long selectDateMs = DateUtils.Date2msOnlyDay(canSelectDate.get(1));
-                long currentDateMs = DateUtils.Date2msOnlyDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
-                if (selectDateMs <= currentDateMs) {
-                    /**
-                     * 判断时间段是否可操作
-                     */
-                    String timeFrame = qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue();
-                    String[] split = timeFrame.split("-");
-                    StringBuffer timeFrameBuffer = new StringBuffer();
-                    timeFrameBuffer.append(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
-                    timeFrameBuffer.append(" " + split[1]);
-                    timeFrameBuffer.append(":00:00");
-                    long timeFrameMs = DateUtils.Date2ms(timeFrameBuffer.toString());
-                    if (System.currentTimeMillis() < timeFrameMs) {
-                        ToastUtils.showShort(R.string.tip_select_timeframe_low);
-                        setProductSerialNoSelect();
-                        return;
-                    }
-                }
-
+//                long selectDateMs = DateUtils.Date2msOnlyDay(canSelectDate.get(1));
+//                long currentDateMs = DateUtils.Date2msOnlyDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+//                if (selectDateMs <= currentDateMs) {
+//                    /**
+//                     * 判断时间段是否可操作
+//                     */
+//                    String timeFrame = qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue();
+//                    String[] split = timeFrame.split("-");
+//                    StringBuffer timeFrameBuffer = new StringBuffer();
+//                    timeFrameBuffer.append(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+//                    timeFrameBuffer.append(" " + split[1]);
+//                    timeFrameBuffer.append(":00:00");
+//                    long timeFrameMs = DateUtils.Date2ms(timeFrameBuffer.toString());
+//                    if (System.currentTimeMillis() < timeFrameMs) {
+//                        ToastUtils.showShort(R.string.tip_select_timeframe_low);
+//                        setProductSerialNoSelect();
+//                        return;
+//                    }
+//                }
                 /**
                  * 发起请求
                  */
