@@ -152,10 +152,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:isContainSpinner="true"
-            app:textInput="喷漆设备"
-            app:noMapStrTip="请输入/扫描喷漆设备"
+            app:textInput="@string/input_piant"
+            app:noMapStrTip="@string/tip_no_paint_device"
             app:isScanByCamera="false"
-            app:textTip="@string/inject_machine"/>
+            app:textTip="@string/paint_device"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="20px"

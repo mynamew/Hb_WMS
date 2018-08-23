@@ -230,7 +230,9 @@
     <string name="paint_barcode">喷漆条码</string>
     <string name="input_paint_code">请输入/扫描喷漆条码</string>
     <string name="title_paint">喷漆上料</string>
-
+    <string name="input_piant">请输入/扫描喷漆设备</string>
+    <string name="tip_no_paint_device">您输入/扫描的喷漆设备不存在！</string>
+    <string name="paint_device">喷漆设备</string>
 
 
 </resources>

@@ -17,6 +17,8 @@ import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
 import com.jzk.hebi_wms.data.ipqc.CollectionIpqcDataRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
+import com.jzk.hebi_wms.data.paint.PaintRequest;
+import com.jzk.hebi_wms.data.paint.PaintResult;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
 import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
@@ -319,6 +321,29 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/collectionIPQCData/GetErrorInfoByGroupCodeAsync")
     Observable<CommonResult<CollectionIpqcData>> getErrorInfoByGroupCodeAsyncByQuality(@Field("ErrorGroupCode") String errorGroupCode);
+    /********喷漆上料******************************************************************************/
+    /**
+     * 工位选择
+     */
+    @POST("api/services/productionplan/onWipPaint/GetStations")
+    Observable<CommonResult<StationBean>> getStationsPaint(@Body StationRequest request);
 
+    /**
+     * 工单代码
+     */
+
+    @POST("api/services/productionplan/OnWipMaterial/GetMoCode")
+    Observable<CommonResult<WorkerOrderBean>> getMoCodePaint(@Body NoneClass noneClass);
+    /**
+     * 获取喷漆设备
+     */
+    @FormUrlEncoded
+    @POST("api/services/productionplan/onWipPaint/GetCoatings")
+    Observable<CommonResult<InjectMoldBean>> getEquipmentByTypeListPaint(@Field("EqpTypeCode") String eqpTypeCode);
+    /**
+     * 喷漆条码扫描
+     */
+    @POST("api/services/productionplan/onWipPaint/CreateOrUpdateOnWipPaint")
+    Observable<CommonResult<PaintResult>> createOrUpdateOnWipPaint(@Body PaintRequest request);
 
 }

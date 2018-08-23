@@ -1,7 +1,8 @@
 package com.jzk.hebi_wms.mvp.paint;
 
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
-import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
+import com.jzk.hebi_wms.data.paint.PaintResult;
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 
@@ -21,10 +22,12 @@ public interface PaintView extends MvpBaseView {
      * 获取注塑机
      * @param o
      */
-    void getInjectionMoldings(EquipmentByTypeList o);
+    void getInjectionMoldings(InjectMoldBean o);
     /**
      * 获取工单
      * @param o
      */
     void getMoCode(WorkerOrderBean o);
+
+    void createOrUpdateOnWipPaint(PaintResult o);
 }

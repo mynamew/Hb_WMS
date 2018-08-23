@@ -201,6 +201,8 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
             }
             //设置数据源
             dvCnc.initDeviceData(cncDevices);
+            dvCnc.setEdittextContent(cncDevices.get(0).getValue());
+            dvCnc.setSpinnerEdittextSelect();
         }
         dismissProgressDialog();
     }

@@ -3,7 +3,9 @@ package com.jzk.hebi_wms.mvp.paint;
 import android.content.Context;
 
 import com.jzk.hebi_wms.base.presenter.impl.MvpBasePresenter;
-import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
+import com.jzk.hebi_wms.data.paint.PaintRequest;
+import com.jzk.hebi_wms.data.paint.PaintResult;
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
@@ -18,8 +20,9 @@ import com.jzk.hebi_wms.http.subscriber.HttpSubscriber;
 public class PaintPresenter extends MvpBasePresenter<PaintView> {
     PaintModel model;
     private HttpSubscriber<StationBean> stationBeanHttpSubscriber;
-    private HttpSubscriber<EquipmentByTypeList> injectMoldBeanHttpSubscriber;
+    private HttpSubscriber<InjectMoldBean> injectMoldBeanHttpSubscriber;
     private HttpSubscriber<WorkerOrderBean> workerOrderBeanHttpSubscriber;
+    private HttpSubscriber<PaintResult> paintResultHttpSubscriber;
 
     public PaintPresenter(Context context) {
         super(context);
@@ -53,9 +56,9 @@ public class PaintPresenter extends MvpBasePresenter<PaintView> {
      */
     public void getInjectionMoldings() {
         if (null == injectMoldBeanHttpSubscriber) {
-            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<EquipmentByTypeList>() {
+            injectMoldBeanHttpSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<InjectMoldBean>() {
                 @Override
-                public void onSuccess(EquipmentByTypeList o) {
+                public void onSuccess(InjectMoldBean o) {
                     getView().getInjectionMoldings(o);
                 }
 
@@ -85,5 +88,23 @@ public class PaintPresenter extends MvpBasePresenter<PaintView> {
             });
         }
         model.getMoCode(workerOrderBeanHttpSubscriber);
+    }
+    /**
+     * 喷漆条码扫描
+     */
+    public void createOrUpdateOnWipPaint(PaintRequest request) {
+        if (null == paintResultHttpSubscriber) {
+            paintResultHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<PaintResult>() {
+                @Override
+                public void onSuccess(PaintResult o) {
+                    getView().createOrUpdateOnWipPaint(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+                }
+            });
+        }
+        model.createOrUpdateOnWipPaint(request,paintResultHttpSubscriber);
     }
 }

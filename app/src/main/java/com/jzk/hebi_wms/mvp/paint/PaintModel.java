@@ -1,7 +1,9 @@
 package com.jzk.hebi_wms.mvp.paint;
 
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
-import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
+import com.jzk.hebi_wms.data.paint.PaintRequest;
+import com.jzk.hebi_wms.data.paint.PaintResult;
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.NoneClass;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
@@ -23,16 +25,17 @@ public class PaintModel extends MvpBaseModel {
      */
     public void getStations(StationRequest request, HttpSubscriber<StationBean> stationBeanHttpSubscriber) {
         HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber,
-                apiService -> apiService.getStations(request));
+                apiService -> apiService.getStationsPaint(request));
     }
 
     /**
-     * 获取注塑机
+     * 获取喷漆设备
      *
      * @param stationBeanHttpSubscriber
      */
-    public void getEquipmentByTypeList(HttpSubscriber<EquipmentByTypeList> stationBeanHttpSubscriber) {
-        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getEquipmentByTypeList("MOLDING"));
+    public void getEquipmentByTypeList(HttpSubscriber<InjectMoldBean> stationBeanHttpSubscriber) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService ->
+                apiService.getEquipmentByTypeListPaint("COATING"));
     }
     /**
      * 获取工单
@@ -40,7 +43,16 @@ public class PaintModel extends MvpBaseModel {
      * @param stationBeanHttpSubscriber
      */
     public void getMoCode(HttpSubscriber<WorkerOrderBean> stationBeanHttpSubscriber) {
-        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService -> apiService.getMoCode(new NoneClass()));
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService ->
+                apiService.getMoCodePaint(new NoneClass()));
     }
-
+    /**
+     * 喷漆条码扫描
+     *
+     * @param stationBeanHttpSubscriber
+     */
+    public void createOrUpdateOnWipPaint(PaintRequest request, HttpSubscriber<PaintResult> stationBeanHttpSubscriber) {
+        HttpManager.getInstance().HttpManagerRequest(stationBeanHttpSubscriber, apiService ->
+                apiService.createOrUpdateOnWipPaint(request));
+    }
 }

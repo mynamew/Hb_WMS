@@ -11,13 +11,16 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
-import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
+import com.jzk.hebi_wms.base.ScanQRCodeResultListener;
+import com.jzk.hebi_wms.data.paint.PaintRequest;
+import com.jzk.hebi_wms.data.paint.PaintResult;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.data.station.StationBean;
 import com.jzk.hebi_wms.data.station.StationRequest;
 import com.jzk.hebi_wms.data.station.WorkerOrderBean;
 import com.jzk.hebi_wms.utils.InputMethodUtils;
 import com.jzk.hebi_wms.utils.SpUtils;
+import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.DeviceView;
 import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
@@ -101,6 +104,7 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
         setEdittextListener(etDiluent, Constants.REQUEST_SCAN_CODE_DILUENT, R.string.input_diluent_barcode, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
+                setEdittextSelected(etDiluentBarcodeOrder);
             }
         });
         /**
@@ -224,11 +228,11 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
     }
 
     @Override
-    public void getInjectionMoldings(EquipmentByTypeList o) {
-        if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
+    public void getInjectionMoldings(InjectMoldBean o) {
+        if (null == o.getEqpments() || o.getEqpments().isEmpty()) {
             dvInjectMachine.setSpinnerText(R.string.tip_no_inject_machine_info);
         } else {
-            List<InjectMoldBean.EqpmentsBean> stations = o.getEquipmentList();
+            List<InjectMoldBean.EqpmentsBean> stations = o.getEqpments();
             mInjectMolds.clear();
             mInjectMolds.addAll(stations);
             //设置数据源
@@ -237,6 +241,8 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
                 public void deviceSelect(int position) {
                 }
             });
+            dvInjectMachine.setEdittextContent(mInjectMolds.get(0).getValue());
+            dvInjectMachine.setSpinnerEdittextSelect();
         }
         //隐藏加载框
         dismissProgressDialog();
@@ -270,6 +276,17 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
         //隐藏加载框
         dismissProgressDialog();
     }
+
+    @Override
+    public void createOrUpdateOnWipPaint(PaintResult o) {
+        ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
+        /**
+         * 设置选中
+         */
+        etDiluentBarcodeOrder.setText("");
+        setEdittextSelected(etDiluentBarcodeOrder);
+    }
+
     /**
      * 判断是否隐藏加载框
      */
@@ -282,11 +299,42 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_diluent_scan:
+                scan(Constants.REQUEST_SCAN_CODE_DILUENT, new ScanQRCodeResultListener() {
+                    @Override
+                    public void scanSuccess(int requestCode, String result) {
+                        etDiluent.setText(result);
+                        setEdittextSelected(etDiluentBarcodeOrder);
+                    }
+                });
                 break;
             case R.id.iv_scan_diluent_code:
+                scan(Constants.REQUEST_SCAN_CODE_PAINT, new ScanQRCodeResultListener() {
+                    @Override
+                    public void scanSuccess(int requestCode, String result) {
+                        requestPaint(result);
+                    }
+                });
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 喷漆条码扫描请求
+     * @param result
+     */
+    private void requestPaint(String result) {
+        PaintRequest request=new PaintRequest();
+        request.setBarCode(result);
+        request.setThinnerCard(etDiluent.getText().toString().trim());
+        request.setInjectionMoldingEqpCode(mInjectMolds.get(dvInjectMachine.getSpinnerSelectIndex()).getValue());
+        request.setItemCode(mMoCodes.get(spinnerStation.getSelectedIndex()).getItemCode());
+        request.setMoCode(mMoCodes.get(spinnerStation.getSelectedIndex()).getMoCode());
+        request.setProcessCode(processSelectCode);
+        request.setProductionLineCode(mStations.get(spinnerWorkerOrder.getSelectedIndex()).getProductionLineCode());
+        request.setStationCode(mStations.get(spinnerWorkerOrder.getSelectedIndex()).getStationCode());
+        showProgressDialog();
+        getPresenter().createOrUpdateOnWipPaint(request);
     }
 }

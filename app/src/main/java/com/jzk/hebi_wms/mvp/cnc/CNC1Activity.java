@@ -235,6 +235,8 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
                     etAddCncTongs.setText(equipmentList.get(position).getRelatedEquipment());
                 }
             });
+            dvCnc.setEdittextContent(cncDevices.get(0).getValue());
+            dvCnc.setSpinnerEdittextSelect();
         }
         /**
          * 设置初始值
