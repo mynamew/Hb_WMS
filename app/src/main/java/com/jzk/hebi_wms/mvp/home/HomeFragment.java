@@ -21,6 +21,7 @@ import com.jzk.hebi_wms.mvp.Polishing.PolishingActivity;
 import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;
+import com.jzk.hebi_wms.mvp.paint.PaintActivity;
 import com.jzk.hebi_wms.mvp.supply.StationSelectActivity;
 import com.jzk.hebi_wms.utils.PackageUtils;
 import com.jzk.hebi_wms.utils.SDCardUtils;
@@ -105,6 +106,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 case Constants.PERMISSION_QUALITY:
                     it.setClass(Objects.requireNonNull(getActivity()), CheckAppearanceActivity.class);
                     break;
+                case Constants.PERMISSION_PAINT:
+                    it.setClass(Objects.requireNonNull(getActivity()), PaintActivity.class);
+                    break;
                 default:
                     break;
             }
@@ -173,7 +177,8 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 R.mipmap.home_cnc,
                 R.mipmap.home_cnc,
                 R.mipmap.home_polish,
-                R.mipmap.qulity_inspection
+                R.mipmap.qulity_inspection,
+                R.mipmap.query_materail_sn_from
         };
         /**
          * 权限Codes
@@ -186,6 +191,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                         Constants.PERMISSION_CNC2,
                         Constants.PERMISSION_POLISH,
                         Constants.PERMISSION_QUALITY,
+                        Constants.PERMISSION_PAINT,
                 };
         /**
          * 设置菜单的数据源
@@ -259,6 +265,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             case Constants.PERMISSION_QUALITY:
                 codePermission.put(Constants.PERMISSION_QUALITY, permissionName);
                 break;
+            case Constants.PERMISSION_PAINT:
+                codePermission.put(Constants.PERMISSION_PAINT, permissionName);
+                break;
             default:
                 break;
 
@@ -277,7 +286,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
             //是否需要版本更新
             if (!versionName.equals(newVersion)) {
                 showProgressDialog();
-                getPresenter().downLoad(updateUrl,versionBean,newVersion);
+                getPresenter().downLoad(updateUrl, versionBean, newVersion);
             }
             //设置版本更新的标识
             SpUtils.getInstance().putBoolean(Constants.IS_HAVE_DOWNLOAD_NEW, versionName.equals(newVersion));
@@ -295,9 +304,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                         Intent intent = new Intent();
                         // 执行动作
                         intent.setAction(Intent.ACTION_VIEW);
-                        File file = new File(SDCardUtils.getAPKPath(getActivity())+"/"+Constants.APK_NAME);
+                        File file = new File(SDCardUtils.getAPKPath(getActivity()) + "/" + Constants.APK_NAME);
                         // 执行的数据类型
-                        intent.setDataAndType(Uri.fromFile(file),"application/vnd.android.package-archive");
+                        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
                         getActivity().startActivity(intent);
 
                     }
@@ -305,11 +314,11 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
         /**
          * 是否是强制更新
          */
-        if(versionBean.getUpdateMode()==2){
+        if (versionBean.getUpdateMode() == 2) {
             myDialog.setCantCancelByBackPress();
         }
-        myDialog.setTextViewContent(R.id.tv_title,newVersion+"版本更新")
-                .setTextViewContent(R.id.tv_msg,versionBean.getRemark());
+        myDialog.setTextViewContent(R.id.tv_title, newVersion + "版本更新")
+                .setTextViewContent(R.id.tv_msg, versionBean.getRemark());
         myDialog.show();
     }
 }

@@ -165,6 +165,7 @@
     <string name="product_standard">规格型号</string>
     <string name="tip_no_cnc_info">暂无CNC设备信息</string>
     <string name="input_cnc_device">请输入/扫描CNC设备</string>
+    <string name="tip_no_cnc_device">您输入/扫描的CNC设备不存在！</string>
     <string name="cnc_device">CNC设备</string>
     /**====== 抛光 ======**/
     <string name="title_polish">抛光</string>
@@ -175,6 +176,8 @@
     <string name="tip_username">请输入用户名</string>
     <string name="tip_password">请输入密码</string>
     <string name="input_polish_device">请输入/扫描抛光设备</string>
+    <string name="tip_no_polish_device">您输入的抛光设备不存在！</string>
+
     /**====== ipqc 外观抽检作业 ======**/
     <string name="input_batch_no">请输入/生成批次号</string>
     <string name="input_serial_no">请输入/扫描序列号</string>
@@ -201,6 +204,10 @@
     <string name="tip_complete_checkitems">请先完成检验项目！</string>
     <string name="tip_all_checkiten_have_complete">所有检验项目已完成！</string>
     <string name="title_product_result">产品检验</string>
+    <string name="next">下一项</string>
+    <string name="quality_total">抽检总数</string>
+    <string name="count_quality_total">计算抽检总数</string>
+    <string name="tip_bad_code_no_alive">您输入/扫描的不良代码不存在！</string>
     <string name="complete">完成</string>
     /**====== 版本更新======**/
     <string name="tip_forced_update">当前更新为强制更新，请安装最新版本！</string>
@@ -215,9 +222,15 @@
     <string name="process_cnc2">CNC2</string>
     <string name="tip_no_cnc_process1">当前工序不是CNC1工序，请先选择工序！</string>
     <string name="tip_no_cnc_process2">当前工序不是CNC2工序，请先选择工序！</string>
-    <string name="next">下一项</string>
-    <string name="quality_total">抽检总数</string>
-    <string name="count_quality_total">计算抽检总数</string>
+    <string name="process_paint">SP</string>
+    <string name="tip_no_paint">当前工序不是喷漆工序，请先选择工序</string>
+    /**====== 喷漆上料======**/
+    <string name="diluent">稀释剂条码</string>
+    <string name="input_diluent_barcode">请输入/扫描稀释剂条码</string>
+    <string name="paint_barcode">喷漆条码</string>
+    <string name="input_paint_code">请输入/扫描喷漆条码</string>
+    <string name="title_paint">喷漆上料</string>
+
 
 
 </resources>

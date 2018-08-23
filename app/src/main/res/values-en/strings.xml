@@ -215,4 +215,14 @@
     <string name="next">下一项</string>
     <string name="quality_total">抽检总数</string>
     <string name="count_quality_total">计算抽检总数</string>
+    <string name="tip_bad_code_no_alive">您输入/扫描的不良代码不存在！</string>
+    <string name="diluent">稀释剂条码</string>
+    <string name="input_diluent_barcode">请输入/扫描稀释剂条码</string>
+    <string name="paint_barcode">喷漆条码</string>
+    <string name="input_paint_code">请输入/扫描喷漆条码</string>
+    <string name="title_paint">喷漆上料</string>
+    <string name="process_paint">SP</string>
+    <string name="tip_no_paint">当前工序不是喷漆工序，请先选择工序</string>
+    <string name="tip_no_cnc_device">您输入/扫描的CNC设备不存在！</string>
+    <string name="tip_no_polish_device">您输入的抛光设备不存在！</string>
 </resources>

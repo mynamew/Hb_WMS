@@ -114,6 +114,14 @@ public class Constants {
      * 箱号
      */
     public static final int REQUEST_SCAN_CODE_BOX_NO = 1007;
+    /**
+     * 稀释剂
+     */
+    public static final int REQUEST_SCAN_CODE_DILUENT = 1008;
+    /**
+     * 喷漆
+     */
+    public static final int REQUEST_SCAN_CODE_PAINT = 1009;
     /***********
      * SharePerference存储token   key /  value的前缀
      *********************************************************************************************/
@@ -150,6 +158,7 @@ public class Constants {
      * 3、PERMISSION_CNC1   CNC1权限
      * 4、PERMISSION_CNC2   CNC2权限
      * 5、PERMISSION_POLISH  抛光
+     * 6、PERMISSION_PAINT  喷漆
      *********************************************************************************************/
     public static final String PERMISSION_SUPPLY = "Pages.ProductionPlan.DataCollection.OnWipMaterial.AddMaterial";
     public static final String PERMISSION_INJECT = "Pages.ProductionPlan.DataCollection.Molding";
@@ -157,6 +166,7 @@ public class Constants {
     public static final String PERMISSION_CNC2 = "Pages.ProductionPlan.DataCollection.CNC2";
     public static final String PERMISSION_POLISH = "Pages.ProductionPlan.DataCollection.Polish";
     public static final String PERMISSION_QUALITY = "Pages.QualityControl.IPQC.IPQCManage.IPQCCollection";
+    public static final String PERMISSION_PAINT = "Pages.ProductionPlan.DataCollection.Paint";
 
     /***********
      * 设备类型

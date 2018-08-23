@@ -92,6 +92,7 @@
         android:layout_height="wrap_content"
         app:isContainSpinner="true"
         app:isScanByCamera="false"
+        app:noMapStrTip="@string/tip_no_cnc_device"
         app:textInput="@string/input_cnc_device"
         app:textTip="@string/cnc_device"/>
 

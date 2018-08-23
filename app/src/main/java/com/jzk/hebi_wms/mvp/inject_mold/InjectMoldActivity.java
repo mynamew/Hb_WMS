@@ -447,7 +447,6 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
              */
             injectMoldingRequest(false);
         } else {
-            ToastUtils.showShort(R.string.input_bad_code);
             /**
              * 设置提交按钮显示，不良品手动提交
              */
@@ -460,6 +459,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                  * 获取不良代码组
                  */
                 getPresenter().getErrorGroups(categoryId);
+            } else {
+                dismissProgressDialog();
             }
         }
     }
@@ -513,6 +514,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 @Override
                 protected void bindData(RecyclerViewHolder holder, int position, InjectPassBean.ErrorCodesBean item) {
                     CheckBox checkBox = holder.getCheckBox(R.id.cb_bad_code);
+                    checkBox.setChecked(item.isSelect());
                     checkBox.setText(item.getErrorName());
                     checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
@@ -537,6 +539,15 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     public void collectionMoldingAsync(InjectPassBean o) {
         dismissProgressDialog();
         ToastUtils.showShort(R.string.tip_inject_pass_success);
+        /**
+         * 初始化选择良品
+         * 设置所有不良代码全不选中
+         */
+        for (int i = 0; i < mErrorsSelect.size(); i++) {
+            mErrorsSelect.get(i).setSelect(false);
+        }
+        mErrorSelectAdapter.notifyDataSetChanged();
+        rdGood.performClick();
     }
 
     @Override
@@ -608,7 +619,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
             ToastUtils.showShort(R.string.input_product_code);
             return;
         }
-        if (rdBad.isChecked() && mErrorsSelect.isEmpty()) {
+        /**
+         * 是否选择过不良代码
+         */
+        boolean isHaveSelectBadCode = false;
+        for (int i = 0; i < mErrorsSelect.size(); i++) {
+            if (mErrorsSelect.get(i).isSelect()) {
+                isHaveSelectBadCode = true;
+            }
+        }
+        /**
+         * 判断是否选择过不良代码
+         */
+        if (rdBad.isChecked() && !isHaveSelectBadCode) {
             ToastUtils.showShort(R.string.tip_please_select_bad_code);
             return;
         }

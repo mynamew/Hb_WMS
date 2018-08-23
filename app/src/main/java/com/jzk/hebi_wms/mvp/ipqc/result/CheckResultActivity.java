@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.base.ScanQRCodeResultListener;
 import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
 import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
@@ -107,8 +108,16 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
                 currentCheckIremPosition = position;
             }
         });
+        /**
+         * 不良代码扫描或输入
+         */
+        setEdittextListener(etBadCode,Constants.REQUEST_SCAN_CODE_BAD_CODE,R.string.input_bad_code,0, new EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+                judgeBadCodeByinput(result);
+            }
+        });
     }
-
     @Override
     public void initData() {
         showProgressDialog();
@@ -137,6 +146,15 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     @OnClick({R.id.btn_quality, R.id.btn_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_bad_code_scan:
+                scan(Constants.REQUEST_SCAN_CODE_BAD_CODE, new ScanQRCodeResultListener() {
+                    @Override
+                    public void scanSuccess(int requestCode, String result) {
+                        etBadCode.setText(result);
+                        judgeBadCodeByinput(result);
+                    }
+                });
+                break;
             case R.id.btn_quality:
                 /**
                  * 检验项目是否完成的判断
@@ -381,6 +399,24 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
         } else {
             findViewById(R.id.ll_bad_code).setVisibility(View.VISIBLE);
             rlvBacCode.setVisibility(View.VISIBLE);
+        }
+    }
+    /**
+     * 判断不良代码是否存在
+     * @param result
+     */
+    private void judgeBadCodeByinput(String result) {
+        boolean isResultHave=false;
+        for (int i = 0; i <mErrorCodes.size() ; i++) {
+            if(result.equals(mErrorCodes.get(i))){
+                isResultHave=true;
+                mErrorCodes.get(i).setSelect(true);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        if(!isResultHave){
+            ToastUtils.showShort(R.string.tip_bad_code_no_alive);
+            etBadCode.setText("");
         }
     }
 }

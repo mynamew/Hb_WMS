@@ -104,6 +104,7 @@
                 android:layout_height="wrap_content"
                 app:isContainSpinner="true"
                 app:isScanByCamera="false"
+                app:noMapStrTip="@string/tip_no_polish_device"
                 app:textInput="@string/input_polish_device"
                 app:textTip="@string/polish_device"/>
             <View
