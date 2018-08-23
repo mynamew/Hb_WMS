@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
-import com.jzk.hebi_wms.base.ScanQRCodeResultListener;
 import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
@@ -130,20 +129,6 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                 InputMethodUtils.hide(StationSelectActivity.this);
             }
         });
-        /**
-         * 扫描的点击事件
-         */
-        dvInjectMachine.setImgScanListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              scan(Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, new ScanQRCodeResultListener() {
-                  @Override
-                  public void scanSuccess(int requestCode, String result) {
-                      dvInjectMachine.setEdittextContent(result);
-                  }
-              });
-            }
-        });
         dvSupplyMaterial.setEdittextListener(new DeviceView.EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
@@ -256,6 +241,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
                    dealWithInjectAndSupply(position);
                 }
             });
+            dvInjectMachine.setEdittextContent(mInjectMolds.get(0).getValue());
+            dvInjectMachine.setSpinnerEdittextSelect();
         }
         if(!mSupplyMaterials.isEmpty()&&!mInjectMolds.isEmpty()){
             dealWithInjectAndSupply(0);

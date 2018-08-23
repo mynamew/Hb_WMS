@@ -206,12 +206,7 @@ public class DeviceView extends AutoLinearLayout {
                      */
                     if (!isHaveMapStr) {
                         ToastUtils.showShort(noMapStrTip);
-                        etInput.setFocusable(true);
-                        etInput.setFocusableInTouchMode(true);
-                        etInput.requestFocus();
-                        etInput.findFocus();
-                        etInput.setSelectAllOnFocus(true);
-                        Selection.selectAll(etInput.getText());
+                        setSpinnerEdittextSelect();
                         return true;
                     } else {
                         /**
@@ -285,6 +280,18 @@ public class DeviceView extends AutoLinearLayout {
     public DeviceView setSpinnerText(@StringRes int  content) {
         spinnerDevice.setText(content);
         return this;
+    }
+
+    /**
+     * 设置选中输入框
+     */
+    public void setSpinnerEdittextSelect(){
+        etInput.setFocusable(true);
+        etInput.setFocusableInTouchMode(true);
+        etInput.requestFocus();
+        etInput.findFocus();
+        etInput.setSelectAllOnFocus(true);
+        Selection.selectAll(etInput.getText());
     }
     /**
      * Spinner 设备选择接口

@@ -332,6 +332,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                     dealWithInjectAndSupply(position);
                 }
             });
+            dvInjectMachine.setEdittextContent(mInjectMolds.get(0).getValue());
+            dvInjectMachine.setSpinnerEdittextSelect();
         }
         if (!mMoulds.isEmpty() && !mInjectMolds.isEmpty()) {
             dealWithInjectAndSupply(0);
