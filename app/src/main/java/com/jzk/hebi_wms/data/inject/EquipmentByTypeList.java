@@ -1,5 +1,7 @@
 package com.jzk.hebi_wms.data.inject;
 
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
+
 import java.util.List;
 
 public class EquipmentByTypeList {
@@ -18,7 +20,7 @@ public class EquipmentByTypeList {
     private Object mos;
     private Object eqpments;
     private Object resultMessages;
-    private List<EquipmentListBean> equipmentList;
+    private List<InjectMoldBean.EqpmentsBean> equipmentList;
 
     public Object getStations() {
         return stations;
@@ -60,47 +62,11 @@ public class EquipmentByTypeList {
         this.resultMessages = resultMessages;
     }
 
-    public List<EquipmentListBean> getEquipmentList() {
+    public List<InjectMoldBean.EqpmentsBean> getEquipmentList() {
         return equipmentList;
     }
 
-    public void setEquipmentList(List<EquipmentListBean> equipmentList) {
+    public void setEquipmentList(List<InjectMoldBean.EqpmentsBean> equipmentList) {
         this.equipmentList = equipmentList;
-    }
-
-    public static class EquipmentListBean {
-        /**
-         * value : 1A01
-         * displayText : 注塑机1A01
-         * relatedEquipment : H01|H02
-         */
-
-        private String value;
-        private String displayText;
-        private String relatedEquipment;
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        public String getDisplayText() {
-            return displayText;
-        }
-
-        public void setDisplayText(String displayText) {
-            this.displayText = displayText;
-        }
-
-        public String getRelatedEquipment() {
-            return relatedEquipment;
-        }
-
-        public void setRelatedEquipment(String relatedEquipment) {
-            this.relatedEquipment = relatedEquipment;
-        }
     }
 }

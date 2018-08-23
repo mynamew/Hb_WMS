@@ -163,7 +163,7 @@
                 app:isContainSpinner="true"
                 app:textInput="@string/input_inject_machine"
                 app:noMapStrTip="@string/tip_inject_machine_not_alive"
-                app:isScanByCamera="false"
+                app:isScanByCamera="true"
                 app:textTip="@string/inject_machine"/>
 
             <com.jzk.hebi_wms.view.DeviceView

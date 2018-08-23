@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
-import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.spinnerlibrary.MaterialSpinner;
@@ -62,7 +61,6 @@ public class DeviceView extends AutoLinearLayout {
      * Spinner的源数据
      */
     private List<InjectMoldBean.EqpmentsBean> mDiveces = new ArrayList<>();
-    private List<EquipmentByTypeList.EquipmentListBean> eqpmentsBeanList = new ArrayList<>();
     public DeviceView(Context context) {
         super(context);
         initView(context);
@@ -135,36 +133,6 @@ public class DeviceView extends AutoLinearLayout {
         spinnerDevice.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>)
                 (view, position, id, item) -> {
                     etInput.setText(mDiveces.get(position).getValue());
-                });
-
-        return this;
-    }
-
-    /**
-     * 设置Spinner的数据
-     *
-     * @param mDatas
-     * @return
-     */
-    public DeviceView initDeviceDataSupply(List<EquipmentByTypeList.EquipmentListBean> mDatas,DeviceListener listener) {
-        /**
-         * 设置原数据
-         */
-        this.eqpmentsBeanList.clear();
-        this.eqpmentsBeanList.addAll(mDatas);
-
-        ArrayList<String> mStrs=new ArrayList<>();
-        for (int i = 0; i <eqpmentsBeanList.size() ; i++) {
-            mStrs.add(eqpmentsBeanList.get(i).getDisplayText());
-        }
-        /**
-         * 设置Spinner的数据
-         */
-        spinnerDevice.setItems(mStrs);
-        spinnerDevice.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>)
-                (view, position, id, item) -> {
-                    etInput.setText(eqpmentsBeanList.get(position).getValue());
-                    listener.deviceSelect(position);
                 });
 
         return this;

@@ -121,7 +121,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
      *
      * @return
      */
-    private List<EquipmentByTypeList.EquipmentListBean> mInjectMolds = new ArrayList<>();
+    private List<InjectMoldBean.EqpmentsBean> mInjectMolds = new ArrayList<>();
     /********模具***********************************************************************************************/
     /**
      * 模具数据源
@@ -322,11 +322,11 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
             dvInjectMachine.setSpinnerText(R.string.tip_no_inject_machine_info);
         } else {
-            List<EquipmentByTypeList.EquipmentListBean> stations = o.getEquipmentList();
+            List<InjectMoldBean.EqpmentsBean> stations = o.getEquipmentList();
             mInjectMolds.clear();
             mInjectMolds.addAll(stations);
             //设置数据源
-            dvInjectMachine.initDeviceDataSupply(mInjectMolds, new DeviceView.DeviceListener() {
+            dvInjectMachine.initDeviceData(mInjectMolds, new DeviceView.DeviceListener() {
                 @Override
                 public void deviceSelect(int position) {
                     dealWithInjectAndSupply(position);

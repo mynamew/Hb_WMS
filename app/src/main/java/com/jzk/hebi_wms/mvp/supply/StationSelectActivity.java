@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.jzk.hebi_wms.R;
 import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
+import com.jzk.hebi_wms.base.ScanQRCodeResultListener;
 import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
 import com.jzk.hebi_wms.data.station.AddMaterialRequest;
@@ -87,7 +88,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
      *
      * @return
      */
-    private List<EquipmentByTypeList.EquipmentListBean> mInjectMolds = new ArrayList<>();
+    private List<InjectMoldBean.EqpmentsBean> mInjectMolds = new ArrayList<>();
     /********供料机***********************************************************************************************/
     /**
      * 供料机数据源
@@ -127,6 +128,20 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
             @Override
             public void hideInputSoftware() {
                 InputMethodUtils.hide(StationSelectActivity.this);
+            }
+        });
+        /**
+         * 扫描的点击事件
+         */
+        dvInjectMachine.setImgScanListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              scan(Constants.REQUEST_SCAN_CODE_INJECT_MACHINE, new ScanQRCodeResultListener() {
+                  @Override
+                  public void scanSuccess(int requestCode, String result) {
+                      dvInjectMachine.setEdittextContent(result);
+                  }
+              });
             }
         });
         dvSupplyMaterial.setEdittextListener(new DeviceView.EdittextInputListener() {
@@ -231,11 +246,11 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
             dvInjectMachine.setSpinnerText(R.string.tip_no_inject_machine_info);
         } else {
-            List<EquipmentByTypeList.EquipmentListBean> stations = o.getEquipmentList();
+            List<InjectMoldBean.EqpmentsBean> stations = o.getEquipmentList();
             mInjectMolds.clear();
             mInjectMolds.addAll(stations);
             //设置数据源
-            dvInjectMachine.initDeviceDataSupply(mInjectMolds, new DeviceView.DeviceListener() {
+            dvInjectMachine.initDeviceData(mInjectMolds, new DeviceView.DeviceListener() {
                 @Override
                 public void deviceSelect(int position) {
                    dealWithInjectAndSupply(position);

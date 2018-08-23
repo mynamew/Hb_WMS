@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -78,7 +77,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     /**
      * CNC设备
      */
-    private List<EquipmentByTypeList.EquipmentListBean> cncDevices = new ArrayList<>();
+    private List<InjectMoldBean.EqpmentsBean> cncDevices = new ArrayList<>();
     /**
      * 工位的数据源
      */
@@ -226,14 +225,14 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         if (null == o.getEquipmentList() || o.getEquipmentList().isEmpty()) {
             dvCnc.setSpinnerText(R.string.tip_no_cnc_info);
         } else {
-            List<EquipmentByTypeList.EquipmentListBean> stations = o.getEquipmentList();
+            List<InjectMoldBean.EqpmentsBean> equipmentList = o.getEquipmentList();
             cncDevices.clear();
-            cncDevices.addAll(stations);
+            cncDevices.addAll(equipmentList);
             //设置数据源
-            dvCnc.initDeviceDataSupply(cncDevices, new DeviceView.DeviceListener() {
+            dvCnc.initDeviceData(cncDevices, new DeviceView.DeviceListener() {
                 @Override
                 public void deviceSelect(int position) {
-                    etAddCncTongs.setText(stations.get(position).getRelatedEquipment());
+                    etAddCncTongs.setText(equipmentList.get(position).getRelatedEquipment());
                 }
             });
         }

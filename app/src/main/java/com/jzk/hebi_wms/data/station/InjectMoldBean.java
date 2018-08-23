@@ -73,6 +73,15 @@ public class InjectMoldBean {
         private String displayText;
         private boolean isSelected;
 
+        public String getRelatedEquipment() {
+            return relatedEquipment;
+        }
+
+        public void setRelatedEquipment(String relatedEquipment) {
+            this.relatedEquipment = relatedEquipment;
+        }
+
+        private String relatedEquipment;
         public String getValue() {
             return value;
         }
