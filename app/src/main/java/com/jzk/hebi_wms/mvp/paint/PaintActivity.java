@@ -113,6 +113,7 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
         setEdittextListener(etDiluentBarcodeOrder, Constants.REQUEST_SCAN_CODE_PAINT, R.string.input_paint_code, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
+                requestPaint(result);
             }
         });
         /**
@@ -325,15 +326,19 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
      * @param result
      */
     private void requestPaint(String result) {
+        if(TextUtils.isEmpty(etDiluent.getText().toString().trim())){
+            ToastUtils.showShort("请先输入/扫描稀释剂！");
+            return;
+        }
         PaintRequest request=new PaintRequest();
         request.setBarCode(result);
         request.setThinnerCard(etDiluent.getText().toString().trim());
         request.setInjectionMoldingEqpCode(mInjectMolds.get(dvInjectMachine.getSpinnerSelectIndex()).getValue());
-        request.setItemCode(mMoCodes.get(spinnerStation.getSelectedIndex()).getItemCode());
-        request.setMoCode(mMoCodes.get(spinnerStation.getSelectedIndex()).getMoCode());
+        request.setItemCode(mMoCodes.get(spinnerWorkerOrder.getSelectedIndex()).getItemCode());
+        request.setMoCode(mMoCodes.get(spinnerWorkerOrder.getSelectedIndex()).getMoCode());
         request.setProcessCode(processSelectCode);
-        request.setProductionLineCode(mStations.get(spinnerWorkerOrder.getSelectedIndex()).getProductionLineCode());
-        request.setStationCode(mStations.get(spinnerWorkerOrder.getSelectedIndex()).getStationCode());
+        request.setProductionLineCode(mStations.get(spinnerStation.getSelectedIndex()).getProductionLineCode());
+        request.setStationCode(mStations.get(spinnerStation.getSelectedIndex()).getStationCode());
         showProgressDialog();
         getPresenter().createOrUpdateOnWipPaint(request);
     }

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -42,26 +44,6 @@ import butterknife.OnClick;
  * create at: 2018/8/3 11:22
  */
 public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResultPresenter> implements CheckResultView {
-    @BindView(R.id.tv_product_standard)
-    TextView tvProductStandard;
-    @BindView(R.id.spinner_quality_type)
-    MaterialSpinner spinnerQualityType;
-    @BindView(R.id.btn_quality)
-    Button btnQuality;
-    @BindView(R.id.et_bad_code)
-    EditText etBadCode;
-    @BindView(R.id.ll_input_bad_code)
-    LinearLayout llInputBadCode;
-    @BindView(R.id.tv_bad_group_tip)
-    TextView tvBadGroupTip;
-    @BindView(R.id.spinner_bad_groups)
-    MaterialSpinner spinnerBadGroups;
-    @BindView(R.id.ll_bad_group)
-    LinearLayout llBadGroup;
-    @BindView(R.id.rlv_bac_code)
-    RecyclerView rlvBacCode;
-    @BindView(R.id.btn_save)
-    TextView btnSave;
 
 
     /**
@@ -75,6 +57,30 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     /*****不良代码*********************************************************************************/
     List<InjectPassBean.ErrorCodesBean> mErrorCodes = new ArrayList<>();
     BaseRecyclerAdapter<InjectPassBean.ErrorCodesBean> adapter;
+    @BindView(R.id.tv_product_standard)
+    TextView tvProductStandard;
+    @BindView(R.id.spinner_quality_type)
+    MaterialSpinner spinnerQualityType;
+    @BindView(R.id.btn_quality)
+    Button btnQuality;
+    @BindView(R.id.tv_add_material_tip)
+    TextView tvAddMaterialTip;
+    @BindView(R.id.et_bad_code)
+    EditText etBadCode;
+    @BindView(R.id.iv_bad_code_scan)
+    ImageView ivBadCodeScan;
+    @BindView(R.id.tv_bad_group_tip)
+    TextView tvBadGroupTip;
+    @BindView(R.id.spinner_bad_groups)
+    MaterialSpinner spinnerBadGroups;
+    @BindView(R.id.ll_bad_group)
+    LinearLayout llBadGroup;
+    @BindView(R.id.ll_bad_code)
+    LinearLayout llBadCode;
+    @BindView(R.id.rlv_bac_code)
+    RecyclerView rlvBacCode;
+    @BindView(R.id.btn_save)
+    TextView btnSave;
 
     @Override
     public int setLayoutId() {
@@ -111,13 +117,14 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
         /**
          * 不良代码扫描或输入
          */
-        setEdittextListener(etBadCode,Constants.REQUEST_SCAN_CODE_BAD_CODE,R.string.input_bad_code,0, new EdittextInputListener() {
+        setEdittextListener(etBadCode, Constants.REQUEST_SCAN_CODE_BAD_CODE, R.string.input_bad_code, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
                 judgeBadCodeByinput(result);
             }
         });
     }
+
     @Override
     public void initData() {
         showProgressDialog();
@@ -401,22 +408,31 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
             rlvBacCode.setVisibility(View.VISIBLE);
         }
     }
+
     /**
      * 判断不良代码是否存在
+     *
      * @param result
      */
     private void judgeBadCodeByinput(String result) {
-        boolean isResultHave=false;
-        for (int i = 0; i <mErrorCodes.size() ; i++) {
-            if(result.equals(mErrorCodes.get(i))){
-                isResultHave=true;
+        boolean isResultHave = false;
+        for (int i = 0; i < mErrorCodes.size(); i++) {
+            if (result.equals(mErrorCodes.get(i).getErrorCode())) {
+                isResultHave = true;
                 mErrorCodes.get(i).setSelect(true);
                 adapter.notifyDataSetChanged();
             }
         }
-        if(!isResultHave){
+        if (!isResultHave) {
             ToastUtils.showShort(R.string.tip_bad_code_no_alive);
             etBadCode.setText("");
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

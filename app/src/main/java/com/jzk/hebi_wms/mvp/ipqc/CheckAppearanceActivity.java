@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import com.jzk.hebi_wms.mvp.ipqc.result.CheckResultActivity;
 import com.jzk.hebi_wms.utils.DateUtils;
 import com.jzk.hebi_wms.utils.LogUitls;
 import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -156,6 +158,10 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 //                        return;
 //                    }
 //                }
+                if (TextUtils.isEmpty(etBatchNo.getText().toString().trim())) {
+                    ToastUtils.showShort("请生成或输入扫描批次号！");
+                    return;
+                }
                 /**
                  * 发起请求
                  */
@@ -225,12 +231,50 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 });
                 break;
             case R.id.btn_batch_pass:
-                showProgressDialog();
-                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim());
+                new MyDialog(this, R.layout.dialog_logout).setTextViewContent(R.id.tv_title, "外观抽检")
+                        .setTextViewContent(R.id.tv_content, "是否确定批通过？")
+                        .setButtonListener(R.id.tv_logout_confirm, null, new MyDialog.DialogClickListener() {
+                            @Override
+                            public void dialogClick(MyDialog dialog) {
+                                dialog.dismiss();
+                                showProgressDialog();
+                                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim());
+                            }
+                        }).setButtonListener(R.id.tv_logout_cancel, null, new MyDialog.DialogClickListener() {
+                    @Override
+                    public void dialogClick(MyDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).setImageViewListener(R.id.iv_close, new MyDialog.DialogClickListener() {
+                    @Override
+                    public void dialogClick(MyDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
                 break;
             case R.id.btn_batch_return:
-                showProgressDialog();
-                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim());
+                new MyDialog(this, R.layout.dialog_logout).setTextViewContent(R.id.tv_title, "外观抽检")
+                        .setTextViewContent(R.id.tv_content, "是否确定批退？")
+                        .setButtonListener(R.id.tv_logout_confirm, null, new MyDialog.DialogClickListener() {
+                            @Override
+                            public void dialogClick(MyDialog dialog) {
+                                dialog.dismiss();
+                                showProgressDialog();
+                                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim());
+                            }
+                        }).setButtonListener(R.id.tv_logout_cancel, null, new MyDialog.DialogClickListener() {
+                    @Override
+                    public void dialogClick(MyDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).setImageViewListener(R.id.iv_close, new MyDialog.DialogClickListener() {
+                    @Override
+                    public void dialogClick(MyDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
                 break;
             case R.id.btn_create_batchno:
                 showProgressDialog();
@@ -443,16 +487,21 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     @Override
     public void ipacLotPassAsync(IpqcCommonResult o) {
         ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
+        etBatchNo.setText("");
+        setEdittextSelected(etBatchNo);
     }
 
     @Override
     public void ipqcLotRejectAsync(IpqcCommonResult o) {
         ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
+        etBatchNo.setText("");
+        setEdittextSelected(etBatchNo);
     }
 
     @Override
     public void calculateCheckCountAsync(IpqcCommonResult o) {
         setTextViewContent(tvQualityTotal, o.getTotalCount());
+
     }
 
     /**

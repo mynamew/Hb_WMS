@@ -542,14 +542,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         dismissProgressDialog();
         ToastUtils.showShort(R.string.tip_inject_pass_success);
         /**
-         * 初始化选择良品
-         * 设置所有不良代码全不选中
+         * 如果是bad
          */
-        for (int i = 0; i < mErrorsSelect.size(); i++) {
-            mErrorsSelect.get(i).setSelect(false);
+        if(rdBad.isChecked()){
+            /**
+             * 初始化选择良品
+             * 设置所有不良代码全不选中
+             */
+            for (int i = 0; i < mErrorsSelect.size(); i++) {
+                mErrorsSelect.get(i).setSelect(false);
+            }
+            mErrorSelectAdapter.notifyDataSetChanged();
+            rdGood.performClick();
         }
-        mErrorSelectAdapter.notifyDataSetChanged();
-        rdGood.performClick();
     }
 
     @Override
