@@ -17,6 +17,9 @@ import com.jzk.hebi_wms.data.ipqc.CollectionIpqcData;
 import com.jzk.hebi_wms.data.ipqc.CollectionIpqcDataRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
+import com.jzk.hebi_wms.data.ipqc.record.IpqcProcessResult;
+import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordRequest;
+import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordResult;
 import com.jzk.hebi_wms.data.paint.PaintRequest;
 import com.jzk.hebi_wms.data.paint.PaintResult;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
@@ -345,5 +348,17 @@ public interface ApiService {
      */
     @POST("api/services/productionplan/onWipPaint/CreateOrUpdateOnWipPaint")
     Observable<CommonResult<PaintResult>> createOrUpdateOnWipPaint(@Body PaintRequest request);
+    /********外观抽检记录******************************************************************************/
+    /**
+     * 获取外观抽检工序列表
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/GetProcessAsync")
+    Observable<CommonResult<IpqcProcessResult>> getProcessAsyncIpqc(@Field("TypeCode") String typeCode);
+    /**
+     * 外观抽检记录的返回
+     */
+    @POST("api/services/qualitycontrol/iPQCQuery/GetIPQCInfoAsync")
+    Observable<CommonResult<IpqcRecordResult>> getIPQCInfoAsync(@Body IpqcRecordRequest request);
 
 }

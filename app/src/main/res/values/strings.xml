@@ -233,6 +233,22 @@
     <string name="input_piant">请输入/扫描喷漆设备</string>
     <string name="tip_no_paint_device">您输入/扫描的喷漆设备不存在！</string>
     <string name="paint_device">喷漆设备</string>
-
+    <string name="title_check_record">抽检记录</string>
+    <string name="tip_no_time">暂无时段</string>
+    /**====== 抽检记录======**/
+    <string name="input_batch_no_quality">请输入/扫描批次号</string>
+    <string name="query_tip">查询提示</string>
+    <string name="tip_no_check_record">未查询到相关抽检记录！</string>
+    <string name="pass">合格</string>
+    <string name="unpass">不合格</string>
+    <string name="start_dat">开始日期</string>
+    <string name="end_date">结束日期</string>
+    <string name="time_period_process"><![CDATA[时段&工序]]></string>
+    <string name="time_period">时段</string>
+    <string name="batchno">批次</string>
+    <string name="batch_no">批次号</string>
+    <string name="query">查询</string>
+    <string name="date">日期</string>
+    <string name="result">结果</string>
 
 </resources>

@@ -17,7 +17,7 @@ import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
-import com.jzk.hebi_wms.mvp.Polishing.PolishingActivity;
+import com.jzk.hebi_wms.mvp.polishing.PolishingActivity;
 import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;

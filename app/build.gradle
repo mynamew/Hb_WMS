@@ -78,5 +78,5 @@ dependencies {
     implementation rootProject.ext.dependencies.versionchecklib
     implementation project(':qrcodelibrary')
     implementation project(':spinnerlibrary')
-    implementation project(':versionlibrary')
+    implementation project(':dateselectlibrary')
 }

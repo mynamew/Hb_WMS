@@ -167,7 +167,11 @@ public class Constants {
     public static final String PERMISSION_POLISH = "Pages.ProductionPlan.DataCollection.Polish";
     public static final String PERMISSION_QUALITY = "Pages.QualityControl.IPQC.IPQCManage.IPQCCollection";
     public static final String PERMISSION_PAINT = "Pages.ProductionPlan.DataCollection.Paint";
-
+    /**
+     * 安装的请求码
+     */
+    public static  final  int PERMISSION_INSTALL_PACKAGES_REQUESTCODE = 4001;
+    public static final  int PERMISSION_GET_UNKNOWN_APP_SOURCES=4002;
     /***********
      * 设备类型
      * 1、INJECT_MOLD 注塑机
