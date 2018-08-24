@@ -243,6 +243,8 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                                 holder.getTextView(R.id.tv_ipqc_result)
                                         .setTextColor(good?getResources().getColor(R.color.colorPrimary)
                                                 :getResources().getColor(R.color.red));
+                                holder.setTextView(R.id.tv_status,ipqcRcardListBean.getStatus());
+
                             }
                         }
                     }

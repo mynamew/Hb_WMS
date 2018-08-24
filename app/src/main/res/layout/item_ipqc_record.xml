@@ -92,7 +92,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5"
+                android:layout_weight="2"
                 android:gravity="center">
 
                 <TextView
@@ -112,23 +112,24 @@
 
             <LinearLayout
                 android:layout_width="0dp"
+                android:gravity="start"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="end">
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="状态："
+                    android:text="@string/status"
                     android:textColor="@color/color_333"
                     android:textSize="13sp"/>
 
                 <TextView
                     android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="GOOD"
-                    android:paddingRight="5px"
+                    android:paddingRight="10px"
                     android:textColor="@color/color_666"
                     android:textSize="13sp"/>
             </LinearLayout>
