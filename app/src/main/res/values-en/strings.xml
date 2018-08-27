@@ -245,5 +245,6 @@
     <string name="query">Query</string>
     <string name="date">Date</string>
     <string name="result">Result</string>
-    <string name="status">状态：</string>
+    <string name="status">Status：</string>
+    <string name="please_select">Please Select</string>
 </resources>

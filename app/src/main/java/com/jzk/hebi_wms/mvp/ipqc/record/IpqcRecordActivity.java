@@ -181,11 +181,15 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
     @Override
     public void getTimePerodAsync(IpqcCommonResult o) {
         if (null != o.getDpList() && !o.getDpList().isEmpty()) {
-            qualityTimes = o.getDpList();
+            IpqcCommonResult.DpListBean dpListBean = new IpqcCommonResult.DpListBean();
+            dpListBean.setDisplayText(getString(R.string.please_select));
+            dpListBean.setValue("");
+            qualityTimes.add(dpListBean);
+            qualityTimes.addAll( o.getDpList());
 
             ArrayList<String> strs = new ArrayList<>();
             for (int i = 0; i < qualityTimes.size(); i++) {
-                strs.add(qualityTimes.get(i).getValue());
+                strs.add(qualityTimes.get(i).getDisplayText());
             }
             spinnerTime.setItems(strs);
         } else {
@@ -201,6 +205,10 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
             spinnerProcess.setText(R.string.no_process);
         } else {
             mData.clear();
+            IpqcProcessResult.DpListBean dpListBean = new IpqcProcessResult.DpListBean();
+            dpListBean.setDisplayText(getString(R.string.please_select));
+            dpListBean.setValue("");
+            mData.add(dpListBean);
             mData.addAll(data.getDpList());
             List<String> mStrs = new ArrayList<>();
             for (int i = 0; i < mData.size(); i++) {

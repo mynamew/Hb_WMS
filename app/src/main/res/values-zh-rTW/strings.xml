@@ -248,5 +248,6 @@
     <string name="query">查詢</string>
     <string name="date">日期</string>
     <string name="result">結果</string>
-    <string name="status">状态：</string>
+    <string name="status">狀態：</string>
+    <string name="please_select">請選擇</string>
 </resources>
