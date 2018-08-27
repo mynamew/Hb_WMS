@@ -1,7 +1,8 @@
 package com.jzk.hebi_wms.data.ipqc.record;
 
 import java.util.List;
-/** 
+
+/**
   * ipqc抽检记录的返回
   * @author   jzk
   * create at: 2018/8/24 13:32
@@ -80,6 +81,7 @@ public class IpqcRecordResult {
          * processCode : MD
          * planDay : 20180808
          * result : 合格
+         * eqCode : TEST
          */
 
         private String lotNo;
@@ -88,6 +90,7 @@ public class IpqcRecordResult {
         private String processCode;
         private String planDay;
         private String result;
+        private String eqCode;
 
         public String getLotNo() {
             return lotNo;
@@ -135,6 +138,14 @@ public class IpqcRecordResult {
 
         public void setResult(String result) {
             this.result = result;
+        }
+
+        public String getEqCode() {
+            return eqCode;
+        }
+
+        public void setEqCode(String eqCode) {
+            this.eqCode = eqCode;
         }
     }
 }

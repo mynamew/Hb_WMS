@@ -1,5 +1,7 @@
 package com.jzk.hebi_wms.data.ipqc;
 
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
+
 import java.util.List;
 
 /**
@@ -41,6 +43,7 @@ public class IpqcCommonResult {
     private List<Lot2RcardListBean> lot2RcardList;
     private List<ResultMessagesBean> resultMessages;
     private List<DpListBean> dpList;
+    private List<InjectMoldBean.EqpmentsBean> eqCodeList;
 
     public String getLotNo() {
         return lotNo;
@@ -277,5 +280,13 @@ public class IpqcCommonResult {
         public void setResult(Object result) {
             this.result = result;
         }
+    }
+
+    public List<InjectMoldBean.EqpmentsBean> getEqCodeList() {
+        return eqCodeList;
+    }
+
+    public void setEqCodeList(List<InjectMoldBean.EqpmentsBean> eqCodeList) {
+        this.eqCodeList = eqCodeList;
     }
 }

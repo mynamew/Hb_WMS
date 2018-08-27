@@ -27,6 +27,8 @@ public class SaveCheckResultRequest {
     private String IPQCName;
     private String Planday;
     private String PlanTpCode;
+    private String EqTypeCode;
+    private String  EqCode;
     private List<InjectPassBean.ErrorCodesBean> ErrorCodes;
     private List<CollectionIpqcData.CheckItemsBean> ExtendIPQCDatas;
 
@@ -92,5 +94,21 @@ public class SaveCheckResultRequest {
 
     public void setExtendIPQCDatas(List<CollectionIpqcData.CheckItemsBean> ExtendIPQCDatas) {
         this.ExtendIPQCDatas = ExtendIPQCDatas;
+    }
+
+    public String getEqTypeCode() {
+        return EqTypeCode;
+    }
+
+    public void setEqTypeCode(String eqTypeCode) {
+        EqTypeCode = eqTypeCode;
+    }
+
+    public String getEqCode() {
+        return EqCode;
+    }
+
+    public void setEqCode(String eqCode) {
+        EqCode = eqCode;
     }
 }

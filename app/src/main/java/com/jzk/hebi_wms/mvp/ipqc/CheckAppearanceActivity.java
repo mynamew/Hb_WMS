@@ -22,12 +22,16 @@ import com.jzk.hebi_wms.data.ipqc.CalculateCheckCountRequest;
 import com.jzk.hebi_wms.data.ipqc.CheckRecardInfoRequest;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.CheckAppearanceEvent;
 import com.jzk.hebi_wms.mvp.ipqc.result.CheckResultActivity;
 import com.jzk.hebi_wms.utils.DateUtils;
+import com.jzk.hebi_wms.utils.InputMethodUtils;
 import com.jzk.hebi_wms.utils.LogUitls;
+import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
+import com.jzk.hebi_wms.view.DeviceView;
 import com.jzk.hebi_wms.view.MyDialog;
 import com.jzk.spinnerlibrary.MaterialSpinner;
 
@@ -100,6 +104,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     TextView tvProductSerialNo;
     @BindView(R.id.tv_product_status)
     TextView tvProductStatus;
+    @BindView(R.id.dv_machine)
+    DeviceView dvMachine;
     /***日期选择***********************************************************************************/
     private List<String> canSelectDate = new ArrayList<>();
 
@@ -109,6 +115,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     List<IpqcCommonResult.DpListBean> qualityTimes = null;
     /*****工序*****************************************************************************/
     List<IpqcCommonResult.DpListBean> qualityProcesses = null;
+    /*****设备*****************************************************************************/
+    List<InjectMoldBean.EqpmentsBean> qualityDevices = null;
 
     /**
      * 产品信息
@@ -129,6 +137,17 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void initView() {
+        dvMachine.setEdittextListener(new DeviceView.EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+
+            }
+
+            @Override
+            public void hideInputSoftware() {
+                InputMethodUtils.hide(CheckAppearanceActivity.this);
+            }
+        });
         setEdittextListener(etBatchNo, Constants.REQUEST_SCAN_CODE_BATCH_NO, R.string.input_batch_no, 0, new EdittextInputListener() {
             @Override
             public void verticalSuccess(String result) {
@@ -172,6 +191,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 recardInfoRequest.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
                 recardInfoRequest.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
                 recardInfoRequest.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+                recardInfoRequest.setEqTypeCode(SpUtils.getInstance().getDeivceSelectCode());
+                recardInfoRequest.setEqCode(qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue());
                 getPresenter().checkRCardInfoAsync(recardInfoRequest);
             }
         });
@@ -182,6 +203,16 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void initData() {
+        if (TextUtils.isEmpty(SpUtils.getInstance().getDeivceSelectCode())) {
+            new MyDialog(this, R.layout.dialog_error_tip)
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_select_device_type))
+                    .setButtonListener(R.id.btn_cancel, null, dialog -> {
+                        onBackPressed();
+                    }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
+                    .setCantCancelByBackPress().setCancelByOutside(false).show();
+            return;
+        }
         /**
          * 获取当前年月日
          */
@@ -192,6 +223,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         getPresenter().getIQPCNameAsync();
         getPresenter().getProcessAsync();
         getPresenter().getTimePerodAsync();
+        getPresenter().getEqCodeAsync();
     }
 
     @Override
@@ -452,7 +484,13 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 strs.add(qualityProcesses.get(i).getValue());
             }
             spinnerProcess.setItems(strs);
-
+            spinnerProcess.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+                    tvProcessName.setText(qualityProcesses.get(position).getDisplayText());
+                }
+            });
+            tvProcessName.setText(qualityProcesses.get(0).getDisplayText());
             dismissLoadingDataDialog();
         }
     }
@@ -468,7 +506,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         resultRequest.setRCard(etBottomProductSerialNo.getText().toString().trim());
         resultRequest.setProcessCode(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
         resultRequest.setPlanTpCode(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
-
+        resultRequest.setEqTypeCode(SpUtils.getInstance().getDeivceSelectCode());
+        resultRequest.setEqCode(qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue());
         Intent intent = new Intent(this, CheckResultActivity.class);
         intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, new Gson().toJson(resultRequest));
         startActivity(intent);
@@ -505,11 +544,22 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     }
 
+    @Override
+    public void getEqCodeAsync(IpqcCommonResult o) {
+        if (null != o.getEqCodeList() && !o.getEqCodeList().isEmpty()) {
+            qualityDevices = o.getEqCodeList();
+            dvMachine.initDeviceData(qualityDevices);
+            dvMachine.setEdittextContent(qualityDevices.get(0).getValue());
+            dvMachine.setSpinnerEdittextSelect();
+            dismissLoadingDataDialog();
+        }
+    }
+
     /**
      * 隐藏初始化数据的加载框
      */
     private void dismissLoadingDataDialog() {
-        if (null != qualityProcesses && null != qualityTimes && null != qualityNames) {
+        if (null != qualityProcesses && null != qualityDevices && null != qualityTimes && null != qualityNames) {
             dismisProgressDialog();
         }
     }

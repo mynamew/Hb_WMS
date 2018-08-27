@@ -17,13 +17,13 @@
         android:layout_height="88px"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10px"
-        android:layout_marginRight="30px"
+        android:layout_marginRight="20px"
         android:orientation="horizontal">
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="88px"
-            android:layout_marginRight="30px"
+            android:layout_marginRight="20px"
             android:layout_weight="1">
 
             <TextView
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="30px"
+                android:paddingLeft="20px"
                 android:text="序列号"
                 android:textColor="#333"
                 android:textSize="13sp"
@@ -63,7 +63,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="30px"
+                android:layout_marginRight="20px"
                 android:paddingLeft="60px"
                 android:src="@mipmap/ic_scan"/>
         </RelativeLayout>
@@ -104,13 +104,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="88px"
-                android:layout_marginRight="30px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="88px"
-                    android:layout_marginRight="30px"
+                    android:layout_marginRight="20px"
                     android:layout_weight="1">
 
                     <TextView
@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingLeft="30px"
+                        android:paddingLeft="20px"
                         android:text="@string/quality_batch_no"
                         android:textColor="#333"
                         android:textSize="13sp"
@@ -150,7 +150,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="30px"
+                        android:layout_marginRight="20px"
                         android:paddingLeft="60px"
                         android:src="@mipmap/ic_scan"
                         android:visibility="visible"/>
@@ -169,8 +169,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <TextView
@@ -205,8 +205,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64px"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -221,7 +221,7 @@
                     android:id="@+id/tv_quality_des"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text=""
                     android:textColor="#666"/>
             </LinearLayout>
@@ -236,8 +236,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <TextView
@@ -272,8 +272,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64px"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -288,10 +288,19 @@
                     android:id="@+id/tv_process_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text=""
                     android:textColor="#666"/>
             </LinearLayout>
+            <com.jzk.hebi_wms.view.DeviceView
+                android:id="@+id/dv_machine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isContainSpinner="true"
+                app:textInput="@string/input_device"
+                app:noMapStrTip="@string/tip_device_not_alive"
+                app:isScanByCamera="false"
+                app:textTip="@string/device"/>
 
             <View
                 android:layout_width="match_parent"
@@ -303,8 +312,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <TextView
@@ -339,8 +348,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64px"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -355,7 +364,7 @@
                     android:id="@+id/tv_time_frame_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text=""
                     android:textColor="#666"/>
             </LinearLayout>
@@ -363,8 +372,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <TextView
@@ -406,8 +415,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64px"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -422,7 +431,7 @@
                     android:id="@+id/tv_time_actual_sample"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text="0"
                     android:textColor="#666"/>
             </LinearLayout>
@@ -430,8 +439,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64px"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -446,7 +455,7 @@
                     android:id="@+id/tv_pass_sample"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text="0"
                     android:textColor="#666"/>
             </LinearLayout>
@@ -455,7 +464,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64px"
                 android:layout_marginLeft="5px"
-                android:layout_marginRight="30px"
+                android:layout_marginRight="20px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -470,7 +479,7 @@
                     android:id="@+id/tv_unpass_sample"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:text="0"
                     android:textColor="#666"/>
             </LinearLayout>
@@ -479,14 +488,14 @@
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="88px"
-                android:layout_marginRight="30px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="30px"
+                    android:paddingLeft="20px"
                     android:text="@string/quality_total"
                     android:textColor="#333"
                     android:textSize="13sp"
@@ -496,7 +505,7 @@
                     android:id="@+id/tv_quality_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30px"
+                    android:layout_marginLeft="20px"
                     android:layout_weight="1"
                     android:text="0"
                     android:textColor="#666"/>
@@ -523,8 +532,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
                 android:orientation="horizontal">
 
                 <TextView
@@ -557,8 +566,8 @@
                 android:id="@+id/rlv_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"/>
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

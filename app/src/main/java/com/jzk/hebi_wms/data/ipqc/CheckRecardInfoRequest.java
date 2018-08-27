@@ -6,12 +6,15 @@ package com.jzk.hebi_wms.data.ipqc;
   */  
 public class CheckRecardInfoRequest {
 
+
     /**
      * LotNo : IPQC201808040002
      * InputBox : GM5X504B7963
      * Process : MD
      * TimePerod : 00-02
      * PlanDate : 2018-07-30
+     * EqTypeCode : Molding
+     * EqCode : 1A01
      */
 
     private String LotNo;
@@ -19,6 +22,8 @@ public class CheckRecardInfoRequest {
     private String Process;
     private String TimePerod;
     private String PlanDate;
+    private String EqTypeCode;
+    private String EqCode;
 
     public String getLotNo() {
         return LotNo;
@@ -58,5 +63,21 @@ public class CheckRecardInfoRequest {
 
     public void setPlanDate(String PlanDate) {
         this.PlanDate = PlanDate;
+    }
+
+    public String getEqTypeCode() {
+        return EqTypeCode;
+    }
+
+    public void setEqTypeCode(String EqTypeCode) {
+        this.EqTypeCode = EqTypeCode;
+    }
+
+    public String getEqCode() {
+        return EqCode;
+    }
+
+    public void setEqCode(String EqCode) {
+        this.EqCode = EqCode;
     }
 }

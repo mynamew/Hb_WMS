@@ -9,6 +9,7 @@ import com.jzk.hebi_wms.http.HttpManager;
 import com.jzk.hebi_wms.http.api.ApiService;
 import com.jzk.hebi_wms.http.api.CommonResult;
 import com.jzk.hebi_wms.http.callback.ApiServiceMethodCallBack;
+import com.jzk.hebi_wms.utils.SpUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -102,6 +103,19 @@ public class CheckAppearanceModel extends MvpBaseModel {
             @Override
             public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
                 return apiService.getProcessAsync("IPQCProcess");
+            }
+        });
+    }
+  /**
+     * 获取设备列表
+     *
+     * @param observer
+     */
+    public void getEqCodeAsync(Observer<IpqcCommonResult> observer) {
+        HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
+            @Override
+            public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
+                return apiService.getEqCodeAsync(SpUtils.getInstance().getDeivceSelectCode());
             }
         });
     }

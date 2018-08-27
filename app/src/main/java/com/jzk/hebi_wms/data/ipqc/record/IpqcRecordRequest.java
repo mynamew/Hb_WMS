@@ -19,6 +19,8 @@ public class IpqcRecordRequest {
     private String PlanDateStart;
     private String Process;
     private String TimePerod;
+    private String EqTypeCode;
+    private String EqCode;
 
     public String getLotNo() {
         return LotNo;
@@ -58,5 +60,21 @@ public class IpqcRecordRequest {
 
     public void setTimePerod(String TimePerod) {
         this.TimePerod = TimePerod;
+    }
+
+    public String getEqTypeCode() {
+        return EqTypeCode;
+    }
+
+    public void setEqTypeCode(String eqTypeCode) {
+        EqTypeCode = eqTypeCode;
+    }
+
+    public String getEqCode() {
+        return EqCode;
+    }
+
+    public void setEqCode(String eqCode) {
+        EqCode = eqCode;
     }
 }

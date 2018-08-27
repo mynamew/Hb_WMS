@@ -17,6 +17,7 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
     private HttpSubscriber<IpqcCommonResult> getIQPCNameAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> getTimePerodAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> getProcessAsyncSubscriber;
+    private HttpSubscriber<IpqcCommonResult> getEqAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> checkRCardInfoAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> ipacLotPassAsyncSubscriber;
     private HttpSubscriber<IpqcCommonResult> ipqcLotRejectAsyncSubscriber;
@@ -127,6 +128,25 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
             });
         }
         model.getProcessAsync(getProcessAsyncSubscriber);
+    }
+    /**
+     * 获取设备
+     */
+    public void getEqCodeAsync() {
+        if (null == getEqAsyncSubscriber) {
+            getEqAsyncSubscriber = new HttpSubscriber<>(false, new OnResultCallBack<IpqcCommonResult>() {
+                @Override
+                public void onSuccess(IpqcCommonResult o) {
+                    getView().getEqCodeAsync(o);
+                }
+
+                @Override
+                public void onError(String errorMsg) {
+
+                }
+            });
+        }
+        model.getEqCodeAsync(getEqAsyncSubscriber);
     }
 
     /**

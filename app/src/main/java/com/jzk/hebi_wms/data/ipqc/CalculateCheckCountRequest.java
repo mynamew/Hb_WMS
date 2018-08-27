@@ -39,4 +39,5 @@ public class CalculateCheckCountRequest {
     public void setTimePerod(String TimePerod) {
         this.TimePerod = TimePerod;
     }
+
 }

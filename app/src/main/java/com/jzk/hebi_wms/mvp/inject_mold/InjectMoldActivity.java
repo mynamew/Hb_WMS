@@ -247,7 +247,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         tvProcessCode.setText(processSelectCode);
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -258,9 +258,9 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 判断工序是否正确
          */
-        if (!processSelectCode.equals("MD")) {
+        if (!getString(R.string.process_inject).equals(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_title,getString( R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_inject_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -480,7 +480,14 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     public void errorGroupHttpSubscriber(List<InjectPassBean.ErrorGroupsBean> errorGroups) {
         this.mErrorGroups.clear();
         this.mErrorGroupStrs.clear();
-        this.mErrorGroups.addAll(errorGroups);
+        /**
+         * 判断如那些不良代码组
+         */
+        for (int i = 0; i <errorGroups.size() ; i++) {
+            if(errorGroups.get(i).getErrorGroupCode().contains("MOLDING")){
+                this.mErrorGroups.add(errorGroups.get(i));
+            }
+        }
         for (int i = 0; i < mErrorGroups.size(); i++) {
             mErrorGroupStrs.add(mErrorGroups.get(i).getErrorGroupName());
         }

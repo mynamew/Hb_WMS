@@ -242,6 +242,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/CreateNewLotNoAsync")
     Observable<CommonResult<IpqcCommonResult>> createNewLotNoAsync(@Field("RuleCode") String ruleCode);
+   /**
+     * 获取设备列表
+     *
+     * @param eqCode 设备类型
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/qualitycontrol/iPQCCollection/GetEqCodeAsync")
+    Observable<CommonResult<IpqcCommonResult>> getEqCodeAsync(@Field("EqCode") String eqCode);
 
     /**
      * 获取质检名称

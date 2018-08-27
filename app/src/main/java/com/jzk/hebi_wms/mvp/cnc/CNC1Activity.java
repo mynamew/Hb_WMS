@@ -150,7 +150,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         StationRequest request = new StationRequest();
         if (TextUtils.isEmpty(processCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -163,7 +163,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
          */
         if(!getString(isCnc1?R.string.process_cnc1:R.string.process_cnc2).equals(processCode)){
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, R.string.error_title)
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(isCnc1?R.string.tip_no_cnc_process1:R.string.tip_no_cnc_process2))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();

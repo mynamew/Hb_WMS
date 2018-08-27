@@ -12,10 +12,12 @@ import com.jzk.hebi_wms.base.BaseActivity;
 import com.jzk.hebi_wms.base.Constants;
 import com.jzk.hebi_wms.base.adapter.BaseRecyclerAdapter;
 import com.jzk.hebi_wms.base.adapter.RecyclerViewHolder;
+import com.jzk.hebi_wms.data.device.DeviceResponse;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcProcessResult;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordRequest;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordResult;
+import com.jzk.hebi_wms.data.station.InjectMoldBean;
 import com.jzk.hebi_wms.utils.CommonDialogUtils;
 import com.jzk.hebi_wms.utils.DateUtils;
 import com.jzk.hebi_wms.utils.LogUitls;
@@ -28,6 +30,12 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 抽检记录
+ *
+ * @author jzk
+ * create at: 2018/8/27 19:34
+ */
 public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordPresenter> implements IpqcRecordView {
 
 
@@ -48,6 +56,15 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
      */
     private MaterialSpinner spinnerTime;
     List<IpqcCommonResult.DpListBean> qualityTimes = new ArrayList<>();
+    /********设备类型***********************************************************************************************/
+
+    private MaterialSpinner spinnerDeviceType;
+    List<DeviceResponse> deviceTypes = new ArrayList<>();
+
+    /********设备***********************************************************************************************/
+    private MaterialSpinner spinnerDevice;
+    List<InjectMoldBean.EqpmentsBean> devices = new ArrayList<>();
+
     /**
      * 批次号
      */
@@ -76,6 +93,8 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
         myQueryConditionDialog = new MyDialog(IpqcRecordActivity.this, R.layout.dialog_ipqc_record_query);
         spinnerProcess = myQueryConditionDialog.findViewById(R.id.spinner_process);
         spinnerTime = myQueryConditionDialog.findViewById(R.id.spinner_time_frame);
+        spinnerDeviceType = myQueryConditionDialog.findViewById(R.id.spinner_device_type);
+        spinnerDevice = myQueryConditionDialog.findViewById(R.id.spinner_device);
         etBatchNo = myQueryConditionDialog.findViewById(R.id.et_batch_no);
         myQueryConditionDialog.setTextViewListener(R.id.tv_start_time, new MyDialog.DialogClickListener() {
             @Override
@@ -88,8 +107,8 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                              */
                             String date = "You picked the following date: From- " + dayOfMonth + "/" + (++monthOfYear) + "/" + year + " To " + dayOfMonthEnd + "/" + (++monthOfYearEnd) + "/" + yearEnd;
                             LogUitls.e("时间--->", date);
-                            myQueryConditionDialog.getTextView(R.id.tv_start_time).setText(DateUtils.dateStr2CommonDateStr(year,monthOfYear,dayOfMonth));
-                            myQueryConditionDialog.getTextView(R.id.tv_end_time).setText(DateUtils.dateStr2CommonDateStr(yearEnd,monthOfYearEnd,dayOfMonthEnd));
+                            myQueryConditionDialog.getTextView(R.id.tv_start_time).setText(DateUtils.dateStr2CommonDateStr(year, monthOfYear, dayOfMonth));
+                            myQueryConditionDialog.getTextView(R.id.tv_end_time).setText(DateUtils.dateStr2CommonDateStr(yearEnd, monthOfYearEnd, dayOfMonthEnd));
 
                         },
                         now.get(Calendar.YEAR),
@@ -102,11 +121,11 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
         });
         myQueryConditionDialog.setImageViewListener(R.id.iv_batch_scan, dialog
                 -> scan(Constants.REQUEST_SCAN_CODE_BATCH_NO, (requestCode, result)
-                        -> etBatchNo.setText(result)));
+                -> etBatchNo.setText(result)));
         setEdittextListener(etBatchNo, Constants.REQUEST_SCAN_CODE_BATCH_NO,
                 R.string.input_batch_no_quality, 0, result -> {
 
-        });
+                });
         /**
          * 设置默认当前时间
          */
@@ -117,25 +136,25 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
          */
         myQueryConditionDialog.setTextViewListener(R.id.tv_end_time,
                 dialog -> {
-            Calendar now = Calendar.getInstance();
-            DatePickerDialog dpd = DatePickerDialog.newInstance(
-                    (view, year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd) -> {
-                        /**
-                         * 选择 开始和结束时间的返回
-                         */
-                        String date = "You picked the following date: From- " + dayOfMonth + "/" + (++monthOfYear) + "/" + year + " To " + dayOfMonthEnd + "/" + (++monthOfYearEnd) + "/" + yearEnd;
-                        LogUitls.e("时间--->", date);
-                        myQueryConditionDialog.getTextView(R.id.tv_start_time).setText(DateUtils.dateStr2CommonDateStr(year,monthOfYear,dayOfMonth));
-                        myQueryConditionDialog.getTextView(R.id.tv_end_time).setText(DateUtils.dateStr2CommonDateStr(yearEnd,monthOfYearEnd,dayOfMonthEnd));
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            (view, year, monthOfYear, dayOfMonth, yearEnd, monthOfYearEnd, dayOfMonthEnd) -> {
+                                /**
+                                 * 选择 开始和结束时间的返回
+                                 */
+                                String date = "You picked the following date: From- " + dayOfMonth + "/" + (++monthOfYear) + "/" + year + " To " + dayOfMonthEnd + "/" + (++monthOfYearEnd) + "/" + yearEnd;
+                                LogUitls.e("时间--->", date);
+                                myQueryConditionDialog.getTextView(R.id.tv_start_time).setText(DateUtils.dateStr2CommonDateStr(year, monthOfYear, dayOfMonth));
+                                myQueryConditionDialog.getTextView(R.id.tv_end_time).setText(DateUtils.dateStr2CommonDateStr(yearEnd, monthOfYearEnd, dayOfMonthEnd));
 
-                    },
-                    now.get(Calendar.YEAR),
-                    now.get(Calendar.MONTH),
-                    now.get(Calendar.DAY_OF_MONTH)
-            );
-            dpd.setAutoHighlight(true);
-            dpd.show(getFragmentManager(), "Datepickerdialog");
-        });
+                            },
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+                    dpd.setAutoHighlight(true);
+                    dpd.show(getFragmentManager(), "Datepickerdialog");
+                });
         myQueryConditionDialog.setViewListener(R.id.view_left,
                 dialog -> dialog.dismiss())
                 .setButtonListener(R.id.btn_cancel, null,
@@ -144,10 +163,15 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                     dialog.dismiss();
                     IpqcRecordRequest recordRequest = new IpqcRecordRequest();
                     recordRequest.setLotNo(etBatchNo.getText().toString().trim());
-                    recordRequest.setPlanDateStart( myQueryConditionDialog.getTextView(R.id.tv_start_time).getText().toString().trim());
+                    recordRequest.setPlanDateStart(myQueryConditionDialog.getTextView(R.id.tv_start_time).getText().toString().trim());
                     recordRequest.setPlanDateEnd(myQueryConditionDialog.getTextView(R.id.tv_end_time).getText().toString().trim());
                     recordRequest.setProcess(mData.get(spinnerProcess.getSelectedIndex()).getValue());
                     recordRequest.setTimePerod(qualityTimes.get(spinnerTime.getSelectedIndex()).getValue());
+                    recordRequest.setEqTypeCode(deviceTypes.get(spinnerDeviceType.getSelectedIndex()).getEquipmentTypeCode());
+                    /**
+                     * 是否选择过设备类型，如果没选择过则直接传空
+                     */
+                    recordRequest.setEqCode(devices.isEmpty() ? "" : devices.get(spinnerDevice.getSelectedIndex()).getValue());
                     showProgressDialog();
                     getPresenter().getIPQCInfoAsync(recordRequest);
                 });
@@ -166,6 +190,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
         //工序和时段
         getPresenter().getTimePerodAsync();
         getPresenter().getProcessSelectSubscriber();
+        getPresenter().getEquipmentTypeListasync();
     }
 
     @Override
@@ -185,7 +210,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
             dpListBean.setDisplayText(getString(R.string.please_select));
             dpListBean.setValue("");
             qualityTimes.add(dpListBean);
-            qualityTimes.addAll( o.getDpList());
+            qualityTimes.addAll(o.getDpList());
 
             ArrayList<String> strs = new ArrayList<>();
             for (int i = 0; i < qualityTimes.size(); i++) {
@@ -222,7 +247,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
 
     @Override
     public void getIPQCInfoAsync(IpqcRecordResult o) {
-        if (null != o&&!o.getIPQCRecordList().isEmpty()&&!o.getIPQCRcardList().isEmpty()) {
+        if (null != o && !o.getIPQCRecordList().isEmpty() && !o.getIPQCRcardList().isEmpty()) {
             mIpqcRecordResult = o;
             mRecordList.clear();
             mRecordList.addAll(mIpqcRecordResult.getIPQCRecordList());
@@ -243,15 +268,15 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                         holder.setTextView(R.id.tv_ipqc_date, time);
                         holder.setTextView(R.id.tv_time_frame_name, item.getPlanTpCode());
                         holder.setTextView(R.id.tv_ipqc_batch, item.getLotNo());
-                        for (int i = 0; i <mRecardList.size() ; i++) {
+                        holder.setTextView(R.id.tv_status, item.getEqCode());
+                        for (int i = 0; i < mRecardList.size(); i++) {
                             IpqcRecordResult.IPQCRcardListBean ipqcRcardListBean = mRecardList.get(i);
-                            if(ipqcRcardListBean.getLotNo().equals(item.getLotNo())){
+                            if (ipqcRcardListBean.getLotNo().equals(item.getLotNo())) {
                                 boolean good = ipqcRcardListBean.getStatus().equals("GOOD");
-                                holder.setTextView(R.id.tv_ipqc_result,good?getString(R.string.pass):getString(R.string.unpass));
+                                holder.setTextView(R.id.tv_ipqc_result, good ? getString(R.string.pass) : getString(R.string.unpass));
                                 holder.getTextView(R.id.tv_ipqc_result)
-                                        .setTextColor(good?getResources().getColor(R.color.colorPrimary)
-                                                :getResources().getColor(R.color.red));
-                                holder.setTextView(R.id.tv_status,ipqcRcardListBean.getStatus());
+                                        .setTextColor(good ? getResources().getColor(R.color.colorPrimary)
+                                                : getResources().getColor(R.color.red));
 
                             }
                         }
@@ -263,7 +288,51 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                 adapter.notifyDataSetChanged();
             }
         } else {
-            CommonDialogUtils.showErrorTipDialog(this,getString(R.string.query_tip),getString(R.string.tip_no_check_record));
+            CommonDialogUtils.showErrorTipDialog(this, getString(R.string.query_tip), getString(R.string.tip_no_check_record));
+        }
+    }
+
+    @Override
+    public void getEquipmentTypeListasync(List<DeviceResponse> data) {
+        if (null == data || data.isEmpty()) {
+            spinnerDeviceType.setText(R.string.no_process);
+        } else {
+            deviceTypes.clear();
+            DeviceResponse response=new DeviceResponse();
+            response.setEquipmentTypeName(getString(R.string.please_select));
+            response.setEquipmentTypeCode("");
+            deviceTypes.add(response);
+            deviceTypes.addAll(data);
+            ArrayList<String> strs = new ArrayList<>();
+            for (int i = 0; i < deviceTypes.size(); i++) {
+                strs.add(deviceTypes.get(i).getEquipmentTypeName());
+            }
+            spinnerDeviceType.setItems(strs);
+
+            /**
+             * 设置监听器
+             */
+            spinnerDeviceType.setOnItemSelectedListener((view, position, id, item) -> {
+                showProgressDialog();
+                getPresenter().getEqCodeAsync(deviceTypes.get(position).getEquipmentTypeCode());
+            });
+        }
+    }
+
+    @Override
+    public void getEqCodeAsync(IpqcCommonResult o) {
+        if (null != o.getEqCodeList() && !o.getEqCodeList().isEmpty()) {
+            devices.clear();
+            InjectMoldBean.EqpmentsBean eqpmentsBean = new InjectMoldBean.EqpmentsBean();
+            eqpmentsBean.setDisplayText(getString(R.string.please_select));
+            eqpmentsBean.setValue("");
+            devices.add(eqpmentsBean);
+            devices.addAll(o.getEqCodeList());
+            ArrayList<String> strings = new ArrayList<>();
+            for (int i = 0; i < devices.size(); i++) {
+                strings.add(devices.get(i).getDisplayText());
+            }
+            spinnerDevice.setItems(strings);
         }
     }
 

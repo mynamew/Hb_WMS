@@ -1,13 +1,20 @@
 package com.jzk.hebi_wms.mvp.ipqc.record;
 
 import com.jzk.hebi_wms.base.model.impl.MvpBaseModel;
+import com.jzk.hebi_wms.data.device.DeviceResponse;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcProcessResult;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordRequest;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordResult;
 import com.jzk.hebi_wms.data.station.NoneClass;
 import com.jzk.hebi_wms.http.HttpManager;
+import com.jzk.hebi_wms.http.api.ApiService;
+import com.jzk.hebi_wms.http.api.CommonResult;
+import com.jzk.hebi_wms.http.callback.ApiServiceMethodCallBack;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 
 /**
@@ -40,5 +47,26 @@ public class IpqcRecordModel extends MvpBaseModel {
     public void getIPQCInfoAsync(IpqcRecordRequest recordRequest,Observer<IpqcRecordResult> observer){
         HttpManager.getInstance().HttpManagerRequest(observer, apiService ->
                 apiService.getIPQCInfoAsync(recordRequest));
+    }
+    /**
+     * 获取设备列表
+     *
+     * @param observer
+     */
+    public void getEqCodeAsync(String eqType,Observer<IpqcCommonResult> observer) {
+        HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
+            @Override
+            public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
+                return apiService.getEqCodeAsync(eqType);
+            }
+        });
+    }
+    /**
+     * 获取设备列表
+     * @param observer
+     */
+    public void getEquipmentTypeListasync( Observer<List<DeviceResponse>> observer){
+        HttpManager.getInstance().HttpManagerRequest(observer, apiService ->
+                apiService.getEquipmentTypeListasync(new NoneClass()));
     }
 }

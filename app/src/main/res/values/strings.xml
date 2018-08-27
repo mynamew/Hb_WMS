@@ -255,5 +255,10 @@
     /**====== 选择设备======**/
     <string name="device_type">设备类型</string>
     <string name="title_select_device">选择设备</string>
+    <string name="tip_select_device_type">请选择设备类型！</string>
+    <string name="input_device">请输入/扫描设备</string>
+    <string name="tip_device_not_alive">您输入/扫描的设备不存在！</string>
+    <string name="device">设备</string>
+    <string name="all">全部</string>
 
 </resources>

@@ -1,9 +1,12 @@
 package com.jzk.hebi_wms.mvp.ipqc.record;
 
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
+import com.jzk.hebi_wms.data.device.DeviceResponse;
 import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcProcessResult;
 import com.jzk.hebi_wms.data.ipqc.record.IpqcRecordResult;
+
+import java.util.List;
 
 /**
   * ipac抽检记录的view
@@ -28,4 +31,14 @@ public interface IpqcRecordView extends MvpBaseView {
      * @param o
      */
     void getIPQCInfoAsync(IpqcRecordResult o);
+    /**
+     * 获取到的设备
+     * @param o
+     */
+    void getEquipmentTypeListasync(List<DeviceResponse> o);
+    /**
+     * 获取设备列表
+     * @param o
+     */
+    void getEqCodeAsync(IpqcCommonResult o);
 }
