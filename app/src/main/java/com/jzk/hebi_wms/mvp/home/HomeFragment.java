@@ -17,11 +17,12 @@ import com.jzk.hebi_wms.data.LoginBean;
 import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
-import com.jzk.hebi_wms.mvp.polishing.PolishingActivity;
 import com.jzk.hebi_wms.mvp.cnc.CNC1Activity;
 import com.jzk.hebi_wms.mvp.inject_mold.InjectMoldActivity;
 import com.jzk.hebi_wms.mvp.ipqc.CheckAppearanceActivity;
+import com.jzk.hebi_wms.mvp.ipqc.record.IpqcRecordActivity;
 import com.jzk.hebi_wms.mvp.paint.PaintActivity;
+import com.jzk.hebi_wms.mvp.polishing.PolishingActivity;
 import com.jzk.hebi_wms.mvp.supply.StationSelectActivity;
 import com.jzk.hebi_wms.utils.PackageUtils;
 import com.jzk.hebi_wms.utils.SDCardUtils;
@@ -109,6 +110,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 case Constants.PERMISSION_PAINT:
                     it.setClass(Objects.requireNonNull(getActivity()), PaintActivity.class);
                     break;
+                case Constants.PERMISSION_QUALITY_RECORD:
+                    it.setClass(Objects.requireNonNull(getActivity()), IpqcRecordActivity.class);
+                    break;
                 default:
                     break;
             }
@@ -178,7 +182,8 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 R.mipmap.home_cnc,
                 R.mipmap.home_polish,
                 R.mipmap.qulity_inspection,
-                R.mipmap.query_materail_sn_from
+                R.mipmap.query_materail_sn_from,
+                R.mipmap.home_quality_record
         };
         /**
          * 权限Codes
@@ -192,6 +197,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                         Constants.PERMISSION_POLISH,
                         Constants.PERMISSION_QUALITY,
                         Constants.PERMISSION_PAINT,
+                        Constants.PERMISSION_QUALITY_RECORD,
                 };
         /**
          * 设置菜单的数据源
@@ -267,6 +273,9 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
                 break;
             case Constants.PERMISSION_PAINT:
                 codePermission.put(Constants.PERMISSION_PAINT, permissionName);
+                break;
+            case Constants.PERMISSION_QUALITY_RECORD:
+                codePermission.put(Constants.PERMISSION_QUALITY_RECORD, permissionName);
                 break;
             default:
                 break;

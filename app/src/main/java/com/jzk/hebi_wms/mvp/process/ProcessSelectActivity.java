@@ -3,6 +3,7 @@ package com.jzk.hebi_wms.mvp.process;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.jzk.hebi_wms.base.Constants.USER_RESET_INJECT;
 
 /**
  * 工序选择
@@ -41,6 +44,8 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
 
     //工序
     String processSelect = "";
+    @BindView(R.id.cb_reset_status)
+    CheckBox cbResetStatus;
 
     @Override
     public int setLayoutId() {
@@ -72,7 +77,8 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
         }
         showProgressDialog();
         getPresenter().getProcessSelectSubscriber();
-
+        boolean isResetInject=SpUtils.getInstance().getBoolean(USER_RESET_INJECT);
+        cbResetStatus.setChecked(isResetInject);
     }
 
     @Override
@@ -132,8 +138,8 @@ public class ProcessSelectActivity extends BaseActivity<ProcessSelectView, Proce
         }
         SpUtils.getInstance().putProcessSelect(mData.get(spinnerProcess.getSelectedIndex()).getProcessName());
         SpUtils.getInstance().putProcessSelectCode(mData.get(spinnerProcess.getSelectedIndex()).getProcessCode());
+        SpUtils.getInstance().putBoolean(USER_RESET_INJECT,cbResetStatus.isChecked());
         ToastUtils.showShort(R.string.commit_success);
         onBackPressed();
     }
-
 }

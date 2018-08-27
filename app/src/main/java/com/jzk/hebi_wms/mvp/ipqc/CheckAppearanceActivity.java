@@ -24,7 +24,6 @@ import com.jzk.hebi_wms.data.ipqc.IpqcCommonResult;
 import com.jzk.hebi_wms.data.ipqc.SaveCheckResultRequest;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.CheckAppearanceEvent;
-import com.jzk.hebi_wms.mvp.ipqc.record.IpqcRecordActivity;
 import com.jzk.hebi_wms.mvp.ipqc.result.CheckResultActivity;
 import com.jzk.hebi_wms.utils.DateUtils;
 import com.jzk.hebi_wms.utils.LogUitls;
@@ -178,12 +177,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         });
 
         setBatchNoSelect();
-        setRightImg(R.mipmap.title_head_detail, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CheckAppearanceActivity.this, IpqcRecordActivity.class));
-            }
-        });
+
     }
 
     @Override

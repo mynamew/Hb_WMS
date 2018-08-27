@@ -83,6 +83,10 @@ public class Constants {
      * 用户所有的信息
      */
     public static final String USER_INFO = "USER_INFO";
+    /**
+     * 是否重置注塑状态
+     */
+    public static final String USER_RESET_INJECT= "USER_RESET_INJECT";
     /***********
      * 扫码相关
      *********************************************************************************************/
@@ -167,6 +171,7 @@ public class Constants {
     public static final String PERMISSION_POLISH = "Pages.ProductionPlan.DataCollection.Polish";
     public static final String PERMISSION_QUALITY = "Pages.QualityControl.IPQC.IPQCManage.IPQCCollection";
     public static final String PERMISSION_PAINT = "Pages.ProductionPlan.DataCollection.Paint";
+    public static final String PERMISSION_QUALITY_RECORD = "Pages.QualityControl.IPQC.IPQCManage.IPQCQuery";
     /**
      * 安装的请求码
      */

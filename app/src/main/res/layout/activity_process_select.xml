@@ -54,10 +54,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60px"
+            android:layout_marginLeft="30px"
             android:layout_marginRight="30px"
             android:background="@drawable/bg_rectangle_et_unfocused"
             android:padding="5px"
-            android:layout_marginLeft="30px"
             >
 
             <com.jzk.spinnerlibrary.MaterialSpinner
@@ -70,65 +70,82 @@
                 app:ms_hint_color="@color/color_666"/>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_process_unselected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="center_vertical|right"
         android:layout_marginRight="30px"
         android:layout_marginTop="20px"
-        android:orientation="horizontal">
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
         <TextView
-            android:textColor="#ff0000"
-            android:text="*"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#ff0000"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/user_not_select_process"
             android:layout_marginLeft="10px"
+            android:text="@string/user_not_select_process"
             android:textColor="@color/color_666"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_process_selected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|right"
-        android:visibility="gone"
         android:layout_marginRight="30px"
         android:layout_marginTop="20px"
-        android:orientation="horizontal">
+        android:gravity="center_vertical|right"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
         <TextView
-            android:textColor="#ff0000"
-            android:text="*"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="#ff0000"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/user_have_select"
             android:layout_marginLeft="10px"
+            android:text="@string/user_have_select"
             android:textColor="@color/color_666"/>
+
         <TextView
             android:id="@+id/tv_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="注塑"
             android:layout_marginLeft="10px"
+            android:text="注塑"
             android:textColor="#ff0000"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/process"
             android:layout_marginLeft="10px"
+            android:text="@string/process"
             android:textColor="@color/color_666"/>
     </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cb_reset_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="20px"
+        android:layout_marginRight="30px"
+        android:text="是否重置注塑状态"/>
 
     <View
         android:layout_width="match_parent"

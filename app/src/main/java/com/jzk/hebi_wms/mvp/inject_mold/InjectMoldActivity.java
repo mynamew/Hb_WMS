@@ -546,14 +546,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          */
         if(rdBad.isChecked()){
             /**
-             * 初始化选择良品
-             * 设置所有不良代码全不选中
+             * 根据用户设置是否充值注塑的状态： 良品：不良品
              */
-            for (int i = 0; i < mErrorsSelect.size(); i++) {
-                mErrorsSelect.get(i).setSelect(false);
+            if(SpUtils.getInstance().getBoolean(Constants.USER_RESET_INJECT)){
+                /**
+                 * 初始化选择良品
+                 * 设置所有不良代码全不选中
+                 */
+                for (int i = 0; i < mErrorsSelect.size(); i++) {
+                    mErrorsSelect.get(i).setSelect(false);
+                }
+                mErrorSelectAdapter.notifyDataSetChanged();
+                rdGood.performClick();
             }
-            mErrorSelectAdapter.notifyDataSetChanged();
-            rdGood.performClick();
         }
     }
 
