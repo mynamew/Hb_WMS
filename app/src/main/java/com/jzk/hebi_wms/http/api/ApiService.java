@@ -7,6 +7,7 @@ import com.jzk.hebi_wms.data.UserInfoBean;
 import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.data.cnc.CncBean;
 import com.jzk.hebi_wms.data.cnc.CncRequest;
+import com.jzk.hebi_wms.data.device.DeviceResponse;
 import com.jzk.hebi_wms.data.inject.CheckRCardInfoRquest;
 import com.jzk.hebi_wms.data.inject.EquipmentByTypeList;
 import com.jzk.hebi_wms.data.inject.InjectMouldCommitRequest;
@@ -123,7 +124,11 @@ public interface ApiService {
      */
     @POST("api/services/productionplan/LoginStationCode/GetProcessList")
     Observable<CommonResult<List<ProcessSelectBean>>> getProcessList(@Body NoneClass noneClass);
-
+    /**
+     * 设备类型选择
+     */
+    @POST("api/services/productionplan/loginStationCode/GetEquipmentTypeListasync")
+    Observable<CommonResult<List<DeviceResponse>>> getEquipmentTypeListasync(@Body NoneClass noneClass);
     /**
      * 工位选择
      */

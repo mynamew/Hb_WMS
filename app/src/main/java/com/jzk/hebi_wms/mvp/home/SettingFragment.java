@@ -17,6 +17,7 @@ import com.jzk.hebi_wms.data.VersionBean;
 import com.jzk.hebi_wms.http.message.BaseMessage;
 import com.jzk.hebi_wms.http.message.event.HomeEvent;
 import com.jzk.hebi_wms.mvp.about.AboutActivity;
+import com.jzk.hebi_wms.mvp.device.SelectDeviceTypeActivity;
 import com.jzk.hebi_wms.mvp.deviceinfo.DeviceInfoActivity;
 import com.jzk.hebi_wms.mvp.login.LoginActivity;
 import com.jzk.hebi_wms.mvp.org_change.OrganizationSwitchActivity;
@@ -74,7 +75,7 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
      *
      * @param view
      */
-    @OnClick({R.id.tv_set_update_team, R.id.tv_set_process, R.id.tv_set_exit, R.id.tv_set_server, R.id.btn_set_exit, R.id.rl_set_update_version, R.id.tv_set_userinfo, R.id.tv_set_deviceinfo, R.id.tv_set_update_psw, R.id.tv_set_about})
+    @OnClick({R.id.tv_set_update_team,R.id.tv_set_device, R.id.tv_set_process, R.id.tv_set_exit, R.id.tv_set_server, R.id.btn_set_exit, R.id.rl_set_update_version, R.id.tv_set_userinfo, R.id.tv_set_deviceinfo, R.id.tv_set_update_psw, R.id.tv_set_about})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             /**
@@ -119,6 +120,12 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
              */
             case R.id.tv_set_process:
                 startActivity(new Intent(getActivity(), ProcessSelectActivity.class));
+                break;
+            /**
+             * 选择设备
+             */
+            case R.id.tv_set_device:
+                startActivity(new Intent(getActivity(), SelectDeviceTypeActivity.class));
                 break;
             /**
              * 服务配置

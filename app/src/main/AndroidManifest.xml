@@ -134,9 +134,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
-        <activity android:name=".mvp.ipqc.record.IpqcRecordActivity"
-                  android:screenOrientation="portrait"
-                  android:windowSoftInputMode="adjustPan|stateHidden">
+        <activity
+            android:name=".mvp.ipqc.record.IpqcRecordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
+        <activity android:name=".mvp.device.SelectDeviceTypeActivity">
         </activity>
     </application>
 

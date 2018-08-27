@@ -67,8 +67,13 @@
                 android:id="@+id/tv_set_process"
                 style="@style/set_tab_item"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/set_language"
+                android:drawableLeft="@mipmap/set_select_process"
                 android:text="选择工序"/>
+            <TextView
+                android:id="@+id/tv_set_device"
+                style="@style/set_tab_item"
+                android:drawableLeft="@mipmap/set_select_device"
+                android:text="选择设备"/>
 
             <TextView
                 android:id="@+id/tv_set_server"

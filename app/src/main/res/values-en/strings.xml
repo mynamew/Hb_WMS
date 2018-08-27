@@ -247,4 +247,7 @@
     <string name="result">Result</string>
     <string name="status">Status：</string>
     <string name="please_select">Please Select</string>
+    /**====== 选择设备======**/
+    <string name="device_type">Ddevice Type</string>
+    <string name="title_select_device">Select Device</string>
 </resources>

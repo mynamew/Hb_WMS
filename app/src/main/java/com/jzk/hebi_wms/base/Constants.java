@@ -134,8 +134,14 @@ public class Constants {
     /***********
      * SharePerference存储工序  key /  value的前缀
      *********************************************************************************************/
+
     public static final String PROCESS_SELECT = "PROCESS_SELECT";
     public static final String PROCESS_SELECT_CODE = "PROCESS_SELECT_CODE";
+    /***********
+     * SharePerference存储设备  key /  value的前缀
+     ********************************************************************************************/
+    public static final String DEVICE_SELECT_NAME = "DEVICE_SELECT_NAME";
+    public static final String DEVICE_SELECT_CODE = "DEVICE_SELECT_CODE";
     /***********
      *SharePerference　存储 应用语言设置 中文简体（zh-CN）、中文繁体（zh-TW）、English（en）
      *********************************************************************************************/

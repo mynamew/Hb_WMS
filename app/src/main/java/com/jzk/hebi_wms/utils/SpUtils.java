@@ -378,6 +378,54 @@ public class SpUtils {
         return  processSelectCode;
     }
     /**
+     * 存入设备名
+     *
+     * @param value
+     */
+    public SpUtils putDeviceSelectName(String value) {
+        getSharedPreferences();
+        editor.putString(Constants.DEVICE_SELECT_NAME, value).commit();
+        return this;
+    }
+
+    /**
+     * 获取设备名
+     *
+     * @return
+     */
+    public String getDeviceSelectName() {
+        getSharedPreferences();
+        String processSelect = mPreference.getString(Constants.DEVICE_SELECT_NAME, "");
+        if (TextUtils.isEmpty(processSelect)) {
+            return "";
+        }
+        return  processSelect;
+    }
+    /**
+     * 存入选择设备Code
+     *
+     * @param value
+     */
+    public SpUtils putDeivceSelectCode(String value) {
+        getSharedPreferences();
+        editor.putString(Constants.DEVICE_SELECT_CODE, value).commit();
+        return this;
+    }
+
+    /**
+     * 获取选择设备Code
+     *
+     * @return
+     */
+    public String getDeivceSelectCode() {
+        getSharedPreferences();
+        String processSelectCode = mPreference.getString(Constants.DEVICE_SELECT_CODE, "");
+        if (TextUtils.isEmpty(processSelectCode)) {
+            return "";
+        }
+        return  processSelectCode;
+    }
+    /**
      * 存入登录的实体
      *
      * @param value

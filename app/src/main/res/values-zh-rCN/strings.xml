@@ -250,4 +250,7 @@
     <string name="result">结果</string>
     <string name="status">状态：</string>
     <string name="please_select">请选择</string>
+    /**====== 选择设备======**/
+    <string name="device_type">设备类型</string>
+    <string name="title_select_device">选择设备</string>
 </resources>
