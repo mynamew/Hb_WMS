@@ -157,6 +157,7 @@ public class Constants {
      * Activity之间传递抽检外观的数据
      *********************************************************************************************/
     public static final String QUALITY_APPEARANCE_BEAN = "QUALITY_APPEARANCE_BEAN";
+    public static final String QUALITY_APPEARANCE_RESULT_PROCESS= "QUALITY_APPEARANCE_RESULT_PROCESS";
     /***********
      * 跳转 传递的相关字段
      *********************************************************************************************/

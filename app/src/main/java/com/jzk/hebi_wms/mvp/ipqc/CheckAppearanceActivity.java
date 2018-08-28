@@ -40,6 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -123,7 +124,10 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
      ****************************************************************************/
     BaseRecyclerAdapter<IpqcCommonResult.Lot2RcardListBean> adapter;
     List<IpqcCommonResult.Lot2RcardListBean> mDatas = new ArrayList<>();
-
+    /**
+     * 工序对应的不良代码的Code
+     */
+    HashMap<String,String> processMap=new HashMap<>();
     @Override
     public int setLayoutId() {
         return R.layout.activity_check_appearance;
@@ -213,6 +217,12 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                     .setCantCancelByBackPress().setCancelByOutside(false).show();
             return;
         }
+        /**
+         * 初始化工序的key value
+         */
+        processMap.put("MD","MOLDING");
+        processMap.put("CNC1INSPECTION","CNC1");
+        processMap.put("PRLINSPECTION","POLISH");
         /**
          * 获取当前年月日
          */
@@ -512,8 +522,11 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         resultRequest.setEqCode(qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue());
         Intent intent = new Intent(this, CheckResultActivity.class);
         intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, new Gson().toJson(resultRequest));
+        String processSelectCode = qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue();
+        intent.putExtra(Constants.QUALITY_APPEARANCE_RESULT_PROCESS,processMap.get(processSelectCode));
         startActivity(intent);
     }
+
 
     @Override
     public void setBatchNoSelect() {

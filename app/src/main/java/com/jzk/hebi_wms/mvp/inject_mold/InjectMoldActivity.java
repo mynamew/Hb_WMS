@@ -567,6 +567,19 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
                 rdGood.performClick();
             }
         }
+        /**
+         * 如果是从不良品检验，到良品检验则需要重置
+         */
+        if(rdGood.isChecked()&&null!=mErrorsSelect&&!mErrorsSelect.isEmpty()){
+            /**
+             * 初始化选择良品
+             * 设置所有不良代码全不选中
+             */
+            for (int i = 0; i < mErrorsSelect.size(); i++) {
+                mErrorsSelect.get(i).setSelect(false);
+            }
+            mErrorSelectAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

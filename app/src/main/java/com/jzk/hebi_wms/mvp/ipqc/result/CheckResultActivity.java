@@ -293,7 +293,14 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
          * 获取errorgroup
          */
         if (null != o.getErrorGroups() && !o.getErrorGroups().isEmpty()) {
-            mErrorGroups.addAll(o.getErrorGroups());
+            /**
+             * 注塑工序
+             */
+            for (int i = 0; i <o.getErrorGroups().size() ; i++) {
+                if(o.getErrorGroups().get(i).getErrorGroupCode().contains("MOLDING")){
+                    mErrorGroups.add(o.getErrorGroups().get(i));
+                }
+            }
             /**
              *不良代码组的下拉框数据初始化
              */
