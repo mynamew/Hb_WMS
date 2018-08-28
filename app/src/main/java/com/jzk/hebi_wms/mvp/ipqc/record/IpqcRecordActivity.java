@@ -305,6 +305,10 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
             }
         } else {
             CommonDialogUtils.showErrorTipDialog(this, getString(R.string.query_tip), getString(R.string.tip_no_check_record));
+            if(null!=mRecordList&&!mRecordList.isEmpty()){
+                mRecordList.clear();
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 

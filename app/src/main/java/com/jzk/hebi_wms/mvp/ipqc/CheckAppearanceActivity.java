@@ -445,6 +445,20 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     @Override
     public void createNewLotNoAsync(IpqcCommonResult o) {
         ToastUtils.showShort(R.string.tip_create_batch_no_success);
+        /**
+         * 清空产品信息
+         */
+        if(null!=mDatas&&!mDatas.isEmpty()){
+            mDatas.clear();
+           adapter.notifyDataSetChanged();
+        }
+        /**
+         * 清空 实际样本  合格样本呢 不合格样本 抽检总数
+         */
+        tvQualityTotal.setText("0");
+        tvPassSample.setText("0");
+        tvUnpassSample.setText("0");
+        tvTimeActualSample.setText("0");
         etBatchNo.setText(o.getLotNo());
         setProductSerialNoSelect();
     }

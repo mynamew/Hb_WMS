@@ -82,6 +82,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     @BindView(R.id.btn_save)
     TextView btnSave;
 
+    String  process;
     @Override
     public int setLayoutId() {
         return R.layout.activity_check_result;
@@ -91,6 +92,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
     public void initBundle(Bundle savedInstanceState) {
         setActivityTitle(R.string.title_product_result);
         resultRequest = new Gson().fromJson(getIntent().getStringExtra(Constants.QUALITY_APPEARANCE_BEAN), SaveCheckResultRequest.class);
+        process=getIntent().getStringExtra(Constants.QUALITY_APPEARANCE_RESULT_PROCESS);
     }
 
     @Override
@@ -297,7 +299,7 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
              * 注塑工序
              */
             for (int i = 0; i <o.getErrorGroups().size() ; i++) {
-                if(o.getErrorGroups().get(i).getErrorGroupCode().contains("MOLDING")){
+                if(o.getErrorGroups().get(i).getErrorGroupCode().contains(process)){
                     mErrorGroups.add(o.getErrorGroups().get(i));
                 }
             }

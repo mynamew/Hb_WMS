@@ -199,6 +199,15 @@ public class IpqcCommonResult {
         public void setStatus(String status) {
             this.status = status;
         }
+
+        @Override
+        public String toString() {
+            return "Lot2RcardListBean{" +
+                    "isSelected=" + isSelected +
+                    ", rCard='" + rCard + '\'' +
+                    ", status='" + status + '\'' +
+                    '}';
+        }
     }
 
     public static class DpListBean {
@@ -234,6 +243,15 @@ public class IpqcCommonResult {
 
         public void setIsSelected(boolean isSelected) {
             this.isSelected = isSelected;
+        }
+
+        @Override
+        public String toString() {
+            return "DpListBean{" +
+                    "value='" + value + '\'' +
+                    ", displayText='" + displayText + '\'' +
+                    ", isSelected=" + isSelected +
+                    '}';
         }
     }
     public static class ResultMessagesBean {
@@ -280,6 +298,16 @@ public class IpqcCommonResult {
         public void setResult(Object result) {
             this.result = result;
         }
+
+        @Override
+        public String toString() {
+            return "ResultMessagesBean{" +
+                    "messageType=" + messageType +
+                    ", isSuccess=" + isSuccess +
+                    ", messageText='" + messageText + '\'' +
+                    ", result=" + result +
+                    '}';
+        }
     }
 
     public List<InjectMoldBean.EqpmentsBean> getEqCodeList() {
@@ -288,5 +316,27 @@ public class IpqcCommonResult {
 
     public void setEqCodeList(List<InjectMoldBean.EqpmentsBean> eqCodeList) {
         this.eqCodeList = eqCodeList;
+    }
+
+    @Override
+    public String toString() {
+        return "IpqcCommonResult{" +
+                "lotNo='" + lotNo + '\'' +
+                ", actualLotSize=" + actualLotSize +
+                ", actualSampleSize=" + actualSampleSize +
+                ", goodSampleSize=" + goodSampleSize +
+                ", ngSampleSize=" + ngSampleSize +
+                ", isCheckPass=" + isCheckPass +
+                ", ipqcName='" + ipqcName + '\'' +
+                ", ipqcDesc='" + ipqcDesc + '\'' +
+                ", planDay=" + planDay +
+                ", totalCount=" + totalCount +
+                ", planTpCode='" + planTpCode + '\'' +
+                ", processCode='" + processCode + '\'' +
+                ", lot2RcardList=" + lot2RcardList +
+                ", resultMessages=" + resultMessages +
+                ", dpList=" + dpList +
+                ", eqCodeList=" + eqCodeList +
+                '}';
     }
 }

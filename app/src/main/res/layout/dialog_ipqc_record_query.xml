@@ -19,10 +19,6 @@
         android:layout_alignParentRight="true"
         android:background="#fff"
         android:orientation="vertical">
-
-      <android.support.v4.widget.NestedScrollView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
           <LinearLayout
               android:orientation="vertical"
               android:layout_width="match_parent"
@@ -222,6 +218,7 @@
                       app:ms_hint_color="@color/color_666"/>
               </LinearLayout>
               <RelativeLayout
+                  android:layout_marginRight="20px"
                   android:layout_width="match_parent"
                   android:layout_height="58px"
                   android:layout_marginTop="20px"
@@ -270,6 +267,7 @@
                   android:textStyle="bold"/>
 
               <RelativeLayout
+                  android:layout_marginRight="20px"
                   android:layout_width="match_parent"
                   android:layout_height="64px"
                   android:layout_marginTop="20px"
@@ -282,7 +280,7 @@
                       android:layout_marginLeft="40px"
                       android:layout_marginStart="40px"
                       android:gravity="center"
-                      android:text="@string/batch_no"
+                      android:text="@string/batchno"
                       android:textColor="#333"
                       android:textSize="13sp"
                       />
@@ -310,7 +308,7 @@
 
               <View
                   android:layout_width="580px"
-                  android:layout_height="1dp"
+                  android:layout_height="match_parent"
                   android:layout_weight="1"/>
 
               <LinearLayout
@@ -348,6 +346,5 @@
                       android:textSize="16sp"/>
               </LinearLayout>
           </LinearLayout>
-      </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 </com.zhy.autolayout.AutoLinearLayout>
