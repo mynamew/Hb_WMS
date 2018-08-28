@@ -141,11 +141,11 @@ public class CheckAppearanceModel extends MvpBaseModel {
      * @param lotNo
      * @param observer
      */
-    public void ipacLotPassAsync(String lotNo, Observer<IpqcCommonResult> observer) {
+    public void ipacLotPassAsync(String lotNo,String eqCode, Observer<IpqcCommonResult> observer) {
         HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
             @Override
             public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
-                return apiService.ipacLotPassAsync(lotNo);
+                return apiService.ipacLotPassAsync(lotNo,eqCode);
             }
         });
     }
@@ -156,11 +156,11 @@ public class CheckAppearanceModel extends MvpBaseModel {
      * @param lotNo
      * @param observer
      */
-    public void ipqcLotRejectAsync(String lotNo, Observer<IpqcCommonResult> observer) {
+    public void ipqcLotRejectAsync(String lotNo,String eqCode, Observer<IpqcCommonResult> observer) {
         HttpManager.getInstance().HttpManagerRequest(observer, new ApiServiceMethodCallBack<IpqcCommonResult>() {
             @Override
             public Observable<CommonResult<IpqcCommonResult>> createObservable(ApiService apiService) {
-                return apiService.ipqcLotRejectAsync(lotNo);
+                return apiService.ipqcLotRejectAsync(lotNo, eqCode);
             }
         });
     }

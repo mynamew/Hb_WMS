@@ -304,7 +304,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/IPQCLotPassAsync")
-    Observable<CommonResult<IpqcCommonResult>> ipacLotPassAsync(@Field("LotNo") String lotNo);
+    Observable<CommonResult<IpqcCommonResult>> ipacLotPassAsync(@Field("LotNo") String lotNo,@Field("EqCode") String eqCode);
     /**
      * 批退
      *
@@ -313,7 +313,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/IPQCLotRejectAsync")
-    Observable<CommonResult<IpqcCommonResult>> ipqcLotRejectAsync(@Field("LotNo") String lotNo);
+    Observable<CommonResult<IpqcCommonResult>> ipqcLotRejectAsync(@Field("LotNo") String lotNo,@Field("EqCode") String eqCode);
     /**
      * 获取采集数据
      *

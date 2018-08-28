@@ -250,8 +250,9 @@
     /**====== 选择设备======**/
     <string name="device_type">Ddevice Type</string>
     <string name="title_select_device">Select Device</string>
-    <string name="tip_select_device_type">请选择设备类型！</string>
-    <string name="tip_device_not_alive">您输入/扫描的设备不存在！</string>
-    <string name="device">设备</string>
-    <string name="all">全部</string>
+    <string name="tip_select_device_type">Please select the device type！</string>
+    <string name="tip_device_not_alive">The device you entered/scanned does not exist！</string>
+    <string name="device">Equipment</string>
+    <string name="all">All</string>
+    <string name="tip_input_device_noalive">The device you entered does not exist！</string>
 </resources>

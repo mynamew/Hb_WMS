@@ -271,7 +271,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                             public void dialogClick(MyDialog dialog) {
                                 dialog.dismiss();
                                 showProgressDialog();
-                                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim());
+                                String eqCode=qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
+                                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim(),eqCode);
                             }
                         }).setButtonListener(R.id.tv_logout_cancel, null, new MyDialog.DialogClickListener() {
                     @Override
@@ -294,7 +295,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                             public void dialogClick(MyDialog dialog) {
                                 dialog.dismiss();
                                 showProgressDialog();
-                                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim());
+                                String eqCode=qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
+                                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim(),eqCode);
                             }
                         }).setButtonListener(R.id.tv_logout_cancel, null, new MyDialog.DialogClickListener() {
                     @Override
@@ -585,6 +587,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         request.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
         request.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
         request.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+        String eqCode=qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
+        request.setEqCode(eqCode);
         getPresenter().calculateCheckCountAsync(request);
     }
 }

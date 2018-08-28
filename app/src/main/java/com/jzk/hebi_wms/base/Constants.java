@@ -125,7 +125,10 @@ public class Constants {
     /**
      * 喷漆
      */
-    public static final int REQUEST_SCAN_CODE_PAINT = 1009;
+    public static final int REQUEST_SCAN_CODE_PAINT = 1009;  /**
+     * 设备
+     */
+    public static final int REQUEST_SCAN_CODE_DEVICE= 1010;
     /***********
      * SharePerference存储token   key /  value的前缀
      *********************************************************************************************/

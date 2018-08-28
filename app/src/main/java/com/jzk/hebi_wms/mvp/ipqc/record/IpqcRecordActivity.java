@@ -64,7 +64,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
     /********设备***********************************************************************************************/
     private MaterialSpinner spinnerDevice;
     List<InjectMoldBean.EqpmentsBean> devices = new ArrayList<>();
-
+    EditText etDevice;
     /**
      * 批次号
      */
@@ -94,6 +94,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
         spinnerProcess = myQueryConditionDialog.findViewById(R.id.spinner_process);
         spinnerTime = myQueryConditionDialog.findViewById(R.id.spinner_time_frame);
         spinnerDeviceType = myQueryConditionDialog.findViewById(R.id.spinner_device_type);
+        etDevice = myQueryConditionDialog.findViewById(R.id.et_device);
         spinnerDevice = myQueryConditionDialog.findViewById(R.id.spinner_device);
         etBatchNo = myQueryConditionDialog.findViewById(R.id.et_batch_no);
         myQueryConditionDialog.setTextViewListener(R.id.tv_start_time, new MyDialog.DialogClickListener() {
@@ -175,6 +176,21 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                     showProgressDialog();
                     getPresenter().getIPQCInfoAsync(recordRequest);
                 });
+        setEdittextListener(etDevice, Constants.REQUEST_SCAN_CODE_DEVICE, R.string.input_device, 0, new EdittextInputListener() {
+            @Override
+            public void verticalSuccess(String result) {
+                boolean isAliveDevice=false;
+                for (int i = 0; i <devices.size(); i++) {
+                    if(devices.get(i).getValue().equals(result)){
+                        isAliveDevice=true;
+                        spinnerDevice.setSelectedIndex(i);
+                    }
+                }
+                if(!isAliveDevice){
+                    CommonDialogUtils.showErrorTipDialog(IpqcRecordActivity.this,getString(R.string.error_title),getString(R.string.tip_input_device_noalive));
+                }
+            }
+        });
         setRightImg(R.mipmap.quatily_fliter, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

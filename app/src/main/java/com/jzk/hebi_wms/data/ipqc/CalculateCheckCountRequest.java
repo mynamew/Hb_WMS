@@ -15,6 +15,8 @@ public class CalculateCheckCountRequest {
     private String PlanDate;
     private String Process;
     private String TimePerod;
+    private String EqCode;
+    private String EqTypeCode;
 
     public String getPlanDate() {
         return PlanDate;
@@ -40,4 +42,19 @@ public class CalculateCheckCountRequest {
         this.TimePerod = TimePerod;
     }
 
+    public String getEqCode() {
+        return EqCode;
+    }
+
+    public void setEqCode(String eqCode) {
+        EqCode = eqCode;
+    }
+
+    public String getEqTypeCode() {
+        return EqTypeCode;
+    }
+
+    public void setEqTypeCode(String eqTypeCode) {
+        EqTypeCode = eqTypeCode;
+    }
 }

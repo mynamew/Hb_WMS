@@ -257,4 +257,5 @@
     <string name="tip_device_not_alive">您输入/扫描的设备不存在！</string>
     <string name="device">设备</string>
     <string name="all">全部</string>
+    <string name="tip_input_device_noalive">您输入的设备不存在！</string>
 </resources>

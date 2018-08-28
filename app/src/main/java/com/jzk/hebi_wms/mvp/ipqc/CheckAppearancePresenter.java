@@ -190,7 +190,7 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
     /**
      * 批通过
      */
-    public void ipacLotPassAsync(String lotNo) {
+    public void ipacLotPassAsync(String lotNo,String eqCode) {
         if (null == ipacLotPassAsyncSubscriber) {
             ipacLotPassAsyncSubscriber = new HttpSubscriber<>(new OnResultCallBack<IpqcCommonResult>() {
                 @Override
@@ -204,13 +204,13 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
                 }
             });
         }
-        model.ipacLotPassAsync(lotNo, ipacLotPassAsyncSubscriber);
+        model.ipacLotPassAsync(lotNo, eqCode,ipacLotPassAsyncSubscriber);
     }
 
     /**
      * 批退
      */
-    public void ipqcLotRejectAsync(String lotNo) {
+    public void ipqcLotRejectAsync(String lotNo,String eqCode) {
         if (null == ipqcLotRejectAsyncSubscriber) {
             ipqcLotRejectAsyncSubscriber = new HttpSubscriber<>(new OnResultCallBack<IpqcCommonResult>() {
                 @Override
@@ -224,6 +224,6 @@ public class CheckAppearancePresenter extends MvpBasePresenter<CheckAppearanceVi
                 }
             });
         }
-        model.ipqcLotRejectAsync(lotNo, ipqcLotRejectAsyncSubscriber);
+        model.ipqcLotRejectAsync(lotNo,eqCode, ipqcLotRejectAsyncSubscriber);
     }
 }
