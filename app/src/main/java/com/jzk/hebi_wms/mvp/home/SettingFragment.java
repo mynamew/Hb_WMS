@@ -297,7 +297,7 @@ public class SettingFragment extends BaseFragment<SetFragmentView, SetFragmentPr
             //当前应用的版本号
             String versionName = PackageUtils.getVersionName(getActivity());
             //新版本号：需要自己合成
-            final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion() % 100;
+            final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion()%100 % 10;
             String updateUrl = SpUtils.getInstance().getBaseUrl() + versionBean.getPath();
             //应用版本号和服务端的版本号不一致 则需要更新否则无操作直接提示已经是最新版本
             //是否需要版本更新
