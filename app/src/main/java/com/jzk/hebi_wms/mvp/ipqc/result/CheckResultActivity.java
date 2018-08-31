@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -436,12 +435,5 @@ public class CheckResultActivity extends BaseActivity<CheckResultView, CheckResu
             ToastUtils.showShort(R.string.tip_bad_code_no_alive);
             etBadCode.setText("");
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

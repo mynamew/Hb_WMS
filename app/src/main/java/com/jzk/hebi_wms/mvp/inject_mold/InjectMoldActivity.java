@@ -683,7 +683,13 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * rdGood.isChecked() 设置默认为null
          * rdBad.isChecked()  设置errorCode
          */
-        request.setErrorCodes(rdGood.isChecked() ? null : mErrorsSelect);
+         List<InjectPassBean.ErrorCodesBean> commitErrorSelects = new ArrayList<>();
+        for (int i = 0; i < mErrorsSelect.size(); i++) {
+            if(mErrorsSelect.get(i).isSelect()){
+                commitErrorSelects.add(mErrorsSelect.get(i));
+            }
+        }
+        request.setErrorCodes(rdGood.isChecked() ? null : commitErrorSelects);
         /**
          * 设置是否为不良品
          */
