@@ -72,9 +72,9 @@ public class IpqcRecordPresenter extends MvpBasePresenter<IpqcRecordView> {
     /**
      * 获取抽检记录
      */
-    public void getIPQCInfoAsync(IpqcRecordRequest recordRequest) {
+    public void getIPQCInfoAsync(boolean isAutoShow,IpqcRecordRequest recordRequest) {
         if (null == ipqcRecordResultHttpSubscriber) {
-            ipqcRecordResultHttpSubscriber = new HttpSubscriber<>(new OnResultCallBack<IpqcRecordResult>() {
+            ipqcRecordResultHttpSubscriber = new HttpSubscriber<>(isAutoShow,new OnResultCallBack<IpqcRecordResult>() {
                 @Override
                 public void onSuccess(IpqcRecordResult o) {
                     getView().getIPQCInfoAsync(o);

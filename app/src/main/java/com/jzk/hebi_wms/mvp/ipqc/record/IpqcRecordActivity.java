@@ -174,7 +174,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
                      */
                     recordRequest.setEqCode(devices.isEmpty() ? "" : devices.get(spinnerDevice.getSelectedIndex()).getValue());
                     showProgressDialog();
-                    getPresenter().getIPQCInfoAsync(recordRequest);
+                    getPresenter().getIPQCInfoAsync(true,recordRequest);
                 });
         setEdittextListener(etDevice, Constants.REQUEST_SCAN_CODE_DEVICE, R.string.input_device, 0, new EdittextInputListener() {
             @Override
@@ -207,6 +207,11 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
         getPresenter().getTimePerodAsync();
         getPresenter().getProcessSelectSubscriber();
         getPresenter().getEquipmentTypeListasync();
+        IpqcRecordRequest recordRequest = new IpqcRecordRequest();
+        String currentDate = DateUtils.ms2DateOnlyDay(System.currentTimeMillis());
+        recordRequest.setPlanDateStart(currentDate);
+        recordRequest.setPlanDateEnd(currentDate);
+        getPresenter().getIPQCInfoAsync(false,recordRequest);
     }
 
     @Override
@@ -303,7 +308,9 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
             } else {
                 adapter.notifyDataSetChanged();
             }
+            dismissProgressDialog();
         } else {
+            super.dismisProgressDialog();
             CommonDialogUtils.showErrorTipDialog(this, getString(R.string.query_tip), getString(R.string.tip_no_check_record));
             if(null!=mRecordList&&!mRecordList.isEmpty()){
                 mRecordList.clear();
@@ -360,7 +367,7 @@ public class IpqcRecordActivity extends BaseActivity<IpqcRecordView, IpqcRecordP
      * 判断是否隐藏加载框
      */
     public void dismissProgressDialog() {
-        if (!mData.isEmpty() && !qualityTimes.isEmpty()) {
+        if (!mData.isEmpty() && !qualityTimes.isEmpty()&&!mRecordList.isEmpty()) {
             dismisProgressDialog();
         }
     }

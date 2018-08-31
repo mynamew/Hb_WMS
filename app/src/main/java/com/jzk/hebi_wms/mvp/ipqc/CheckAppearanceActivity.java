@@ -226,7 +226,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         /**
          * 获取当前年月日
          */
-        int[] yearAndMonthAndDay = DateUtils.getYearAndMonthAndDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+            int[] yearAndMonthAndDay = DateUtils.getYearAndMonthAndDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
         getCurrentAndLastDate(yearAndMonthAndDay[0], yearAndMonthAndDay[1], yearAndMonthAndDay[2]);
 
         showProgressDialog();
@@ -342,14 +342,11 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         calendar.set(Calendar.YEAR, yearInput);
         calendar.set(Calendar.MONTH, monthInput);
         calendar.set(Calendar.DAY_OF_MONTH, dayInput);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         int yearLast = calendar.get(Calendar.YEAR);
         int monthLast = calendar.get(Calendar.MONTH);
         int dayLast = calendar.get(Calendar.DAY_OF_MONTH);
-        canSelectDate.add(DateUtils.dateStr2CommonDateStr(year, month, day));
+        canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearInput, monthInput, dayInput));
         canSelectDate.add(DateUtils.dateStr2CommonDateStr(yearLast, monthLast, dayLast));
         spinnerProjectDate.setItems(canSelectDate);
     }
