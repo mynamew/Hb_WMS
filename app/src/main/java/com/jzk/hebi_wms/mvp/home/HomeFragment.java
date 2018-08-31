@@ -289,7 +289,7 @@ public class HomeFragment extends BaseFragment<HomeFragmentView, HomeFragmentPre
         try {
             String versionName = PackageUtils.getVersionName(getActivity());
             //新版本号：需要自己合成
-            final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion() % 100;
+            final String newVersion = versionBean.getVersion() / 100 + "." + versionBean.getVersion() % 100 / 10 + "." + versionBean.getVersion()%100 % 10;
 
             String updateUrl = SpUtils.getInstance().getBaseUrl() + versionBean.getPath();
             //是否需要版本更新
