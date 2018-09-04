@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".mvp.paint.PaintActivity">
 
     <include layout="@layout/title_head"/>
+
     <LinearLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="visible">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="88px"
@@ -33,12 +35,13 @@
             <TextView
                 android:id="@+id/tv_process_code"
                 android:layout_width="match_parent"
-                android:textColor="@color/color_666"
-                android:layout_marginLeft="20px"
-                android:textSize="13sp"
                 android:layout_height="wrap_content"
-                android:text=""/>
+                android:layout_marginLeft="20px"
+                android:text=""
+                android:textColor="@color/color_666"
+                android:textSize="13sp"/>
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="64px"
@@ -87,12 +90,13 @@
             <TextView
                 android:id="@+id/tv_work_line_code"
                 android:layout_width="match_parent"
-                android:textColor="@color/color_666"
-                android:layout_marginLeft="20px"
-                android:textSize="13sp"
                 android:layout_height="wrap_content"
-                android:text=""/>
+                android:layout_marginLeft="20px"
+                android:text=""
+                android:textColor="@color/color_666"
+                android:textSize="13sp"/>
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="64px"
@@ -147,21 +151,45 @@
                 android:textColor="@color/color_666"
                 android:textSize="13sp"/>
         </LinearLayout>
+
         <com.jzk.hebi_wms.view.DeviceView
             android:id="@+id/dv_inject_machine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:isContainSpinner="true"
-            app:textInput="@string/input_piant"
-            app:noMapStrTip="@string/tip_no_paint_device"
             app:isScanByCamera="false"
+            app:noMapStrTip="@string/tip_no_paint_device"
+            app:textInput="@string/input_piant"
             app:textTip="@string/paint_device"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20px"
-            android:layout_marginTop="20px"
-            android:background="@color/divide_color"/>
 
+        <View
+            style="@style/divider_10_line"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64px"
+            android:layout_marginLeft="20px"
+            android:layout_marginStart="20px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/count_pass_qty"
+                android:textColor="@color/color_333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_count_pass_qty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/login_txt_color"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <View
+            style="@style/divider_10_line"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="88px"
@@ -209,6 +237,7 @@
                 android:paddingLeft="60px"
                 android:src="@mipmap/ic_scan"/>
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="88px"

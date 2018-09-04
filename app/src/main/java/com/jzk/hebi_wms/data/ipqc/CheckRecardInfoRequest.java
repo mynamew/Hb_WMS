@@ -24,6 +24,7 @@ public class CheckRecardInfoRequest {
     private String PlanDate;
     private String EqTypeCode;
     private String EqCode;
+    private boolean IsFirstOne;
 
     public String getLotNo() {
         return LotNo;
@@ -79,5 +80,13 @@ public class CheckRecardInfoRequest {
 
     public void setEqCode(String EqCode) {
         this.EqCode = EqCode;
+    }
+
+    public boolean isFirstOne() {
+        return IsFirstOne;
+    }
+
+    public void setFirstOne(boolean firstOne) {
+        IsFirstOne = firstOne;
     }
 }

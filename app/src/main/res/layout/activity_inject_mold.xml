@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="88px"
@@ -45,12 +46,13 @@
                     <TextView
                         android:id="@+id/tv_process_code"
                         android:layout_width="match_parent"
-                        android:textColor="@color/color_666"
-                        android:layout_marginLeft="20px"
-                        android:textSize="13sp"
                         android:layout_height="wrap_content"
-                        android:text=""/>
+                        android:layout_marginLeft="20px"
+                        android:text=""
+                        android:textColor="@color/color_666"
+                        android:textSize="13sp"/>
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="64px"
@@ -99,11 +101,11 @@
                     <TextView
                         android:id="@+id/tv_work_line_code"
                         android:layout_width="match_parent"
-                        android:textColor="@color/color_666"
-                        android:layout_marginLeft="20px"
-                        android:textSize="13sp"
                         android:layout_height="wrap_content"
-                        android:text=""/>
+                        android:layout_marginLeft="20px"
+                        android:text=""
+                        android:textColor="@color/color_666"
+                        android:textSize="13sp"/>
                 </LinearLayout>
 
                 <com.jzk.hebi_wms.view.DeviceView
@@ -111,21 +113,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:isContainSpinner="true"
-                    app:textInput="@string/input_inject_machine"
-                    app:noMapStrTip="@string/tip_inject_machine_not_alive"
                     app:isScanByCamera="false"
+                    app:noMapStrTip="@string/tip_inject_machine_not_alive"
+                    app:textInput="@string/input_inject_machine"
                     app:textTip="@string/inject_machine"/>
+
                 <com.jzk.hebi_wms.view.DeviceView
                     android:id="@+id/dv_mold"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="20px"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20px"
                     app:isContainSpinner="true"
-                    app:textInput="@string/input_scan_mold"
-                    app:noMapStrTip="@string/tip_mold_no_live"
                     app:isScanByCamera="false"
+                    app:noMapStrTip="@string/tip_mold_no_live"
+                    app:textInput="@string/input_scan_mold"
                     app:textTip="@string/mould"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="64px"
+                android:layout_marginLeft="20px"
+                android:layout_marginStart="20px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="@string/count_pass_qty"
+                    android:textColor="@color/color_333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/tv_count_pass_qty"
+                    android:layout_width="match_parent"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/login_txt_color"/>
             </LinearLayout>
 
             <TextView
@@ -286,6 +315,7 @@
                     app:ms_dropdown_max_height="350dp"
                     app:ms_hint_color="@color/color_666"/>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_have_select_tip"
                 android:layout_width="match_parent"
@@ -303,6 +333,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="20px"/>
+
             <LinearLayout
                 android:id="@+id/ll_bad_code_remark"
                 android:layout_width="match_parent"
@@ -347,9 +378,9 @@
         android:layout_marginTop="20px"
         android:background="@drawable/selector_btn_bg_login"
         android:gravity="center"
-        android:visibility="gone"
         android:text="@string/btn_commit"
         android:textColor="@color/white"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

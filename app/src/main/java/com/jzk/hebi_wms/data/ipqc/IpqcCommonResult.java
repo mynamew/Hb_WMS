@@ -36,6 +36,8 @@ public class IpqcCommonResult {
     private boolean isCheckPass;
     private String ipqcName;
     private String ipqcDesc;
+    private String eqCode;
+    private String eqType;
     private int planDay;
     private int totalCount;
     private String planTpCode;
@@ -338,5 +340,29 @@ public class IpqcCommonResult {
                 ", dpList=" + dpList +
                 ", eqCodeList=" + eqCodeList +
                 '}';
+    }
+
+    public boolean isCheckPass() {
+        return isCheckPass;
+    }
+
+    public void setCheckPass(boolean checkPass) {
+        isCheckPass = checkPass;
+    }
+
+    public String getEqCode() {
+        return eqCode;
+    }
+
+    public void setEqCode(String eqCode) {
+        this.eqCode = eqCode;
+    }
+
+    public String getEqType() {
+        return eqType;
+    }
+
+    public void setEqType(String eqType) {
+        this.eqType = eqType;
     }
 }

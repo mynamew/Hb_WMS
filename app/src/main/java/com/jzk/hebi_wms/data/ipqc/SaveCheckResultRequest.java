@@ -3,11 +3,11 @@ package com.jzk.hebi_wms.data.ipqc;
 import com.jzk.hebi_wms.data.inject.InjectPassBean;
 
 import java.util.List;
-/** 
+/**
   * 保存采集数据的请求
   * @author   jzk
   * create at: 2018/8/6 8:54
-  */  
+  */
 public class SaveCheckResultRequest {
 
     /**

@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -64,6 +65,8 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
     ImageView ivScan;
     @BindView(R.id.btn_commit)
     TextView btnCommit;
+    @BindView(R.id.tv_count_pass_qty)
+    TextView tvCountPassQty;
 
     /**
      * 工位数据
@@ -152,7 +155,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         tvProcessCode.setText(processSelectCode);
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, getString( R.string.error_title))
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -238,13 +241,13 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
             dvInjectMachine.initDeviceData(mInjectMolds, new DeviceView.DeviceListener() {
                 @Override
                 public void deviceSelect(int position) {
-                   dealWithInjectAndSupply(position);
+                    dealWithInjectAndSupply(position);
                 }
             });
             dvInjectMachine.setEdittextContent(mInjectMolds.get(0).getValue());
             dvInjectMachine.setSpinnerEdittextSelect();
         }
-        if(!mSupplyMaterials.isEmpty()&&!mInjectMolds.isEmpty()){
+        if (!mSupplyMaterials.isEmpty() && !mInjectMolds.isEmpty()) {
             dealWithInjectAndSupply(0);
         }
         //隐藏加载框
@@ -253,6 +256,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     /**
      * 处理 注塑机和供料机的数据
+     *
      * @param position
      */
     private void dealWithInjectAndSupply(int position) {
@@ -278,13 +282,13 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         String[] split = mInjectMolds.get(position).getRelatedEquipment().trim().split("\\|");
         for (int i = 0; i < mOldSupplyMaterials.size(); i++) {
             String value = mOldSupplyMaterials.get(i).getValue();
-            boolean isContainSupply=false;
-            for (int j = 0; j <split.length; j++) {
-                if(value.equals(split[j])){
-                    isContainSupply=true;
+            boolean isContainSupply = false;
+            for (int j = 0; j < split.length; j++) {
+                if (value.equals(split[j])) {
+                    isContainSupply = true;
                 }
             }
-            if(isContainSupply){
+            if (isContainSupply) {
                 mSupplyMaterials.add(mOldSupplyMaterials.get(i));
             }
         }
@@ -310,7 +314,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
             //设置数据源
             dvSupplyMaterial.initDeviceData(mSupplyMaterials);
         }
-        if(!mSupplyMaterials.isEmpty()&&!mInjectMolds.isEmpty()){
+        if (!mSupplyMaterials.isEmpty() && !mInjectMolds.isEmpty()) {
             dealWithInjectAndSupply(0);
         }
         //隐藏加载框
@@ -370,6 +374,7 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
 
     @Override
     public void createOrUpdateOnWipMaterial(AddMaterialBean o) {
+        tvCountPassQty.setText(String.valueOf(Integer.parseInt(tvCountPassQty.getText().toString().trim())+1));
         //提示
         ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
         //设置选中
@@ -453,4 +458,10 @@ public class StationSelectActivity extends BaseActivity<StationSelectView, Stati
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

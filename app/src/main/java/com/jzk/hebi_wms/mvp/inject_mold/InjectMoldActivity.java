@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -101,6 +102,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
     LinearLayout llBadCodeRemark;
     @BindView(R.id.btn_commit)
     TextView btnCommit;
+    @BindView(R.id.tv_count_pass_qty)
+    TextView tvCountPassQty;
 
     /********工位***********************************************************************************************/
     /**
@@ -260,7 +263,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          */
         if (!getString(R.string.process_inject).equals(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title,getString( R.string.error_title))
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_inject_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -483,8 +486,8 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 判断如那些不良代码组
          */
-        for (int i = 0; i <errorGroups.size() ; i++) {
-            if(errorGroups.get(i).getErrorGroupCode().contains("MOLDING")){
+        for (int i = 0; i < errorGroups.size(); i++) {
+            if (errorGroups.get(i).getErrorGroupCode().contains("MOLDING")) {
                 this.mErrorGroups.add(errorGroups.get(i));
             }
         }
@@ -546,16 +549,17 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
 
     @Override
     public void collectionMoldingAsync(InjectPassBean o) {
+        tvCountPassQty.setText(String.valueOf(Integer.parseInt(tvCountPassQty.getText().toString().trim())+1));
         dismissProgressDialog();
         ToastUtils.showShort(R.string.tip_inject_pass_success);
         /**
          * 如果是bad
          */
-        if(rdBad.isChecked()){
+        if (rdBad.isChecked()) {
             /**
              * 根据用户设置是否充值注塑的状态： 良品：不良品
              */
-            if(SpUtils.getInstance().getBoolean(Constants.USER_RESET_INJECT)){
+            if (SpUtils.getInstance().getBoolean(Constants.USER_RESET_INJECT)) {
                 /**
                  * 初始化选择良品
                  * 设置所有不良代码全不选中
@@ -570,7 +574,7 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         /**
          * 如果是从不良品检验，到良品检验则需要重置
          */
-        if(rdGood.isChecked()&&null!=mErrorsSelect&&!mErrorsSelect.isEmpty()){
+        if (rdGood.isChecked() && null != mErrorsSelect && !mErrorsSelect.isEmpty()) {
             /**
              * 初始化选择良品
              * 设置所有不良代码全不选中
@@ -683,9 +687,9 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
          * rdGood.isChecked() 设置默认为null
          * rdBad.isChecked()  设置errorCode
          */
-         List<InjectPassBean.ErrorCodesBean> commitErrorSelects = new ArrayList<>();
+        List<InjectPassBean.ErrorCodesBean> commitErrorSelects = new ArrayList<>();
         for (int i = 0; i < mErrorsSelect.size(); i++) {
-            if(mErrorsSelect.get(i).isSelect()){
+            if (mErrorsSelect.get(i).isSelect()) {
                 commitErrorSelects.add(mErrorsSelect.get(i));
             }
         }
@@ -758,4 +762,10 @@ public class InjectMoldActivity extends BaseActivity<InjectMoldView, InjectMoldP
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

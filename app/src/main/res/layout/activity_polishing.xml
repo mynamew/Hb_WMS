@@ -108,11 +108,32 @@
                 app:textInput="@string/input_polish_device"
                 app:textTip="@string/polish_device"/>
             <View
+                style="@style/divider_10_line"/>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20px"
-                android:layout_marginTop="20px"
-                android:background="@color/divide_color"/>
+                android:layout_height="64px"
+                android:layout_marginLeft="20px"
+                android:layout_marginStart="20px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/count_pass_qty"
+                    android:textColor="@color/color_333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_count_pass_qty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/login_txt_color"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+            <View
+                style="@style/divider_10_line"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="88px"

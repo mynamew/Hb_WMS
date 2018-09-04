@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -69,6 +70,8 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     TextView tvProductModel;
     @BindView(R.id.ll_product_info)
     LinearLayout llProductInfo;
+    @BindView(R.id.tv_count_pass_qty)
+    TextView tvCountPassQty;
     /**
      * 工序
      */
@@ -95,7 +98,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
     @Override
     public void initBundle(Bundle savedInstanceState) {
         setActivityTitle(R.string.title_cnc);
-        isCnc1=getIntent().getBooleanExtra("cnc",false);
+        isCnc1 = getIntent().getBooleanExtra("cnc", false);
     }
 
     @Override
@@ -161,10 +164,10 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         /**
          * 判断工序是否正确
          */
-        if(!getString(isCnc1?R.string.process_cnc1:R.string.process_cnc2).equals(processCode)){
+        if (!getString(isCnc1 ? R.string.process_cnc1 : R.string.process_cnc2).equals(processCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
                     .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
-                    .setTextViewContent(R.id.tv_content, getString(isCnc1?R.string.tip_no_cnc_process1:R.string.tip_no_cnc_process2))
+                    .setTextViewContent(R.id.tv_content, getString(isCnc1 ? R.string.tip_no_cnc_process1 : R.string.tip_no_cnc_process2))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
@@ -250,6 +253,7 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
 
     @Override
     public void cncCommit(CncBean o) {
+        tvCountPassQty.setText(String.valueOf(Integer.parseInt(tvCountPassQty.getText().toString().trim())+1));
         ToastUtils.showShort(R.string.commit_success);
         llProductInfo.setVisibility(View.VISIBLE);
         tvMoCode.setText(o.getMoCode());
@@ -338,5 +342,12 @@ public class CNC1Activity extends BaseActivity<CNC1View, CNC1Presenter> implemen
         if (!mStations.isEmpty() && !cncDevices.isEmpty()) {
             dismisProgressDialog();
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

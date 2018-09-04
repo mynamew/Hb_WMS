@@ -26,6 +26,8 @@ import com.jzk.hebi_wms.data.paint.PaintResult;
 import com.jzk.hebi_wms.data.polishing.PolishBiographyRequestBean;
 import com.jzk.hebi_wms.data.polishing.PolishResultBean;
 import com.jzk.hebi_wms.data.process.ProcessSelectBean;
+import com.jzk.hebi_wms.data.product.MaterialScanPutAwayBean;
+import com.jzk.hebi_wms.data.product.VertifyLocationCodeBean;
 import com.jzk.hebi_wms.data.set.ChangeOrgRequest;
 import com.jzk.hebi_wms.data.set.ChangePasswordRequest;
 import com.jzk.hebi_wms.data.station.AddMaterialBean;
@@ -112,6 +114,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/Account/ClientChangeOrgainzation")
     Observable<CommonResult<LoginBean>> changeOrgainzation(@Body ChangeOrgRequest params);
+
     /**
      * 获取版本
      */
@@ -124,11 +127,13 @@ public interface ApiService {
      */
     @POST("api/services/productionplan/LoginStationCode/GetProcessList")
     Observable<CommonResult<List<ProcessSelectBean>>> getProcessList(@Body NoneClass noneClass);
+
     /**
      * 设备类型选择
      */
     @POST("api/services/productionplan/loginStationCode/GetEquipmentTypeListasync")
     Observable<CommonResult<List<DeviceResponse>>> getEquipmentTypeListasync(@Body NoneClass noneClass);
+
     /**
      * 工位选择
      */
@@ -148,7 +153,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/productionplan/OnWipMaterial/GetInjectionMoldings")
     Observable<CommonResult<InjectMoldBean>> getInjectionMoldings(@Field("EqpTypeCode") String eqpTypeCode);
- /**
+
+    /**
      * 注塑机列表
      */
     @FormUrlEncoded
@@ -242,7 +248,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/CreateNewLotNoAsync")
     Observable<CommonResult<IpqcCommonResult>> createNewLotNoAsync(@Field("RuleCode") String ruleCode);
-   /**
+
+    /**
      * 获取设备列表
      *
      * @param eqCode 设备类型
@@ -279,6 +286,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/GetProcessAsync")
     Observable<CommonResult<IpqcCommonResult>> getProcessAsync(@Field("TypeCode") String typeCode);
+
     /**
      * 获取抽检总数
      *
@@ -296,6 +304,7 @@ public interface ApiService {
      */
     @POST("api/services/qualitycontrol/iPQCCollection/CheckRCardInfoAsync")
     Observable<CommonResult<IpqcCommonResult>> checkRCardInfoAsync(@Body CheckRecardInfoRequest recardInfoRequest);
+
     /**
      * 批通过
      *
@@ -304,7 +313,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/IPQCLotPassAsync")
-    Observable<CommonResult<IpqcCommonResult>> ipacLotPassAsync(@Field("LotNo") String lotNo,@Field("EqCode") String eqCode);
+    Observable<CommonResult<IpqcCommonResult>> ipacLotPassAsync(@Field("LotNo") String lotNo, @Field("EqCode") String eqCode);
+
     /**
      * 批退
      *
@@ -313,7 +323,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/IPQCLotRejectAsync")
-    Observable<CommonResult<IpqcCommonResult>> ipqcLotRejectAsync(@Field("LotNo") String lotNo,@Field("EqCode") String eqCode);
+    Observable<CommonResult<IpqcCommonResult>> ipqcLotRejectAsync(@Field("LotNo") String lotNo, @Field("EqCode") String eqCode);
+
     /**
      * 获取采集数据
      *
@@ -322,6 +333,7 @@ public interface ApiService {
      */
     @POST("api/services/qualitycontrol/collectionIPQCData/GetCollectionIPQCDataAsync")
     Observable<CommonResult<CollectionIpqcData>> getCollectionIPQCDataAsync(@Body CollectionIpqcDataRequest collectionIpqcDataRequest);
+
     /**
      * 保存采集数据
      *
@@ -330,6 +342,7 @@ public interface ApiService {
      */
     @POST("api/services/qualitycontrol/collectionIPQCData/CreateIPQCTemporaryDatasAsync")
     Observable<CommonResult<Object>> createIPQCTemporaryDatasAsync(@Body SaveCheckResultRequest request);
+
     /**
      * 抽检获取不良代码
      *
@@ -351,12 +364,14 @@ public interface ApiService {
 
     @POST("api/services/productionplan/OnWipMaterial/GetMoCode")
     Observable<CommonResult<WorkerOrderBean>> getMoCodePaint(@Body NoneClass noneClass);
+
     /**
      * 获取喷漆设备
      */
     @FormUrlEncoded
     @POST("api/services/productionplan/onWipPaint/GetCoatings")
     Observable<CommonResult<InjectMoldBean>> getEquipmentByTypeListPaint(@Field("EqpTypeCode") String eqpTypeCode);
+
     /**
      * 喷漆条码扫描
      */
@@ -369,10 +384,41 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("api/services/qualitycontrol/iPQCCollection/GetProcessAsync")
     Observable<CommonResult<IpqcProcessResult>> getProcessAsyncIpqc(@Field("TypeCode") String typeCode);
+
     /**
      * 外观抽检记录的返回
      */
     @POST("api/services/qualitycontrol/iPQCQuery/GetIPQCInfoAsync")
     Observable<CommonResult<IpqcRecordResult>> getIPQCInfoAsync(@Body IpqcRecordRequest request);
 
+    /********成品入库******************************************************************************/
+    /**
+     * 提交条码入库
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/wpda/common/SubmitBarcodeInstock")
+    Observable<CommonResult<MaterialScanPutAwayBean>> materialScanPutAawy(@FieldMap Map<String, Object> params);
+
+    /**
+     * 验证库位码是否有效
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/wpda/common/VerifyBinCode")
+    Observable<CommonResult<VertifyLocationCodeBean>> vertifyLocationCode(@FieldMap Map<String, Object> params);
+
+    /**
+     * 提交制单和审核生成入库单
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api/services/wpda/common/SubmitMakeOrAuditBill")
+    Observable<CommonResult<Object>> createInStockOrderno(@FieldMap Map<String, Object> params);
 }

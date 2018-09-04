@@ -30,11 +30,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-/** 
-  * 喷漆上料界面
-  * @author   jzk
-  * create at: 2018/8/23 14:41
-  */  
+
+/**
+ * 喷漆上料界面
+ *
+ * @author jzk
+ * create at: 2018/8/23 14:41
+ */
 public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> implements PaintView {
     @BindView(R.id.tv_process_code)
     TextView tvProcessCode;
@@ -62,6 +64,8 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
     ImageView ivScanDiluentCode;
     @BindView(R.id.ll_header)
     LinearLayout llHeader;
+    @BindView(R.id.tv_count_pass_qty)
+    TextView tvCountPassQty;
     /**
      * 工位的数据源
      */
@@ -86,6 +90,7 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
      * 工序代码
      */
     String processSelectCode = "";
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_paint;
@@ -156,7 +161,7 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
         tvProcessCode.setText(processSelectCode);
         if (TextUtils.isEmpty(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, getString( R.string.error_title))
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_please_select_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -169,8 +174,8 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
          */
         if (!getString(R.string.process_paint).equals(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, getString( R.string.error_title))
-                    .setTextViewContent(R.id.tv_content,getString(R.string.tip_no_paint))
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
+                    .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_paint))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
                     }).setImageViewListener(R.id.iv_close, dialog -> onBackPressed())
@@ -280,6 +285,7 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
 
     @Override
     public void createOrUpdateOnWipPaint(PaintResult o) {
+        tvCountPassQty.setText(String.valueOf(Integer.parseInt(tvCountPassQty.getText().toString().trim())+1));
         ToastUtils.showShort(o.getResultMessages().get(0).getMessageText());
         /**
          * 设置选中
@@ -296,6 +302,7 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
             dismisProgressDialog();
         }
     }
+
     @OnClick({R.id.iv_diluent_scan, R.id.iv_scan_diluent_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -323,14 +330,15 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
 
     /**
      * 喷漆条码扫描请求
+     *
      * @param result
      */
     private void requestPaint(String result) {
-        if(TextUtils.isEmpty(etDiluent.getText().toString().trim())){
+        if (TextUtils.isEmpty(etDiluent.getText().toString().trim())) {
             ToastUtils.showShort("请先输入/扫描稀释剂！");
             return;
         }
-        PaintRequest request=new PaintRequest();
+        PaintRequest request = new PaintRequest();
         request.setBarCode(result);
         request.setThinnerCard(etDiluent.getText().toString().trim());
         request.setInjectionMoldingEqpCode(mInjectMolds.get(dvInjectMachine.getSpinnerSelectIndex()).getValue());
@@ -342,4 +350,6 @@ public class PaintActivity extends BaseActivity<PaintView, PaintPresenter> imple
         showProgressDialog();
         getPresenter().createOrUpdateOnWipPaint(request);
     }
+
+
 }

@@ -28,7 +28,6 @@ import com.jzk.hebi_wms.http.message.event.CheckAppearanceEvent;
 import com.jzk.hebi_wms.mvp.ipqc.result.CheckResultActivity;
 import com.jzk.hebi_wms.utils.DateUtils;
 import com.jzk.hebi_wms.utils.InputMethodUtils;
-import com.jzk.hebi_wms.utils.LogUitls;
 import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.view.DeviceView;
@@ -127,7 +126,13 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     /**
      * 工序对应的不良代码的Code
      */
-    HashMap<String,String> processMap=new HashMap<>();
+    HashMap<String, String> processMap = new HashMap<>();
+
+    /**
+     * 是否是批次号的第一个产品
+     */
+    private boolean isBatchFristProduct = false;
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_check_appearance;
@@ -197,6 +202,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                 recardInfoRequest.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
                 recardInfoRequest.setEqTypeCode(SpUtils.getInstance().getDeivceSelectCode());
                 recardInfoRequest.setEqCode(qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue());
+                recardInfoRequest.setFirstOne(isBatchFristProduct);
                 getPresenter().checkRCardInfoAsync(recardInfoRequest);
             }
         });
@@ -220,13 +226,13 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         /**
          * 初始化工序的key value
          */
-        processMap.put("MD","MOLDING");
-        processMap.put("CNC1INSPECTION","CNC1");
-        processMap.put("PRLINSPECTION","POLISH");
+        processMap.put("MD", "MOLDING");
+        processMap.put("CNC1INSPECTION", "CNC1");
+        processMap.put("PRLINSPECTION", "POLISH");
         /**
          * 获取当前年月日
          */
-            int[] yearAndMonthAndDay = DateUtils.getYearAndMonthAndDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
+        int[] yearAndMonthAndDay = DateUtils.getYearAndMonthAndDay(DateUtils.ms2DateOnlyDay(System.currentTimeMillis()));
         getCurrentAndLastDate(yearAndMonthAndDay[0], yearAndMonthAndDay[1], yearAndMonthAndDay[2]);
 
         showProgressDialog();
@@ -270,6 +276,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                     recardInfoRequest.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
                     recardInfoRequest.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
                     recardInfoRequest.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
+                    recardInfoRequest.setFirstOne(isBatchFristProduct);
                     getPresenter().checkRCardInfoAsync(recardInfoRequest);
                 });
                 break;
@@ -281,8 +288,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                             public void dialogClick(MyDialog dialog) {
                                 dialog.dismiss();
                                 showProgressDialog();
-                                String eqCode=qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
-                                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim(),eqCode);
+                                String eqCode = qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
+                                getPresenter().ipacLotPassAsync(etBatchNo.getText().toString().trim(), eqCode);
                             }
                         }).setButtonListener(R.id.tv_logout_cancel, null, new MyDialog.DialogClickListener() {
                     @Override
@@ -305,8 +312,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                             public void dialogClick(MyDialog dialog) {
                                 dialog.dismiss();
                                 showProgressDialog();
-                                String eqCode=qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
-                                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim(),eqCode);
+                                String eqCode = qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
+                                getPresenter().ipqcLotRejectAsync(etBatchNo.getText().toString().trim(), eqCode);
                             }
                         }).setButtonListener(R.id.tv_logout_cancel, null, new MyDialog.DialogClickListener() {
                     @Override
@@ -319,7 +326,6 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
                         dialog.dismiss();
                     }
                 }).show();
-
                 break;
             case R.id.btn_create_batchno:
                 showProgressDialog();
@@ -355,8 +361,10 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
     public void getLotInfoAsync(IpqcCommonResult o) {
         /**
          * 如果产品信息不为空则显示产品信息
+         * 同时如果链表是空的话 则证明是第一个提交，否则直接重置成false
          */
         if (null != o.getLot2RcardList() && !o.getLot2RcardList().isEmpty()) {
+            isBatchFristProduct = false;
             /**
              * 产品信息链表
              */
@@ -399,6 +407,8 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
             setTextViewContent(tvPassSample, passQty);
             setTextViewContent(tvUnpassSample, unpassQty);
             setTextViewContent(tvTimeActualSample, actualQty);
+        } else {
+            isBatchFristProduct = true;
         }
 
         /**
@@ -441,13 +451,17 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void createNewLotNoAsync(IpqcCommonResult o) {
+        /**
+         * 是否是新批次号第一个产品 默认是false 只有生成批次号才会为true
+         */
+        isBatchFristProduct = true;
         ToastUtils.showShort(R.string.tip_create_batch_no_success);
         /**
          * 清空产品信息
          */
-        if(null!=mDatas&&!mDatas.isEmpty()){
+        if (null != mDatas && !mDatas.isEmpty()) {
             mDatas.clear();
-           adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
         }
         /**
          * 清空 实际样本  合格样本呢 不合格样本 抽检总数
@@ -520,6 +534,19 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Override
     public void checkRCardInfoAsync(IpqcCommonResult o) {
+        /**
+         * 校验成功，如果是第一次提交设置选中返回的设备
+         */
+        if (isBatchFristProduct) {
+            if (!TextUtils.isEmpty(o.getEqCode())) {
+                for (int i = 0; i < qualityDevices.size(); i++) {
+                    if (o.getEqCode().equals(qualityDevices.get(i).getValue())) {
+                        dvMachine.setSpinnerSelectIndex(i);
+                        dvMachine.setEdittextContent(qualityDevices.get(i).getValue());
+                    }
+                }
+            }
+        }
         setEdittextSelected(etBottomProductSerialNo);
         ToastUtils.showShort(R.string.tip_product_serial_check_success);
         SaveCheckResultRequest resultRequest = new SaveCheckResultRequest();
@@ -534,7 +561,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         Intent intent = new Intent(this, CheckResultActivity.class);
         intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, new Gson().toJson(resultRequest));
         String processSelectCode = qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue();
-        intent.putExtra(Constants.QUALITY_APPEARANCE_RESULT_PROCESS,processMap.get(processSelectCode));
+        intent.putExtra(Constants.QUALITY_APPEARANCE_RESULT_PROCESS, processMap.get(processSelectCode));
         startActivity(intent);
     }
 
@@ -598,7 +625,12 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshCheckAppearanceData(CheckAppearanceEvent event) {
-        LogUitls.e("更新数据-->", "更新了数据");
+        /**
+         * 保存了抽检结果  也就是说完成了抽检
+         * 1、更新数据
+         * 2、更新第一个产品的标识
+         */
+        isBatchFristProduct = false;
         showProgressDialog();
         getPresenter().getLotInfoAsync(etBatchNo.getText().toString().trim());
         getView().setProductSerialNoSelect();
@@ -611,7 +643,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         request.setPlanDate(canSelectDate.get(spinnerProjectDate.getSelectedIndex()));
         request.setProcess(qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue());
         request.setTimePerod(qualityTimes.get(spinnerTimeFrame.getSelectedIndex()).getValue());
-        String eqCode=qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
+        String eqCode = qualityDevices.get(dvMachine.getSpinnerSelectIndex()).getValue();
         request.setEqCode(eqCode);
         getPresenter().calculateCheckCountAsync(request);
     }

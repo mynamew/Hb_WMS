@@ -258,4 +258,25 @@
     <string name="device">设备</string>
     <string name="all">全部</string>
     <string name="tip_input_device_noalive">您输入的设备不存在！</string>
+    <string name="count_pass_qty">过站计数器：</string>
+    /**====== 成品入库======**/
+    <string name="create_task_orderno">生产任务单</string>
+    <string name="create_orderno_date_tip">制单日期</string>
+    <string name="orderno_num">单据总数</string>
+    <string name="wait_count_num">待点总数</string>
+    <string name="have_count_num">已扫总数</string>
+    <string name="in_stock_total_num">入库总数</string>
+    <string name="create_product_orderno">生成产成品入库单</string>
+    <string name="materail_info">物料信息</string>
+    <string name="lib_code">目的库位码</string>
+    <string name="please_scan_lib_location_code">请输入或扫描库位码</string>
+    <string name="scan_material">物料条码</string>
+    <string name="please_scan_material_code">请输入或扫描物料码</string>
+    <string name="scan_info">扫描信息</string>
+    <string name="item_material_code">物料编码</string>
+    <string name="item_material_num">物料数量</string>
+    <string name="item_material_name">物料名称</string>
+    <string name="item_material_model">规格型号</string>
+    <string name="item_material_attr">附加属性</string>
+    <string name="header_wait_count_num">清点</string>
 </resources>

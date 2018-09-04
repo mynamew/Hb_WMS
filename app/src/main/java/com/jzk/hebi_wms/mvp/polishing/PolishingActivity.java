@@ -61,6 +61,8 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
     TextView tvProductSpecificationModel;
     @BindView(R.id.ll_product_info)
     LinearLayout llProductInfo;
+    @BindView(R.id.tv_count_pass_qty)
+    TextView tvCountPassQty;
 
 
     /**
@@ -131,9 +133,9 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
         /**
          * 判断工序是否正确
          */
-        if(!getString(R.string.process_polish).equals(processSelectCode)){
+        if (!getString(R.string.process_polish).equals(processSelectCode)) {
             new MyDialog(this, R.layout.dialog_error_tip)
-                    .setTextViewContent(R.id.tv_title, getString( R.string.error_title))
+                    .setTextViewContent(R.id.tv_title, getString(R.string.error_title))
                     .setTextViewContent(R.id.tv_content, getString(R.string.tip_no_polish_process))
                     .setButtonListener(R.id.btn_cancel, null, dialog -> {
                         onBackPressed();
@@ -210,6 +212,7 @@ public class PolishingActivity extends BaseActivity<PolishingView, PolishingPres
 
     @Override
     public void collectionPolishAsync(PolishResultBean polishBiographyRequestBean) {
+        tvCountPassQty.setText(String.valueOf(Integer.parseInt(tvCountPassQty.getText().toString().trim()) + 1));
         ToastUtils.showShort(R.string.commit_success);
         setEdittextSelected(etAddMaterialOrder);
         llProductInfo.setVisibility(View.VISIBLE);
