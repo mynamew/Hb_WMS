@@ -229,6 +229,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         processMap.put("MD", "MOLDING");
         processMap.put("CNC1INSPECTION", "CNC1");
         processMap.put("PRLINSPECTION", "POLISH");
+        processMap.put("SPINSPECTION ", "COATING");
         /**
          * 获取当前年月日
          */

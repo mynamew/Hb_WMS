@@ -61,9 +61,7 @@
                 android:layout_marginRight="20px"
                 android:background="@drawable/bg_rectangle_et_unfocused"
                 android:orientation="horizontal"
-                android:paddingLeft="5px"
-                android:paddingRight="5px"
-                android:paddingTop="5px">
+                android:padding="5px">
 
                 <com.jzk.spinnerlibrary.MaterialSpinner
                     android:id="@+id/spinner_station"

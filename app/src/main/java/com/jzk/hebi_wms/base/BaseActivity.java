@@ -16,12 +16,10 @@ import android.text.Selection;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jzk.hebi_wms.R;
@@ -30,14 +28,11 @@ import com.jzk.hebi_wms.base.view.MvpView;
 import com.jzk.hebi_wms.base.view.iml.MvpBaseView;
 import com.jzk.hebi_wms.mvp.login.LoginActivity;
 import com.jzk.hebi_wms.utils.InputMethodUtils;
-import com.jzk.hebi_wms.utils.SpUtils;
 import com.jzk.hebi_wms.utils.ToastUtils;
 import com.jzk.hebi_wms.utils.statusutils.StatusBarUtil;
 import com.jzk.hebi_wms.view.MyProgressDialog;
-import com.jzk.hebi_wms.view.SwipeBackLayout;
 import com.jzk.qrcodelibrary.CommonScanActivity;
 import com.jzk.qrcodelibrary.utils.Constant;
-import com.orhanobut.logger.Logger;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
@@ -557,5 +552,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         et.findFocus();
         Selection.selectAll(et.getText());
     }
+
 
 }
