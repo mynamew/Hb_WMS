@@ -229,7 +229,7 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         processMap.put("MD", "MOLDING");
         processMap.put("CNC1INSPECTION", "CNC1");
         processMap.put("PRLINSPECTION", "POLISH");
-        processMap.put("SPINSPECTION ", "COATING");
+        processMap.put("SPINSPECTION", "COATING");
         /**
          * 获取当前年月日
          */
@@ -562,7 +562,9 @@ public class CheckAppearanceActivity extends BaseActivity<CheckAppearanceView, C
         Intent intent = new Intent(this, CheckResultActivity.class);
         intent.putExtra(Constants.QUALITY_APPEARANCE_BEAN, new Gson().toJson(resultRequest));
         String processSelectCode = qualityProcesses.get(spinnerProcess.getSelectedIndex()).getValue();
-        intent.putExtra(Constants.QUALITY_APPEARANCE_RESULT_PROCESS, processMap.get(processSelectCode));
+        String processStr = processMap.get(processSelectCode);
+        intent.putExtra(Constants.QUALITY_APPEARANCE_RESULT_PROCESS, processStr);
+
         startActivity(intent);
     }
 
